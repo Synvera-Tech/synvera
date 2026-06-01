@@ -5,13 +5,16 @@ import {
   Calculator,
   HeartPulse,
   Info,
+  Moon,
   Stethoscope,
+  Sun,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Autocomplete, type ProcedureOption } from "@/components/ui/autocomplete";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
+import { useTheme } from "@/components/theme-provider";
 
 type Calculation = {
   base_porte_value: number;
@@ -27,6 +30,7 @@ const money = new Intl.NumberFormat("pt-BR", {
 });
 
 export default function Home() {
+  const { isDark, toggle } = useTheme();
   const [procedureOptions, setProcedureOptions] = useState<ProcedureOption[]>([]);
   const [selectedProcedure, setSelectedProcedure] = useState<ProcedureOption | null>(null);
   const [porte, setPorte] = useState("");
@@ -105,6 +109,17 @@ export default function Home() {
               </span>
             </div>
           </div>
+          <button
+            onClick={toggle}
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-slate-200 dark:hover:bg-slate-800"
+          >
+            {isDark ? (
+              <Sun aria-hidden="true" size={18} className="text-slate-400 dark:text-yellow-400" />
+            ) : (
+              <Moon aria-hidden="true" size={18} className="text-slate-600 dark:text-slate-400" />
+            )}
+          </button>
         </nav>
       </div>
 

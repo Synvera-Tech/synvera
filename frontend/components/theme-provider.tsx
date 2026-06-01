@@ -44,12 +44,19 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useTheme() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    // Initialize from localStorage or system preference
+    if (typeof window === 'undefined') return false;
+    
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved === 'dark';
+    
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDark(saved ? saved === 'dark' : prefersDark);
+    setMounted(true);
   }, []);
 
   const toggle = () => {
@@ -63,6 +70,10 @@ export function useTheme() {
       document.documentElement.classList.remove('dark');
     }
   };
+
+  if (!mounted) {
+    return { isDark: false, toggle };
+  }
 
   return { isDark, toggle };
 }
