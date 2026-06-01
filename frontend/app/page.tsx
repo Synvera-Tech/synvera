@@ -5,14 +5,16 @@ import {
   Calculator,
   HeartPulse,
   Info,
-  ShieldCheck,
+  Moon,
   Stethoscope,
+  Sun,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Autocomplete, type ProcedureOption } from "@/components/ui/autocomplete";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
+import { useTheme } from "@/components/theme-provider";
 
 type Calculation = {
   base_porte_value: number;
@@ -28,6 +30,7 @@ const money = new Intl.NumberFormat("pt-BR", {
 });
 
 export default function Home() {
+  const { isDark, toggle } = useTheme();
   const [procedureOptions, setProcedureOptions] = useState<ProcedureOption[]>([]);
   const [selectedProcedure, setSelectedProcedure] = useState<ProcedureOption | null>(null);
   const [porte, setPorte] = useState("");
@@ -73,23 +76,14 @@ export default function Home() {
 
   return (
     <main className="hex-bg relative min-h-screen" style={{ backgroundColor: "hsl(var(--background))" }}>
-      {/* Ambient teal glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[700px] -translate-x-1/2"
-        style={{
-          background: "radial-gradient(ellipse at center, hsla(186,72%,60%,0.12) 0%, transparent 70%)",
-        }}
-      />
-
       {/* Floating nav */}
-      <div className="relative z-10 px-5 pt-4">
+      <div className="relative z-10 px-5 pt-5">
         <nav
-          className="nav-pill mx-auto flex max-w-[1080px] items-center justify-between rounded-full px-5 py-2.5"
+          className="nav-bar mx-auto flex max-w-[1080px] items-center justify-between"
         >
           <div className="flex items-center gap-2.5">
             <div
-              className="flex h-9 w-9 items-center justify-center rounded-full"
+              className="brand-mark flex h-9 w-9 items-center justify-center rounded-full"
               style={{
                 background: "linear-gradient(135deg, hsl(186,72%,28%), hsl(186,72%,22%))",
                 boxShadow: "0 2px 8px hsla(186,72%,28%,0.35)",
@@ -98,43 +92,63 @@ export default function Home() {
               <Activity aria-hidden="true" className="text-white" size={18} />
             </div>
             <div>
-              <span className="block text-base font-extrabold tracking-tight text-slate-950">
+              <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
                 ProcediPriz
               </span>
-              <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 leading-none">
+              <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">
                 NEUROCIRURGIA
               </span>
             </div>
           </div>
-          <div className="badge-clinical flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold">
-            <ShieldCheck aria-hidden="true" size={14} />
-            Portal Clínico
-          </div>
+          <button
+            onClick={toggle}
+            aria-checked={isDark}
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            className="theme-switch relative inline-flex h-8 w-14 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            role="switch"
+            type="button"
+          >
+            <Sun
+              aria-hidden="true"
+              size={13}
+              className="absolute left-2 text-amber-500 transition-opacity dark:opacity-35"
+            />
+            <Moon
+              aria-hidden="true"
+              size={13}
+              className="absolute right-2 text-slate-500 opacity-45 transition-opacity dark:text-cyan-200 dark:opacity-100"
+            />
+            <span
+              aria-hidden="true"
+              className={`theme-switch-thumb absolute top-1 h-6 w-6 rounded-full transition-transform duration-200 ${
+                isDark ? "translate-x-7" : "translate-x-1"
+              }`}
+            />
+          </button>
         </nav>
       </div>
 
       {/* Hero */}
       <div className="relative z-[1] px-5 pb-6 pt-8 text-center">
-        <h1 className="m-0 mb-1.5 text-[30px] font-extrabold tracking-tight text-slate-950">
+        <h1 className="m-0 mb-1.5 text-[30px] font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
           Cálculo de Honorários
         </h1>
-        <p className="m-0 text-sm font-medium text-slate-500">
+        <p className="m-0 text-sm font-medium text-slate-500 dark:text-slate-400">
           Baseado na tabela CBHPM · Resultados instantâneos
         </p>
       </div>
 
       {/* Main grid */}
       <div
-        className="relative z-[1] mx-auto grid max-w-[1080px] gap-7 px-5 pb-12"
-        style={{ gridTemplateColumns: "1.2fr 0.8fr" }}
+        className="main-grid relative z-[1] mx-auto grid max-w-[1080px] gap-7 px-5 pb-12"
       >
         {/* Left panel */}
         <div
-          className="card-plush rounded-3xl border border-slate-200/80 bg-white p-8"
+          className="card-plush rounded-3xl border border-slate-200/80 dark:border-slate-700 bg-white dark:bg-slate-900 p-8"
         >
           <div className="mb-6 flex items-center gap-2">
-            <Stethoscope aria-hidden="true" size={18} style={{ color: "hsl(186,72%,28%)" }} />
-            <h2 className="m-0 text-[15px] font-bold text-slate-950">
+            <Stethoscope aria-hidden="true" className="text-primary" size={18} />
+            <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">
               Configuração do Procedimento
             </h2>
           </div>
@@ -159,7 +173,7 @@ export default function Home() {
               <Input value={porte} onChange={(e) => setPorte(e.target.value)} />
             </div>
             <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500">
+              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400">
                 Número de Auxiliares
               </label>
               <Input
@@ -174,22 +188,17 @@ export default function Home() {
 
           {/* Anesthesiologist toggle */}
           <div
-            className="mb-6 flex items-center justify-between gap-4 rounded-2xl border px-4 py-4"
-            style={{
-              borderColor: "rgba(13,148,136,0.25)",
-              background: "linear-gradient(135deg, #f0fdfc, #e6faf8)",
-            }}
+            className="medical-toggle-panel mb-6 flex items-center justify-between gap-4 rounded-2xl border px-4 py-4"
           >
             <div className="flex items-center gap-2.5">
               <div
-                className="flex h-8 w-8 items-center justify-center rounded-full"
-                style={{ background: "rgba(13,148,136,0.12)" }}
+                className="clinical-icon-chip flex h-8 w-8 items-center justify-center rounded-full"
               >
-                <HeartPulse aria-hidden="true" size={16} style={{ color: "hsl(186,72%,28%)" }} />
+                <HeartPulse aria-hidden="true" size={16} />
               </div>
               <div>
-                <div className="text-[13px] font-semibold text-slate-950">Anestesiologista</div>
-                <div className="text-[11px] text-slate-500">Incluir honorários do anestesista</div>
+                <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">Anestesiologista</div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">Incluir honorários do anestesista</div>
               </div>
             </div>
             <Toggle checked={requiresAnesthesia} onChange={setRequiresAnesthesia} />
@@ -203,31 +212,21 @@ export default function Home() {
         </div>
 
         {/* Right panel – results */}
-        <div className="results-card relative overflow-hidden rounded-3xl border p-7" style={{ borderColor: "rgba(13,148,136,0.15)" }}>
-          {/* Decorative glow orb */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-10 -top-10 h-[120px] w-[120px] rounded-full"
-            style={{
-              background: "radial-gradient(circle, hsla(186,72%,50%,0.15), transparent 70%)",
-            }}
-          />
-
+        <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-teal-300/20 p-7">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Calculator aria-hidden="true" size={18} style={{ color: "hsl(186,72%,28%)" }} />
-              <h2 className="m-0 text-[15px] font-bold text-slate-950">Resultado</h2>
+              <Calculator aria-hidden="true" className="text-primary" size={18} />
+              <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">Resultado</h2>
             </div>
             <span
-              className="rounded-full px-2.5 py-1 text-[11px] font-semibold"
-              style={{ background: "rgba(13,148,136,0.1)", color: "hsl(186,72%,26%)" }}
+              className="clinical-pill rounded-full px-2.5 py-1 text-[11px] font-semibold"
             >
               CBHPM 2025
             </span>
           </div>
 
           {/* Line items */}
-          <dl className="space-y-3.5">
+          <dl className="space-y-3.5 dark:text-slate-200">
             <ResultRow label="Cirurgião principal" value={calculation?.lead_surgeon_fee} />
             <ResultRow
               label={`Auxiliares${auxiliariesCount > 1 ? ` (×${auxiliariesCount})` : ""}`}
@@ -237,10 +236,7 @@ export default function Home() {
           </dl>
 
           {/* Dashed divider */}
-          <div
-            className="my-5"
-            style={{ borderTop: "2px dashed rgba(13,148,136,0.3)" }}
-          />
+          <div className="teal-divider my-5" />
 
           {/* Total block */}
           <div
@@ -265,9 +261,9 @@ export default function Home() {
           </div>
 
           {/* Disclaimer */}
-          <div className="mt-4 flex items-start gap-2 rounded-xl border border-slate-200 bg-slate-50/80 p-3">
-            <Info aria-hidden="true" className="mt-px shrink-0 text-slate-400" size={15} />
-            <p className="m-0 text-[11px] font-medium leading-relaxed text-slate-400">
+          <div className="mt-4 flex items-start gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/50 p-3">
+            <Info aria-hidden="true" className="mt-px shrink-0 text-slate-400 dark:text-slate-500" size={15} />
+            <p className="m-0 text-[11px] font-medium leading-relaxed text-slate-400 dark:text-slate-500">
               Valores calculados conforme Tabela CBHPM 2025/2026. Sujeito à variação por convênio.
             </p>
           </div>
@@ -275,12 +271,11 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="relative px-5 pb-5 text-center">
+      <footer className="relative z-[1] px-5 pb-5 text-center">
         <div
-          className="mb-3.5 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, #cbd5e1, transparent)" }}
+          className="footer-divider mb-3.5 h-px"
         />
-        <p className="m-0 text-xs font-medium text-slate-400">
+        <p className="m-0 text-xs font-medium text-slate-400 dark:text-slate-500">
           2026 &nbsp;·&nbsp;{" "}
           <span className="font-bold text-slate-500">LabF5</span>
           &nbsp;·&nbsp; Todos os direitos reservados
@@ -299,9 +294,9 @@ function ResultRow({
 }) {
   return (
     <div className="flex items-end justify-between gap-1">
-      <dt className="shrink-0 text-[13px] font-medium text-slate-500">{label}</dt>
+      <dt className="shrink-0 text-[13px] font-medium text-slate-500 dark:text-slate-400">{label}</dt>
       <div className="leader" />
-      <dd className="font-grotesk shrink-0 text-sm font-semibold text-slate-950">
+      <dd className="font-grotesk shrink-0 text-sm font-semibold text-slate-950 dark:text-slate-50">
         {value === undefined ? "—" : money.format(value)}
       </dd>
     </div>
