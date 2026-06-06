@@ -4,6 +4,14 @@
 
 The entire application was architected under the **Spec-Driven Design (SDD)** philosophy, where API contracts and static models precede implementation, mitigating errors, eliminating the risk of medical billing rejections, and ensuring absolute mathematical compliance.
 
+## Documentation
+
+- [Architecture](docs/architecture.md)
+- [Search Flow](docs/search-flow.md)
+- [Calculation Flow](docs/calculation-flow.md)
+- [Deployment](docs/deployment.md)
+- [Roadmap](docs/roadmap.md)
+
 ## 🚀 Technologies & Architecture
 
 The ecosystem adopts a **Monorepo** approach, unifying the presentation and computation layers for maximum cohesion and maintainability:
