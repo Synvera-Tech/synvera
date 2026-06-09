@@ -473,10 +473,14 @@ function ProcedureContent({ initialQuery, initialSbnId }: { initialQuery: string
 
               <dl className="mb-5 space-y-3.5 dark:text-slate-200">
                 <ResultRow label="Cirurgião principal" value={calculation.lead_surgeon_fee} />
-                <ResultRow
-                  label={`Auxiliares${auxiliariesCount > 1 ? ` (×${auxiliariesCount})` : ""}`}
-                  value={calculation.auxiliaries_fee}
-                />
+                {auxiliariesCount > 0 && Array.from({ length: auxiliariesCount }, (_, i) => (
+                  <ResultRow
+                    key={i}
+                    label={`${i + 1}º Auxiliar`}
+                    note={i === 0 ? "30%" : "20%"}
+                    value={calculation.total_base * (i === 0 ? 0.30 : 0.20)}
+                  />
+                ))}
                 <ResultRow label="Anestesiologista" value={calculation.anesthesiologist_fee} />
               </dl>
 
@@ -560,10 +564,13 @@ export default function ProcedurePage() {
   );
 }
 
-function ResultRow({ label, value }: { label: string; value: number | undefined }) {
+function ResultRow({ label, value, note }: { label: string; value: number | undefined; note?: string }) {
   return (
     <div className="flex items-end justify-between gap-1">
-      <dt className="shrink-0 text-[13px] font-medium text-slate-500 dark:text-slate-400">{label}</dt>
+      <dt className="shrink-0 text-[13px] font-medium text-slate-500 dark:text-slate-400">
+        {label}
+        {note && <span className="ml-1.5 text-[11px] font-semibold text-primary/70 dark:text-teal-400/70">{note}</span>}
+      </dt>
       <div className="leader" />
       <dd className="font-grotesk shrink-0 text-sm font-semibold text-slate-950 dark:text-slate-50">
         {value === undefined ? "—" : money.format(value)}

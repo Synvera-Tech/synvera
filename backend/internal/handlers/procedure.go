@@ -36,9 +36,10 @@ func makeGetProcedureHandler(repo repository.ProcedureRepository) http.HandlerFu
 		codes := make([]generated.CBHPMCodeEntry, 0, len(p.Codes))
 		for _, c := range p.Codes {
 			codes = append(codes, generated.CBHPMCodeEntry{
-				Code:        c.Code,
-				Description: c.Description,
-				Porte:       c.Porte,
+				Code:           c.Code,
+				Description:    c.Description,
+				Porte:          c.Porte,
+				NumAuxiliaries: c.NumAuxiliaries,
 			})
 		}
 

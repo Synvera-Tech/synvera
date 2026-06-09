@@ -15,9 +15,10 @@ type SBNProcedureResult struct {
 
 // CBHPMCodeEntry is a single CBHPM code within a procedure package.
 type CBHPMCodeEntry struct {
-	Code        string `json:"code"`
-	Description string `json:"description"`
-	Porte       string `json:"porte"`
+	Code           string `json:"code"`
+	Description    string `json:"description"`
+	Porte          string `json:"porte"`
+	NumAuxiliaries int    `json:"num_auxiliaries"`
 }
 
 // ProcedureDetail is returned by GET /api/procedures/:id.

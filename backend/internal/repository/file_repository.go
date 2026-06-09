@@ -14,10 +14,11 @@ var catalogFS embed.FS
 
 // flatEntry mirrors one row in the embedded procedures.json.
 type flatEntry struct {
-	ProcedureName string `json:"procedure_name"`
-	CBHPMCode     string `json:"cbhpm_code"`
-	Description   string `json:"description"`
-	Porte         string `json:"porte"`
+	ProcedureName  string `json:"procedure_name"`
+	CBHPMCode      string `json:"cbhpm_code"`
+	Description    string `json:"description"`
+	Porte          string `json:"porte"`
+	NumAuxiliaries int    `json:"num_auxiliaries"`
 }
 
 // FileRepository is a ProcedureRepository backed by the embedded procedures.json.
@@ -67,9 +68,10 @@ func buildIndex(flat []flatEntry) *FileRepository {
 		}
 		seenCodes[e.ProcedureName][e.CBHPMCode] = struct{}{}
 		codesByName[e.ProcedureName] = append(codesByName[e.ProcedureName], models.CBHPMCode{
-			Code:        e.CBHPMCode,
-			Description: e.Description,
-			Porte:       e.Porte,
+			Code:           e.CBHPMCode,
+			Description:    e.Description,
+			Porte:          e.Porte,
+			NumAuxiliaries: e.NumAuxiliaries,
 		})
 	}
 

@@ -121,7 +121,7 @@ components:
 
     CBHPMCodeEntry:
       type: object
-      required: [code, description, porte]
+      required: [code, description, porte, num_auxiliaries]
       properties:
         code:
           type: string
@@ -132,6 +132,10 @@ components:
         porte:
           type: string
           description: Default porte from the SBN mapping (e.g. "2B").
+        num_auxiliaries:
+          type: integer
+          minimum: 0
+          description: Maximum number of auxiliary surgeons allowed per CBHPM (0–3).
 
     ProcedureDetail:
       type: object
@@ -173,8 +177,8 @@ components:
         auxiliaries_count:
           type: integer
           minimum: 0
-          maximum: 4
-          description: Number of auxiliary surgeons (0–4).
+          maximum: 3
+          description: Number of auxiliary surgeons (0–3).
         requires_anesthesia:
           type: boolean
           description: Whether an anesthesiologist is required.

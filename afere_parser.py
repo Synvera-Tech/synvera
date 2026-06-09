@@ -31,6 +31,48 @@ try:
 except ImportError:
     sys.exit("pdfplumber is required:  pip install pdfplumber")
 
+
+def extract_cbhpm_auxiliaries(cbhpm_pdf_path: str) -> dict[str, int]:
+    """Extract num_auxiliaries per CBHPM code from the CBHPM 2022 PDF.
+
+    Surgical procedure rows in the Sistema Nervoso chapter follow the format:
+        CODE  DESCRIPTION  PORTE  CUSTO_OPER  N_AUX  ANEST_PORTE
+    where last4 = parts[-4:] reliably gives [PORTE, CUSTO, NAUX, ANEST].
+
+    Non-surgical codes (consultations 1.xx, diagnostics 2.xx, imaging 4.08.xx,
+    4.09.xx, etc.) appear in sections with different column layouts that omit the
+    N_AUX column; those codes default to 0 auxiliaries.
+    """
+    _CODE_RE  = re.compile(r"^(\d\.\d{2}\.\d{2}\.\d{2}-\d)")
+    _PORTE_RE = re.compile(r"^\d{1,2}[A-C]$")
+    _DASH     = frozenset({"–", "-", "—"})
+
+    results: dict[str, int] = {}
+    with pdfplumber.open(cbhpm_pdf_path) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text() or ""
+            for line in text.split("\n"):
+                line = line.strip()
+                m = _CODE_RE.match(line)
+                if not m:
+                    continue
+                code = m.group(1)
+                parts = line.split()
+                # Need at least: CODE ... PORTE CUSTO NAUX ANEST (≥ 6 tokens total)
+                if len(parts) < 6:
+                    continue
+                last4 = parts[-4:]
+                # Validate: last4[0] must look like a porte code (e.g. "10B")
+                if not _PORTE_RE.match(last4[0]):
+                    continue
+                naux_tok = last4[2]
+                if naux_tok in _DASH:
+                    results[code] = 0
+                elif naux_tok.isdigit():
+                    results[code] = int(naux_tok)
+    return results
+
+
 # ── Patterns ──────────────────────────────────────────────────────────────────
 
 # CBHPM code: digit.dd.dd.dd-digit  (e.g. 3.14.01.17-1)
@@ -397,6 +439,7 @@ def parse_sbn_pdf(pdf_path: str, debug: bool = False) -> list[dict]:
                             "cbhpm_code": code,
                             "description": description,
                             "porte": porte,
+                            "num_auxiliaries": 0,  # filled in by main() from CBHPM lookup
                         })
                         if debug:
                             print(f"  [p{page_num}] {code}  {porte:4s}  {description[:55]}")
@@ -409,6 +452,7 @@ def parse_sbn_pdf(pdf_path: str, debug: bool = False) -> list[dict]:
 def main():
     ap = argparse.ArgumentParser(description="Parse SBN manual PDF → procedures.json")
     ap.add_argument("--sbn", required=True, help="Path to the SBN manual PDF")
+    ap.add_argument("--cbhpm", default=None, help="Path to CBHPM PDF for num_auxiliaries lookup")
     ap.add_argument(
         "--out",
         default="backend/internal/repository/procedures.json",
@@ -421,8 +465,23 @@ def main():
     if not pdf_path.exists():
         sys.exit(f"PDF not found: {pdf_path}")
 
+    # Load CBHPM auxiliary counts if a CBHPM PDF is provided
+    aux_map: dict[str, int] = {}
+    if args.cbhpm:
+        cbhpm_path = Path(args.cbhpm)
+        if not cbhpm_path.exists():
+            sys.exit(f"CBHPM PDF not found: {cbhpm_path}")
+        print(f"Extracting auxiliaries from {cbhpm_path} …")
+        aux_map = extract_cbhpm_auxiliaries(str(cbhpm_path))
+        print(f"  {len(aux_map)} CBHPM codes with num_auxiliaries data")
+
     print(f"Parsing {pdf_path} …")
     records = parse_sbn_pdf(str(pdf_path), debug=args.debug)
+
+    # Populate num_auxiliaries from CBHPM lookup; default 0 for missing codes
+    if aux_map:
+        for r in records:
+            r["num_auxiliaries"] = aux_map.get(r["cbhpm_code"], 0)
 
     # Deduplicate: same (procedure_name, cbhpm_code) keeps first occurrence
     seen: set[tuple] = set()

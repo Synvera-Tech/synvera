@@ -11,9 +11,10 @@ type SBNProcedure struct {
 // CBHPMCode is a single billable code from the CBHPM catalog,
 // annotated with the default porte assigned by the SBN manual for this procedure package.
 type CBHPMCode struct {
-	Code        string
-	Description string
-	Porte       string
+	Code           string
+	Description    string
+	Porte          string
+	NumAuxiliaries int
 }
 
 // ProcedureWithCodes is an SBN procedure together with its suggested CBHPM codes.
