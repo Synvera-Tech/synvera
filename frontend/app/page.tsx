@@ -150,7 +150,11 @@ export default function Home() {
     <main
       style={{
         minHeight: "100vh",
-        backgroundColor: T.bg,
+        backgroundColor: "#E8EEF4",
+        backgroundImage: [
+          "radial-gradient(ellipse 700px 500px at 75% 15%, rgba(14,165,233,0.13) 0%, transparent 70%)",
+          "radial-gradient(ellipse 600px 480px at 20% 88%, rgba(20,184,166,0.12) 0%, transparent 70%)",
+        ].join(", "),
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -162,11 +166,13 @@ export default function Home() {
         {/* ── Card ── */}
         <div
           style={{
-            backgroundColor: T.surface,
-            borderRadius: "12px",
-            border: `1px solid ${T.cardBorder}`,
+            background: "rgba(255,255,255,0.68)",
+            backdropFilter: "blur(28px) saturate(160%)",
+            WebkitBackdropFilter: "blur(28px) saturate(160%)",
+            borderRadius: "16px",
+            border: "1px solid rgba(255,255,255,0.58)",
             padding: "44px 40px 36px",
-            boxShadow: "0 1px 3px rgba(15,23,42,0.07), 0 4px 20px rgba(15,23,42,0.05)",
+            boxShadow: "0 2px 4px rgba(15,23,42,0.05), 0 8px 24px rgba(15,23,42,0.09), 0 32px 56px -8px rgba(15,23,42,0.11)",
           }}
         >
 
