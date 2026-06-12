@@ -101,6 +101,103 @@ paths:
         '400':
           description: Invalid request body.
 
+  /api/compositions:
+    post:
+      summary: Save a surgical composition
+      description: >
+        Persists a reusable surgical template containing the physician's procedural
+        setup. No financial values are stored — values are always recalculated fresh
+        when the composition is executed.
+      operationId: saveComposition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveCompositionRequest'
+      responses:
+        '201':
+          description: Composition saved. Returns the public_id for URL construction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveCompositionResponse'
+        '400':
+          description: Validation error (missing or invalid fields).
+    get:
+      summary: List saved compositions
+      operationId: listCompositions
+      responses:
+        '200':
+          description: Ordered list of compositions (newest first, up to 100).
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompositionItem'
+
+  /api/compositions/{id}:
+    get:
+      summary: Get a composition by public ID
+      operationId: getComposition
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Full composition detail including selected codes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompositionDetail'
+        '404':
+          description: Composition not found.
+    put:
+      summary: Update an existing composition
+      operationId: updateComposition
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveCompositionRequest'
+      responses:
+        '200':
+          description: Updated composition detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompositionDetail'
+        '404':
+          description: Composition not found.
+    delete:
+      summary: Delete a composition
+      operationId: deleteComposition
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Composition deleted.
+        '404':
+          description: Composition not found.
+
   /api/calculations:
     post:
       summary: Persist a completed calculation
@@ -351,6 +448,100 @@ components:
           type: number
           format: float
           description: Simple sum of all selected code porte values (before discounting). Retained for compatibility.
+
+    SaveCompositionRequest:
+      type: object
+      required: [name, sbn_procedure_name, selected_codes, auxiliaries_count, requires_anesthesia, access_route_type]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Physician-defined label for this composition.
+        sbn_procedure_id:
+          type: string
+          description: SBN catalog ID of the primary procedure (optional).
+        sbn_procedure_name:
+          type: string
+          description: SBN procedure name as displayed to the physician.
+        selected_codes:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/SelectedCode'
+        access_route_type:
+          $ref: '#/components/schemas/AccessRouteType'
+        auxiliaries_count:
+          type: integer
+          minimum: 0
+          maximum: 4
+        requires_anesthesia:
+          type: boolean
+
+    SaveCompositionResponse:
+      type: object
+      required: [public_id, created_at]
+      properties:
+        public_id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+
+    CompositionItem:
+      type: object
+      required: [public_id, name, sbn_procedure_name, access_route_type, auxiliaries_count, requires_anesthesia, created_at]
+      description: Lightweight composition projection for list responses (no selected codes).
+      properties:
+        public_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        sbn_procedure_id:
+          type: string
+        sbn_procedure_name:
+          type: string
+        access_route_type:
+          $ref: '#/components/schemas/AccessRouteType'
+        auxiliaries_count:
+          type: integer
+        requires_anesthesia:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+
+    CompositionDetail:
+      type: object
+      required: [public_id, name, sbn_procedure_name, selected_codes, access_route_type, auxiliaries_count, requires_anesthesia, created_at, updated_at]
+      description: Full composition including selected CBHPM codes.
+      properties:
+        public_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        sbn_procedure_id:
+          type: string
+        sbn_procedure_name:
+          type: string
+        selected_codes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SelectedCode'
+        access_route_type:
+          $ref: '#/components/schemas/AccessRouteType'
+        auxiliaries_count:
+          type: integer
+        requires_anesthesia:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
 
     SaveCalculationRequest:
       type: object

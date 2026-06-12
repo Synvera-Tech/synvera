@@ -16,8 +16,10 @@ One SBN surgical package maps to **one or more** CBHPM billable codes. Each code
 | **CBHPM Code** | A billable line item from the national procedure table. Has a code, description, and an intrinsic porte. |
 | **Porte** | A complexity class (e.g. `7A`, `8B`) with a fixed BRL value defined by CBHPM 2025/2026 (Faixa Original). Read-only — the physician cannot change a code's porte. |
 | **AccessRouteType** | `same` (CBHPM 4.1) or `different` (CBHPM 4.2). Drives the multi-procedure discount rate. |
-| **Composition** | The physician's selection of which CBHPM codes to include in a bill. |
-| **Valuation** | The monetary breakdown of a composition applying CBHPM 4.1/4.2 and 5.1 rules. |
+| **Composition** | A reusable surgical template: SBN procedure + selected CBHPM codes + access route + anesthesia + aux count + user-defined name. **Contains no financial values.** Values are always recalculated fresh. |
+| **Calculation** | The computed monetary breakdown of a composition or manual selection. Always derived on the fly from current CBHPM porte values — never stored as the primary artifact. |
+| **Shared Calculation** | A snapshot of a completed calculation stored in the `calculations` table for external review via a shareable URL. Legacy persistence model; used only for the share-report flow. |
+| **Valuation** | Synonym for Calculation in the UI context. |
 
 ---
 
@@ -83,6 +85,19 @@ final_total = surgeon_fee + Σ(auxiliary_fees) + anesthesiologist_fee
 ## Database Schema
 
 ```
+compositions
+  id                  UUID PK (gen_random_uuid())
+  public_id           UUID UNIQUE NOT NULL
+  name                TEXT NOT NULL
+  sbn_procedure_id    TEXT
+  sbn_procedure_name  TEXT NOT NULL
+  selected_codes      JSONB NOT NULL DEFAULT '[]'
+  access_route_type   TEXT NOT NULL CHECK (IN 'same', 'different')
+  auxiliaries_count   INT NOT NULL DEFAULT 0 CHECK (0 ≤ n ≤ 4)
+  requires_anesthesia BOOLEAN NOT NULL DEFAULT false
+  created_at          TIMESTAMPTZ DEFAULT now()
+  updated_at          TIMESTAMPTZ DEFAULT now()
+
 sbn_procedures
   id          UUID PK (gen_random_uuid())
   code        TEXT UNIQUE NOT NULL         -- e.g. "1.1"
@@ -201,7 +216,7 @@ internal/
   models/         domain types (AccessRouteType, SurgeonBreakdown, AuxiliaryFee, …)
   repository/     interface + file-based + postgres implementations
   service/        calculator.go — pure functions, no I/O; calculator_test.go
-  handlers/       HTTP handlers (search, procedure, calculate, health)
+  handlers/       HTTP handlers (search, procedure, calculate, compositions, health)
   generated/      openapi.gen.go — hand-maintained to match openapi.yaml v3.1.0
 ```
 
@@ -272,11 +287,80 @@ that feature.
 
 ---
 
-## Calculation Persistence
+## Composition Persistence (Primary Model)
 
 ### Overview
 
-Afere v2.2.0 introduces the `calculations` table, enabling physicians to save a completed valuation and retrieve it later by URL. This is the first step toward a full SaaS history feature; no authentication is required in this release.
+A **Composition** is the physician's reusable surgical template. It captures the procedural intent (which codes, which access route, how many auxiliaries) without embedding any monetary values. Storing compositions instead of calculations ensures that fees always reflect the current CBHPM table when the physician re-opens them.
+
+### Entity: `Composition`
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | `UUID` (PK) | Internal primary key. Never exposed externally. |
+| `public_id` | `UUID v4` | External identifier used in all API responses and URLs. Immutable after creation. |
+| `name` | `TEXT` | Physician-assigned label (e.g. "Craniotomia + DVP"). |
+| `sbn_procedure_id` | `TEXT` (nullable) | SBN catalog ID of the primary procedure. |
+| `sbn_procedure_name` | `TEXT` | Human-readable name of the primary procedure. |
+| `selected_codes` | `JSONB` | Array of `{cbhpm_code, description, porte}` objects selected by the physician. |
+| `access_route_type` | `TEXT` | `"same"` or `"different"` (CBHPM 4.1/4.2). |
+| `auxiliaries_count` | `INT` | 0–4. |
+| `requires_anesthesia` | `BOOLEAN` | Whether to include anesthesiologist fee. |
+| `created_at` / `updated_at` | `TIMESTAMPTZ` | Record timestamps. |
+
+### Composition API Flows
+
+```
+POST /api/compositions
+  body: { name, sbn_procedure_id?, sbn_procedure_name,
+          selected_codes, access_route_type, auxiliaries_count, requires_anesthesia }
+  → 201 { public_id, created_at }
+
+GET /api/compositions
+  → 200 [CompositionItem]   (ordered by created_at DESC)
+
+GET /api/compositions/{public_id}
+  → 200 CompositionDetail   (includes selected_codes, updated_at)
+  → 404 if not found
+
+PUT /api/compositions/{public_id}
+  body: same shape as POST
+  → 200 CompositionDetail   (with updated_at refreshed)
+  → 404 if not found
+
+DELETE /api/compositions/{public_id}
+  → 204 No Content
+  → 404 if not found
+```
+
+### Frontend UX — Save as Composition
+
+On the procedure page, after a valuation appears, a "Salvar composição" button is shown. On click:
+
+1. An inline name-input form appears (pre-focused).
+2. The physician types a label and presses Enter or clicks "Salvar".
+3. A `POST /api/compositions` request is made with the current state — **no financial fields included**.
+4. On success, a confirmation chip appears: **"Composição salva! Ver minhas composições"**.
+5. Any subsequent change to the composition resets the saved indicator.
+
+When a composition is loaded from URL (`/procedure?composition={public_id}`):
+
+1. `GET /api/compositions/{id}` restores all procedural state.
+2. `GET /api/procedures/{sbn_procedure_id}` reloads the full CBHPM code list.
+3. The procedure page shows "Editando composição: {name}" in the subtitle.
+4. The save button becomes "Atualizar composição" → `PUT /api/compositions/{id}`.
+
+### Home Page — Minhas Composições
+
+The home page "Minhas composições" tab lists saved compositions (no financial data displayed). Each card shows: name, SBN procedure, date, aux count, anesthesia, access route. Cards link to `/procedure?composition={public_id}`. A trash button calls `DELETE /api/compositions/{public_id}`.
+
+---
+
+## Calculation Persistence (Legacy — Share Flow Only)
+
+### Overview
+
+The `calculations` table (migration 006) is retained **solely** to support the share-report feature, where a completed valuation snapshot is persisted so an external reviewer can open a stable URL and see the same breakdown the physician saw. No new features are being built on top of this model.
 
 ### Entity: `Calculation`
 
@@ -345,13 +429,9 @@ DELETE /api/calculations/{public_id}
 
 Deletion is permanent. The physician is shown a confirmation dialog before the request is sent.
 
-### Frontend UX
+### Frontend UX (Share Flow Only)
 
-After a successful valuation, a secondary "Salvar cálculo" button appears below the share button. On click:
-
-1. A `POST /api/calculations` request is made with the current state.
-2. On success, the button is replaced with a confirmation chip: **"Cálculo salvo em DD/MM/YYYY · #{short-id}"**.
-3. Any change to the composition (new code selection, access route change, etc.) automatically resets the saved state, requiring an explicit re-save.
+The "Compartilhar cálculo" button on the procedure page encodes the current selection as URL query params (`/share?sbn=…&codes=…`). The share page calls `POST /api/calculations` internally to produce a stable snapshot for the external reviewer. The physician does not interact with this flow directly as a "save" action.
 
 ### Future Evolution
 

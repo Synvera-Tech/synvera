@@ -124,6 +124,36 @@ type CalculationSummary struct {
 	CreatedAt             time.Time
 }
 
+// Composition is a reusable surgical template created by the physician.
+// It captures the procedural setup — SBN procedure, selected CBHPM codes,
+// access route, anesthesia, and auxiliary count — without storing any
+// financial values. Values are always recalculated fresh when executed.
+type Composition struct {
+	ID                 string
+	PublicID           string
+	Name               string
+	SBNProcedureID     string
+	SBNProcedureName   string
+	SelectedCodes      []SelectedCode
+	AccessRouteType    AccessRouteType
+	AuxiliariesCount   int
+	RequiresAnesthesia bool
+	CreatedAt          time.Time
+	UpdatedAt          time.Time
+}
+
+// CompositionSummary is the lightweight projection for list responses.
+type CompositionSummary struct {
+	PublicID           string
+	Name               string
+	SBNProcedureID     string
+	SBNProcedureName   string
+	AccessRouteType    AccessRouteType
+	AuxiliariesCount   int
+	RequiresAnesthesia bool
+	CreatedAt          time.Time
+}
+
 // GeneratePublicID returns a UUID v4 string for use in public-facing URLs
 // (e.g. /calc/7f3a9e2c-5c3d-4f35-a8db-1f6f8c3d7e11).
 // The internal database primary key is separate; only public_id is ever exposed externally.

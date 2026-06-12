@@ -56,6 +56,19 @@ type CalculationResult = {
   total_base: number;
 };
 
+type CompositionDetail = {
+  public_id: string;
+  name: string;
+  sbn_procedure_id: string;
+  sbn_procedure_name: string;
+  selected_codes: Array<{ cbhpm_code: string; description: string; porte: string }>;
+  access_route_type: "same" | "different";
+  auxiliaries_count: number;
+  requires_anesthesia: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -65,10 +78,11 @@ const pct = (n: number) =>
 
 // ─── Workflow content ─────────────────────────────────────────────────────────
 
-function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
+function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCompositionId }: {
   initialQuery: string;
   initialSbnId: string;
   initialRoute: AccessRouteType;
+  initialCompositionId: string;
 }) {
   const { isDark, toggle } = useTheme();
 
@@ -79,7 +93,6 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
   const [detailsMap, setDetailsMap] = useState<Record<string, ProcedureDetail>>({});
   const [loadingIds, setLoadingIds] = useState<Set<string>>(new Set());
 
-  // selectedCodes tracks which CBHPM codes are checked (value = porte from catalog)
   const [selectedCodes, setSelectedCodes] = useState<Set<string>>(new Set());
   const [auxiliariesCount, setAuxiliariesCount] = useState(1);
   const [requiresAnesthesia, setRequiresAnesthesia] = useState(true);
@@ -87,11 +100,20 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
 
   const [calculation, setCalculation] = useState<CalculationResult | null>(null);
   const [copied, setCopied] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [savedCalc, setSavedCalc] = useState<{ publicId: string; savedAt: string } | null>(null);
-  const [saveError, setSaveError] = useState<string | null>(null);
+
+  // Composition save states
+  const [showSaveForm, setShowSaveForm] = useState(false);
+  const [compositionName, setCompositionName] = useState("");
+  const [savingComposition, setSavingComposition] = useState(false);
+  const [compositionSaved, setCompositionSaved] = useState(false);
+  const [compositionSaveError, setCompositionSaveError] = useState<string | null>(null);
+
+  // Composition loaded from URL (for update flow)
+  const [loadedCompositionId, setLoadedCompositionId] = useState<string | null>(null);
+  const [loadedCompositionName, setLoadedCompositionName] = useState("");
 
   const calcTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   // Derived: merged CBHPM codes from all selected procedures (deduplicated by code)
   const allCbhpmCodes = useMemo(() => {
@@ -138,10 +160,43 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
     return () => clearTimeout(t);
   }, [searchQuery]);
 
+  // ── Load composition from ?composition=<public_id> ────────────────────────
+
+  useEffect(() => {
+    if (!initialCompositionId) return;
+    fetch(`/api/compositions/${initialCompositionId}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then(async (comp: CompositionDetail | null) => {
+        if (!comp) return;
+        setLoadedCompositionId(comp.public_id);
+        setLoadedCompositionName(comp.name);
+        setCompositionName(comp.name);
+        setAccessRoute(comp.access_route_type);
+        setRequiresAnesthesia(comp.requires_anesthesia);
+        setAuxiliariesCount(comp.auxiliaries_count);
+
+        if (!comp.sbn_procedure_id) return;
+        setLoadingIds(new Set([comp.sbn_procedure_id]));
+        try {
+          const detail: ProcedureDetail = await fetch(`/api/procedures/${comp.sbn_procedure_id}`).then((r) => r.json());
+          const proc: SBNProcedureOption = { id: detail.id, name: detail.name };
+          setSelectedProcedures([proc]);
+          setDetailsMap({ [detail.id]: detail });
+          // Only pre-select the codes the composition had saved.
+          const compositionCodeSet = new Set(comp.selected_codes.map((c) => c.cbhpm_code));
+          setSelectedCodes(compositionCodeSet);
+        } finally {
+          setLoadingIds(new Set());
+        }
+      });
+  // Runs only on mount.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // ── Direct procedure load via ?sbn=<id> (from home page selection) ──────────
 
   useEffect(() => {
-    if (!initialSbnId) return;
+    if (!initialSbnId || initialCompositionId) return;
     setLoadingIds(new Set([initialSbnId]));
     fetch(`/api/procedures/${initialSbnId}`)
       .then((r) => r.json())
@@ -247,53 +302,89 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
     return () => { if (calcTimer.current) clearTimeout(calcTimer.current); };
   }, [buildCalculatePayload]);
 
-  // Reset saved/error state when the calculation changes
-  useEffect(() => { setSavedCalc(null); setSaveError(null); }, [calculation]);
+  // Reset composition save state when user changes the calculation
+  useEffect(() => {
+    setCompositionSaved(false);
+    setCompositionSaveError(null);
+  }, [calculation]);
 
-  // ── Save ──────────────────────────────────────────────────────────────────
+  // ── Save composition (new) ────────────────────────────────────────────────
 
-  const handleSave = useCallback(async () => {
-    if (!calculation || selectedProcedures.length === 0) return;
-    setSaving(true);
-    setSaveError(null);
+  const handleSaveComposition = useCallback(async () => {
+    const trimmedName = compositionName.trim();
+    if (!trimmedName || selectedProcedures.length === 0) return;
+    setSavingComposition(true);
+    setCompositionSaveError(null);
     try {
       const checkedCodes = allCbhpmCodes.filter((c) => selectedCodes.has(c.code));
       const payload = {
-        procedure_name: selectedProcedures.map((p) => p.name).join(" + "),
-        procedure_sbn_code: selectedProcedures[0].id,
+        name: trimmedName,
+        sbn_procedure_id: selectedProcedures[0].id,
+        sbn_procedure_name: selectedProcedures.map((p) => p.name).join(" + "),
         selected_codes: checkedCodes.map((c) => ({
           cbhpm_code: c.code,
           description: c.description,
           porte: c.porte,
         })),
+        access_route_type: accessRoute,
         auxiliaries_count: auxiliariesCount,
         requires_anesthesia: requiresAnesthesia,
-        access_route_type: accessRoute,
-        calculation_result: calculation,
       };
-      const res = await fetch("/api/calculations", {
+      const res = await fetch("/api/compositions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       if (res.ok) {
-        const data: { public_id: string; created_at: string } = await res.json();
-        const formatted = new Date(data.created_at).toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        });
-        setSavedCalc({ publicId: data.public_id, savedAt: formatted });
-
+        setCompositionSaved(true);
+        setShowSaveForm(false);
       } else {
-        setSaveError("Não foi possível salvar. Tente novamente.");
+        setCompositionSaveError("Não foi possível salvar. Tente novamente.");
       }
     } catch {
-      setSaveError("Erro de conexão. Verifique a rede e tente novamente.");
+      setCompositionSaveError("Erro de conexão. Verifique a rede e tente novamente.");
     } finally {
-      setSaving(false);
+      setSavingComposition(false);
     }
-  }, [calculation, selectedProcedures, allCbhpmCodes, selectedCodes, auxiliariesCount, requiresAnesthesia, accessRoute]);
+  }, [compositionName, selectedProcedures, allCbhpmCodes, selectedCodes, accessRoute, auxiliariesCount, requiresAnesthesia]);
+
+  // ── Update composition (loaded from URL) ──────────────────────────────────
+
+  const handleUpdateComposition = useCallback(async () => {
+    if (!loadedCompositionId || selectedProcedures.length === 0) return;
+    setSavingComposition(true);
+    setCompositionSaveError(null);
+    try {
+      const checkedCodes = allCbhpmCodes.filter((c) => selectedCodes.has(c.code));
+      const payload = {
+        name: loadedCompositionName,
+        sbn_procedure_id: selectedProcedures[0].id,
+        sbn_procedure_name: selectedProcedures.map((p) => p.name).join(" + "),
+        selected_codes: checkedCodes.map((c) => ({
+          cbhpm_code: c.code,
+          description: c.description,
+          porte: c.porte,
+        })),
+        access_route_type: accessRoute,
+        auxiliaries_count: auxiliariesCount,
+        requires_anesthesia: requiresAnesthesia,
+      };
+      const res = await fetch(`/api/compositions/${loadedCompositionId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        setCompositionSaved(true);
+      } else {
+        setCompositionSaveError("Não foi possível atualizar. Tente novamente.");
+      }
+    } catch {
+      setCompositionSaveError("Erro de conexão. Verifique a rede e tente novamente.");
+    } finally {
+      setSavingComposition(false);
+    }
+  }, [loadedCompositionId, loadedCompositionName, selectedProcedures, allCbhpmCodes, selectedCodes, accessRoute, auxiliariesCount, requiresAnesthesia]);
 
   // ── Share ─────────────────────────────────────────────────────────────────
 
@@ -325,6 +416,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
   };
 
   const canShare = !!calculation && selectedProcedures.length > 0;
+  const canSaveComposition = !!calculation && selectedProcedures.length > 0;
 
   // ── Breakdown: discount rule label ───────────────────────────────────────
 
@@ -370,7 +462,9 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
           Composição de Honorários
         </h1>
         <p className="m-0 text-sm font-medium text-slate-500 dark:text-slate-400">
-          Selecione o procedimento SBN · Monte a composição · Valorize em tempo real
+          {loadedCompositionId
+            ? <>Editando composição: <span className="font-semibold text-primary dark:text-teal-300">{loadedCompositionName}</span></>
+            : "Selecione o procedimento SBN · Monte a composição · Valorize em tempo real"}
         </p>
       </div>
 
@@ -737,6 +831,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
 
               {canShare && (
                 <div className="mt-4 flex flex-col gap-2">
+                  {/* Share */}
                   <button
                     id="share-calculation-btn"
                     onClick={shareCalculation}
@@ -746,30 +841,103 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute }: {
                     {copied ? <><Check size={16} /> Link copiado!</> : <><Share2 size={16} /> Compartilhar cálculo</>}
                   </button>
 
-                  {!savedCalc ? (
-                    <>
-                      <button
-                        onClick={handleSave}
-                        disabled={saving}
-                        className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 active:scale-[0.98] disabled:opacity-50"
-                        type="button"
-                      >
-                        {saving
-                          ? <><div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" /> Salvando...</>
-                          : <><BookmarkCheck size={16} /> Salvar cálculo</>}
-                      </button>
-                      {saveError && (
-                        <div className="flex items-center gap-2 rounded-2xl border border-red-200 dark:border-red-800/40 bg-red-50/70 dark:bg-red-900/15 px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400">
-                          <X size={15} />
-                          {saveError}
+                  {/* ── Composition save / update area ── */}
+                  {canSaveComposition && (
+                    loadedCompositionId ? (
+                      /* Update flow: composition was loaded from URL */
+                      compositionSaved ? (
+                        <div className="flex items-center justify-center gap-2 rounded-2xl border border-emerald-200 dark:border-emerald-700/40 bg-emerald-50/70 dark:bg-emerald-900/15 px-4 py-3 text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                          <Check size={16} />
+                          Composição atualizada com sucesso
                         </div>
-                      )}
-                    </>
-                  ) : (
-                    <div className="flex items-center justify-center gap-2 rounded-2xl border border-emerald-200 dark:border-emerald-700/40 bg-emerald-50/70 dark:bg-emerald-900/15 px-4 py-3 text-sm font-semibold text-emerald-700 dark:text-emerald-400">
-                      <Check size={16} />
-                      Cálculo salvo com sucesso
-                    </div>
+                      ) : (
+                        <>
+                          <button
+                            onClick={handleUpdateComposition}
+                            disabled={savingComposition}
+                            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 active:scale-[0.98] disabled:opacity-50"
+                            type="button"
+                          >
+                            {savingComposition
+                              ? <><div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" /> Atualizando...</>
+                              : <><BookmarkCheck size={16} /> Atualizar composição</>}
+                          </button>
+                          {compositionSaveError && (
+                            <div className="flex items-center gap-2 rounded-2xl border border-red-200 dark:border-red-800/40 bg-red-50/70 dark:bg-red-900/15 px-4 py-3 text-sm font-medium text-red-600 dark:text-red-400">
+                              <X size={15} />
+                              {compositionSaveError}
+                            </div>
+                          )}
+                        </>
+                      )
+                    ) : (
+                      /* Save flow: new composition */
+                      compositionSaved ? (
+                        <div className="flex items-center justify-center gap-2 rounded-2xl border border-emerald-200 dark:border-emerald-700/40 bg-emerald-50/70 dark:bg-emerald-900/15 px-4 py-3 text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                          <Check size={16} />
+                          Composição salva!{" "}
+                          <Link
+                            href="/"
+                            className="underline underline-offset-2 hover:no-underline"
+                          >
+                            Ver minhas composições
+                          </Link>
+                        </div>
+                      ) : showSaveForm ? (
+                        /* Inline name form */
+                        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col gap-3">
+                          <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400">
+                            Nome da composição
+                          </label>
+                          <input
+                            ref={nameInputRef}
+                            type="text"
+                            value={compositionName}
+                            onChange={(e) => setCompositionName(e.target.value)}
+                            onKeyDown={(e) => { if (e.key === "Enter") handleSaveComposition(); if (e.key === "Escape") setShowSaveForm(false); }}
+                            placeholder="Ex: Craniotomia + DVP"
+                            maxLength={120}
+                            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-primary dark:focus:border-teal-400 focus:outline-none transition-colors"
+                          />
+                          <div className="flex gap-2">
+                            <button
+                              onClick={handleSaveComposition}
+                              disabled={savingComposition || !compositionName.trim()}
+                              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-teal-300/20 dark:text-teal-300 dark:hover:bg-teal-300/10"
+                              type="button"
+                            >
+                              {savingComposition
+                                ? <><div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-t-transparent" /> Salvando...</>
+                                : <><BookmarkCheck size={15} /> Salvar</>}
+                            </button>
+                            <button
+                              onClick={() => setShowSaveForm(false)}
+                              className="rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                              type="button"
+                            >
+                              Cancelar
+                            </button>
+                          </div>
+                          {compositionSaveError && (
+                            <div className="flex items-center gap-2 rounded-xl border border-red-200 dark:border-red-800/40 bg-red-50/70 dark:bg-red-900/15 px-3 py-2.5 text-sm font-medium text-red-600 dark:text-red-400">
+                              <X size={14} />
+                              {compositionSaveError}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            setShowSaveForm(true);
+                            setTimeout(() => nameInputRef.current?.focus(), 50);
+                          }}
+                          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 active:scale-[0.98]"
+                          type="button"
+                        >
+                          <BookmarkCheck size={16} /> Salvar composição
+                        </button>
+                      )
+                    )
                   )}
                 </div>
               )}
@@ -844,6 +1012,7 @@ function SearchParamsReader() {
       initialQuery={searchParams.get("q") ?? ""}
       initialSbnId={searchParams.get("sbn") ?? ""}
       initialRoute={initialRoute}
+      initialCompositionId={searchParams.get("composition") ?? ""}
     />
   );
 }

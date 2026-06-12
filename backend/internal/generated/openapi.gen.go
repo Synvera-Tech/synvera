@@ -97,7 +97,63 @@ type CalculateResponse struct {
 	TotalBase           float64          `json:"total_base"`
 }
 
-// ─── Calculation persistence types (v3.1.0) ──────────────────────────────────
+// ─── Composition types (primary persistence model) ───────────────────────────
+
+// SaveCompositionRequest is the body for POST /api/compositions.
+type SaveCompositionRequest struct {
+	Name               string          `json:"name"`
+	SBNProcedureID     string          `json:"sbn_procedure_id,omitempty"`
+	SBNProcedureName   string          `json:"sbn_procedure_name"`
+	SelectedCodes      []SelectedCode  `json:"selected_codes"`
+	AccessRouteType    AccessRouteType `json:"access_route_type"`
+	AuxiliariesCount   int             `json:"auxiliaries_count"`
+	RequiresAnesthesia bool            `json:"requires_anesthesia"`
+}
+
+// UpdateCompositionRequest is the body for PUT /api/compositions/{id}.
+type UpdateCompositionRequest struct {
+	Name               string          `json:"name"`
+	SBNProcedureID     string          `json:"sbn_procedure_id,omitempty"`
+	SBNProcedureName   string          `json:"sbn_procedure_name"`
+	SelectedCodes      []SelectedCode  `json:"selected_codes"`
+	AccessRouteType    AccessRouteType `json:"access_route_type"`
+	AuxiliariesCount   int             `json:"auxiliaries_count"`
+	RequiresAnesthesia bool            `json:"requires_anesthesia"`
+}
+
+// SaveCompositionResponse is returned by a successful POST /api/compositions.
+type SaveCompositionResponse struct {
+	PublicID  string    `json:"public_id"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+// CompositionItem is one entry in the GET /api/compositions list response.
+type CompositionItem struct {
+	PublicID           string          `json:"public_id"`
+	Name               string          `json:"name"`
+	SBNProcedureID     string          `json:"sbn_procedure_id,omitempty"`
+	SBNProcedureName   string          `json:"sbn_procedure_name"`
+	AccessRouteType    AccessRouteType `json:"access_route_type"`
+	AuxiliariesCount   int             `json:"auxiliaries_count"`
+	RequiresAnesthesia bool            `json:"requires_anesthesia"`
+	CreatedAt          time.Time       `json:"created_at"`
+}
+
+// CompositionDetail is the full composition returned by GET /api/compositions/{id}.
+type CompositionDetail struct {
+	PublicID           string          `json:"public_id"`
+	Name               string          `json:"name"`
+	SBNProcedureID     string          `json:"sbn_procedure_id,omitempty"`
+	SBNProcedureName   string          `json:"sbn_procedure_name"`
+	SelectedCodes      []SelectedCode  `json:"selected_codes"`
+	AccessRouteType    AccessRouteType `json:"access_route_type"`
+	AuxiliariesCount   int             `json:"auxiliaries_count"`
+	RequiresAnesthesia bool            `json:"requires_anesthesia"`
+	CreatedAt          time.Time       `json:"created_at"`
+	UpdatedAt          time.Time       `json:"updated_at"`
+}
+
+// ─── Calculation persistence types (legacy snapshot) ─────────────────────────
 
 // SaveCalculationRequest is the body for POST /api/calculations.
 // calculation_result must be a completed valuation (lead_surgeon_fee > 0).

@@ -25,12 +25,16 @@ type flatEntry struct {
 }
 
 // FileRepository is a Repository backed by the embedded procedures.json
-// and an in-memory calculation store (suitable for development and testing).
+// and in-memory stores for compositions and calculations (development/testing).
 type FileRepository struct {
 	// procedures is the ordered list of unique SBN procedures.
 	procedures []models.ProcedureWithCodes
 	// byID is a fast O(1) lookup from string ID → index.
 	byID map[string]int
+
+	// composeMu guards the in-memory composition store.
+	composeMu    sync.RWMutex
+	compositions map[string]*models.Composition // keyed by public_id
 
 	// calcMu guards the in-memory calculation store.
 	calcMu       sync.RWMutex
@@ -96,6 +100,7 @@ func buildIndex(flat []flatEntry) *FileRepository {
 	return &FileRepository{
 		procedures:   procedures,
 		byID:         byID,
+		compositions: make(map[string]*models.Composition),
 		calculations: make(map[string]*models.Calculation),
 	}
 }
@@ -177,6 +182,94 @@ func idFromIndex(i int) string {
 	}
 	return string(buf)
 }
+
+// ── Composition CRUD ──────────────────────────────────────────────────────────
+
+// SaveComposition stores a new composition in-memory and returns the populated record.
+func (r *FileRepository) SaveComposition(comp models.Composition) (*models.Composition, error) {
+	publicID, err := models.GeneratePublicID()
+	if err != nil {
+		return nil, err
+	}
+	now := time.Now().UTC()
+	comp.ID = "file-" + publicID
+	comp.PublicID = publicID
+	comp.CreatedAt = now
+	comp.UpdatedAt = now
+
+	r.composeMu.Lock()
+	r.compositions[publicID] = &comp
+	r.composeMu.Unlock()
+
+	result := comp
+	return &result, nil
+}
+
+// ListCompositions returns all in-memory compositions ordered newest-first.
+func (r *FileRepository) ListCompositions() ([]models.CompositionSummary, error) {
+	r.composeMu.RLock()
+	defer r.composeMu.RUnlock()
+
+	summaries := make([]models.CompositionSummary, 0, len(r.compositions))
+	for _, c := range r.compositions {
+		summaries = append(summaries, models.CompositionSummary{
+			PublicID:           c.PublicID,
+			Name:               c.Name,
+			SBNProcedureID:     c.SBNProcedureID,
+			SBNProcedureName:   c.SBNProcedureName,
+			AccessRouteType:    c.AccessRouteType,
+			AuxiliariesCount:   c.AuxiliariesCount,
+			RequiresAnesthesia: c.RequiresAnesthesia,
+			CreatedAt:          c.CreatedAt,
+		})
+	}
+	sort.Slice(summaries, func(i, j int) bool {
+		return summaries[i].CreatedAt.After(summaries[j].CreatedAt)
+	})
+	return summaries, nil
+}
+
+// GetCompositionByPublicID returns the in-memory composition or nil if not found.
+func (r *FileRepository) GetCompositionByPublicID(publicID string) (*models.Composition, error) {
+	r.composeMu.RLock()
+	c, ok := r.compositions[publicID]
+	r.composeMu.RUnlock()
+	if !ok {
+		return nil, nil
+	}
+	result := *c
+	return &result, nil
+}
+
+// UpdateComposition replaces a composition's editable fields. Returns nil, nil if not found.
+func (r *FileRepository) UpdateComposition(publicID string, comp models.Composition) (*models.Composition, error) {
+	r.composeMu.Lock()
+	defer r.composeMu.Unlock()
+	existing, ok := r.compositions[publicID]
+	if !ok {
+		return nil, nil
+	}
+	comp.ID = existing.ID
+	comp.PublicID = publicID
+	comp.CreatedAt = existing.CreatedAt
+	comp.UpdatedAt = time.Now().UTC()
+	r.compositions[publicID] = &comp
+	result := comp
+	return &result, nil
+}
+
+// DeleteCompositionByPublicID removes the composition. Returns (true, nil) when deleted.
+func (r *FileRepository) DeleteCompositionByPublicID(publicID string) (bool, error) {
+	r.composeMu.Lock()
+	defer r.composeMu.Unlock()
+	if _, ok := r.compositions[publicID]; !ok {
+		return false, nil
+	}
+	delete(r.compositions, publicID)
+	return true, nil
+}
+
+// ── Calculation snapshot persistence (legacy) ─────────────────────────────────
 
 // SaveCalculation stores the calculation in the in-memory map and returns the
 // populated record. This satisfies the Repository interface for development

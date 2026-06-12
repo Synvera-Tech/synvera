@@ -30,24 +30,19 @@ const EXAMPLES = [
   "Aneurisma cerebral",
 ];
 
-const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
-
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 type ProcedureHit = { id: string; name: string };
 
-// Mirrors generated.CalculationSummary from the backend.
-type CalcSummary = {
+// Mirrors generated.CompositionItem from the backend.
+type CompositionItem = {
   public_id: string;
-  procedure_name: string;
-  procedure_sbn_code: string;
-  surgeon_value: number;
-  auxiliaries_total_value: number;
-  anesthesiologist_value: number;
-  team_total_value: number;
+  name: string;
+  sbn_procedure_id: string;
+  sbn_procedure_name: string;
+  access_route_type: "same" | "different";
   auxiliaries_count: number;
   requires_anesthesia: boolean;
-  access_route_type: "same" | "different";
   created_at: string;
 };
 
@@ -55,7 +50,7 @@ type CalcSummary = {
 
 export default function Home() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<"search" | "saved">("search");
+  const [activeTab, setActiveTab] = useState<"search" | "compositions">("search");
 
   // Search state
   const [query, setQuery] = useState("");
@@ -68,31 +63,31 @@ export default function Home() {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Saved calcs state
-  const [savedCalcs, setSavedCalcs] = useState<CalcSummary[]>([]);
-  const [calcsLoaded, setCalcsLoaded] = useState(false);
+  // Compositions state
+  const [compositions, setCompositions] = useState<CompositionItem[]>([]);
+  const [compositionsLoaded, setCompositionsLoaded] = useState(false);
 
-  // ── Fetch saved calcs from the API ────────────────────────────────────────
+  // ── Fetch compositions ─────────────────────────────────────────────────────
 
-  const fetchCalcs = async () => {
-    setCalcsLoaded(false);
+  const fetchCompositions = async () => {
+    setCompositionsLoaded(false);
     try {
-      const res = await fetch("/api/calculations");
-      setSavedCalcs(res.ok ? await res.json() : []);
+      const res = await fetch("/api/compositions");
+      setCompositions(res.ok ? await res.json() : []);
     } catch {
-      setSavedCalcs([]);
+      setCompositions([]);
     } finally {
-      setCalcsLoaded(true);
+      setCompositionsLoaded(true);
     }
   };
 
   // Eager load on mount so the badge count is populated immediately.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { fetchCalcs(); }, []);
+  useEffect(() => { fetchCompositions(); }, []);
 
-  // Re-fetch each time the tab is opened to pick up any calcs saved mid-session.
+  // Re-fetch each time the tab is opened to pick up newly saved compositions.
   useEffect(() => {
-    if (activeTab === "saved") fetchCalcs();
+    if (activeTab === "compositions") fetchCompositions();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab]);
 
@@ -207,37 +202,23 @@ export default function Home() {
             border: "1px solid rgba(255,255,255,0.5)",
           }}
         >
-          <TabBtn
-            active={activeTab === "search"}
-            onClick={() => setActiveTab("search")}
-          >
+          <TabBtn active={activeTab === "search"} onClick={() => setActiveTab("search")}>
             <Search size={13} aria-hidden="true" />
             Pesquisar
           </TabBtn>
-          <TabBtn
-            active={activeTab === "saved"}
-            onClick={() => setActiveTab("saved")}
-          >
+          <TabBtn active={activeTab === "compositions"} onClick={() => setActiveTab("compositions")}>
             <BookmarkCheck size={13} aria-hidden="true" />
-            Cálculos salvos
-            {savedCalcs.length > 0 && activeTab !== "saved" && (
+            Minhas composições
+            {compositions.length > 0 && activeTab !== "compositions" && (
               <span
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minWidth: "18px",
-                  height: "18px",
-                  padding: "0 5px",
-                  borderRadius: "100px",
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  backgroundColor: T.teal,
-                  color: "#fff",
-                  lineHeight: 1,
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  minWidth: "18px", height: "18px", padding: "0 5px",
+                  borderRadius: "100px", fontSize: "10px", fontWeight: 700,
+                  backgroundColor: T.teal, color: "#fff", lineHeight: 1,
                 }}
               >
-                {savedCalcs.length > 9 ? "9+" : savedCalcs.length}
+                {compositions.length > 9 ? "9+" : compositions.length}
               </span>
             )}
           </TabBtn>
@@ -272,12 +253,8 @@ export default function Home() {
             </div>
             <h1
               style={{
-                margin: "0 0 7px",
-                fontSize: "27px",
-                fontWeight: 800,
-                letterSpacing: "-0.5px",
-                color: T.primary,
-                lineHeight: 1.1,
+                margin: "0 0 7px", fontSize: "27px", fontWeight: 800,
+                letterSpacing: "-0.5px", color: T.primary, lineHeight: 1.1,
               }}
             >
               Afere
@@ -290,7 +267,6 @@ export default function Home() {
           {/* ── Tab content ── */}
           {activeTab === "search" ? (
             <>
-              {/* Formulário de busca */}
               <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
                 <label
                   htmlFor="procedure-search"
@@ -394,11 +370,11 @@ export default function Home() {
               </div>
             </>
           ) : (
-            <SavedCalcsList
-              calcs={savedCalcs}
-              loaded={calcsLoaded}
+            <CompositionList
+              compositions={compositions}
+              loaded={compositionsLoaded}
               onDelete={(publicID) =>
-                setSavedCalcs((prev) => prev.filter((c) => c.public_id !== publicID))
+                setCompositions((prev) => prev.filter((c) => c.public_id !== publicID))
               }
             />
           )}
@@ -411,38 +387,19 @@ export default function Home() {
 
 // ─── Tab button ───────────────────────────────────────────────────────────────
 
-function TabBtn({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
+function TabBtn({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
     <button
       type="button"
       onClick={onClick}
       style={{
-        flex: 1,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "6px",
-        padding: "8px 14px",
-        borderRadius: "9px",
-        border: "none",
-        fontSize: "13px",
-        fontWeight: 600,
-        fontFamily: "inherit",
-        cursor: "pointer",
+        flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
+        gap: "6px", padding: "8px 14px", borderRadius: "9px", border: "none",
+        fontSize: "13px", fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
         transition: "background-color 140ms ease, color 140ms ease, box-shadow 140ms ease",
         backgroundColor: active ? "#FFFFFF" : "transparent",
         color: active ? T.primary : T.muted,
-        boxShadow: active
-          ? "0 1px 3px rgba(15,23,42,0.10), 0 1px 1px rgba(15,23,42,0.06)"
-          : "none",
+        boxShadow: active ? "0 1px 3px rgba(15,23,42,0.10), 0 1px 1px rgba(15,23,42,0.06)" : "none",
       }}
     >
       {children}
@@ -450,14 +407,14 @@ function TabBtn({
   );
 }
 
-// ─── Saved calculations list ──────────────────────────────────────────────────
+// ─── Composition list ─────────────────────────────────────────────────────────
 
-function SavedCalcsList({
-  calcs,
+function CompositionList({
+  compositions,
   loaded,
   onDelete,
 }: {
-  calcs: CalcSummary[];
+  compositions: CompositionItem[];
   loaded: boolean;
   onDelete: (publicID: string) => void;
 }) {
@@ -475,7 +432,7 @@ function SavedCalcsList({
     );
   }
 
-  if (calcs.length === 0) {
+  if (compositions.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "40px 0" }}>
         <BookmarkCheck
@@ -484,12 +441,12 @@ function SavedCalcsList({
           style={{ color: T.inputBorder, margin: "0 auto 14px", display: "block" }}
         />
         <p style={{ margin: "0 0 6px", fontSize: "14px", fontWeight: 600, color: T.secondary }}>
-          Nenhum cálculo salvo ainda
+          Nenhuma composição salva ainda
         </p>
         <p style={{ margin: 0, fontSize: "12.5px", lineHeight: 1.6, color: T.muted }}>
-          Calcule um procedimento e clique em{" "}
-          <span style={{ fontWeight: 600, color: T.primary }}>"Salvar cálculo"</span>{" "}
-          para guardá-lo aqui.
+          Monte uma composição e clique em{" "}
+          <span style={{ fontWeight: 600, color: T.primary }}>"Salvar composição"</span>{" "}
+          para guardá-la aqui.
         </p>
       </div>
     );
@@ -498,50 +455,46 @@ function SavedCalcsList({
   return (
     <div>
       <p style={{ margin: "0 0 14px", fontSize: "11.5px", fontWeight: 600, color: T.muted, letterSpacing: "0.2px" }}>
-        {calcs.length} cálculo{calcs.length !== 1 ? "s" : ""} salvo{calcs.length !== 1 ? "s" : ""}
+        {compositions.length} composição{compositions.length !== 1 ? "ões" : ""} salva{compositions.length !== 1 ? "s" : ""}
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        {calcs.map((calc) => (
-          <SavedCalcRow key={calc.public_id} calc={calc} onDelete={onDelete} />
+        {compositions.map((comp) => (
+          <CompositionRow key={comp.public_id} comp={comp} onDelete={onDelete} />
         ))}
       </div>
     </div>
   );
 }
 
-function SavedCalcRow({
-  calc,
+function CompositionRow({
+  comp,
   onDelete,
 }: {
-  calc: CalcSummary;
+  comp: CompositionItem;
   onDelete: (publicID: string) => void;
 }) {
   const [hovered, setHovered] = useState(false);
   const [trashHovered, setTrashHovered] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  const date = new Date(calc.created_at).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
+  const date = new Date(comp.created_at).toLocaleDateString("pt-BR", {
+    day: "2-digit", month: "2-digit", year: "numeric",
   });
 
-  const href = calc.procedure_sbn_code
-    ? `/procedure?sbn=${encodeURIComponent(calc.procedure_sbn_code)}`
-    : `/procedure?q=${encodeURIComponent(calc.procedure_name)}`;
+  const href = `/procedure?composition=${encodeURIComponent(comp.public_id)}`;
 
   async function handleDelete(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    if (!window.confirm(`Apagar "${calc.procedure_name}"?`)) return;
+    if (!window.confirm(`Apagar composição "${comp.name}"?`)) return;
     setDeleting(true);
     try {
-      const res = await fetch(`/api/calculations/${calc.public_id}`, { method: "DELETE" });
+      const res = await fetch(`/api/compositions/${comp.public_id}`, { method: "DELETE" });
       if (res.ok || res.status === 404) {
-        onDelete(calc.public_id);
+        onDelete(comp.public_id);
       }
     } catch {
-      // leave item in list on network error
+      // leave item on network error
     } finally {
       setDeleting(false);
     }
@@ -553,8 +506,7 @@ function SavedCalcRow({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        display: "block",
-        textDecoration: "none",
+        display: "block", textDecoration: "none",
         borderRadius: "10px",
         border: `1.5px solid ${hovered ? T.inputFocus : T.cardBorder}`,
         padding: "12px 14px",
@@ -564,90 +516,65 @@ function SavedCalcRow({
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "14px" }}>
-        {/* Left: name + meta */}
+        {/* Left: composition name + procedure + meta */}
         <div style={{ minWidth: 0, flex: 1 }}>
           <p
             style={{
-              margin: "0 0 4px",
-              fontSize: "13.5px",
-              fontWeight: 600,
-              color: T.primary,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
+              margin: "0 0 2px", fontSize: "13.5px", fontWeight: 700,
+              color: T.primary, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
             }}
           >
-            {calc.procedure_name}
+            {comp.name}
+          </p>
+          <p
+            style={{
+              margin: "0 0 5px", fontSize: "11.5px", color: T.secondary,
+              overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+            }}
+          >
+            {comp.sbn_procedure_name}
           </p>
           <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "6px" }}>
             <span style={{ fontSize: "11px", color: T.muted }}>{date}</span>
-            {calc.auxiliaries_count > 0 && (
-              <span
-                style={{
-                  fontSize: "10.5px", fontWeight: 600, color: T.teal,
-                  background: "#CCFBF1", borderRadius: "4px", padding: "1px 6px",
-                }}
-              >
-                {calc.auxiliaries_count} aux.
+            {comp.auxiliaries_count > 0 && (
+              <span style={{ fontSize: "10.5px", fontWeight: 600, color: T.teal, background: "#CCFBF1", borderRadius: "4px", padding: "1px 6px" }}>
+                {comp.auxiliaries_count} aux.
               </span>
             )}
-            {calc.requires_anesthesia && (
-              <span
-                style={{
-                  fontSize: "10.5px", fontWeight: 600, color: "#6D28D9",
-                  background: "#EDE9FE", borderRadius: "4px", padding: "1px 6px",
-                }}
-              >
+            {comp.requires_anesthesia && (
+              <span style={{ fontSize: "10.5px", fontWeight: 600, color: "#6D28D9", background: "#EDE9FE", borderRadius: "4px", padding: "1px 6px" }}>
                 Anest.
               </span>
             )}
+            <span style={{ fontSize: "10.5px", color: T.muted }}>
+              {comp.access_route_type === "same" ? "Mesma via" : "Vias diferentes"}
+            </span>
           </div>
         </div>
 
-        {/* Right: total + delete */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
-          <div style={{ textAlign: "right" }}>
-            <p
-              style={{
-                margin: "0 0 1px",
-                fontSize: "15px",
-                fontWeight: 700,
-                color: T.primary,
-                fontVariantNumeric: "tabular-nums",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {money.format(calc.team_total_value)}
-            </p>
-            <p style={{ margin: 0, fontSize: "10.5px", color: T.muted }}>Total equipe</p>
-          </div>
-
-          <button
-            type="button"
-            aria-label="Apagar cálculo"
-            disabled={deleting}
-            onClick={handleDelete}
-            onMouseEnter={() => setTrashHovered(true)}
-            onMouseLeave={() => setTrashHovered(false)}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "30px",
-              height: "30px",
-              border: `1px solid ${trashHovered ? "#FECACA" : T.cardBorder}`,
-              borderRadius: "7px",
-              backgroundColor: trashHovered ? "#FFF1F1" : "transparent",
-              color: trashHovered ? "#DC2626" : T.muted,
-              cursor: deleting ? "default" : "pointer",
-              opacity: deleting ? 0.5 : 1,
-              transition: "background-color 120ms ease, border-color 120ms ease, color 120ms ease",
-              flexShrink: 0,
-            }}
-          >
-            <Trash2 size={13} aria-hidden="true" />
-          </button>
-        </div>
+        {/* Right: delete */}
+        <button
+          type="button"
+          aria-label="Remover composição"
+          disabled={deleting}
+          onClick={handleDelete}
+          onMouseEnter={() => setTrashHovered(true)}
+          onMouseLeave={() => setTrashHovered(false)}
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "center",
+            width: "30px", height: "30px",
+            border: `1px solid ${trashHovered ? "#FECACA" : T.cardBorder}`,
+            borderRadius: "7px",
+            backgroundColor: trashHovered ? "#FFF1F1" : "transparent",
+            color: trashHovered ? "#DC2626" : T.muted,
+            cursor: deleting ? "default" : "pointer",
+            opacity: deleting ? 0.5 : 1,
+            transition: "background-color 120ms ease, border-color 120ms ease, color 120ms ease",
+            flexShrink: 0, marginTop: "2px",
+          }}
+        >
+          <Trash2 size={13} aria-hidden="true" />
+        </button>
       </div>
     </Link>
   );
