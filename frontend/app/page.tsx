@@ -31,7 +31,7 @@ const EXAMPLES = [
   "Derivação ventrículo-peritoneal",
   "Aneurisma cerebral",
   "Hematoma intracraniano",
-  "Tumor cerebral",
+  "Tumores gerais",
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
