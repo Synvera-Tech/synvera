@@ -12,8 +12,8 @@ The entire system is built under **Spec-Driven Design (SDD)**: the OpenAPI contr
 - **Real-time composition** — select an SBN procedure, pick which CBHPM codes were performed, toggle the access route and anesthesia; fees recalculate in under 150 ms
 - **Multi-procedure support** — compose multiple SBN procedures in one bill; CBHPM 4.1/4.2 discount rules applied automatically
 - **CBHPM-mandated auxiliaries** — auxiliary count is locked to the value specified in the CBHPM 2022 manual when the selected codes define it; free selection otherwise
-- **Save & retrieve calculations** — persist a completed valuation by URL-safe public ID; retrieve it later without authentication
-- **Delete saved calculations** — remove a saved calculation with a confirmation guard
+- **Save compositions** — name and persist a procedural template (SBN procedure + codes + access route + aux + anesthesia) with no financial data; fees always recalculate from the current CBHPM table on load
+- **Manage compositions** — list, reload, edit, and delete saved compositions from the home page; load one back into the procedure page via `?composition={id}`
 - **Shareable report** — copy a pre-filled URL that reconstructs the exact calculation state for any recipient
 
 ---
@@ -39,7 +39,7 @@ afere/
 ├── .github/workflows/           # CI pipelines
 ├── backend/
 │   ├── cmd/api/main.go          # Entry point
-│   ├── db/migrations/           # SQL migrations (001–007)
+│   ├── db/migrations/           # SQL migrations (001–008)
 │   ├── internal/
 │   │   ├── config/              # Env config
 │   │   ├── generated/           # oapi-codegen output
@@ -130,7 +130,7 @@ Apply migrations in order against your Neon database:
 psql "$DATABASE_URL" -f backend/db/migrations/001_schema.sql
 psql "$DATABASE_URL" -f backend/db/migrations/002_seed_portes.sql
 psql "$DATABASE_URL" -f backend/db/migrations/003_seed_procedures.sql
-# ... through 007
+# ... through 008
 ```
 
 Migration 003 is generated from `procedures.json` via `data/generate_seed.py`. Re-run the script after updating the procedure catalog.
@@ -152,11 +152,14 @@ python3 data/generate_seed.py      # → backend/db/migrations/003_seed_procedur
 |---|---|---|
 | `GET` | `/api/procedures/search?q=` | Search SBN procedures (≥2 chars) |
 | `GET` | `/api/procedures/{id}` | Procedure detail with CBHPM codes |
-| `POST` | `/api/calculate` | Compute fee breakdown |
-| `POST` | `/api/calculations` | Save a completed calculation |
-| `GET` | `/api/calculations` | List saved calculations |
-| `GET` | `/api/calculations/{public_id}` | Retrieve a saved calculation |
-| `DELETE` | `/api/calculations/{public_id}` | Delete a saved calculation |
+| `POST` | `/api/calculate` | Compute fee breakdown (stateless) |
+| `POST` | `/api/compositions` | Save a new composition |
+| `GET` | `/api/compositions` | List saved compositions |
+| `GET` | `/api/compositions/{public_id}` | Get composition detail |
+| `PUT` | `/api/compositions/{public_id}` | Update a composition |
+| `DELETE` | `/api/compositions/{public_id}` | Delete a composition |
+| `POST` | `/api/calculations` | *(Legacy)* Persist a share-report snapshot |
+| `GET` | `/api/calculations/{public_id}` | *(Legacy)* Retrieve a share-report snapshot |
 | `GET` | `/health` | Health check |
 
 Full schema: [`openapi.yaml`](openapi.yaml)
