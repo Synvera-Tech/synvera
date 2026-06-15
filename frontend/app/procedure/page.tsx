@@ -691,7 +691,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all duration-200",
                           checked
-                            ? "border-primary bg-primary text-white dark:border-[#4A6A93] dark:bg-[#4A6A93]"
+                            ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
                             : "border-slate-300 dark:border-slate-600",
                         )}
                       >
@@ -706,7 +706,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           <span className={cn(
                             "rounded-lg border px-2 py-0.5 text-[11px] font-semibold",
                             checked
-                              ? "border-primary/30 text-primary dark:border-[#4A6A93]/30 dark:text-[#718BAE]"
+                              ? "border-primary/30 text-primary dark:border-[#5D7EA7]/30 dark:text-[#718BAE]"
                               : "border-slate-200 dark:border-slate-700 text-slate-400",
                           )}>
                             {c.porte}
@@ -751,14 +751,14 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "flex w-full items-start gap-3 rounded-xl border p-3 text-left transition-colors",
                           isSelected
-                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#4A6A93]/20 dark:bg-[#1F2A35]/50"
+                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
                             : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                         )}
                       >
                         <span className={cn(
                           "mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                           isSelected
-                            ? "border-primary bg-primary dark:border-[#4A6A93] dark:bg-[#5D7EA7]"
+                            ? "border-primary bg-primary dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
                             : "border-slate-300 dark:border-slate-600",
                         )}>
                           {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
@@ -806,7 +806,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           className={cn(
                             "px-3 h-9 rounded-xl border text-sm font-semibold transition-colors",
                             spineModifiers.quantity_selected === qty
-                              ? "border-primary bg-primary text-white dark:border-[#4A6A93] dark:bg-[#4A6A93]"
+                              ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
                               : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary/40",
                           )}
                         >
@@ -831,14 +831,14 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                             className={cn(
                               "flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition-colors",
                               spineModifiers.laterality === lateral
-                                ? "border-primary/30 bg-[#EAF0F6] dark:border-[#4A6A93]/20 dark:bg-[#1F2A35]/50"
+                                ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
                                 : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                             )}
                           >
                             <span className={cn(
                               "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                               spineModifiers.laterality === lateral
-                                ? "border-primary bg-primary dark:border-[#4A6A93] dark:bg-[#5D7EA7]"
+                                ? "border-primary bg-primary dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
                                 : "border-slate-300 dark:border-slate-600",
                             )}>
                               {spineModifiers.laterality === lateral && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
@@ -887,10 +887,10 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           "h-9 w-9 rounded-xl border text-sm font-semibold transition-colors",
                           auxIsLocked
                             ? auxiliariesCount === n
-                              ? "border-primary bg-primary text-white dark:border-[#4A6A93] dark:bg-[#4A6A93] cursor-default"
+                              ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7] cursor-default"
                               : "border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed"
                             : auxiliariesCount === n
-                              ? "border-primary bg-primary text-white dark:border-[#4A6A93] dark:bg-[#4A6A93]"
+                              ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
                               : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary/40",
                         )}
                       >
@@ -971,14 +971,14 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     className={cn(
                       "flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors",
                       activePediatric === null
-                        ? "border-primary/30 bg-[#EAF0F6] dark:border-[#4A6A93]/20 dark:bg-[#1F2A35]/50"
+                        ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
                         : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                     )}
                   >
                     <span className={cn(
                       "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                       activePediatric === null
-                        ? "border-primary bg-primary dark:border-[#4A6A93] dark:bg-[#5D7EA7]"
+                        ? "border-primary bg-primary dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
                         : "border-slate-300 dark:border-slate-600",
                     )}>
                       {activePediatric === null && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
@@ -998,14 +998,14 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors",
                           isActive
-                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#4A6A93]/20 dark:bg-[#1F2A35]/50"
+                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
                             : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                         )}
                       >
                         <span className={cn(
                           "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                           isActive
-                            ? "border-primary bg-primary dark:border-[#4A6A93] dark:bg-[#5D7EA7]"
+                            ? "border-primary bg-primary dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
                             : "border-slate-300 dark:border-slate-600",
                         )}>
                           {isActive && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
@@ -1037,7 +1037,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
         </div>
 
         {/* ── Right panel ─────────────────────────────────────────────────── */}
-        <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#4A6A93]/20 p-7">
+        <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#5D7EA7]/20 p-7">
           <div className="results-card-header mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calculator aria-hidden="true" className="text-primary" size={18} />
@@ -1058,7 +1058,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     <div key={b.cbhpm_code} className={cn(
                       "flex items-end justify-between gap-1 rounded-xl px-3 py-2",
                       b.is_principal
-                        ? "border border-primary/20 bg-[#EAF0F6] dark:border-[#4A6A93]/15 dark:bg-[#1F2A35]/40"
+                        ? "border border-primary/20 bg-[#EAF0F6] dark:border-[#5D7EA7]/15 dark:bg-[#1F2A35]/40"
                         : "",
                     )}>
                       <div className="min-w-0">
@@ -1083,7 +1083,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                 </dl>
               </section>
 
-              <div className="teal-divider my-4" />
+              <div className="sapphire-divider my-4" />
 
               {/* ── Regra aplicada ──────────────────────────────────────── */}
               <section className="mb-5">
@@ -1150,7 +1150,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                 </dl>
               </section>
 
-              <div className="teal-divider my-4" />
+              <div className="sapphire-divider my-4" />
 
               {/* ── Cálculo dos auxiliares ──────────────────────────────── */}
               <section className="mb-5">
@@ -1173,7 +1173,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                 </dl>
               </section>
 
-              <div className="teal-divider my-4" />
+              <div className="sapphire-divider my-4" />
 
               {/* ── Valor Final ─────────────────────────────────────────── */}
               <div
@@ -1219,7 +1219,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                   <button
                     id="share-calculation-btn"
                     onClick={shareCalculation}
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/5 active:scale-[0.98] dark:border-[#4A6A93]/20 dark:text-[#718BAE]"
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/5 active:scale-[0.98] dark:border-[#5D7EA7]/20 dark:text-[#718BAE]"
                     type="button"
                   >
                     <Share2 size={16} /> Compartilhar cálculo
@@ -1240,7 +1240,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     loadedCompositionId ? (
                       /* Update flow: composition was loaded from URL */
                       compositionSaved ? (
-                        <div className="flex items-center justify-center gap-2 rounded-2xl border border-emerald-200 dark:border-emerald-700/40 bg-emerald-50/70 dark:bg-emerald-900/15 px-4 py-3 text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                        <div className="flex items-center justify-center gap-2 rounded-2xl border border-sapphire-200 dark:border-sapphire-700/40 bg-sapphire-50/70 dark:bg-sapphire-900/15 px-4 py-3 text-sm font-semibold text-sapphire-700 dark:text-sapphire-400">
                           <Check size={16} />
                           Composição atualizada com sucesso
                         </div>
@@ -1267,7 +1267,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     ) : (
                       /* Save flow: new composition */
                       compositionSaved ? (
-                        <div className="flex items-center justify-center gap-2 rounded-2xl border border-emerald-200 dark:border-emerald-700/40 bg-emerald-50/70 dark:bg-emerald-900/15 px-4 py-3 text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                        <div className="flex items-center justify-center gap-2 rounded-2xl border border-sapphire-200 dark:border-sapphire-700/40 bg-sapphire-50/70 dark:bg-sapphire-900/15 px-4 py-3 text-sm font-semibold text-sapphire-700 dark:text-sapphire-400">
                           <Check size={16} />
                           Composição salva!{" "}
                           <Link
@@ -1297,7 +1297,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                             <button
                               onClick={handleSaveComposition}
                               disabled={savingComposition || !compositionName.trim()}
-                              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-[#4A6A93]/20 dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
+                              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-[#5D7EA7]/20 dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
                               type="button"
                             >
                               {savingComposition
@@ -1400,7 +1400,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             <button
               type="button"
               onClick={copyShareLink}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] dark:border-[#4A6A93]/20 dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] dark:border-[#5D7EA7]/20 dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
             >
               {copied ? <><Check size={16} /> Link copiado!</> : <><Copy size={16} /> Copiar link</>}
             </button>

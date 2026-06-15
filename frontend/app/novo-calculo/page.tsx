@@ -17,12 +17,12 @@ const T = {
   secondary:   "#475569",
   muted:       "#64748B",
   inputBorder: "#CBD5E1",
-  inputFocus:  "#4A6A93",
-  btnBg:       "#4A6A93",
+  inputFocus:  "#5D7EA7",
+  btnBg:       "#5D7EA7",
   btnHover:    "#2C4F78",
   btnDisabled: "#CBD5E1",
   dropHover:   "#F8FAFC",
-  teal:        "#232D3B",
+  sapphire:        "#232D3B",
 } as const;
 
 const EXAMPLES = [
@@ -305,7 +305,7 @@ export default function NovoCalculo() {
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
                   minWidth: "18px", height: "18px", padding: "0 5px",
                   borderRadius: "100px", fontSize: "10px", fontWeight: 700,
-                  backgroundColor: "#4A6A93", color: "#fff", lineHeight: 1,
+                  backgroundColor: "#5D7EA7", color: "#fff", lineHeight: 1,
                 }}
               >
                 {compositions.length > 9 ? "9+" : compositions.length}
@@ -392,7 +392,7 @@ export default function NovoCalculo() {
                       width: "100%", height: "48px", paddingLeft: "38px", paddingRight: navigating ? "40px" : "14px",
                       fontSize: "14.5px", fontFamily: "inherit", color: T.primary,
                       backgroundColor: T.surface,
-                      border: `1.5px solid ${focused || navigating ? "#4A6A93" : "#B8C5D6"}`,
+                      border: `1.5px solid ${focused || navigating ? "#5D7EA7" : "#B8C5D6"}`,
                       borderRadius: showDropdown ? "10px 10px 0 0" : "10px",
                       outline: "none", boxSizing: "border-box",
                       transition: "border-color 150ms ease, border-radius 80ms ease",
@@ -406,7 +406,7 @@ export default function NovoCalculo() {
                       aria-hidden="true"
                       style={{
                         position: "absolute", right: "14px", top: "50%", transform: "translateY(-50%)",
-                        color: "#4A6A93", zIndex: 1,
+                        color: "#5D7EA7", zIndex: 1,
                       }}
                     />
                   )}
@@ -440,7 +440,7 @@ export default function NovoCalculo() {
                           style={{
                             display: "flex", alignItems: "center", gap: "10px",
                             padding: "9px 14px", cursor: navigating ? "default" : "pointer",
-                            backgroundColor: isChosen ? "#4A6A93" : i === activeIdx ? T.dropHover : "transparent",
+                            backgroundColor: isChosen ? "#5D7EA7" : i === activeIdx ? T.dropHover : "transparent",
                             opacity: isDimmed ? 0.45 : 1,
                             transition: "background-color 120ms ease, opacity 120ms ease",
                           }}
@@ -496,7 +496,7 @@ export default function NovoCalculo() {
                       aria-hidden="true"
                       style={{
                         width: "14px", height: "14px", flexShrink: 0,
-                        border: "2px solid rgba(53,92,138,0.30)", borderTopColor: "#4A6A93",
+                        border: "2px solid rgba(53,92,138,0.30)", borderTopColor: "#5D7EA7",
                         borderRadius: "50%", display: "inline-block",
                         animation: "spin 0.7s linear infinite",
                       }}
@@ -947,7 +947,7 @@ function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: bo
     ? "#232D3B"
     : hovered
     ? "#2C4F78"
-    : "#4A6A93";
+    : "#5D7EA7";
 
   return (
     <button
@@ -999,7 +999,7 @@ function ExampleChip({ label, onClick }: { label: string; onClick: () => void })
       style={{
         padding: "5px 12px",
         backgroundColor: hovered ? "rgba(53,92,138,0.06)" : "#FFFFFF",
-        border: `1px solid ${hovered ? "#4A6A93" : "#CBD5E1"}`,
+        border: `1px solid ${hovered ? "#5D7EA7" : "#CBD5E1"}`,
         borderRadius: "100px", fontSize: "12px", fontWeight: 500,
         fontFamily: "inherit", color: hovered ? "#232D3B" : "#475569",
         cursor: "pointer",

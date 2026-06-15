@@ -18,7 +18,7 @@ const T = {
   inputFocus:  "#94A3B8",
   btnBg:       "#1E293B",
   btnHover:    "#334155",
-  teal:        "#232D3B",
+  sapphire:        "#232D3B",
 } as const;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -172,14 +172,14 @@ export default function Home() {
             style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               padding: "11px 24px",
-              backgroundColor: "#4A6A93",
+              backgroundColor: "#5D7EA7",
               color: "#fff",
               borderRadius: "10px",
               fontSize: "14px", fontWeight: 600,
               textDecoration: "none",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#2C4F78")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#4A6A93")}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#5D7EA7")}
           >
             <Plus size={15} aria-hidden="true" />
             Novo cálculo
@@ -631,7 +631,7 @@ function CompositionCard({ comp }: { comp: CompositionItem }) {
       <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "5px" }}>
         <span style={{ fontSize: "11px", color: T.muted }}>{date}</span>
         {comp.auxiliaries_count > 0 && (
-          <span style={{ fontSize: "10.5px", fontWeight: 600, color: T.teal, background: "rgba(53,92,138,0.12)", borderRadius: "4px", padding: "1px 5px" }}>
+          <span style={{ fontSize: "10.5px", fontWeight: 600, color: T.sapphire, background: "rgba(53,92,138,0.12)", borderRadius: "4px", padding: "1px 5px" }}>
             {comp.auxiliaries_count} aux.
           </span>
         )}
@@ -644,7 +644,7 @@ function CompositionCard({ comp }: { comp: CompositionItem }) {
       <div
         style={{
           marginTop: "12px", display: "flex", alignItems: "center", gap: "3px",
-          color: "#4A6A93", fontSize: "12px", fontWeight: 600,
+          color: "#5D7EA7", fontSize: "12px", fontWeight: 600,
         }}
       >
         Abrir
@@ -699,7 +699,7 @@ function CapabilityCard({
           width: "30px", height: "30px", borderRadius: "8px",
           backgroundColor: "#EEF3F8",
           display: "flex", alignItems: "center", justifyContent: "center",
-          color: T.teal,
+          color: T.sapphire,
           marginBottom: "12px",
         }}
       >
@@ -726,7 +726,7 @@ function CapabilityCard({
         <span
           style={{
             display: "inline-flex", alignItems: "center", gap: "3px",
-            fontSize: "12px", fontWeight: 600, color: "#4A6A93",
+            fontSize: "12px", fontWeight: 600, color: "#5D7EA7",
           }}
         >
           {actionLabel}
