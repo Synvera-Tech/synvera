@@ -461,7 +461,11 @@ func (r *PostgresRepository) GetByID(id string) (*models.ProcedureWithCodes, err
 	}
 
 	rows, err := r.pool.Query(ctx, `
-		SELECT cc.code, cc.description, m.porte_code, COALESCE(cc.num_auxiliaries, 0)
+		SELECT cc.code, cc.description, m.porte_code,
+		       COALESCE(cc.num_auxiliaries, 0),
+		       COALESCE(cc.billing_mode, 'PER_PROCEDURE'),
+		       COALESCE(cc.specialty, 'NEUROSURGERY'),
+		       COALESCE(cc.laterality_support, false)
 		FROM sbn_cbhpm_mappings m
 		JOIN cbhpm_codes cc ON cc.id = m.cbhpm_code_id
 		WHERE m.sbn_procedure_id = $1
@@ -474,9 +478,12 @@ func (r *PostgresRepository) GetByID(id string) (*models.ProcedureWithCodes, err
 
 	for rows.Next() {
 		var c models.CBHPMCode
-		if err := rows.Scan(&c.Code, &c.Description, &c.Porte, &c.NumAuxiliaries); err != nil {
+		var billingMode, specialty string
+		if err := rows.Scan(&c.Code, &c.Description, &c.Porte, &c.NumAuxiliaries, &billingMode, &specialty, &c.LateralitySupport); err != nil {
 			return nil, fmt.Errorf("postgres: codes scan: %w", err)
 		}
+		c.BillingMode = models.BillingMode(billingMode)
+		c.Specialty = models.Specialty(specialty)
 		p.Codes = append(p.Codes, c)
 	}
 	if err := rows.Err(); err != nil {
