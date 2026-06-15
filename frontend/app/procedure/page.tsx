@@ -783,7 +783,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
               </div>
 
               {/* Spine billing variables */}
-              {allCbhpmCodes.some((c) => c.billing_mode === "PER_SEGMENT") && (
+              {allCbhpmCodes.some((c) => c.specialty === "SPINE") && (
                 <div className="space-y-4 rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
                   <div className="flex items-center gap-2">
                     <Stethoscope aria-hidden="true" className="text-primary" size={15} />
