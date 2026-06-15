@@ -5,8 +5,8 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
   return (
     <input
       className={cn(
-        "h-12 w-full rounded-2xl bg-white dark:bg-[#2A3646] px-3.5 text-sm text-slate-950 dark:text-slate-50 outline-none transition",
-        "border-none ring-0 focus:ring-0 focus:outline-none focus:border-none",
+        "h-12 w-full rounded-full bg-white dark:bg-[#2A3646] px-3.5 text-sm text-slate-950 dark:text-slate-50 outline-none transition",
+        "border-none ring-0 focus:ring-0 focus:outline-none focus:border-none appearance-none",
         "placeholder:text-slate-400 dark:placeholder:text-slate-500",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className,
@@ -16,7 +16,9 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
         outline: 'none !important',
         boxShadow: 'none !important',
         borderColor: 'transparent !important',
-        borderWidth: '0 !important'
+        borderWidth: '0 !important',
+        appearance: 'none',
+        WebkitAppearance: 'none'
       }}
       {...props}
     />
