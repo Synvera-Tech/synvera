@@ -5,12 +5,13 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
   return (
     <input
       className={cn(
-        "h-12 w-full rounded-[10px] border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3.5 text-sm text-slate-950 dark:text-slate-50 outline-none transition focus:border-primary focus:bg-white dark:focus:bg-slate-800 focus:ring-[3px] focus:ring-primary/15",
-        "shadow-[inset_0_1px_3px_rgba(0,0,0,0.06)] dark:shadow-[inset_0_1px_3px_rgba(0,0,0,0.3)]",
+        "h-12 w-full bg-white dark:bg-[#2A3646] px-3.5 text-sm text-slate-950 dark:text-slate-50 outline-none transition",
+        "border-none ring-0 focus:ring-0 focus:outline-none",
         "placeholder:text-slate-400 dark:placeholder:text-slate-500",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
+      style={{ border: 'none', outline: 'none', boxShadow: 'none' }}
       {...props}
     />
   );

@@ -92,7 +92,7 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
           {value.map((v) => (
             <span
               key={v.id}
-              className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 dark:border-slate-700 bg-blue-50 dark:bg-slate-800/40 px-3 py-1 text-[11px] font-semibold text-blue-700 dark:text-slate-300"
+              className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 dark:border-slate-600 bg-blue-50 dark:bg-slate-700/50 px-3 py-1 text-[11px] font-semibold text-blue-700 dark:text-slate-200"
             >
               {v.name}
               <button
@@ -143,7 +143,7 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
                 className={cn(
                   "block w-full border-b border-slate-50 dark:border-slate-800 px-4 py-3.5 text-left text-sm last:border-b-0 transition-colors",
                   selected
-                    ? "bg-blue-50 dark:bg-slate-800/40"
+                    ? "bg-blue-50 dark:bg-slate-700/50"
                     : "hover:bg-slate-50 dark:hover:bg-slate-800",
                 )}
               >
