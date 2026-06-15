@@ -32,8 +32,8 @@ const EXAMPLES = [
   "Aneurisma cerebral",
   "Hematoma intracraniano",
   "Tumores gerais",
-  "Infiltração de coluna (dor axial)",
-  "Rizotomia de facetas",
+  "INFILTRAÇÃO DE COLUNA (DOR AXIAL E/OU RADICULAR)",
+  "RIZOTOMIA DE FACETAS POR RADIOFREQUÊNCIA",
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
