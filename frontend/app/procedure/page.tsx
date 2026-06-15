@@ -639,7 +639,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
       <div className="main-grid relative z-[1] mx-auto grid max-w-[1080px] gap-7 px-5 pb-12">
 
         {/* ── Left panel ──────────────────────────────────────────────────── */}
-        <div className="card-plush rounded-3xl border border-slate-200/80 dark:border-slate-700 dark:bg-slate-900 p-8">
+        <div className="workspace-panel card-plush rounded-3xl border border-slate-200/80 dark:border-slate-700 dark:bg-slate-900 p-8">
           <div className="mb-6 flex items-center gap-2">
             <Stethoscope aria-hidden="true" className="text-primary" size={18} />
             <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">Buscar Procedimento SBN</h2>
@@ -680,7 +680,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                       className={cn(
                         "flex items-start gap-3 rounded-2xl border p-3 transition-colors",
                         checked
-                          ? "border-primary/25 bg-[#EAF0F6] dark:border-[#5F84B3]/20 dark:bg-[#182235]/50"
+                          ? "selected-cbhpm-card"
                           : "border-slate-100 dark:border-slate-800 opacity-60",
                       )}
                     >
@@ -1038,7 +1038,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
         {/* ── Right panel ─────────────────────────────────────────────────── */}
         <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#5F84B3]/20 p-7">
-          <div className="mb-6 flex items-center justify-between">
+          <div className="results-card-header mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calculator aria-hidden="true" className="text-primary" size={18} />
               <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">Valoração</h2>

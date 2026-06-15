@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(frontend/)",
+      "Edit(frontend/)",
+      "Read(CLAUDE.md)"
+    ]
+  }
+}

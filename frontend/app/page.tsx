@@ -285,9 +285,9 @@ function UnauthenticatedEntry() {
       style={{
         minHeight: "100vh",
         background: [
-          "radial-gradient(circle at 50% 0%, rgba(53,92,138,0.18) 0%, transparent 38%)",
-          "radial-gradient(circle at 15% 85%, rgba(30,58,95,0.10) 0%, transparent 36%)",
-          "linear-gradient(180deg, #E6EEF5 0%, #D8E5EE 100%)",
+          "radial-gradient(circle at top center, rgba(53,92,138,0.22) 0%, transparent 50%)",
+          "radial-gradient(circle at bottom right, rgba(53,92,138,0.08) 0%, transparent 60%)",
+          "linear-gradient(180deg, #D4DEE8 0%, #CBD6E2 100%)",
         ].join(", "),
         display: "flex",
         flexDirection: "column",
@@ -311,13 +311,13 @@ function UnauthenticatedEntry() {
         <div
           style={{
             width: "100%", textAlign: "center",
-            background: "#F3F6F9",
+            background: "#F1F5F8",
             backdropFilter: "blur(24px) saturate(160%)",
             WebkitBackdropFilter: "blur(24px) saturate(160%)",
             borderRadius: "24px",
-            border: "1px solid rgba(53,92,138,0.10)",
+            border: "1px solid rgba(53,92,138,0.12)",
             padding: "52px 44px 44px",
-            boxShadow: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.08), 0 24px 70px rgba(15,23,42,0.14)",
+            boxShadow: "0 1px 2px rgba(15,23,42,0.05), 0 4px 12px rgba(15,23,42,0.08), 0 12px 32px rgba(15,23,42,0.12)",
           }}
         >
 
@@ -382,10 +382,7 @@ function UnauthenticatedEntry() {
               fontWeight: 900,
               letterSpacing: "-1.2px",
               lineHeight: 1.06,
-              backgroundImage: "linear-gradient(90deg, #0F2440 0%, #1E5490 55%, #5BAFD6 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+              color: "#243F68",
             }}
           >
             Valoração médica com<br />precisão documental.
@@ -423,14 +420,18 @@ function UnauthenticatedEntry() {
               style={{
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 width: "100%", maxWidth: "260px", height: "50px",
-                background: "linear-gradient(135deg, #1A3558 0%, #4D8EC4 100%)",
-                filter: ctaHovered ? "brightness(1.15)" : "brightness(1)",
+                background: "linear-gradient(135deg, #1E3A5F 0%, #3D7DB8 100%)",
+                boxShadow: ctaHovered
+                  ? "0 4px 8px rgba(30,58,95,0.20), 0 10px 24px rgba(30,58,95,0.32), 0 16px 40px rgba(30,58,95,0.25)"
+                  : "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25), 0 12px 32px rgba(30,58,95,0.18)",
                 color: "#fff",
                 borderRadius: "12px",
                 fontSize: "15px", fontWeight: 600,
                 letterSpacing: "0.1px",
                 textDecoration: "none",
-                transition: "filter 160ms ease",
+                border: "none",
+                transition: "all 200ms ease",
+                transform: ctaHovered ? "translateY(-2px)" : "translateY(0)",
               }}
             >
               Iniciar cálculo
