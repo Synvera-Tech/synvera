@@ -32,6 +32,8 @@ const EXAMPLES = [
   "Aneurisma cerebral",
   "Hematoma intracraniano",
   "Tumores gerais",
+  "Infiltração foraminal",
+  "Artroplastia discal",
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
