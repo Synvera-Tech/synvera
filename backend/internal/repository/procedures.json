@@ -4,7 +4,8 @@
     "cbhpm_code": "1.01.01.01-2",
     "description": "Em consultório (no horário normal ou preestabelecido)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CONSULTA GERAL - CRÂNIO",
@@ -25,7 +26,8 @@
     "cbhpm_code": "1.01.01.01-2",
     "description": "Em consultório (no horário normal ou preestabelecido)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CONSULTA + PUNÇÃO LOMBAR",
@@ -39,14 +41,16 @@
     "cbhpm_code": "2.01.04.10-3",
     "description": "Curativos em geral sem anestesia",
     "porte": "1A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "PROGRAMAÇÃO DE ELETRODO PARA NEUROESTIMULAÇÃO",
     "cbhpm_code": "1.01.01.01-2",
     "description": "Em consultório (no horário normal ou preestabelecido)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "PROGRAMAÇÃO DE ELETRODO PARA NEUROESTIMULAÇÃO",
@@ -67,56 +71,64 @@
     "cbhpm_code": "1.01.01.01-2",
     "description": "Em consultório (no horário normal ou preestabelecido)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "INFILTRAÇÃO PONTO-GATILHO OU AGULHAMENTO SECO",
     "cbhpm_code": "2.01.03.30-1",
     "description": "Infiltração de ponto-gatilho ou agulhamento seco (por musculo)",
     "porte": "3A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "INFILTRAÇÃO PONTO-GATILHO OU AGULHAMENTO SECO",
     "cbhpm_code": "2.01.04.10-3",
     "description": "Curativos em geral sem anestesia",
     "porte": "1A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CONSULTA DE RETORNO POS-OPERATÓRIO + CURATIVO",
     "cbhpm_code": "1.01.01.01-2",
     "description": "Em consultório (no horário normal ou preestabelecido)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CONSULTA DE RETORNO POS-OPERATÓRIO + CURATIVO",
     "cbhpm_code": "2.01.04.10-3",
     "description": "Curativos em geral sem anestesia",
     "porte": "1A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CONSULTA GERAL DE COLUNA VERTEBRAL",
     "cbhpm_code": "1.01.01.01-2",
     "description": "Em consultório (no horário normal ou preestabelecido)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CONSULTA GERAL DE COLUNA VERTEBRAL",
     "cbhpm_code": "3.07.15.23-7",
     "description": "Outras afecções da coluna – tratamento incruento",
     "porte": "3B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CONSULTA: FRATURA DE COLUNA VERTEBRAL",
     "cbhpm_code": "1.01.01.01-2",
     "description": "Em consultório (no horário normal ou preestabelecido)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CONSULTA: FRATURA DE COLUNA VERTEBRAL",
@@ -130,14 +142,16 @@
     "cbhpm_code": "3.07.15.23-7",
     "description": "Outras afecções da coluna – tratamento incruento",
     "porte": "3B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - CRÂNIO I (TCE, hipertensão intracraniana, hemorragias, abcesso)",
     "cbhpm_code": "1.01.01.03-9",
     "description": "Consulta em pronto-socorro",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - CRÂNIO I (TCE, hipertensão intracraniana, hemorragias, abcesso)",
@@ -172,7 +186,8 @@
     "cbhpm_code": "1.01.01.03-9",
     "description": "Consulta em pronto-socorro",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - CRÂNIO II (TCE + Fratura de crânio)",
@@ -200,91 +215,104 @@
     "cbhpm_code": "1.01.01.03-9",
     "description": "Consulta em pronto-socorro",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA I (Patologias Não Traumáticas da Coluna)",
     "cbhpm_code": "3.07.15.23-7",
     "description": "Outras afecções da coluna – tratamento incruento",
     "porte": "3B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA II (Patologias Não Traumáticas) + Infiltração Coluna na Emergência",
     "cbhpm_code": "1.01.01.03-9",
     "description": "Consulta em pronto-socorro",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA II (Patologias Não Traumáticas) + Infiltração Coluna na Emergência",
     "cbhpm_code": "3.07.15.23-7",
     "description": "Outras afecções da coluna – tratamento incruento",
     "porte": "3B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA II (Patologias Não Traumáticas) + Infiltração Coluna na Emergência",
     "cbhpm_code": "2.01.03.30-1",
     "description": "Infiltração de ponto-gatilho (por região muscular)",
     "porte": "3A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA III (Patologias Traumáticas/TRM da Coluna) Vertebral",
     "cbhpm_code": "1.01.01.03-9",
     "description": "Consulta em pronto-socorro",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA III (Patologias Traumáticas/TRM da Coluna) Vertebral",
     "cbhpm_code": "3.07.15.34-2",
     "description": "Tratamento conservador do traumatismo raquimedular (por dia)",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA III (Patologias Traumáticas/TRM da Coluna) Vertebral",
     "cbhpm_code": "3.07.15.15-6",
     "description": "Fratura e/ou luxação da coluna vertebral – redução incruenta",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA III (Patologias Traumáticas/TRM da Coluna) Vertebral",
     "cbhpm_code": "3.07.15.23-7",
     "description": "Outras afecções da coluna – tratamento incruento",
     "porte": "3B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA IV (TRM CERVICAL) + TRAÇÃO CERVICAL",
     "cbhpm_code": "1.01.01.03-9",
     "description": "Consulta em pronto-socorro",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA IV (TRM CERVICAL) + TRAÇÃO CERVICAL",
     "cbhpm_code": "3.07.15.34-2",
     "description": "Tratamento conservador do traumatismo raquimedular (por dia)",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER - COLUNA IV (TRM CERVICAL) + TRAÇÃO CERVICAL",
     "cbhpm_code": "3.07.15.29-6",
     "description": "Tração cervical trans-esquelética",
     "porte": "8B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER + PUNÇÃO LOMBAR",
     "cbhpm_code": "1.01.01.03-9",
     "description": "Consulta em pronto-socorro",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RESPOSTA DE PARECER + PUNÇÃO LOMBAR",
@@ -298,14 +326,16 @@
     "cbhpm_code": "2.01.04.10-3",
     "description": "Curativos em geral sem anestesia",
     "porte": "1A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR DE PÓS-OPERATÓRIO",
     "cbhpm_code": "1.01.02.01-9",
     "description": "Visita hospitalar a paciente internado",
     "porte": "2A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR DE PÓS-OPERATÓRIO",
@@ -333,7 +363,8 @@
     "cbhpm_code": "1.01.02.01-9",
     "description": "Visita hospitalar a paciente internado",
     "porte": "2A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR DIÁRIA - CRÂNIO I (Tratamento conservador de TCE, hipertensão intracraniana, hemorr)",
@@ -368,7 +399,8 @@
     "cbhpm_code": "1.01.02.01-9",
     "description": "Visita hospitalar a paciente internado",
     "porte": "2A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - CRÂNIO II (TCE + Fratura de crânio)",
@@ -389,70 +421,80 @@
     "cbhpm_code": "1.01.02.01-9",
     "description": "Visita hospitalar a paciente internado",
     "porte": "2A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - COLUNA I (Patologias Não Traumáticas)",
     "cbhpm_code": "3.07.15.23-7",
     "description": "Outras afecções da coluna – tratamento incruento",
     "porte": "3B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - COLUNA II (Patologias Não Traumáticas) + Infiltração Coluna",
     "cbhpm_code": "1.01.02.01-9",
     "description": "Visita hospitalar a paciente internado",
     "porte": "2A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - COLUNA II (Patologias Não Traumáticas) + Infiltração Coluna",
     "cbhpm_code": "3.07.15.23-7",
     "description": "Outras afecções da coluna – tratamento incruento",
     "porte": "3B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - COLUNA II (Patologias Não Traumáticas) + Infiltração Coluna",
     "cbhpm_code": "2.01.03.30-1",
     "description": "Infiltração de ponto-gatilho (por região muscular)",
     "porte": "3A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - COLUNA II (Patologias Não Traumáticas) + Infiltração Coluna",
     "cbhpm_code": "2.01.04.10-3",
     "description": "Curativos em geral sem anestesia",
     "porte": "1A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - COLUNA III (Patologias Traumáticas/TRM da Coluna)",
     "cbhpm_code": "1.01.02.01-9",
     "description": "Visita hospitalar a paciente internado",
     "porte": "2A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - COLUNA III (Patologias Traumáticas/TRM da Coluna)",
     "cbhpm_code": "3.07.15.34-2",
     "description": "Tratamento conservador do traumatismo raquimedular (por dia)",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR - COLUNA III (Patologias Traumáticas/TRM da Coluna)",
     "cbhpm_code": "3.07.15.15-6",
     "description": "Fratura e/ou luxação da coluna vertebral – redução incruenta",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR + PUNÇÃO LIQUÓRICA",
     "cbhpm_code": "1.01.02.01-9",
     "description": "Visita hospitalar a paciente internado",
     "porte": "2A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR + PUNÇÃO LIQUÓRICA",
@@ -466,14 +508,16 @@
     "cbhpm_code": "2.01.04.10-3",
     "description": "Curativos em geral sem anestesia",
     "porte": "1A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR: ACOMPANHAMENTO DE CATETER PERIDURAL",
     "cbhpm_code": "1.01.02.01-9",
     "description": "Visita hospitalar a paciente internado",
     "porte": "2A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "VISITA HOSPITALAR: ACOMPANHAMENTO DE CATETER PERIDURAL",
@@ -487,7 +531,8 @@
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CATETER DE PIC",
@@ -501,7 +546,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DERIVAÇÃO VENTRICULAR EXTERNA DVE/PIC",
@@ -522,7 +568,8 @@
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DERIVAÇÃO VENTRICULAR EXTERNA DVE/PIC",
@@ -704,7 +751,8 @@
     "cbhpm_code": "3.02.15.02-1",
     "description": "Craniotomia descompressiva Ṫ",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DA FRATURA AFUNDAMENTO DE CRÂNIO",
@@ -760,7 +808,8 @@
     "cbhpm_code": "3.02.15.02-1",
     "description": "Craniotomia descompressiva Ṫ",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DRENAGEM DO HEMATOMA INTRACRANIANO",
@@ -781,7 +830,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DA FRATURA DE CRÂNIO + DRENAGEM DE HEMATOMA INTRACRANIANO",
@@ -830,7 +880,8 @@
     "cbhpm_code": "3.02.15.02-1",
     "description": "Craniotomia descompressiva Ṫ",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DA FRATURA DE CRÂNIO + DRENAGEM DE HEMATOMA INTRACRANIANO",
@@ -851,7 +902,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DRENAGEM HEMATOMA INTRACRANIANO VIA ENDOSCÓPICA",
@@ -886,7 +938,8 @@
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DRENAGEM HEMATOMA INTRACRANIANO VIA ENDOSCÓPICA",
@@ -907,14 +960,16 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CRANIOTOMIA DESCOMPRESSIVA",
     "cbhpm_code": "3.02.15.02-1",
     "description": "Craniotomia descompressiva",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CRANIOTOMIA DESCOMPRESSIVA",
@@ -956,7 +1011,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CRANIOTOMIA DESCOMPRESSIVA",
@@ -991,7 +1047,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ABCESSO CEREBRAL - Drenagem Cirúrgica Aberta",
@@ -1019,7 +1076,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "OSTEOMIELITE DE CRÂNIO - Tratamento Cirúrgico",
@@ -1054,7 +1112,8 @@
     "cbhpm_code": "3.07.15.27-0",
     "description": "Retirada de material de síntese ",
     "porte": "8A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "AVC ISQUÊMICO MALIGNO - Tratamento Cirúrgico",
@@ -1068,7 +1127,8 @@
     "cbhpm_code": "3.02.15.02-1",
     "description": "Craniotomia descompressiva",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "AVC ISQUÊMICO MALIGNO - Tratamento Cirúrgico",
@@ -1103,14 +1163,16 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "FÍSTULA LIQUÓRICA – CRÂNIO",
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "FÍSTULA LIQUÓRICA – CRÂNIO",
@@ -1131,7 +1193,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CRANIOPLASTIA",
@@ -1159,7 +1222,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RETIRADA DE CORPO ESTRANHO DE CRÂNIO",
@@ -1201,7 +1265,8 @@
     "cbhpm_code": "3.07.15.34-2",
     "description": "Tratamento conservador do traumatismo raquimedular (por dia)",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "Monitorização da Pressão Intracraniana (PIC)",
@@ -1285,7 +1350,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "Hipotermia",
@@ -1306,7 +1372,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TUMORES GERAIS",
@@ -1348,7 +1415,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BIÓPSIA ABERTA DE LESÕES DO ENCÉFALO",
@@ -1474,7 +1542,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TUMORES DA BASE CRÂNIO - ANTERIOR (Acesso Subfrontal)",
@@ -1523,7 +1592,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TUMORES BASE CRÂNIO- (Acesso Fronto-Órbito-Zigomático - FOZ)",
@@ -1614,7 +1684,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TUMORES DO ÂNGULO PONTO-CEREBELAR (APC)",
@@ -1642,14 +1713,16 @@
     "cbhpm_code": "3.07.15.09-1",
     "description": "Descompressão medular e/ou cauda equina",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TUMORES DO FORAME MAGNO",
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TUMORES DO FORAME MAGNO",
@@ -1712,7 +1785,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA TRANSESFENOIDAL TRADICIONAL (ACESSO SUBLABIAL)",
@@ -1747,7 +1821,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA TRANSESFENOIDAL TRADICIONAL (ACESSO TRANSNASAL)",
@@ -1782,7 +1857,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirurgico (por hora)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA TRANSESFENOIDAL ENDOSCÓPICA I",
@@ -1894,7 +1970,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirurgico (por hora)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ANEURISMA CEREBRAL ou MAV NÃO-ROTOS",
@@ -1915,7 +1992,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ANEURISMA CEREBRAL ou MAV NÃO-ROTOS",
@@ -1999,7 +2077,8 @@
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ANEURISMA CEREBRAL ou MAV ROTOS",
@@ -2020,7 +2099,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ANEURISMA CEREBRAL ou MAV ROTOS",
@@ -2104,7 +2184,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "MICROCIRURGIA PARA DESCOMPRESSÃO NEUROVASCULAR",
@@ -2153,7 +2234,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BYPASS INDIRETO",
@@ -2216,7 +2298,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BYPASS DIRETO (ATS – ACM) – BAIXO FLUXO",
@@ -2300,7 +2383,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BYPASS DIRETO (ACE – ACI) – ALTO FLUXO",
@@ -2377,7 +2461,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BYPASS DIRETO (SISTEMA VÉRTEBRO BASILAR)",
@@ -2433,7 +2518,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ANGIOGRAFIA CEREBRAL DE 4 VASOS",
@@ -2489,7 +2575,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ANGIOGRAFIA CEREBRAL DE 6 VASOS",
@@ -2573,7 +2660,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "EPISTAXE - TRATAMENTO ENDOVASCULAR",
@@ -2671,7 +2759,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO ENDOVASCULAR DE ANEURISMA CEREBRAL NÃO-ROTO",
@@ -2769,7 +2858,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO ENDOVASCULAR DE ANEURISMA CEREBRAL ROTO",
@@ -2874,7 +2964,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO ENDOVASCULAR DE MALFORMAÇÃO ARTERIOVENOSA (MAV)",
@@ -2972,7 +3063,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO ENDOVASCULAR DE FÍSTULA ARTERIOVENOSA (FAV)",
@@ -3063,7 +3155,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTENOSE VASCULAR INTRACRANIANA",
@@ -3140,7 +3233,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ANGIOPLASTIA DO VASO ESPASMO INTRACRANIANO",
@@ -3224,7 +3318,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "EMBOLIZAÇÃO DE TUMOR DE CABEÇA E PESCOÇO",
@@ -3315,7 +3410,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ANGIOMA DE FACE – TRATAMENTO ENDOVASCULAR",
@@ -3399,7 +3495,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "EMBOLIZAÇÃO DE CISTO ÓSSEO ANEURISMÁTICO",
@@ -3483,7 +3580,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTENOSE DE CARÓTIDA CERVICAL",
@@ -3595,7 +3693,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TROMBECTOMIA MECÂNICA",
@@ -3658,7 +3757,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TUMORES COM LOCALIZAÇÃO POR ESTEREOTAXIA",
@@ -3728,7 +3828,8 @@
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA DA EPILEPSIA I",
@@ -3756,7 +3857,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA DA EPILEPSIA II",
@@ -3777,7 +3879,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA DA EPILEPSIA II",
@@ -3805,7 +3908,8 @@
     "cbhpm_code": "3.14.03.14-0",
     "description": "Implante de gerador para neuroestimulação",
     "porte": "8A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DA EPILEPSIA (Estimulação Elétrica Vagal)",
@@ -3826,7 +3930,8 @@
     "cbhpm_code": "3.14.03.12-3",
     "description": "Exploração cirúrgica de nervos (Neurólise externa)",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DA EPILEPSIA (Estimulação Cerebral Profunda)",
@@ -3861,14 +3966,16 @@
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DA EPILEPSIA (Estimulação Cerebral Profunda)",
     "cbhpm_code": "3.14.03.14-0",
     "description": "Implante de gerador para neuroestimulação",
     "porte": "8A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DA EPILEPSIA (Estimulação Cerebral Profunda)",
@@ -3882,7 +3989,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DA EPILEPSIA (Estimulação Cerebral Profunda)",
@@ -3910,7 +4018,8 @@
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA DOS TRANSTORNOS DE MOVIMENTO (Estimulação Cerebral Profunda)",
@@ -3924,7 +4033,8 @@
     "cbhpm_code": "3.14.03.14-0",
     "description": "Implante de gerador para neuroestimulação",
     "porte": "8A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA DOS TRANSTORNOS DE MOVIMENTO (Estimulação Cerebral Profunda)",
@@ -3938,7 +4048,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA DOS TRANSTORNOS DE MOVIMENTO (Estimulação Cerebral Profunda)",
@@ -3987,7 +4098,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "CIRURGIA DOS TRANSTORNOS DE MOVIMENTO (Método Ablativo)",
@@ -4043,7 +4155,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO CIRÚRGICO DOS TRANSTORNOS DO COMPORTAMENTO",
@@ -4064,7 +4177,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "NEURALGIA DO TRIGÊMEO E DEMAIS NERVOS CRANIANOS I (Técnica percutânea de rizotomia)",
@@ -4085,7 +4199,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "NEURALGIA DO TRIGÊMEO E DEMAIS NERVOS CRANIANOS II (Técnica ablativa química)",
@@ -4106,7 +4221,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO DE DOR CRÔNICA POR CORDOTOMIA I (Técnica cirurgia aberta)",
@@ -4120,14 +4236,16 @@
     "cbhpm_code": "3.07.15.19-9",
     "description": "Laminectomia ou laminotomia",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO DE DOR CRÔNICA POR CORDOTOMIA I (Técnica cirurgia aberta)",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO DE DOR CRÔNICA POR CORDOTOMIA II (Técnica percutânea)",
@@ -4155,7 +4273,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO DE DOR CRÔNICA POR CORDOTOMIA III (Técnica percutânea assistida)",
@@ -4169,7 +4288,8 @@
     "cbhpm_code": "3.07.15.05-9",
     "description": "Cirurgia da coluna por via endoscópica",
     "porte": "11A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TRATAMENTO DE DOR CRÔNICA POR CORDOTOMIA III (Técnica percutânea assistida)",
@@ -4190,7 +4310,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DREZOTOMIA",
@@ -4204,7 +4325,8 @@
     "cbhpm_code": "3.07.15.19-9",
     "description": "Laminectomia ou laminotomia",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DREZOTOMIA",
@@ -4218,42 +4340,48 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU DE NERVO PERIFÉRICO I (Técnica percutânea – Fase)",
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU DE NERVO PERIFÉRICO I (Técnica percutânea – Fase)",
     "cbhpm_code": "3.16.02.22-3",
     "description": "Passagem de Cateter peridural ou Subaracnoídeo c/ bloqueio de prova",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU DE NERVO PERIFÉRICO I (Técnica percutânea – Fase)",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU NERVO PERIFÉRICO II (Técnica percutânea – Fase)",
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU NERVO PERIFÉRICO II (Técnica percutânea – Fase)",
     "cbhpm_code": "3.14.03.14-0",
     "description": "Implante de gerador para neuroestimulação",
     "porte": "8A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU NERVO PERIFÉRICO II (Técnica percutânea – Fase)",
@@ -4267,42 +4395,48 @@
     "cbhpm_code": "3.16.02.22-3",
     "description": "Passagem de Cateter peridural ou Subaracnoídeo c/ bloqueio de prova",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU NERVO PERIFÉRICO II (Técnica percutânea – Fase)",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia)",
     "cbhpm_code": "3.14.01.10-4",
     "description": "Implante de eletrodos medular ou cerebral",
     "porte": "10A",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia)",
     "cbhpm_code": "3.07.15.19-9",
     "description": "Laminectomia ou laminotomia",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia)",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia)",
     "cbhpm_code": "3.14.03.14-0",
     "description": "Implante de gerador para neuroestimulação",
     "porte": "8A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia)",
@@ -4316,70 +4450,80 @@
     "cbhpm_code": "3.07.15.19-9",
     "description": "Laminectomia ou laminotomia",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA SELETIVA OU SUPERSELETIVA PARA ESPASTICIDADE",
     "cbhpm_code": "3.14.03.12-3",
     "description": "Exploração cirúrgica de nervos (Neurólise externa)",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA SELETIVA OU SUPERSELETIVA PARA ESPASTICIDADE",
     "cbhpm_code": "3.14.03.21-2",
     "description": "Microneurólise intraneural ou intrafascicular de dois ou mais nervos",
     "porte": "8B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA SELETIVA OU SUPERSELETIVA PARA ESPASTICIDADE",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA PERCUTANEA PARA ESPASTICIDADE",
     "cbhpm_code": "3.14.03.33-6",
     "description": "Rizotomia percutânea por segmento - qualquer método",
     "porte": "10C",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA PERCUTANEA PARA ESPASTICIDADE",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "NEUROTOMIA PERIFÉRICA PARA ESPASTICIDADE",
     "cbhpm_code": "3.14.03.21-2",
     "description": "Microneurólise intraneural ou intrafascicular de dois ou mais nervos",
     "porte": "8B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "NEUROTOMIA PERIFÉRICA PARA ESPASTICIDADE",
     "cbhpm_code": "3.14.03.12-3",
     "description": "Exploração cirúrgica de nervos (Neurólise externa)",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BLOQUEIO DO GÂNGLIO ESTRELADO",
     "cbhpm_code": "3.14.05.01-0",
     "description": "Bloqueio do sistema nervoso autônomo",
     "porte": "6A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BLOQUEIO DO GÂNGLIO ESTRELADO",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BLOQUEIO NEUROLÍTICO DE NERVOS CRANIANOS OU CÉRVICO-TORÁCICO",
@@ -4393,63 +4537,72 @@
     "cbhpm_code": "3.14.05.01-0",
     "description": "Bloqueio do sistema nervoso autônomo",
     "porte": "6A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BLOQUEIO NEUROLÍTICO DE NERVOS CRANIANOS OU CÉRVICO-TORÁCICO",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "INFILTRAÇÃO DE COLUNA (DOR AXIAL E/OU RADICULAR)",
     "cbhpm_code": "4.08.13.36-3",
     "description": "Coluna vertebral: infiltração foraminal ou facetária ou articular",
     "porte": "5A",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "INFILTRAÇÃO DE COLUNA (DOR AXIAL E/OU RADICULAR)",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA DE FACETAS POR MÉTODO QUÍMICO",
     "cbhpm_code": "3.14.03.33-6",
     "description": "Rizotomia percutâneo por segmento – qualquer método",
     "porte": "10C",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA DE FACETAS POR MÉTODO QUÍMICO",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA DE FACETAS POR RADIOFREQUÊNCIA",
     "cbhpm_code": "3.14.03.33-6",
     "description": "Rizotomia percutâneo por segmento – qualquer método",
     "porte": "10C",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "RIZOTOMIA DE FACETAS POR RADIOFREQUÊNCIA",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BLOQUEIO DO PLEXO CELÍACO",
     "cbhpm_code": "3.14.05.01-0",
     "description": "Bloqueio do sistema nervoso autônomo",
     "porte": "6A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BLOQUEIO DO PLEXO CELÍACO",
@@ -4463,14 +4616,16 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BLOQUEIO NEUROLÍTICO DO PLEXO CELÍACO E OUTROS NERVOS SIMPÁTICOS",
     "cbhpm_code": "3.16.02.14-2",
     "description": "Bloqueio Neurolítico do plexo celíaco, simpático lombar ou torácico",
     "porte": "6B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BLOQUEIO NEUROLÍTICO DO PLEXO CELÍACO E OUTROS NERVOS SIMPÁTICOS",
@@ -4484,14 +4639,16 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TESTE PARA IMPLANTE DE BOMBA DE INFUSÃO FÁRMACO INTRATECAL",
     "cbhpm_code": "3.16.02.07-0",
     "description": "Bloqueio anestésico simpático",
     "porte": "4C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TESTE PARA IMPLANTE DE BOMBA DE INFUSÃO FÁRMACO INTRATECAL",
@@ -4505,7 +4662,8 @@
     "cbhpm_code": "3.16.02.22-3",
     "description": "Passagem de Cateter peridural ou Subaracnoídeo c/ bloqueio de prova",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TESTE PARA IMPLANTE DE BOMBA DE INFUSÃO FÁRMACO INTRATECAL",
@@ -4519,7 +4677,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BOMBA DE INFUSÃO DE FÁRMACO INTRATECAL",
@@ -4533,7 +4692,8 @@
     "cbhpm_code": "3.16.02.22-3",
     "description": "Passagem de Cateter peridural ou Subaracnoídeo c/ bloqueio de prova",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BOMBA DE INFUSÃO DE FÁRMACO INTRATECAL",
@@ -4547,21 +4707,24 @@
     "cbhpm_code": "3.16.02.16-9",
     "description": "Bloqueio peridural ou subaracnóideo",
     "porte": "6B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BOMBA DE INFUSÃO DE FÁRMACO INTRATECAL",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "REPOSIÇÃO DE FÁRMACO DE BOMBAS IMPLANTADAS",
     "cbhpm_code": "1.01.01.01-2",
     "description": "Em consultório (no horário normal ou preestabelecido)",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "REPOSIÇÃO DE FÁRMACO DE BOMBAS IMPLANTADAS",
@@ -4575,7 +4738,8 @@
     "cbhpm_code": "3.16.02.16-9",
     "description": "Bloqueio peridural ou subaracnóideo",
     "porte": "6B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "REPOSIÇÃO DE FÁRMACO DE BOMBAS IMPLANTADAS",
@@ -4610,21 +4774,24 @@
     "cbhpm_code": "3.16.02.22-3",
     "description": "Passagem de Cateter peridural ou Subaracnoídeo c/ bloqueio de prova",
     "porte": "3C",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "REVISÃO DE BOMBA DE INFUSÃO DE FÁRMACO",
     "cbhpm_code": "3.14.05.01-0",
     "description": "Bloqueio do sistema nervoso autônomo",
     "porte": "6A",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "REVISÃO DE BOMBA DE INFUSÃO DE FÁRMACO",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "REVISÃO DE SISTEMA DE NEUROESTIMULAÇÃO",
@@ -4638,7 +4805,8 @@
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ENCEFALOCELE: TRATAMENTO CIRÚRGICO",
@@ -4652,7 +4820,8 @@
     "cbhpm_code": "3.07.15.32-6",
     "description": "Tratamento cirúrgico das malformações craniovertebrais",
     "porte": "10B",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ENCEFALOCELE: TRATAMENTO CIRÚRGICO",
@@ -4666,7 +4835,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "ENCEFALOCELE: TRATAMENTO CIRÚRGICO",
@@ -4708,21 +4878,24 @@
     "cbhpm_code": "3.07.15.32-6",
     "description": "Tratamento cirúrgico das malformaçoes craniovertebrais",
     "porte": "10B",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DISRAFISMO ESPINHAL: TRATAMENTO CIRÚRGICO",
     "cbhpm_code": "3.07.15.19-9",
     "description": "Laminectomia ou laminotomia",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DISRAFISMO ESPINHAL: TRATAMENTO CIRÚRGICO",
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "DISRAFISMO ESPINHAL: TRATAMENTO CIRÚRGICO",
@@ -4764,28 +4937,32 @@
     "cbhpm_code": "3.07.15.19-9",
     "description": "Laminectomia ou laminotomia",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "MEDULA PRESA: LIBERAÇÃO CIRÚRGICA",
     "cbhpm_code": "3.07.15.09-1",
     "description": "Descompressão medular e/ou cauda equina",
     "porte": "9C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "MEDULA PRESA: LIBERAÇÃO CIRÚRGICA",
     "cbhpm_code": "3.07.15.35-0",
     "description": "Tratamento microcirúrgico das lesões intramedulares (tumor, malformações arteriovenosa, siringomielia, parasitoses)",
     "porte": "13B",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "MEDULA PRESA: LIBERAÇÃO CIRÚRGICA",
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "MEDULA PRESA: LIBERAÇÃO CIRÚRGICA",
@@ -4827,7 +5004,8 @@
     "cbhpm_code": "3.14.01.26-0",
     "description": "Tratamento cirúrgico da fístula liquórica",
     "porte": "10C",
-    "num_auxiliaries": 2
+    "num_auxiliaries": 2,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TERCEIROVENTRICULOSTOMIA ENDOSCÓPICA",
@@ -4925,7 +5103,8 @@
     "cbhpm_code": "1.01.01.03-9",
     "description": "Consulta em pronto-socorro",
     "porte": "2B",
-    "num_auxiliaries": 0
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "PUNÇÃO TRANSFONTANELA",
@@ -4939,7 +5118,8 @@
     "cbhpm_code": "3.14.03.12-3",
     "description": "Exploração cirúrgica de nervo (Neurólise externa)",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "BIÓPSIA DE NERVO",
@@ -5030,7 +5210,8 @@
     "cbhpm_code": "3.14.03.12-3",
     "description": "Exploração cirúrgica de nervo (Neurólise externa)",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "LESÃO TRAUMÁTICA DO PLEXO BRAQUIAL",
@@ -5058,7 +5239,8 @@
     "cbhpm_code": "3.14.03.12-3",
     "description": "Exploração cirúrgica de nervo (Neurólise externa)",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "LESÃO TRAUMÁTICA DE NERVO PERIFÉRICO",
@@ -5275,7 +5457,8 @@
     "cbhpm_code": "3.14.03.12-3",
     "description": "Exploração cirúrgica de nervo (Neurólise externa)",
     "porte": "5B",
-    "num_auxiliaries": 1
+    "num_auxiliaries": 1,
+    "specialty": "Neurocirurgia, Coluna Vertebral"
   },
   {
     "procedure_name": "TUMOR DE NERVO",
@@ -5332,5 +5515,313 @@
     "description": "Miorrafias",
     "porte": "3C",
     "num_auxiliaries": 1
+  },
+  {
+    "cbhpm_code": "3.07.15.01-6",
+    "procedure_name": "Trata",
+    "description": "Trata-se da fusão de um segmento",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.02-4",
+    "procedure_name": "Trata",
+    "description": "Trata-se da fusão vertebral realizada",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.36-9",
+    "procedure_name": "Trata",
+    "description": "Trata-se do tratamento da",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.18-0",
+    "procedure_name": "Trata",
+    "description": "Trata-se da discectomia para tratamento",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 1
+  },
+  {
+    "cbhpm_code": "3.07.15.39-3",
+    "procedure_name": "Trata",
+    "description": "Trata-se da discectomia específica para tratamento",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "4.08.14.09-2",
+    "procedure_name": "Trata",
+    "description": "Trata-se de procedimento",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.15.11-3",
+    "procedure_name": "Trata",
+    "description": "Trata-se do tratamento cirúrgico do deslizamento vertebral",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.28-8",
+    "procedure_name": "Trata",
+    "description": "Trata-se da substituição cirúrgica do corpo vertebral por material",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.16.02.15-0",
+    "procedure_name": "Trata",
+    "description": "Trata-se da aplicação de agentes neurolíticos",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.16.02.06-1",
+    "procedure_name": "Trata",
+    "description": "Trata-se do procedimento que consiste na injeção de",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.14.03.03-4",
+    "procedure_name": "Trata",
+    "description": "Trata-se de procedimento",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 1
+  },
+  {
+    "cbhpm_code": "4.08.14.10-6",
+    "procedure_name": "Trata",
+    "description": "Trata-se de procedimento utilizado para caracterizar a anatomopatologia/arquitetura do",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.15.03-2",
+    "procedure_name": "Trata",
+    "description": "Trata-se da coleta de material biológico da coluna vertebral para análise",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 1
+  },
+  {
+    "cbhpm_code": "2.02.02.04-0",
+    "procedure_name": "Trata",
+    "description": "Trata-se de procedimento que",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.32.02-6",
+    "procedure_name": "Trata",
+    "description": "Trata-se de material utilizado para promover a fusão de vértebras afetadas por",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.12-1",
+    "procedure_name": "Trata",
+    "description": "Trata-se do tratamento não cirúrgico de fraturas",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.09.01-6",
+    "procedure_name": "Trata",
+    "description": "Trata-se da colocação de dispositivo de imobilização cervical através",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.16.01.01-4",
+    "procedure_name": "Trata",
+    "description": "Trata-se de terapia complementar através da inserção de agulhas em pontos",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.15.22-9",
+    "procedure_name": "Trata",
+    "description": "Trata-se da secção cirúrgica do osso",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.38-5",
+    "procedure_name": "Trata",
+    "description": "Trata-se da ressecção cirúrgica de tumores",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.16-4",
+    "procedure_name": "Trata",
+    "description": "Trata-se do tratamento cirúrgico",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.21-0",
+    "procedure_name": "Trata",
+    "description": "Trata-se do tratamento cirúrgico de infecção óssea",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.24-5",
+    "procedure_name": "Trata",
+    "description": "Trata-se do tratamento cirúrgico da falha de",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.26-1",
+    "procedure_name": "Trata",
+    "description": "Trata-se da remoção cirúrgica de corpos",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.31-8",
+    "procedure_name": "Trata",
+    "description": "Trata-se do tratamento cirúrgico de",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.07.15.10-5",
+    "procedure_name": "Trata",
+    "description": "Trata-se do tratamento cirúrgico de",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "2.01.01.35-0",
+    "procedure_name": "Trata",
+    "description": "Trata-se da programação e ajuste de dispositivos",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.15.59-8",
+    "procedure_name": "Trata",
+    "description": "Trata-se da substituição do disco intervertebral por prótese",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.06.01.02-9",
+    "procedure_name": "Trata",
+    "description": "Trata-se da ressecção cirúrgica de arcos costais, com porte para 1 arco costal e 30%",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 1
+  },
+  {
+    "cbhpm_code": "3.06.01.19-3",
+    "procedure_name": "Trata",
+    "description": "Trata-se da abertura",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
+  },
+  {
+    "cbhpm_code": "3.09.10.13-7",
+    "procedure_name": "Trata",
+    "description": "Trata-se do reparo cirúrgico de lesões vasculares abdominais",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 3
+  },
+  {
+    "cbhpm_code": "3.03.11.05-5",
+    "procedure_name": "Trata",
+    "description": "Trata-se da aplicação de toxina botulínica para tratamento",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.16.02.21-5",
+    "procedure_name": "Trata",
+    "description": "Trata-se da aplicação de terapia com laser de baixa potência para tratamento de",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.13.13-7",
+    "procedure_name": "Trata",
+    "description": "Trata-se da punção de articulações",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.13.14-5",
+    "procedure_name": "Trata",
+    "description": "Trata-se da punção de estruturas extra-",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.13.07.10-8",
+    "procedure_name": "Trata",
+    "description": "Trata-se da secção cirúrgica dos nervos pré-",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 1
+  },
+  {
+    "cbhpm_code": "2.01.03.14-0",
+    "procedure_name": "Trata",
+    "description": "Trata-se da",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.14.03.02-6",
+    "procedure_name": "Trata",
+    "description": "Trata-se do bloqueio anestésico de nervos periféricos específicos para",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 1
+  },
+  {
+    "cbhpm_code": "3.16.02.09-6",
+    "procedure_name": "Trata",
+    "description": "Trata-se do bloqueio do gânglio estrelado",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.16.02.10-0",
+    "procedure_name": "Trata",
+    "description": "Trata-se do bloqueio do gânglio estrelado com",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.16.02.05-3",
+    "procedure_name": "Trata",
+    "description": "Trata-se do bloqueio temporário do plexo celíaco com",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.16.02.17-7",
+    "procedure_name": "Trata",
+    "description": "Trata-se do bloqueio do sistema simpático através da",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.15.20-2",
+    "procedure_name": "Trata",
+    "description": "Trata-se da ressecção microcirúrgica de tumores",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 0
+  },
+  {
+    "cbhpm_code": "3.07.15.17-2",
+    "procedure_name": "Trata",
+    "description": "Trata-se da ressecção cirúrgica de",
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "num_auxiliaries": 2
   }
 ]

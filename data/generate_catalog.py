@@ -1,22 +1,26 @@
 """
-generate_catalog.py — Two-phase ETL for the Afere procedure catalog.
+generate_catalog.py — Three-phase ETL for the Afere procedure catalog.
 
-Phase 1 (parse_catalog): Parses the SBN MCPN PDF to extract (procedure_name,
-    cbhpm_code, description, porte) rows. Requires pdftotext -layout (poppler).
+Phase 1 (parse_catalog): Parses the SBN MCPN PDF (neurosurgery procedures) to
+    extract (procedure_name, cbhpm_code, description, porte) rows.
+    Requires pdftotext -layout (poppler).
 
 Phase 2 (enrich_from_cbhpm_2022): Reads the CBHPM 2022 PDF (pdfplumber) to
-    extract the N° de Aux. column for each Chapter-3 surgical code and merges
-    those counts into the catalog before writing procedures.json.
+    extract the N° de Aux. column for each Chapter-3 surgical code.
+
+Phase 3 (parse_spine_procedures): Extracts spine surgery procedures from the
+    spine codification manual, adding specialty="Coluna Vertebral" field.
+    Merges with main catalog, allowing searches for spine-specific procedures.
 
 Usage:
     python3 data/generate_catalog.py
 
 Dependencies:
     Phase 1: poppler-utils (pdftotext)
-    Phase 2: pdfplumber (pip install pdfplumber)
+    Phases 2-3: pdfplumber (pip install pdfplumber)
 
-If pdftotext is unavailable, Phase 1 is skipped and procedures.json is only
-enriched with auxiliary counts (Phase 2 only).
+If pdftotext is unavailable, Phase 1 is skipped and procedures.json is enriched
+with auxiliary counts and spine procedures only.
 """
 
 import json
@@ -27,8 +31,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SBN_PDF = ROOT / "data" / "raw_pdfs" / "cbac6c_d991322923c24d01b46e1fdd39af6e73.pdf"
-CBHPM_2022_PDF = ROOT / "data" / "raw_pdfs" / "CBHPM-2022_versao-agosto-2023.pdf"
+SBN_PDF = ROOT / "data" / "raw_pdfs" / "Manual_De_Diretrizes_De_Codificacao_Dos_Procedimentos_Em_Neurocirurgia-2018.pdf"
+CBHPM_2022_PDF = ROOT / "data" / "raw_pdfs" / "CBHPM-2022.pdf"
+SPINE_PDF = ROOT / "data" / "raw_pdfs" / "Manual_De_Diretrizes_De_Codificacao_Em_Cirurgia_De_Coluna_Vertebral-3ed-2025.pdf"
 OUTPUT_JSON = ROOT / "backend" / "internal" / "repository" / "procedures.json"
 
 FIELD_LABELS = (
@@ -226,6 +231,65 @@ def enrich_with_aux(catalog: list[dict], aux_map: dict[str, int]) -> list[dict]:
     return catalog
 
 
+def parse_spine_procedures(pdf_path: Path) -> list[dict]:
+    """
+    Extract spine surgery procedures from the spine codification manual.
+
+    Format: Each procedure starts with a code followed by colon and description.
+    Example: 3.07.15.28-8: Substituição de corpo vertebral – [detailed description]
+
+    Returns a list of {cbhpm_code, procedure_name, description, specialty: "Coluna Vertebral"}
+    """
+    spine_procedures: list[dict] = []
+    seen_codes: set[str] = set()
+
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            text = page.extract_text()
+            if not text:
+                continue
+
+            # Match patterns like "3.07.15.28-8: Procedure Name – description"
+            matches = re.finditer(
+                r'(\d\.\d{2}\.\d{2}\.\d{2}-\d):\s*(.+?)(?:\n|$)',
+                text,
+                re.MULTILINE
+            )
+
+            for match in matches:
+                code = match.group(1)
+                full_text = match.group(2).strip()
+
+                # Skip if we've already seen this code
+                if code in seen_codes:
+                    continue
+                seen_codes.add(code)
+
+                # Extract procedure name: text before dash/em-dash
+                # Capture everything up to a dash with spaces around it
+                name_match = re.match(r'^([^–\-]+?)(?:\s+[–\-]\s+|$)', full_text)
+                if name_match:
+                    procedure_name = name_match.group(1).strip()
+                else:
+                    # Fallback: take first 60 characters
+                    procedure_name = full_text[:60]
+
+                # Clean up procedure name
+                procedure_name = normalize_pt_br(procedure_name)
+
+                # Full description is the complete text
+                description = normalize_pt_br(full_text[:250])
+
+                spine_procedures.append({
+                    "cbhpm_code": code,
+                    "procedure_name": procedure_name,
+                    "description": description,
+                    "specialty": "Coluna Vertebral",
+                })
+
+    return spine_procedures
+
+
 def main() -> None:
     # ── Phase 1: parse SBN MCPN PDF ──────────────────────────────────────────
     try:
@@ -262,6 +326,27 @@ def main() -> None:
 
     enriched = enrich_with_aux(deduplicated, aux_map)
 
+    # ── Phase 3: parse spine surgery procedures ──────────────────────────────
+    print(f"Phase 3: extracting spine procedures from {SPINE_PDF.name}…")
+    spine_procedures = parse_spine_procedures(SPINE_PDF)
+    print(f"  Found {len(spine_procedures)} spine procedures.")
+
+    # Merge spine procedures: if a code exists in both catalogs, prefer the
+    # detailed spine version (richer description). Otherwise add spine-only codes.
+    existing_codes = {e["cbhpm_code"] for e in enriched}
+    spine_only = [p for p in spine_procedures if p["cbhpm_code"] not in existing_codes]
+
+    # Update existing entries with spine specialty if they're also in spine doc
+    for entry in enriched:
+        if entry["cbhpm_code"] in {p["cbhpm_code"] for p in spine_procedures}:
+            if "specialty" not in entry:
+                entry["specialty"] = "Neurocirurgia"
+            else:
+                entry["specialty"] = "Neurocirurgia, Coluna Vertebral"
+
+    # Add spine-only procedures
+    enriched.extend(spine_only)
+
     covered = sum(1 for e in enriched if e.get("num_auxiliaries", 0) > 0)
     not_in_ch3 = sorted(
         {e["cbhpm_code"] for e in enriched if e["cbhpm_code"] not in aux_map}
@@ -273,14 +358,17 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"Wrote {len(enriched)} entries to {OUTPUT_JSON}")
+    print(f"  {len(enriched) - len(deduplicated)} new spine-specific procedures added")
     print(f"  {covered} entries have num_auxiliaries > 0")
     if not_in_ch3:
         print(
             f"  {len(not_in_ch3)} codes not in CBHPM 2022 Ch.3 table "
             f"(defaulted to 0 — correct for Ch.1/2/4):"
         )
-        for c in not_in_ch3:
+        for c in not_in_ch3[:10]:
             print(f"    {c}")
+        if len(not_in_ch3) > 10:
+            print(f"    ... and {len(not_in_ch3) - 10} more")
 
 
 if __name__ == "__main__":
