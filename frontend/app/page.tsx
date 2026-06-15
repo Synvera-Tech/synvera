@@ -18,7 +18,7 @@ const T = {
   inputFocus:  "#94A3B8",
   btnBg:       "#1E293B",
   btnHover:    "#334155",
-  teal:        "#1E3A5F",
+  teal:        "#232D3B",
 } as const;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -172,14 +172,14 @@ export default function Home() {
             style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               padding: "11px 24px",
-              backgroundColor: "#355C8A",
+              backgroundColor: "#4A6A93",
               color: "#fff",
               borderRadius: "10px",
               fontSize: "14px", fontWeight: 600,
               textDecoration: "none",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#2C4F78")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#355C8A")}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#4A6A93")}
           >
             <Plus size={15} aria-hidden="true" />
             Novo cálculo
@@ -397,7 +397,7 @@ function UnauthenticatedEntry() {
               style={{
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 width: "100%", maxWidth: "260px", height: "50px",
-                background: "linear-gradient(135deg, #1E3A5F 0%, #3D7DB8 100%)",
+                background: "linear-gradient(135deg, #232D3B 0%, #3D7DB8 100%)",
                 boxShadow: ctaHovered
                   ? "0 4px 8px rgba(30,58,95,0.20), 0 10px 24px rgba(30,58,95,0.32), 0 16px 40px rgba(30,58,95,0.25)"
                   : "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25), 0 12px 32px rgba(30,58,95,0.18)",
@@ -605,7 +605,7 @@ function CompositionCard({ comp }: { comp: CompositionItem }) {
         display: "block",
         textDecoration: "none",
         borderRadius: "12px",
-        border: `1.5px solid ${hovered ? "#5F84B3" : T.cardBorder}`,
+        border: `1.5px solid ${hovered ? "#5D7EA7" : T.cardBorder}`,
         padding: "16px 16px 14px",
         backgroundColor: hovered ? "#FAFBFD" : T.surface,
         transition: "border-color 130ms ease, background-color 110ms ease",
@@ -644,7 +644,7 @@ function CompositionCard({ comp }: { comp: CompositionItem }) {
       <div
         style={{
           marginTop: "12px", display: "flex", alignItems: "center", gap: "3px",
-          color: "#355C8A", fontSize: "12px", fontWeight: 600,
+          color: "#4A6A93", fontSize: "12px", fontWeight: 600,
         }}
       >
         Abrir
@@ -681,7 +681,7 @@ function CapabilityCard({
     display: "flex", flexDirection: "column", height: "100%",
     textAlign: "left",
     borderRadius: "14px",
-    border: `1px solid ${active ? "#5F84B3" : T.cardBorder}`,
+    border: `1px solid ${active ? "#5D7EA7" : T.cardBorder}`,
     padding: "18px 18px 16px",
     backgroundColor: T.surface,
     boxShadow: active
@@ -726,7 +726,7 @@ function CapabilityCard({
         <span
           style={{
             display: "inline-flex", alignItems: "center", gap: "3px",
-            fontSize: "12px", fontWeight: 600, color: "#355C8A",
+            fontSize: "12px", fontWeight: 600, color: "#4A6A93",
           }}
         >
           {actionLabel}
@@ -790,7 +790,7 @@ function ToolCard({
 
   const cardStyle: React.CSSProperties = {
     borderRadius: "12px",
-    border: `1.5px solid ${hovered && !disabled ? "#5F84B3" : T.cardBorder}`,
+    border: `1.5px solid ${hovered && !disabled ? "#5D7EA7" : T.cardBorder}`,
     padding: "20px 18px 18px",
     backgroundColor: hovered && !disabled ? "#FAFBFD" : T.surface,
     transition: "border-color 130ms ease, background-color 110ms ease",
