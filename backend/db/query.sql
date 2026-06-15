@@ -40,7 +40,11 @@ WHERE id = sqlc.arg(id)::uuid;
 SELECT
     cc.code,
     cc.description,
-    m.porte_code AS porte
+    m.porte_code AS porte,
+    COALESCE(cc.num_auxiliaries, 0) AS num_auxiliaries,
+    COALESCE(cc.billing_mode, 'PER_PROCEDURE'::text) AS billing_mode,
+    COALESCE(cc.specialty, 'NEUROSURGERY'::text) AS specialty,
+    COALESCE(cc.laterality_support, false) AS laterality_support
 FROM sbn_cbhpm_mappings m
 JOIN cbhpm_codes cc ON cc.id = m.cbhpm_code_id
 WHERE m.sbn_procedure_id = sqlc.arg(sbn_procedure_id)::uuid
