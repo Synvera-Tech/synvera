@@ -607,6 +607,14 @@ html.dark body {
     border-color: rgba(91, 127, 168, 0.20) !important;
   }
 
+  #procedure-search {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-width: 0 !important;
+    border-color: transparent !important;
+  }
+
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .workspace-panel {
       background: #1A2330 !important;
