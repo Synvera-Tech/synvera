@@ -15,14 +15,52 @@ type SBNProcedure struct {
 	Name string
 }
 
+// BillingMode determines how a procedure's value is calculated relative to quantity.
+type BillingMode string
+
+const (
+	// BillingModeProcedure — no quantity multiplier (default for all procedures)
+	BillingModeProcedure BillingMode = "PER_PROCEDURE"
+	// BillingModeSegment — value is multiplied by the number of segments treated
+	BillingModeSegment BillingMode = "PER_SEGMENT"
+	// BillingModeVertebra — value is multiplied by the number of vertebrae treated
+	BillingModeVertebra BillingMode = "PER_VERTEBRA"
+	// BillingModeStructure — value is multiplied by the number of structures treated
+	BillingModeStructure BillingMode = "PER_STRUCTURE"
+)
+
+// Laterality indicates whether a procedure can be billed for one or both sides.
+type Laterality string
+
+const (
+	// LateralityUnilateral — procedure billed once (one side)
+	LateralityUnilateral Laterality = "UNILATERAL"
+	// LateralityBilateral — procedure billed for both sides (may double the cost)
+	LateralityBilateral Laterality = "BILATERAL"
+)
+
+// Specialty classifies a procedure by its medical domain.
+type Specialty string
+
+const (
+	// SpecialtyNeurosurgery — general neurosurgery procedures (default)
+	SpecialtyNeurosurgery Specialty = "NEUROSURGERY"
+	// SpecialtySpine — spine-specific procedures with billing variables
+	SpecialtySpine Specialty = "SPINE"
+)
+
 // CBHPMCode is a single billable code from the CBHPM catalog,
 // annotated with the default porte assigned by the SBN manual for this procedure package.
 // The porte is an intrinsic property of the code (CBHPM 2022, item 1.2) and is not editable.
+// Extended with spine-specific billing variables.
 type CBHPMCode struct {
-	Code           string
-	Description    string
-	Porte          string
-	NumAuxiliaries int
+	Code               string
+	Description        string
+	Porte              string
+	NumAuxiliaries     int
+	BillingMode        BillingMode // How value scales with quantity (default: PER_PROCEDURE)
+	Specialty          Specialty   // Medical domain (default: NEUROSURGERY)
+	LateralitySupport  bool        // Whether bilateral billing is applicable
 }
 
 // ProcedureWithCodes is an SBN procedure together with its associated CBHPM codes.
@@ -43,19 +81,35 @@ const (
 
 // SelectedCode is a CBHPM code chosen by the physician.
 // The porte is taken from the catalog and cannot be changed by the physician.
+// Extended to include spine-specific billing modifiers.
 type SelectedCode struct {
-	CBHPMCode   string
-	Description string
-	Porte       string
+	CBHPMCode          string
+	Description        string
+	Porte              string
+	BillingMode        BillingMode // Inherited from procedure catalog
+	Specialty          Specialty   // Inherited from procedure catalog
+	LateralitySupport  bool        // Inherited from procedure catalog
+
+	// Spine billing variables (only applicable if BillingMode/LateralitySupport indicate)
+	QuantitySelected int       // Number of segments/vertebrae/structures (default: 1)
+	Laterality       Laterality // UNILATERAL or BILATERAL (default: UNILATERAL if not supported)
 }
 
 // CodeBreakdown is the per-code contribution in a valuation result.
+// Extended to show the calculation steps for billing variables.
 type CodeBreakdown struct {
-	CBHPMCode   string
-	Description string
-	Porte       string
-	BaseValue   float64
-	IsPrincipal bool
+	CBHPMCode          string
+	Description        string
+	Porte              string
+	BaseValue          float64
+	IsPrincipal        bool
+	// Spine billing variable details (for transparency in shared reports)
+	BillingMode        BillingMode
+	QuantitySelected   int
+	QuantityMultiplier float64 // The multiplier applied (e.g., 1.0, 2.0, 3.0 for segments)
+	Laterality         Laterality
+	LateralityMultiplier float64 // The multiplier applied (1.0 for unilateral, 2.0 for bilateral)
+	AdjustedValue      float64 // BaseValue × QuantityMultiplier × LateralityMultiplier (before other adjustments)
 }
 
 // SurgeonBreakdown contains the step-by-step surgeon fee derivation per CBHPM 4.1/4.2.
@@ -114,9 +168,24 @@ type CalculationResult struct {
 	FinalTotal          float64
 }
 
+// CalculationModifiers persists spine billing variable selections for a calculation.
+// All fields are optional; defaults apply when not specified.
+type CalculationModifiers struct {
+	QuantitySelected   int       // Number of segments/vertebrae/structures (default: 1)
+	Laterality         Laterality // UNILATERAL or BILATERAL (default: UNILATERAL)
+	// Future metadata fields (not affecting calculations)
+	VertebralRegion   string // cervical, thoracic, lumbar, lumbosacral, sacral
+	SurgicalApproach  string // anterior, posterior, posterolateral, lateral, minimally_invasive
+	FusionStatus      string // decompression_only, fusion, hybrid
+	ImplantCategory   string // graft, hardware, arthroplasty, neural_device
+	OsteoporosisAware bool
+	ClinicalContext   string // traumatic, degenerative, neoplastic, infectious, deformity, revision
+}
+
 // Calculation is a persisted valuation record.
 // BreakdownJSON holds the full CalculateResponse JSON for audit purposes.
 // The schema is designed for a future Calculation → User foreign key (migration 006).
+// Extended to include spine-specific billing modifiers.
 type Calculation struct {
 	ID                    string
 	PublicID              string
@@ -131,6 +200,7 @@ type Calculation struct {
 	AnesthesiologistValue float64
 	TeamTotalValue        float64
 	BreakdownJSON         json.RawMessage
+	Modifiers             *CalculationModifiers // nil if no spine-specific modifiers
 	CreatedAt             time.Time
 	UpdatedAt             time.Time
 }
@@ -162,11 +232,25 @@ type PhysicianAccount struct {
 	UpdatedAt   time.Time
 }
 
+// CompositionModifiers persists spine billing variable selections for a composition.
+// All fields are optional; defaults apply when not specified.
+type CompositionModifiers struct {
+	QuantitySelected   int       // Number of segments/vertebrae/structures (default: 1)
+	Laterality         Laterality // UNILATERAL or BILATERAL (default: UNILATERAL)
+	// Future metadata fields (not affecting calculations)
+	VertebralRegion   string // cervical, thoracic, lumbar, lumbosacral, sacral
+	SurgicalApproach  string // anterior, posterior, posterolateral, lateral, minimally_invasive
+	FusionStatus      string // decompression_only, fusion, hybrid
+	ImplantCategory   string // graft, hardware, arthroplasty, neural_device
+	OsteoporosisAware bool
+	ClinicalContext   string // traumatic, degenerative, neoplastic, infectious, deformity, revision
+}
+
 // Composition is a reusable surgical template created by the physician.
 // It captures the procedural setup — SBN procedure, selected CBHPM codes,
 // access route, anesthesia, auxiliary count, and CBHPM adjustment codes —
 // without storing any financial values. Values are always recalculated fresh
-// when executed.
+// when executed. Extended to include spine-specific billing modifiers.
 type Composition struct {
 	ID                 string
 	PublicID           string
@@ -181,6 +265,8 @@ type Composition struct {
 	// Adjustments holds selected CBHPM adjustment codes (e.g. "emergency_special_hours").
 	// See service.AdjustmentCatalog for valid codes and their percentages.
 	Adjustments []string
+	// Modifiers holds spine-specific billing variable selections
+	Modifiers *CompositionModifiers // nil if no spine-specific modifiers
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }

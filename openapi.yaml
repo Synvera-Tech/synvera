@@ -268,9 +268,35 @@ components:
           type: string
           description: SBN procedure name (e.g. "CONSULTA + PUNÇÃO LOMBAR").
 
+    BillingMode:
+      type: string
+      enum: [PER_PROCEDURE, PER_SEGMENT, PER_VERTEBRA, PER_STRUCTURE]
+      description: >
+        How a procedure's base value scales with quantity.
+        - PER_PROCEDURE: No quantity multiplier (default).
+        - PER_SEGMENT: Value is multiplied by number of segments treated.
+        - PER_VERTEBRA: Value is multiplied by number of vertebrae treated.
+        - PER_STRUCTURE: Value is multiplied by number of structures treated.
+
+    Specialty:
+      type: string
+      enum: [NEUROSURGERY, SPINE]
+      description: >
+        Medical domain classification.
+        - NEUROSURGERY: General neurosurgery (default).
+        - SPINE: Spine-specific procedures with billing variables.
+
+    Laterality:
+      type: string
+      enum: [UNILATERAL, BILATERAL]
+      description: >
+        Whether procedure is billed for one side or both.
+        - UNILATERAL: One side (multiplier = 1).
+        - BILATERAL: Both sides (multiplier = 2, if applicable).
+
     CBHPMCodeEntry:
       type: object
-      required: [code, description, porte, num_auxiliaries]
+      required: [code, description, porte, num_auxiliaries, billing_mode, specialty, laterality_support]
       properties:
         code:
           type: string
@@ -285,6 +311,13 @@ components:
           type: integer
           minimum: 0
           description: Maximum number of auxiliary surgeons allowed per CBHPM (0–4).
+        billing_mode:
+          $ref: '#/components/schemas/BillingMode'
+        specialty:
+          $ref: '#/components/schemas/Specialty'
+        laterality_support:
+          type: boolean
+          description: Whether bilateral billing is explicitly supported for this procedure.
 
     ProcedureDetail:
       type: object
@@ -309,7 +342,7 @@ components:
 
     SelectedCode:
       type: object
-      required: [cbhpm_code, description, porte]
+      required: [cbhpm_code, description, porte, billing_mode, specialty, laterality_support]
       properties:
         cbhpm_code:
           type: string
@@ -320,6 +353,63 @@ components:
         porte:
           type: string
           description: Porte for this code (from the SBN catalog, not editable by the physician).
+        billing_mode:
+          $ref: '#/components/schemas/BillingMode'
+          description: Billing mode inherited from procedure catalog.
+        specialty:
+          $ref: '#/components/schemas/Specialty'
+          description: Specialty classification inherited from procedure catalog.
+        laterality_support:
+          type: boolean
+          description: Whether bilateral billing is applicable for this code.
+        quantity_selected:
+          type: integer
+          minimum: 1
+          default: 1
+          description: Number of segments/vertebrae/structures treated (only if billing_mode allows).
+        laterality:
+          $ref: '#/components/schemas/Laterality'
+          default: UNILATERAL
+          description: Whether this procedure is billed unilaterally or bilaterally.
+
+    BillingModifiers:
+      type: object
+      description: >
+        Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used.
+        Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
+      properties:
+        quantity_selected:
+          type: integer
+          minimum: 1
+          default: 1
+          description: Number of segments/vertebrae/structures treated (only if billing_mode allows).
+        laterality:
+          $ref: '#/components/schemas/Laterality'
+          default: UNILATERAL
+          description: Whether procedure is billed unilaterally or bilaterally (only if supported).
+        vertebral_region:
+          type: string
+          enum: [cervical, thoracic, lumbar, lumbosacral, sacral]
+          description: Anatomical region (informational metadata, no billing effect).
+        surgical_approach:
+          type: string
+          enum: [anterior, posterior, posterolateral, lateral, minimally_invasive]
+          description: Surgical technique (informational metadata, no billing effect).
+        fusion_status:
+          type: string
+          enum: [decompression_only, fusion, hybrid]
+          description: Fusion configuration (informational metadata, no billing effect).
+        implant_category:
+          type: string
+          enum: [graft, hardware, arthroplasty, neural_device]
+          description: Type of implant (informational metadata, no billing effect).
+        osteoporosis_aware:
+          type: boolean
+          description: Whether osteoporosis is documented (informational metadata, no billing effect).
+        clinical_context:
+          type: string
+          enum: [traumatic, degenerative, neoplastic, infectious, deformity, revision]
+          description: Clinical diagnosis context (informational metadata, no billing effect).
 
     CalculateRequest:
       type: object
@@ -347,10 +437,13 @@ components:
             When true, applies the CBHPM item 2 urgency/emergency 30% surcharge
             to all medical fees (surgeon, auxiliaries, anesthesiologist).
             Applicable for acts performed 19h–7h, on weekends, or on holidays.
+        modifiers:
+          $ref: '#/components/schemas/BillingModifiers'
+          description: Spine-specific billing variables (optional).
 
     CodeBreakdown:
       type: object
-      required: [cbhpm_code, description, porte, base_value, is_principal]
+      required: [cbhpm_code, description, porte, base_value, is_principal, billing_mode, quantity_selected, quantity_multiplier, laterality, laterality_multiplier, adjusted_value]
       properties:
         cbhpm_code:
           type: string
@@ -365,6 +458,27 @@ components:
         is_principal:
           type: boolean
           description: True for the highest-value code selected as the principal procedure.
+        billing_mode:
+          $ref: '#/components/schemas/BillingMode'
+          description: Billing mode that determines quantity multiplier.
+        quantity_selected:
+          type: integer
+          description: Number of segments/vertebrae/structures selected (1 if not applicable).
+        quantity_multiplier:
+          type: number
+          format: float
+          description: Multiplier applied based on quantity (e.g., 1.0, 2.0, 3.0).
+        laterality:
+          $ref: '#/components/schemas/Laterality'
+          description: Whether billed unilaterally or bilaterally.
+        laterality_multiplier:
+          type: number
+          format: float
+          description: Multiplier applied based on laterality (1.0 or 2.0).
+        adjusted_value:
+          type: number
+          format: float
+          description: base_value × quantity_multiplier × laterality_multiplier (before CBHPM discounts).
 
     AuxiliaryFee:
       type: object
@@ -496,6 +610,9 @@ components:
         urgency_emergency:
           type: boolean
           description: Persists the CBHPM item 2 urgency/emergency surcharge preference.
+        modifiers:
+          $ref: '#/components/schemas/BillingModifiers'
+          description: Spine-specific billing variables to persist in the composition (optional).
 
     SaveCompositionResponse:
       type: object
@@ -535,7 +652,7 @@ components:
     CompositionDetail:
       type: object
       required: [public_id, name, sbn_procedure_name, selected_codes, access_route_type, auxiliaries_count, requires_anesthesia, urgency_emergency, created_at, updated_at]
-      description: Full composition including selected CBHPM codes.
+      description: Full composition including selected CBHPM codes and spine-specific modifiers.
       properties:
         public_id:
           type: string
@@ -559,6 +676,9 @@ components:
         urgency_emergency:
           type: boolean
           description: Whether the CBHPM item 2 urgency/emergency surcharge is active.
+        modifiers:
+          $ref: '#/components/schemas/BillingModifiers'
+          description: Spine-specific billing variables persisted in composition (optional).
         created_at:
           type: string
           format: date-time
@@ -593,6 +713,9 @@ components:
         calculation_result:
           $ref: '#/components/schemas/CalculateResponse'
           description: The completed valuation result. lead_surgeon_fee must be > 0.
+        modifiers:
+          $ref: '#/components/schemas/BillingModifiers'
+          description: Spine-specific billing variables used in this calculation (optional).
 
     SaveCalculationResponse:
       type: object
@@ -612,7 +735,7 @@ components:
     SavedCalculation:
       type: object
       required: [public_id, procedure_name, selected_cbhpm_codes, access_route_type, auxiliaries_count, requires_anesthesia, surgeon_value, auxiliaries_total_value, anesthesiologist_value, team_total_value, calculation_breakdown, created_at]
-      description: The full saved calculation. The internal DB primary key is never included.
+      description: The full saved calculation. The internal DB primary key is never included. Includes spine-specific modifiers if applicable.
       properties:
         public_id:
           type: string
@@ -645,6 +768,9 @@ components:
           format: float
         calculation_breakdown:
           description: Original CalculateResponse JSON preserved verbatim for auditing.
+        modifiers:
+          $ref: '#/components/schemas/BillingModifiers'
+          description: Spine-specific billing variables used in this calculation (optional).
         created_at:
           type: string
           format: date-time

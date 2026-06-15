@@ -96,12 +96,52 @@ var AdjustmentCatalog = map[string]adjMeta{
 	},
 }
 
+// calculateQuantityMultiplier returns the multiplier for a code based on its billing mode.
+// Billing modes:
+//   - PER_PROCEDURE: 1.0 (no quantity effect)
+//   - PER_SEGMENT: quantity × 1.0 (multiplier = quantity)
+//   - PER_VERTEBRA: quantity × 1.0 (multiplier = quantity)
+//   - PER_STRUCTURE: quantity × 1.0 (multiplier = quantity)
+func calculateQuantityMultiplier(billingMode models.BillingMode, quantity int) float64 {
+	if quantity < 1 {
+		quantity = 1
+	}
+	switch billingMode {
+	case models.BillingModeSegment, models.BillingModeVertebra, models.BillingModeStructure:
+		return float64(quantity)
+	case models.BillingModeProcedure:
+		fallthrough
+	default:
+		return 1.0
+	}
+}
+
+// calculateLateralityMultiplier returns the multiplier based on laterality and support.
+// If laterality_support is true:
+//   - UNILATERAL: 1.0
+//   - BILATERAL: 2.0
+// Otherwise, always returns 1.0.
+func calculateLateralityMultiplier(lateral models.Laterality, supported bool) float64 {
+	if !supported {
+		return 1.0
+	}
+	if lateral == models.LateralityBilateral {
+		return 2.0
+	}
+	return 1.0
+}
+
 // Calculate applies the validated CBHPM billing rules to a physician-assembled composition.
 //
 // Surgeon valuation (CBHPM 2022):
 //   - Single procedure: 100% of its porte value.
 //   - Same access route (item 4.1): principal porte + 50% × Σ(additional portes).
 //   - Different access routes (item 4.2): principal porte + 70% × Σ(additional portes).
+//
+// Spine billing variables (applied per code, before CBHPM discounting):
+//   - Quantity multiplier: base × quantity (1 for PER_PROCEDURE, else = quantity)
+//   - Laterality multiplier: 1.0 for UNILATERAL, 2.0 for BILATERAL (if supported)
+//   - Applied in order: base → quantity → laterality → access route discount
 //
 // Auxiliary valuation (CBHPM 2022, item 5.1, applied to the full surgeon total per item 5.2):
 //   - 1st auxiliary: 60% of surgeon total.
@@ -124,43 +164,64 @@ func Calculate(
 	accessRoute models.AccessRouteType,
 	adjustments []string,
 ) models.CalculationResult {
-	// ── Step 1: resolve porte values and find the principal (highest value) ─────
+	// ── Step 1: resolve porte values, apply quantity & laterality, find principal ───
 
 	type entry struct {
-		code  models.SelectedCode
-		value float64
+		code                   models.SelectedCode
+		baseValue              float64
+		quantityMultiplier     float64
+		lateralityMultiplier   float64
+		adjustedValue          float64 // baseValue × quantity × laterality
 	}
 
 	entries := make([]entry, len(codes))
 	totalBase := 0.0
 	principalIdx := 0
+	principalAdjustedValue := 0.0
 
 	for i, c := range codes {
-		val := PorteValues[c.Porte]
-		entries[i] = entry{code: c, value: val}
-		totalBase += val
-		if val > entries[principalIdx].value {
-			principalIdx = i
+		baseVal := PorteValues[c.Porte]
+		qtyMult := calculateQuantityMultiplier(c.BillingMode, c.QuantitySelected)
+		latMult := calculateLateralityMultiplier(c.Laterality, c.LateralitySupport)
+		adjVal := baseVal * qtyMult * latMult
+
+		entries[i] = entry{
+			code:                 c,
+			baseValue:            baseVal,
+			quantityMultiplier:   qtyMult,
+			lateralityMultiplier: latMult,
+			adjustedValue:        adjVal,
 		}
+
+		// Find principal based on adjusted value (after quantity & laterality)
+		if adjVal > principalAdjustedValue {
+			principalIdx = i
+			principalAdjustedValue = adjVal
+		}
+
+		// totalBase is the sum of base values without multipliers (for display)
+		totalBase += baseVal
 	}
 
 	// ── Step 2: compute surgeon fee per CBHPM 4.1 / 4.2 ─────────────────────
+	// Principal is selected by highest adjusted value (after quantity & laterality)
+	// but we apply the CBHPM 4.1/4.2 discount to the adjusted values.
 
-	principalValue := entries[principalIdx].value
+	principalAdjValue := entries[principalIdx].adjustedValue
 
 	additionalGross := 0.0
 	for i, e := range entries {
 		if i != principalIdx {
-			additionalGross += e.value
+			additionalGross += e.adjustedValue
 		}
 	}
 
 	discountRate := discountRateFor(accessRoute, len(codes))
 	additionalDiscounted := additionalGross * discountRate
-	surgeonTotal := principalValue + additionalDiscounted
+	surgeonTotal := principalAdjValue + additionalDiscounted
 
 	surgeonBreakdown := models.SurgeonBreakdown{
-		PrincipalValue:       principalValue,
+		PrincipalValue:       principalAdjValue,
 		AdditionalGross:      additionalGross,
 		DiscountRate:         discountRate,
 		AdditionalDiscounted: additionalDiscounted,
@@ -168,15 +229,22 @@ func Calculate(
 	}
 
 	// ── Step 3: build per-code breakdown ─────────────────────────────────────
+	// Include spine billing variable details for transparency and audit trail.
 
 	breakdown := make([]models.CodeBreakdown, len(entries))
 	for i, e := range entries {
 		breakdown[i] = models.CodeBreakdown{
-			CBHPMCode:   e.code.CBHPMCode,
-			Description: e.code.Description,
-			Porte:       e.code.Porte,
-			BaseValue:   e.value,
-			IsPrincipal: i == principalIdx,
+			CBHPMCode:            e.code.CBHPMCode,
+			Description:          e.code.Description,
+			Porte:                e.code.Porte,
+			BaseValue:            e.baseValue,
+			IsPrincipal:          i == principalIdx,
+			BillingMode:          e.code.BillingMode,
+			QuantitySelected:     e.code.QuantitySelected,
+			QuantityMultiplier:   e.quantityMultiplier,
+			Laterality:           e.code.Laterality,
+			LateralityMultiplier: e.lateralityMultiplier,
+			AdjustedValue:        e.adjustedValue,
 		}
 	}
 
