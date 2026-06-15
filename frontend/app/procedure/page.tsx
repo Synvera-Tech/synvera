@@ -630,7 +630,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
         </h1>
         <p className="m-0 text-sm font-medium text-slate-500 dark:text-slate-400">
           {loadedCompositionId
-            ? <>Editando composição: <span className="font-semibold text-primary dark:text-[#5F84B3]">{loadedCompositionName}</span></>
+            ? <>Editando composição: <span className="font-semibold text-primary dark:text-[#7B94B3]">{loadedCompositionName}</span></>
             : "Selecione o procedimento SBN · Monte a composição · Valorize em tempo real"}
         </p>
       </div>
@@ -691,7 +691,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all duration-200",
                           checked
-                            ? "border-primary bg-primary text-white shadow-[0_0_7px_1px_rgba(53,54,80,0.5)] dark:border-[#5F84B3] dark:bg-[#355C8A] dark:shadow-[0_0_9px_1px_rgba(95,132,179,0.7)]"
+                            ? "border-primary bg-primary text-white shadow-[0_0_7px_1px_rgba(53,54,80,0.5)] dark:border-[#3D5578] dark:bg-[#3D5578] dark:shadow-[0_0_9px_1px_rgba(95,132,179,0.7)]"
                             : "border-slate-300 dark:border-slate-600",
                         )}
                       >
@@ -706,7 +706,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           <span className={cn(
                             "rounded-lg border px-2 py-0.5 text-[11px] font-semibold",
                             checked
-                              ? "border-primary/30 text-primary dark:border-[#5F84B3]/30 dark:text-[#5F84B3]"
+                              ? "border-primary/30 text-primary dark:border-[#3D5578]/30 dark:text-[#7B94B3]"
                               : "border-slate-200 dark:border-slate-700 text-slate-400",
                           )}>
                             {c.porte}
@@ -751,14 +751,14 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "flex w-full items-start gap-3 rounded-xl border p-3 text-left transition-colors",
                           isSelected
-                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5F84B3]/20 dark:bg-[#182235]/50"
+                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#3D5578]/20 dark:bg-[#1F2A35]/50"
                             : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                         )}
                       >
                         <span className={cn(
                           "mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                           isSelected
-                            ? "border-primary bg-primary dark:border-[#5F84B3] dark:bg-[#5F84B3]"
+                            ? "border-primary bg-primary dark:border-[#3D5578] dark:bg-[#5F84B3]"
                             : "border-slate-300 dark:border-slate-600",
                         )}>
                           {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
@@ -766,7 +766,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         <div>
                           <div className={cn(
                             "text-[13px] font-semibold",
-                            isSelected ? "text-primary dark:text-[#5F84B3]" : "text-slate-700 dark:text-slate-300",
+                            isSelected ? "text-primary dark:text-[#7B94B3]" : "text-slate-700 dark:text-slate-300",
                           )}>
                             {route === "same" ? "Mesma via de acesso" : "Vias de acesso diferentes"}
                           </div>
@@ -806,7 +806,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           className={cn(
                             "px-3 h-9 rounded-xl border text-sm font-semibold transition-colors",
                             spineModifiers.quantity_selected === qty
-                              ? "border-primary bg-primary text-white dark:border-[#5F84B3] dark:bg-[#355C8A]"
+                              ? "border-primary bg-primary text-white dark:border-[#3D5578] dark:bg-[#3D5578]"
                               : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary/40",
                           )}
                         >
@@ -831,14 +831,14 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                             className={cn(
                               "flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition-colors",
                               spineModifiers.laterality === lateral
-                                ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5F84B3]/20 dark:bg-[#182235]/50"
+                                ? "border-primary/30 bg-[#EAF0F6] dark:border-[#3D5578]/20 dark:bg-[#1F2A35]/50"
                                 : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                             )}
                           >
                             <span className={cn(
                               "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                               spineModifiers.laterality === lateral
-                                ? "border-primary bg-primary dark:border-[#5F84B3] dark:bg-[#5F84B3]"
+                                ? "border-primary bg-primary dark:border-[#3D5578] dark:bg-[#5F84B3]"
                                 : "border-slate-300 dark:border-slate-600",
                             )}>
                               {spineModifiers.laterality === lateral && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
@@ -846,7 +846,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                             <div>
                               <div className={cn(
                                 "text-[13px] font-semibold",
-                                spineModifiers.laterality === lateral ? "text-primary dark:text-[#5F84B3]" : "text-slate-700 dark:text-slate-300",
+                                spineModifiers.laterality === lateral ? "text-primary dark:text-[#7B94B3]" : "text-slate-700 dark:text-slate-300",
                               )}>
                                 {lateral === "UNILATERAL" ? "Unilateral" : "Bilateral"}
                               </div>
@@ -870,7 +870,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                       Número de Auxiliares
                     </label>
                     {auxIsLocked && (
-                      <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#5F84B3]/10 dark:text-[#5F84B3]">
+                      <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#5F84B3]/10 dark:text-[#7B94B3]">
                         Definido pelo CBHPM
                       </span>
                     )}
@@ -887,10 +887,10 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           "h-9 w-9 rounded-xl border text-sm font-semibold transition-colors",
                           auxIsLocked
                             ? auxiliariesCount === n
-                              ? "border-primary bg-primary text-white dark:border-[#5F84B3] dark:bg-[#355C8A] cursor-default"
+                              ? "border-primary bg-primary text-white dark:border-[#3D5578] dark:bg-[#3D5578] cursor-default"
                               : "border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed"
                             : auxiliariesCount === n
-                              ? "border-primary bg-primary text-white dark:border-[#5F84B3] dark:bg-[#355C8A]"
+                              ? "border-primary bg-primary text-white dark:border-[#3D5578] dark:bg-[#3D5578]"
                               : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary/40",
                         )}
                       >
@@ -971,19 +971,19 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     className={cn(
                       "flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors",
                       activePediatric === null
-                        ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5F84B3]/20 dark:bg-[#182235]/50"
+                        ? "border-primary/30 bg-[#EAF0F6] dark:border-[#3D5578]/20 dark:bg-[#1F2A35]/50"
                         : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                     )}
                   >
                     <span className={cn(
                       "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                       activePediatric === null
-                        ? "border-primary bg-primary dark:border-[#5F84B3] dark:bg-[#5F84B3]"
+                        ? "border-primary bg-primary dark:border-[#3D5578] dark:bg-[#5F84B3]"
                         : "border-slate-300 dark:border-slate-600",
                     )}>
                       {activePediatric === null && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
                     </span>
-                    <span className={cn("text-[13px] font-medium", activePediatric === null ? "text-primary dark:text-[#5F84B3]" : "text-slate-600 dark:text-slate-400")}>
+                    <span className={cn("text-[13px] font-medium", activePediatric === null ? "text-primary dark:text-[#7B94B3]" : "text-slate-600 dark:text-slate-400")}>
                       Não pediátrico
                     </span>
                   </button>
@@ -998,23 +998,23 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors",
                           isActive
-                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5F84B3]/20 dark:bg-[#182235]/50"
+                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#3D5578]/20 dark:bg-[#1F2A35]/50"
                             : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                         )}
                       >
                         <span className={cn(
                           "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                           isActive
-                            ? "border-primary bg-primary dark:border-[#5F84B3] dark:bg-[#5F84B3]"
+                            ? "border-primary bg-primary dark:border-[#3D5578] dark:bg-[#5F84B3]"
                             : "border-slate-300 dark:border-slate-600",
                         )}>
                           {isActive && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
                         </span>
                         <div>
-                          <span className={cn("text-[13px] font-medium", isActive ? "text-primary dark:text-[#5F84B3]" : "text-slate-600 dark:text-slate-400")}>
+                          <span className={cn("text-[13px] font-medium", isActive ? "text-primary dark:text-[#7B94B3]" : "text-slate-600 dark:text-slate-400")}>
                             {adj.label}
                           </span>
-                          <span className={cn("ml-2 text-[12px] font-semibold", isActive ? "text-primary dark:text-[#5F84B3]" : "text-slate-400")}>
+                          <span className={cn("ml-2 text-[12px] font-semibold", isActive ? "text-primary dark:text-[#7B94B3]" : "text-slate-400")}>
                             +{adj.pct}%
                           </span>
                         </div>
@@ -1037,7 +1037,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
         </div>
 
         {/* ── Right panel ─────────────────────────────────────────────────── */}
-        <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#5F84B3]/20 p-7">
+        <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#3D5578]/20 p-7">
           <div className="results-card-header mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calculator aria-hidden="true" className="text-primary" size={18} />
@@ -1058,14 +1058,14 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     <div key={b.cbhpm_code} className={cn(
                       "flex items-end justify-between gap-1 rounded-xl px-3 py-2",
                       b.is_principal
-                        ? "border border-primary/20 bg-[#EAF0F6] dark:border-[#5F84B3]/15 dark:bg-[#182235]/40"
+                        ? "border border-primary/20 bg-[#EAF0F6] dark:border-[#3D5578]/15 dark:bg-[#1F2A35]/40"
                         : "",
                     )}>
                       <div className="min-w-0">
                         <dt className="flex items-center gap-1.5">
                           <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">{b.cbhpm_code}</span>
                           {b.is_principal && (
-                            <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#5F84B3]/10 dark:text-[#5F84B3]">
+                            <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#5F84B3]/10 dark:text-[#7B94B3]">
                               principal
                             </span>
                           )}
@@ -1073,7 +1073,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         <dd className="truncate text-[12px] text-slate-500 dark:text-slate-400">{b.description}</dd>
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
-                        <span className="text-[11px] font-semibold text-primary dark:text-[#5F84B3]">{b.porte}</span>
+                        <span className="text-[11px] font-semibold text-primary dark:text-[#7B94B3]">{b.porte}</span>
                         <span className="font-grotesk text-sm font-semibold text-slate-950 dark:text-slate-50">
                           {money.format(b.base_value)}
                         </span>
@@ -1219,7 +1219,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                   <button
                     id="share-calculation-btn"
                     onClick={shareCalculation}
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/5 active:scale-[0.98] dark:border-[#5F84B3]/20 dark:text-[#5F84B3]"
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/5 active:scale-[0.98] dark:border-[#3D5578]/20 dark:text-[#7B94B3]"
                     type="button"
                   >
                     <Share2 size={16} /> Compartilhar cálculo
@@ -1297,7 +1297,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                             <button
                               onClick={handleSaveComposition}
                               disabled={savingComposition || !compositionName.trim()}
-                              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-[#5F84B3]/20 dark:text-[#5F84B3] dark:hover:bg-[#5F84B3]/10"
+                              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-[#3D5578]/20 dark:text-[#7B94B3] dark:hover:bg-[#5F84B3]/10"
                               type="button"
                             >
                               {savingComposition
@@ -1390,7 +1390,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             </button>
 
             <div className="mb-5 flex items-center gap-2">
-              <Share2 size={16} className="text-primary dark:text-[#5F84B3]" aria-hidden="true" />
+              <Share2 size={16} className="text-primary dark:text-[#7B94B3]" aria-hidden="true" />
               <h2 id="share-modal-title" className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">
                 Compartilhar relatório
               </h2>
@@ -1400,7 +1400,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             <button
               type="button"
               onClick={copyShareLink}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] dark:border-[#5F84B3]/20 dark:text-[#5F84B3] dark:hover:bg-[#5F84B3]/10"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] dark:border-[#3D5578]/20 dark:text-[#7B94B3] dark:hover:bg-[#5F84B3]/10"
             >
               {copied ? <><Check size={16} /> Link copiado!</> : <><Copy size={16} /> Copiar link</>}
             </button>
@@ -1442,7 +1442,7 @@ function ResultRow({ label, value, note, strong }: { label: string; value: numbe
     <div className="flex items-end justify-between gap-1">
       <dt className={cn("shrink-0 text-[13px]", strong ? "font-semibold text-slate-700 dark:text-slate-300" : "font-medium text-slate-500 dark:text-slate-400")}>
         {label}
-        {note && <span className="ml-1.5 text-[11px] font-semibold text-primary/70 dark:text-[#5F84B3]/70">{note}</span>}
+        {note && <span className="ml-1.5 text-[11px] font-semibold text-primary/70 dark:text-[#7B94B3]/70">{note}</span>}
       </dt>
       <div className="leader" />
       <dd className={cn("font-grotesk shrink-0 text-sm font-semibold", strong ? "text-slate-950 dark:text-slate-50" : "text-slate-800 dark:text-slate-100")}>

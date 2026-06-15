@@ -323,37 +323,14 @@ function UnauthenticatedEntry() {
 
           {/* Logo mark */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "16px", marginBottom: "56px" }}>
-            <div style={{
-              position: "relative",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}>
-              <div style={{
-                position: "absolute",
-                inset: "-14px",
-                borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(95,132,179,0.18) 0%, transparent 70%)",
-                pointerEvents: "none",
-              }} />
-              <div style={{
-                width: 76, height: 76,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                background: "linear-gradient(145deg, #E6EEF5 0%, #D8E5EE 100%)",
-                borderRadius: "20px",
-                border: "1px solid rgba(100,116,139,0.18)",
-                boxShadow: "0 2px 8px rgba(15,23,42,0.08), 0 8px 28px rgba(15,23,42,0.12)",
-              }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/brand/afere-symbol.svg"
-                  alt="Afere"
-                  width={58}
-                  height={55}
-                  style={{ display: "block" }}
-                />
-              </div>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/afere-symbol.svg"
+              alt="Afere"
+              width={58}
+              height={55}
+              style={{ display: "block" }}
+            />
             <div>
               <p style={{
                 margin: "0 0 3px",
