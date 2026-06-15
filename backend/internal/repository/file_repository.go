@@ -18,11 +18,14 @@ var catalogFS embed.FS
 
 // flatEntry mirrors one row in the embedded procedures.json.
 type flatEntry struct {
-	ProcedureName  string `json:"procedure_name"`
-	CBHPMCode      string `json:"cbhpm_code"`
-	Description    string `json:"description"`
-	Porte          string `json:"porte"`
-	NumAuxiliaries int    `json:"num_auxiliaries"`
+	ProcedureName    string `json:"procedure_name"`
+	CBHPMCode        string `json:"cbhpm_code"`
+	Description      string `json:"description"`
+	Porte            string `json:"porte"`
+	NumAuxiliaries   int    `json:"num_auxiliaries"`
+	BillingMode      string `json:"billing_mode"`
+	Specialty        string `json:"specialty"`
+	LateralitySupport bool   `json:"laterality_support"`
 }
 
 // FileRepository is a Repository backed by the embedded procedures.json
@@ -84,10 +87,13 @@ func buildIndex(flat []flatEntry) *FileRepository {
 		}
 		seenCodes[e.ProcedureName][e.CBHPMCode] = struct{}{}
 		codesByName[e.ProcedureName] = append(codesByName[e.ProcedureName], models.CBHPMCode{
-			Code:           e.CBHPMCode,
-			Description:    e.Description,
-			Porte:          e.Porte,
-			NumAuxiliaries: e.NumAuxiliaries,
+			Code:              e.CBHPMCode,
+			Description:       e.Description,
+			Porte:             e.Porte,
+			NumAuxiliaries:    e.NumAuxiliaries,
+			BillingMode:       models.BillingMode(e.BillingMode),
+			Specialty:         models.Specialty(e.Specialty),
+			LateralitySupport: e.LateralitySupport,
 		})
 	}
 

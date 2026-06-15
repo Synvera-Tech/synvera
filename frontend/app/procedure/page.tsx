@@ -61,6 +61,12 @@ type CodeBreakdown = {
   porte: string;
   base_value: number;
   is_principal: boolean;
+  billing_mode?: string;
+  quantity_selected?: number;
+  quantity_multiplier?: number;
+  laterality?: string;
+  laterality_multiplier?: number;
+  adjusted_value?: number;
 };
 type AppliedAdjustment = {
   code: string;
