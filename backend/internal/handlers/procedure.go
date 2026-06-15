@@ -39,10 +39,10 @@ func makeGetProcedureHandler(repo repository.Repository) http.HandlerFunc {
 				Code:              c.Code,
 				Description:       c.Description,
 				Porte:             c.Porte,
-				NumAuxiliaries:    int32(c.NumAuxiliaries),
+				NumAuxiliaries:    c.NumAuxiliaries,
 				BillingMode:       generated.BillingMode(c.BillingMode),
-				Specialty:         (*generated.Specialty)(&c.Specialty),
-				LateralitySupport: &c.LateralitySupport,
+				Specialty:         generated.Specialty(c.Specialty),
+				LateralitySupport: c.LateralitySupport,
 			})
 		}
 
