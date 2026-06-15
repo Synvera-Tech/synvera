@@ -9,6 +9,8 @@ import (
 	"afere/backend/internal/generated"
 	"afere/backend/internal/models"
 	"afere/backend/internal/repository"
+
+	"github.com/google/uuid"
 )
 
 // decodeAndValidateComposition parses and validates the fields shared by
@@ -24,7 +26,7 @@ func decodeAndValidateComposition(w http.ResponseWriter, r *http.Request) (gener
 		http.Error(w, "name is required", http.StatusBadRequest)
 		return req, false
 	}
-	if strings.TrimSpace(req.SBNProcedureName) == "" {
+	if strings.TrimSpace(req.SbnProcedureName) == "" {
 		http.Error(w, "sbn_procedure_name is required", http.StatusBadRequest)
 		return req, false
 	}
@@ -36,7 +38,7 @@ func decodeAndValidateComposition(w http.ResponseWriter, r *http.Request) (gener
 		http.Error(w, "auxiliaries_count must be between 0 and 4", http.StatusBadRequest)
 		return req, false
 	}
-	if req.AccessRouteType != generated.AccessRouteSame && req.AccessRouteType != generated.AccessRouteDifferent {
+	if req.AccessRouteType != generated.Same && req.AccessRouteType != generated.Different {
 		http.Error(w, "access_route_type must be 'same' or 'different'", http.StatusBadRequest)
 		return req, false
 	}
@@ -47,24 +49,24 @@ func reqToComposition(req generated.SaveCompositionRequest) models.Composition {
 	codes := make([]models.SelectedCode, 0, len(req.SelectedCodes))
 	for _, c := range req.SelectedCodes {
 		codes = append(codes, models.SelectedCode{
-			CBHPMCode:   c.CBHPMCode,
+			CBHPMCode:   c.CbhpmCode,
 			Description: c.Description,
 			Porte:       c.Porte,
 		})
 	}
-	adjs := req.Adjustments
-	if adjs == nil {
-		adjs = []string{}
+	sbnProcID := ""
+	if req.SbnProcedureId != nil {
+		sbnProcID = *req.SbnProcedureId
 	}
 	return models.Composition{
 		Name:               req.Name,
-		SBNProcedureID:     req.SBNProcedureID,
-		SBNProcedureName:   req.SBNProcedureName,
+		SBNProcedureID:     sbnProcID,
+		SBNProcedureName:   req.SbnProcedureName,
 		SelectedCodes:      codes,
 		AccessRouteType:    models.AccessRouteType(req.AccessRouteType),
 		AuxiliariesCount:   req.AuxiliariesCount,
 		RequiresAnesthesia: req.RequiresAnesthesia,
-		Adjustments:        adjs,
+		Adjustments:        []string{},
 	}
 }
 
@@ -100,8 +102,14 @@ func makeSaveCompositionHandler(repo repository.Repository) http.HandlerFunc {
 			http.Error(w, "failed to save composition", http.StatusInternalServerError)
 			return
 		}
+		parsedID, parseErr := uuid.Parse(saved.PublicID)
+		if parseErr != nil {
+			log.Printf("parse uuid: %v", parseErr)
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
 		respondJSON(w, http.StatusCreated, generated.SaveCompositionResponse{
-			PublicID:  saved.PublicID,
+			PublicId:  parsedID,
 			CreatedAt: saved.CreatedAt,
 		})
 	}
@@ -122,11 +130,16 @@ func makeListCompositionsHandler(repo repository.Repository) http.HandlerFunc {
 		}
 		items := make([]generated.CompositionItem, 0, len(comps))
 		for _, c := range comps {
+			parsedID, parseErr := uuid.Parse(c.PublicID)
+			if parseErr != nil {
+				log.Printf("parse uuid: %v", parseErr)
+				continue
+			}
 			items = append(items, generated.CompositionItem{
-				PublicID:           c.PublicID,
+				PublicId:           parsedID,
 				Name:               c.Name,
-				SBNProcedureID:     c.SBNProcedureID,
-				SBNProcedureName:   c.SBNProcedureName,
+				SbnProcedureId:     &c.SBNProcedureID,
+				SbnProcedureName:   c.SBNProcedureName,
 				AccessRouteType:    generated.AccessRouteType(c.AccessRouteType),
 				AuxiliariesCount:   c.AuxiliariesCount,
 				RequiresAnesthesia: c.RequiresAnesthesia,
@@ -162,21 +175,31 @@ func makeGetCompositionHandler(repo repository.Repository) http.HandlerFunc {
 		codes := make([]generated.SelectedCode, 0, len(comp.SelectedCodes))
 		for _, c := range comp.SelectedCodes {
 			codes = append(codes, generated.SelectedCode{
-				CBHPMCode:   c.CBHPMCode,
+				CbhpmCode:   c.CBHPMCode,
 				Description: c.Description,
 				Porte:       c.Porte,
 			})
 		}
+		parsedID, parseErr := uuid.Parse(comp.PublicID)
+		if parseErr != nil {
+			log.Printf("parse uuid: %v", parseErr)
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
+		var sbnProcID *string
+		if comp.SBNProcedureID != "" {
+			sbnProcID = &comp.SBNProcedureID
+		}
 		respondJSON(w, http.StatusOK, generated.CompositionDetail{
-			PublicID:           comp.PublicID,
+			PublicId:           parsedID,
 			Name:               comp.Name,
-			SBNProcedureID:     comp.SBNProcedureID,
-			SBNProcedureName:   comp.SBNProcedureName,
+			SbnProcedureId:     sbnProcID,
+			SbnProcedureName:   comp.SBNProcedureName,
 			SelectedCodes:      codes,
 			AccessRouteType:    generated.AccessRouteType(comp.AccessRouteType),
 			AuxiliariesCount:   comp.AuxiliariesCount,
 			RequiresAnesthesia: comp.RequiresAnesthesia,
-			Adjustments:        func() []string { if comp.Adjustments == nil { return []string{} }; return comp.Adjustments }(),
+			UrgencyEmergency:   false,
 			CreatedAt:          comp.CreatedAt,
 			UpdatedAt:          comp.UpdatedAt,
 		})
@@ -212,28 +235,34 @@ func makeUpdateCompositionHandler(repo repository.Repository) http.HandlerFunc {
 		codes := make([]generated.SelectedCode, 0, len(updated.SelectedCodes))
 		for _, c := range updated.SelectedCodes {
 			codes = append(codes, generated.SelectedCode{
-				CBHPMCode:   c.CBHPMCode,
+				CbhpmCode:   c.CBHPMCode,
 				Description: c.Description,
 				Porte:       c.Porte,
 			})
 		}
-		updAdjs := updated.Adjustments
-			if updAdjs == nil {
-				updAdjs = []string{}
-			}
-			respondJSON(w, http.StatusOK, generated.CompositionDetail{
-				PublicID:           updated.PublicID,
-				Name:               updated.Name,
-				SBNProcedureID:     updated.SBNProcedureID,
-				SBNProcedureName:   updated.SBNProcedureName,
-				SelectedCodes:      codes,
-				AccessRouteType:    generated.AccessRouteType(updated.AccessRouteType),
-				AuxiliariesCount:   updated.AuxiliariesCount,
-				RequiresAnesthesia: updated.RequiresAnesthesia,
-				Adjustments:        updAdjs,
-				CreatedAt:          updated.CreatedAt,
-				UpdatedAt:          updated.UpdatedAt,
-			})
+		updatedID, parseErr := uuid.Parse(updated.PublicID)
+		if parseErr != nil {
+			log.Printf("parse uuid: %v", parseErr)
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
+		var updSbnProcID *string
+		if updated.SBNProcedureID != "" {
+			updSbnProcID = &updated.SBNProcedureID
+		}
+		respondJSON(w, http.StatusOK, generated.CompositionDetail{
+			PublicId:           updatedID,
+			Name:               updated.Name,
+			SbnProcedureId:     updSbnProcID,
+			SbnProcedureName:   updated.SBNProcedureName,
+			SelectedCodes:      codes,
+			AccessRouteType:    generated.AccessRouteType(updated.AccessRouteType),
+			AuxiliariesCount:   updated.AuxiliariesCount,
+			RequiresAnesthesia: updated.RequiresAnesthesia,
+			UrgencyEmergency:   false,
+			CreatedAt:          updated.CreatedAt,
+			UpdatedAt:          updated.UpdatedAt,
+		})
 	}
 }
 

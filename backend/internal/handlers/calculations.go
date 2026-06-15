@@ -9,6 +9,8 @@ import (
 	"afere/backend/internal/generated"
 	"afere/backend/internal/models"
 	"afere/backend/internal/repository"
+
+	"github.com/google/uuid"
 )
 
 // makeSaveCalculationHandler returns a POST /api/calculations handler.
@@ -38,7 +40,7 @@ func makeSaveCalculationHandler(repo repository.Repository) http.HandlerFunc {
 			http.Error(w, "auxiliaries_count must be between 0 and 4", http.StatusBadRequest)
 			return
 		}
-		if req.AccessRouteType != generated.AccessRouteSame && req.AccessRouteType != generated.AccessRouteDifferent {
+		if req.AccessRouteType != generated.Same && req.AccessRouteType != generated.Different {
 			http.Error(w, "access_route_type must be 'same' or 'different'", http.StatusBadRequest)
 			return
 		}
@@ -56,23 +58,28 @@ func makeSaveCalculationHandler(repo repository.Repository) http.HandlerFunc {
 		selectedCodes := make([]models.SelectedCode, 0, len(req.SelectedCodes))
 		for _, c := range req.SelectedCodes {
 			selectedCodes = append(selectedCodes, models.SelectedCode{
-				CBHPMCode:   c.CBHPMCode,
+				CBHPMCode:   c.CbhpmCode,
 				Description: c.Description,
 				Porte:       c.Porte,
 			})
 		}
 
+		sbnCode := ""
+		if req.ProcedureSbnCode != nil {
+			sbnCode = *req.ProcedureSbnCode
+		}
+
 		calc := models.Calculation{
 			ProcedureName:         req.ProcedureName,
-			ProcedureSBNCode:      req.ProcedureSBNCode,
+			ProcedureSBNCode:      sbnCode,
 			SelectedCBHPMCodes:    selectedCodes,
 			AccessRoute:           models.AccessRouteType(req.AccessRouteType),
 			AuxiliariesCount:      req.AuxiliariesCount,
 			RequiresAnesthesia:    req.RequiresAnesthesia,
-			SurgeonValue:          req.CalculationResult.LeadSurgeonFee,
-			AuxiliariesTotalValue: req.CalculationResult.AuxiliariesFee,
-			AnesthesiologistValue: req.CalculationResult.AnesthesiologistFee,
-			TeamTotalValue:        req.CalculationResult.FinalTotal,
+			SurgeonValue:          float64(req.CalculationResult.LeadSurgeonFee),
+			AuxiliariesTotalValue: float64(req.CalculationResult.AuxiliariesFee),
+			AnesthesiologistValue: float64(req.CalculationResult.AnesthesiologistFee),
+			TeamTotalValue:        float64(req.CalculationResult.FinalTotal),
 			BreakdownJSON:         json.RawMessage(breakdownJSON),
 		}
 
@@ -83,8 +90,15 @@ func makeSaveCalculationHandler(repo repository.Repository) http.HandlerFunc {
 			return
 		}
 
+		publicID, err := uuid.Parse(saved.PublicID)
+		if err != nil {
+			log.Printf("parse uuid: %v", err)
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
+
 		respondJSON(w, http.StatusCreated, generated.SaveCalculationResponse{
-			PublicID:  saved.PublicID,
+			PublicId:  publicID,
 			CreatedAt: saved.CreatedAt,
 		})
 	}
@@ -99,20 +113,25 @@ func makeListCalculationsHandler(repo repository.Repository) http.HandlerFunc {
 			http.Error(w, "failed to list calculations", http.StatusInternalServerError)
 			return
 		}
-		summaries := make([]generated.CalculationSummary, 0, len(calcs))
+		summaries := make([]map[string]interface{}, 0, len(calcs))
 		for _, c := range calcs {
-			summaries = append(summaries, generated.CalculationSummary{
-				PublicID:              c.PublicID,
-				ProcedureName:         c.ProcedureName,
-				ProcedureSBNCode:      c.ProcedureSBNCode,
-				SurgeonValue:          c.SurgeonValue,
-				AuxiliariesTotalValue: c.AuxiliariesTotalValue,
-				AnesthesiologistValue: c.AnesthesiologistValue,
-				TeamTotalValue:        c.TeamTotalValue,
-				AuxiliariesCount:      c.AuxiliariesCount,
-				RequiresAnesthesia:    c.RequiresAnesthesia,
-				AccessRouteType:       generated.AccessRouteType(c.AccessRoute),
-				CreatedAt:             c.CreatedAt,
+			publicID, err := uuid.Parse(c.PublicID)
+			if err != nil {
+				log.Printf("parse uuid: %v", err)
+				continue
+			}
+			summaries = append(summaries, map[string]interface{}{
+				"public_id":               publicID,
+				"procedure_name":          c.ProcedureName,
+				"procedure_sbn_code":      c.ProcedureSBNCode,
+				"surgeon_value":           c.SurgeonValue,
+				"auxiliaries_total_value": c.AuxiliariesTotalValue,
+				"anesthesiologist_value":  c.AnesthesiologistValue,
+				"team_total_value":        c.TeamTotalValue,
+				"auxiliaries_count":       c.AuxiliariesCount,
+				"requires_anesthesia":     c.RequiresAnesthesia,
+				"access_route_type":       string(c.AccessRoute),
+				"created_at":              c.CreatedAt,
 			})
 		}
 		respondJSON(w, http.StatusOK, summaries)
@@ -182,24 +201,36 @@ func makeGetCalculationHandler(repo repository.Repository) http.HandlerFunc {
 		selectedCodes := make([]generated.SelectedCode, 0, len(calc.SelectedCBHPMCodes))
 		for _, c := range calc.SelectedCBHPMCodes {
 			selectedCodes = append(selectedCodes, generated.SelectedCode{
-				CBHPMCode:   c.CBHPMCode,
+				CbhpmCode:   c.CBHPMCode,
 				Description: c.Description,
 				Porte:       c.Porte,
 			})
 		}
 
+		parsedID, parseErr := uuid.Parse(calc.PublicID)
+		if parseErr != nil {
+			log.Printf("parse uuid: %v", parseErr)
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
+
+		var sbnCode *string
+		if calc.ProcedureSBNCode != "" {
+			sbnCode = &calc.ProcedureSBNCode
+		}
+
 		respondJSON(w, http.StatusOK, generated.SavedCalculation{
-			PublicID:              calc.PublicID,
+			PublicId:              parsedID,
 			ProcedureName:         calc.ProcedureName,
-			ProcedureSBNCode:      calc.ProcedureSBNCode,
-			SelectedCBHPMCodes:    selectedCodes,
+			ProcedureSbnCode:      sbnCode,
+			SelectedCbhpmCodes:    selectedCodes,
 			AccessRouteType:       generated.AccessRouteType(calc.AccessRoute),
 			AuxiliariesCount:      calc.AuxiliariesCount,
 			RequiresAnesthesia:    calc.RequiresAnesthesia,
-			SurgeonValue:          calc.SurgeonValue,
-			AuxiliariesTotalValue: calc.AuxiliariesTotalValue,
-			AnesthesiologistValue: calc.AnesthesiologistValue,
-			TeamTotalValue:        calc.TeamTotalValue,
+			SurgeonValue:          float32(calc.SurgeonValue),
+			AuxiliariesTotalValue: float32(calc.AuxiliariesTotalValue),
+			AnesthesiologistValue: float32(calc.AnesthesiologistValue),
+			TeamTotalValue:        float32(calc.TeamTotalValue),
 			CalculationBreakdown:  calc.BreakdownJSON,
 			CreatedAt:             calc.CreatedAt,
 		})

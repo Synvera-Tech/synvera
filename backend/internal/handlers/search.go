@@ -29,7 +29,7 @@ func makeSearchHandler(repo repository.Repository) http.HandlerFunc {
 		results := make([]generated.SBNProcedureResult, 0, len(procedures))
 		for _, p := range procedures {
 			results = append(results, generated.SBNProcedureResult{
-				ID:   p.ID,
+				Id:   p.ID,
 				Name: p.Name,
 			})
 		}

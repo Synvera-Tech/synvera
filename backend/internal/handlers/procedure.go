@@ -47,9 +47,9 @@ func makeGetProcedureHandler(repo repository.Repository) http.HandlerFunc {
 		}
 
 		respondJSON(w, http.StatusOK, generated.ProcedureDetail{
-			ID:         p.ID,
+			Id:         p.ID,
 			Name:       p.Name,
-			CBHPMCodes: codes,
+			CbhpmCodes: codes,
 		})
 	}
 }
