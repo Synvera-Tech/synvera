@@ -108,14 +108,14 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
         </div>
       )}
 
-      <div className="relative">
+      <div className="relative rounded-md overflow-hidden">
         <Search
           aria-hidden="true"
           className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
           size={18}
         />
         <Input
-          className="h-[54px] pl-[46px] text-[15px]"
+          className="h-[54px] pl-[46px] text-[15px] rounded-none"
           id="procedure-search"
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
