@@ -36,10 +36,13 @@ func makeGetProcedureHandler(repo repository.Repository) http.HandlerFunc {
 		codes := make([]generated.CBHPMCodeEntry, 0, len(p.Codes))
 		for _, c := range p.Codes {
 			codes = append(codes, generated.CBHPMCodeEntry{
-				Code:           c.Code,
-				Description:    c.Description,
-				Porte:          c.Porte,
-				NumAuxiliaries: c.NumAuxiliaries,
+				Code:              c.Code,
+				Description:       c.Description,
+				Porte:             c.Porte,
+				NumAuxiliaries:    int32(c.NumAuxiliaries),
+				BillingMode:       generated.BillingMode(c.BillingMode),
+				Specialty:         (*generated.Specialty)(&c.Specialty),
+				LateralitySupport: &c.LateralitySupport,
 			})
 		}
 
