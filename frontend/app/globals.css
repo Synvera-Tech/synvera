@@ -582,6 +582,13 @@ html.dark body {
   html.dark .workspace-panel {
     background: #F4F6F8 !important;
     border-color: rgba(15, 23, 42, 0.08) !important;
+    color: #111827 !important;
+  }
+
+  html.dark .workspace-panel,
+  html.dark .workspace-panel * {
+    --tw-bg-opacity: 1;
+    background-color: #F4F6F8 !important;
   }
 
   html.dark .workspace-panel .card-plush {
