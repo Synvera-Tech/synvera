@@ -79,17 +79,13 @@ body {
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) body {
-    background:
-      radial-gradient(circle at top center, rgba(110,120,140,0.002) 0%, transparent 50%),
-      linear-gradient(180deg, #0E1013 0%, #111418 50%, #15191F 100%);
+    background: #0B0D10;
     background-attachment: fixed;
   }
 }
 
 html.dark body {
-  background:
-    radial-gradient(circle at top center, rgba(110,120,140,0.002) 0%, transparent 50%),
-    linear-gradient(180deg, #0E1013 0%, #111418 50%, #15191F 100%);
+  background: #0B0D10;
   background-attachment: fixed;
 }
 
@@ -341,7 +337,7 @@ html.dark body {
   }
 
   html.dark .results-card {
-    background: #202938;
+    background: #1E293B;
     border-color: rgba(255, 255, 255, 0.10) !important;
     box-shadow:
       0 1px 3px rgba(0, 0, 0, 0.25),
@@ -350,7 +346,7 @@ html.dark body {
   }
 
   .results-card-header {
-    background: rgba(93, 126, 167, 0.12);
+    background: rgba(30, 41, 59, 0.8);
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
     padding: 1rem;
     margin: -1.75rem -1.75rem 1.5rem -1.75rem;
@@ -358,14 +354,22 @@ html.dark body {
   }
 
   html.dark .results-card-header {
-    background: rgba(93, 126, 167, 0.08);
-    border-bottom-color: rgba(255, 255, 255, 0.12);
+    background: rgba(30, 41, 59, 0.8);
+    border-bottom-color: rgba(255, 255, 255, 0.10);
+    color: #F4F6F8;
+  }
+
+  html.dark .results-card h3,
+  html.dark .results-card h4,
+  html.dark .results-card span,
+  html.dark .results-card p {
+    color: #F4F6F8 !important;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .results-card-header {
-      background: rgba(93, 126, 167, 0.08);
-      border-bottom-color: rgba(255, 255, 255, 0.12);
+      background: rgba(30, 41, 59, 0.8);
+      border-bottom-color: rgba(255, 255, 255, 0.10);
     }
   }
 
@@ -576,28 +580,43 @@ html.dark body {
   }
 
   html.dark .workspace-panel {
-    background: #181D24 !important;
-    border-color: rgba(255, 255, 255, 0.10) !important;
+    background: #F4F6F8 !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
   }
 
   html.dark .workspace-panel .card-plush {
-    background: #242B35 !important;
-    border-color: rgba(255, 255, 255, 0.10) !important;
+    background: #FFFFFF !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
   }
 
   html.dark .workspace-panel input,
   html.dark .workspace-panel textarea,
   html.dark .workspace-panel select {
-    background: #151A21 !important;
-    color: #F4F6F8 !important;
-    border-color: rgba(255, 255, 255, 0.10) !important;
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    border-color: rgba(15, 23, 42, 0.08) !important;
   }
 
   html.dark .workspace-panel input:focus,
   html.dark .workspace-panel textarea:focus,
   html.dark .workspace-panel select:focus {
-    background: #202938 !important;
-    border-color: rgba(255, 255, 255, 0.16) !important;
+    background: #FFFFFF !important;
+    border-color: rgba(15, 23, 42, 0.12) !important;
+  }
+
+  html.dark .workspace-panel h1,
+  html.dark .workspace-panel h2,
+  html.dark .workspace-panel h3,
+  html.dark .workspace-panel h4,
+  html.dark .workspace-panel h5,
+  html.dark .workspace-panel h6 {
+    color: #111827 !important;
+  }
+
+  html.dark .workspace-panel p,
+  html.dark .workspace-panel label,
+  html.dark .workspace-panel span {
+    color: #111827 !important;
   }
 
   #procedure-search {
