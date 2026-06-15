@@ -92,14 +92,14 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
           {value.map((v) => (
             <span
               key={v.id}
-              className="inline-flex items-center gap-1.5 rounded-full border border-teal-200 dark:border-teal-700 bg-teal-50 dark:bg-teal-900/30 px-3 py-1 text-[11px] font-semibold text-teal-700 dark:text-teal-300"
+              className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 dark:border-slate-700 bg-blue-50 dark:bg-slate-800/40 px-3 py-1 text-[11px] font-semibold text-blue-700 dark:text-slate-300"
             >
               {v.name}
               <button
                 type="button"
                 onClick={() => removeChip(v.id)}
                 aria-label={`Remover ${v.name}`}
-                className="text-teal-400 hover:text-teal-700 dark:text-teal-500 dark:hover:text-teal-200 transition-colors"
+                className="text-blue-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
               >
                 <X size={11} strokeWidth={2.5} />
               </button>
@@ -143,7 +143,7 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
                 className={cn(
                   "block w-full border-b border-slate-50 dark:border-slate-800 px-4 py-3.5 text-left text-sm last:border-b-0 transition-colors",
                   selected
-                    ? "bg-teal-50 dark:bg-teal-900/30"
+                    ? "bg-blue-50 dark:bg-slate-800/40"
                     : "hover:bg-slate-50 dark:hover:bg-slate-800",
                 )}
               >

@@ -239,16 +239,8 @@ export default function NovoCalculo() {
               textDecoration: "none",
             }}
           >
-            <div style={{
-              width: "30px", height: "30px", flexShrink: 0,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              background: "linear-gradient(145deg, #E6EEF5, #D8E5EE)",
-              borderRadius: "9px",
-              border: "1px solid rgba(53,92,138,0.12)",
-            }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={20} height={19} style={{ display: "block" }} />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={20} height={19} style={{ display: "block", flexShrink: 0 }} />
             <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
               <span style={{ fontSize: "13px", fontWeight: 700, color: T.primary, letterSpacing: "-0.2px", lineHeight: 1 }}>
                 Afere
@@ -338,31 +330,15 @@ export default function NovoCalculo() {
           {/* ── Brand ── */}
           <div style={{ textAlign: "center", marginBottom: "36px" }}>
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "18px" }}>
-              <div style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{
-                  position: "absolute", inset: "-14px", borderRadius: "50%",
-                  background: "radial-gradient(circle, rgba(95,132,179,0.16) 0%, transparent 70%)",
-                  pointerEvents: "none",
-                }} />
-                <div style={{
-                  width: 68, height: 68,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  background: "linear-gradient(145deg, #EAF1F6 0%, #DDE8F0 100%)",
-                  borderRadius: "18px",
-                  border: "1px solid rgba(53,92,138,0.12)",
-                  boxShadow: "0 0 0 5px rgba(95,132,179,0.10), 0 2px 8px rgba(30,58,95,0.18)",
-                }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/brand/afere-symbol.svg"
-                    alt=""
-                    aria-hidden="true"
-                    width={51}
-                    height={48}
-                    style={{ display: "block" }}
-                  />
-                </div>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brand/afere-symbol.svg"
+                alt=""
+                aria-hidden="true"
+                width={51}
+                height={48}
+                style={{ display: "block" }}
+              />
             </div>
             <h1
               style={{
