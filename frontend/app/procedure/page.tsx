@@ -29,10 +29,23 @@ import { cn } from "@/components/ui/utils";
 
 // ─── Domain types ─────────────────────────────────────────────────────────────
 
-type CBHPMCode = { code: string; description: string; porte: string; num_auxiliaries: number };
+type CBHPMCode = {
+  code: string;
+  description: string;
+  porte: string;
+  num_auxiliaries: number;
+  billing_mode?: string;
+  specialty?: string;
+  laterality_support?: boolean;
+};
 type ProcedureDetail = { id: string; name: string; cbhpm_codes: CBHPMCode[] };
 
 type AccessRouteType = "same" | "different";
+
+type SpineBillingModifiers = {
+  quantity_selected: number;
+  laterality: "UNILATERAL" | "BILATERAL";
+};
 
 type AuxiliaryFee = { position: number; percentage: number; fee: number };
 type SurgeonBreakdown = {
@@ -189,6 +202,12 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
   // Composition loaded from URL (for update flow)
   const [loadedCompositionId, setLoadedCompositionId] = useState<string | null>(null);
   const [loadedCompositionName, setLoadedCompositionName] = useState("");
+
+  // Spine surgery billing modifiers
+  const [spineModifiers, setSpineModifiers] = useState<SpineBillingModifiers>({
+    quantity_selected: 1,
+    laterality: "UNILATERAL",
+  });
 
   const calcTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -361,13 +380,19 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
         cbhpm_code: c.code,
         description: c.description,
         porte: c.porte,
+        billing_mode: c.billing_mode || "PER_PROCEDURE",
+        specialty: c.specialty || "NEUROSURGERY",
+        laterality_support: c.laterality_support || false,
+        quantity_selected: spineModifiers.quantity_selected,
+        laterality: spineModifiers.laterality,
       })),
       auxiliaries_count: auxiliariesCount,
       requires_anesthesia: requiresAnesthesia,
       access_route_type: accessRoute,
       adjustments,
+      modifiers: spineModifiers,
     };
-  }, [allCbhpmCodes, selectedCodes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments]);
+  }, [allCbhpmCodes, selectedCodes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, spineModifiers]);
 
   // ── Real-time calculation (debounced 150 ms) ──────────────────────────────
 
@@ -412,11 +437,17 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
           cbhpm_code: c.code,
           description: c.description,
           porte: c.porte,
+          billing_mode: c.billing_mode || "PER_PROCEDURE",
+          specialty: c.specialty || "NEUROSURGERY",
+          laterality_support: c.laterality_support || false,
+          quantity_selected: spineModifiers.quantity_selected,
+          laterality: spineModifiers.laterality,
         })),
         access_route_type: accessRoute,
         auxiliaries_count: auxiliariesCount,
         requires_anesthesia: requiresAnesthesia,
         adjustments,
+        modifiers: spineModifiers,
       };
       const res = await fetch("/api/compositions", {
         method: "POST",
@@ -744,6 +775,86 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                   })}
                 </div>
               </div>
+
+              {/* Spine billing variables */}
+              {allCbhpmCodes.some((c) => c.billing_mode === "PER_SEGMENT") && (
+                <div className="space-y-4 rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
+                  <div className="flex items-center gap-2">
+                    <Stethoscope aria-hidden="true" className="text-primary" size={15} />
+                    <span className="text-[13px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      Variáveis de Coluna Vertebral
+                    </span>
+                  </div>
+
+                  {/* Quantity selector */}
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400 mb-2">
+                      Quantidade de Segmentos
+                    </label>
+                    <div className="flex flex-wrap gap-1.5">
+                      {[1, 2, 3, 4].map((qty) => (
+                        <button
+                          key={qty}
+                          type="button"
+                          onClick={() => setSpineModifiers((prev) => ({ ...prev, quantity_selected: qty }))}
+                          className={cn(
+                            "px-3 h-9 rounded-xl border text-sm font-semibold transition-colors",
+                            spineModifiers.quantity_selected === qty
+                              ? "border-primary bg-primary text-white dark:border-[#5F84B3] dark:bg-[#355C8A]"
+                              : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary/40",
+                          )}
+                        >
+                          {qty}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Laterality selector */}
+                  {allCbhpmCodes.some((c) => c.laterality_support) && (
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400 mb-2">
+                        Lateralidade
+                      </label>
+                      <div className="space-y-1.5">
+                        {(["UNILATERAL", "BILATERAL"] as const).map((lateral) => (
+                          <button
+                            key={lateral}
+                            type="button"
+                            onClick={() => setSpineModifiers((prev) => ({ ...prev, laterality: lateral }))}
+                            className={cn(
+                              "flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition-colors",
+                              spineModifiers.laterality === lateral
+                                ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5F84B3]/20 dark:bg-[#182235]/50"
+                                : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
+                            )}
+                          >
+                            <span className={cn(
+                              "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
+                              spineModifiers.laterality === lateral
+                                ? "border-primary bg-primary dark:border-[#5F84B3] dark:bg-[#5F84B3]"
+                                : "border-slate-300 dark:border-slate-600",
+                            )}>
+                              {spineModifiers.laterality === lateral && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                            </span>
+                            <div>
+                              <div className={cn(
+                                "text-[13px] font-semibold",
+                                spineModifiers.laterality === lateral ? "text-primary dark:text-[#5F84B3]" : "text-slate-700 dark:text-slate-300",
+                              )}>
+                                {lateral === "UNILATERAL" ? "Unilateral" : "Bilateral"}
+                              </div>
+                              <div className="text-[11px] text-slate-400 dark:text-slate-500">
+                                {lateral === "UNILATERAL" ? "Um lado (1×)" : "Ambos os lados (2×)"}
+                              </div>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Auxiliaries + anesthesia */}
               <div className="mb-4 grid gap-3 sm:grid-cols-2">
