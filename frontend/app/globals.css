@@ -30,23 +30,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --background: 220 16% 7%;
-    --foreground: 220 13% 95%;
-    --primary: 210 35% 52%;
-    --muted: 220 12% 20%;
-    --muted-foreground: 220 10% 70%;
-    --border: 220 14% 18%;
+    --background: 215 12% 6%;
+    --foreground: 218 12% 96%;
+    --primary: 210 32% 51%;
+    --muted: 215 10% 18%;
+    --muted-foreground: 215 10% 72%;
+    --border: 215 10% 16%;
     color-scheme: dark;
   }
 }
 
 html.dark {
-  --background: 220 16% 7%;
-  --foreground: 220 13% 95%;
-  --primary: 210 35% 52%;
-  --muted: 220 12% 20%;
-  --muted-foreground: 220 10% 70%;
-  --border: 220 14% 18%;
+  --background: 215 12% 6%;
+  --foreground: 218 12% 96%;
+  --primary: 210 32% 51%;
+  --muted: 215 10% 18%;
+  --muted-foreground: 215 10% 72%;
+  --border: 215 10% 16%;
   color-scheme: dark;
 }
 
@@ -81,7 +81,7 @@ body {
   :root:not(.light) body {
     background:
       radial-gradient(circle at top center, rgba(110,120,140,0.002) 0%, transparent 50%),
-      linear-gradient(180deg, #111418 0%, #151A20 50%, #1A2028 100%);
+      linear-gradient(180deg, #0E1013 0%, #111418 50%, #15191F 100%);
     background-attachment: fixed;
   }
 }
@@ -89,7 +89,7 @@ body {
 html.dark body {
   background:
     radial-gradient(circle at top center, rgba(110,120,140,0.002) 0%, transparent 50%),
-    linear-gradient(180deg, #111418 0%, #151A20 50%, #1A2028 100%);
+    linear-gradient(180deg, #0E1013 0%, #111418 50%, #15191F 100%);
   background-attachment: fixed;
 }
 
@@ -124,26 +124,12 @@ html.dark body {
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .hex-bg {
-      background-image:
-        radial-gradient(ellipse 760px 280px at 50% -80px, rgba(95, 132, 179, 0.05), transparent 72%),
-        repeating-linear-gradient(128deg, rgba(95, 132, 179, 0.025) 0 16px, transparent 16px 142px),
-        repeating-linear-gradient(128deg, rgba(95, 132, 179, 0.045) 0 1px, transparent 1px 22px),
-        repeating-linear-gradient(38deg, transparent 0 64px, rgba(148, 163, 184, 0.014) 64px 65px, transparent 65px 128px),
-        radial-gradient(circle at 1px 1px, rgba(95, 132, 179, 0.055) 1px, transparent 1.5px),
-        linear-gradient(rgba(148, 163, 184, 0.014) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.014) 1px, transparent 1px);
+      background-image: none;
     }
   }
 
   html.dark .hex-bg {
-    background-image:
-      radial-gradient(ellipse 760px 280px at 50% -80px, rgba(130, 140, 160, 0.001), transparent 72%),
-      repeating-linear-gradient(128deg, rgba(130, 140, 160, 0.001) 0 16px, transparent 16px 142px),
-      repeating-linear-gradient(128deg, rgba(130, 140, 160, 0.0015) 0 1px, transparent 1px 22px),
-      repeating-linear-gradient(38deg, transparent 0 64px, rgba(148, 158, 178, 0.0005) 64px 65px, transparent 65px 128px),
-      radial-gradient(circle at 1px 1px, rgba(130, 140, 160, 0.001) 1px, transparent 1.5px),
-      linear-gradient(rgba(148, 158, 178, 0.0005) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148, 158, 178, 0.0005) 1px, transparent 1px);
+    background-image: none;
   }
 
   .nav-bar {
@@ -169,8 +155,8 @@ html.dark body {
   }
 
   html.dark .nav-bar {
-    background: rgba(18, 24, 32, 0.65);
-    border-color: rgba(91, 127, 168, 0.20);
+    background: rgba(18, 21, 26, 0.86);
+    border-color: rgba(255, 255, 255, 0.10);
     box-shadow:
       0 1px 2px rgba(0, 0, 0, 0.20),
       0 8px 24px rgba(0, 0, 0, 0.30),
@@ -179,8 +165,8 @@ html.dark body {
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .nav-bar {
-      background: rgba(18, 24, 32, 0.65);
-      border-color: rgba(91, 127, 168, 0.20);
+      background: rgba(18, 21, 26, 0.86);
+      border-color: rgba(255, 255, 255, 0.10);
       box-shadow:
         0 1px 2px rgba(0, 0, 0, 0.20),
         0 8px 24px rgba(0, 0, 0, 0.30),
@@ -315,7 +301,7 @@ html.dark body {
 
   .focus-sapphire:focus {
     outline: none;
-    border-color: #5D7EA7;
+    border-color: #7894B8;
     box-shadow: 0 0 0 3px rgba(53,92,138,0.15);
   }
 
@@ -355,8 +341,8 @@ html.dark body {
   }
 
   html.dark .results-card {
-    background: #253448;
-    border-color: rgba(255, 255, 255, 0.08) !important;
+    background: #202938;
+    border-color: rgba(255, 255, 255, 0.10) !important;
     box-shadow:
       0 1px 3px rgba(0, 0, 0, 0.25),
       0 8px 24px rgba(0, 0, 0, 0.30),
@@ -365,7 +351,7 @@ html.dark body {
 
   .results-card-header {
     background: rgba(93, 126, 167, 0.12);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
     padding: 1rem;
     margin: -1.75rem -1.75rem 1.5rem -1.75rem;
     border-radius: 1.5rem 1.5rem 0 0;
@@ -590,28 +576,28 @@ html.dark body {
   }
 
   html.dark .workspace-panel {
-    background: #1B2129 !important;
-    border-color: rgba(255, 255, 255, 0.08) !important;
+    background: #181D24 !important;
+    border-color: rgba(255, 255, 255, 0.10) !important;
   }
 
   html.dark .workspace-panel .card-plush {
-    background: #2A3444 !important;
-    border-color: rgba(255, 255, 255, 0.08) !important;
+    background: #242B35 !important;
+    border-color: rgba(255, 255, 255, 0.10) !important;
   }
 
   html.dark .workspace-panel input,
   html.dark .workspace-panel textarea,
   html.dark .workspace-panel select {
-    background: #202733 !important;
-    color: #F3F4F6 !important;
-    border-color: rgba(255, 255, 255, 0.08) !important;
+    background: #151A21 !important;
+    color: #F4F6F8 !important;
+    border-color: rgba(255, 255, 255, 0.10) !important;
   }
 
   html.dark .workspace-panel input:focus,
   html.dark .workspace-panel textarea:focus,
   html.dark .workspace-panel select:focus {
-    background: #232D3B !important;
-    border-color: rgba(255, 255, 255, 0.14) !important;
+    background: #202938 !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
   }
 
   #procedure-search {
@@ -647,15 +633,15 @@ html.dark body {
   }
 
   html.dark .selected-cbhpm-card {
-    background: #2A3444 !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+    background: #242B35 !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .selected-cbhpm-card {
-      background: #2A3444 !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.14) !important;
+      background: #242B35 !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
   }
