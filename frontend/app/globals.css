@@ -87,10 +87,10 @@
 
 @keyframes shimmerStripe {
   0% {
-    transform: translateX(-150%) translateY(-150%) skewX(-45deg);
+    transform: translateX(-150%) skewX(-45deg);
   }
   100% {
-    transform: translateX(150%) translateY(150%) skewX(-45deg);
+    transform: translateX(150%) skewX(-45deg);
   }
 }
 
