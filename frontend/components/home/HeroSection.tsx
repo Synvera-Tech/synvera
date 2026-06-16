@@ -70,7 +70,7 @@ export function HeroSection() {
             animation: "pulse 2s ease-in-out infinite",
           }} />
           <span style={{ fontSize: "11px", fontWeight: 600, color: "#d0d6e0", letterSpacing: "0.5px" }}>
-            PLATAFORMA PREMIUM
+            INTELIGÊNCIA EM NEUROCIRURGIA
           </span>
         </div>
 
@@ -81,34 +81,36 @@ export function HeroSection() {
             fontSize: "clamp(36px, 6vw, 52px)",
             fontWeight: 800,
             letterSpacing: "-1.5px",
+            color: "#f7f8f8",
             lineHeight: 1.1,
             animation: "slideUp 0.7s ease-out 0.1s both",
             position: "relative",
           }}
         >
-          <span
-            style={{
-              background: `linear-gradient(90deg,
-                transparent 0%,
-                white 5%,
-                white 95%,
-                transparent 100%),
-                repeating-linear-gradient(
+          {/* Text with shimmer stripe */}
+          <span style={{ position: "relative", display: "inline-block" }}>
+            Valoração médica com
+            {/* Shimmer overlay */}
+            <div
+              style={{
+                position: "absolute",
+                top: "0",
+                left: "0",
+                right: "0",
+                bottom: "0",
+                background: `repeating-linear-gradient(
                   45deg,
                   transparent,
-                  transparent 60px,
-                  rgba(255, 255, 255, 0.25) 60px,
-                  rgba(255, 255, 255, 0.25) 120px
+                  transparent 50px,
+                  rgba(255, 255, 255, 0.3) 50px,
+                  rgba(255, 255, 255, 0.3) 100px
                 )`,
-              backgroundSize: "100% 100%, 200% 200%",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              animation: "shimmerStripeText 5s ease-in-out infinite",
-              display: "inline-block",
-            }}
-          >
-            Valoração médica com
+                animation: "shimmerStripe 5s ease-in-out infinite",
+                pointerEvents: "none",
+                mixBlendMode: "screen",
+                borderRadius: "4px",
+              }}
+            />
           </span>
           <br />
           <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>

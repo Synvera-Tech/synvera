@@ -87,19 +87,10 @@
 
 @keyframes shimmerStripe {
   0% {
-    transform: translateX(-200%) skewX(-45deg);
+    transform: translateX(-150%) translateY(-150%) skewX(-45deg);
   }
   100% {
-    transform: translateX(200%) skewX(-45deg);
-  }
-}
-
-@keyframes shimmerStripeText {
-  0% {
-    background-position: 0% 0%, -200% 0%;
-  }
-  100% {
-    background-position: 0% 0%, 200% 0%;
+    transform: translateX(150%) translateY(150%) skewX(-45deg);
   }
 }
 
