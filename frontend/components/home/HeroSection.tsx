@@ -87,30 +87,7 @@ export function HeroSection() {
             position: "relative",
           }}
         >
-          {/* Text with shimmer glow line */}
-          <span
-            style={{
-              position: "relative",
-              display: "inline-block",
-              background: `linear-gradient(
-                90deg,
-                transparent 0%,
-                transparent 35%,
-                rgba(255, 255, 255, 0.08) 48%,
-                rgba(255, 255, 255, 0.04) 50%,
-                rgba(255, 255, 255, 0.08) 52%,
-                transparent 65%,
-                transparent 100%
-              )`,
-              backgroundSize: "200% 100%",
-              backgroundClip: "text",
-              animation: "shimmerStripe 5s ease-in-out infinite",
-              textShadow: "0 0 30px rgba(255, 255, 255, 0.03), 0 0 60px rgba(120, 148, 184, 0.02)",
-              filter: "drop-shadow(0 0 8px rgba(255, 255, 255, 0.04))",
-            }}
-          >
-            Valoração médica com
-          </span>
+          Valoração médica com
           <br />
           <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
             precisão documental
