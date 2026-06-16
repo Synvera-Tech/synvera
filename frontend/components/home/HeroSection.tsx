@@ -1,11 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { SignInButton } from "@clerk/nextjs";
 import { ChevronRight, ChevronDown } from "lucide-react";
+import { CompositionDemoModal } from "@/components/composition/CompositionDemoModal";
 
 export function HeroSection() {
+  const [isCompositionModalOpen, setIsCompositionModalOpen] = useState(false);
+
   return (
+    <>
     <div
       style={{
         minHeight: "90vh",
@@ -54,8 +59,10 @@ export function HeroSection() {
         }
 
         @keyframes scrollCue {
-          0%, 100% { transform: translateY(0); opacity: 0.4; }
-          50% { transform: translateY(6px); opacity: 0.7; }
+          0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+          25% { transform: translateY(8px) scale(1.05); opacity: 0.6; }
+          50% { transform: translateY(14px) scale(1.08); opacity: 1; }
+          75% { transform: translateY(8px) scale(1.05); opacity: 0.6; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -202,6 +209,7 @@ export function HeroSection() {
           </Link>
 
           <button
+            onClick={() => setIsCompositionModalOpen(true)}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -277,5 +285,11 @@ export function HeroSection() {
         </div>
       </div>
     </div>
+
+    <CompositionDemoModal
+      isOpen={isCompositionModalOpen}
+      onClose={() => setIsCompositionModalOpen(false)}
+    />
+    </>
   );
 }
