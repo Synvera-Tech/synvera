@@ -1048,78 +1048,6 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
           {calculation ? (
             <>
-              {/* ── VALOR TOTAL (TOPO) ──────────────────────────────────── */}
-              <div className="mb-6 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 p-6 text-center border border-slate-200 dark:border-slate-700">
-                <div className="text-[13px] font-semibold uppercase tracking-[0.5px] text-slate-500 dark:text-slate-400 mb-2">
-                  Valor Total da Cirurgia
-                </div>
-                <div className="font-grotesk text-[42px] font-bold text-slate-950 dark:text-[#F4F6F8] leading-none mb-3">
-                  {money.format(calculation.final_total)}
-                </div>
-                {selectedProcedures.length > 0 && (
-                  <div className="text-[12px] text-slate-600 dark:text-slate-400">
-                    {selectedProcedures.map((p) => p.name).join(" · ")}
-                  </div>
-                )}
-              </div>
-
-              {/* ── RESUMO EXECUTIVO ────────────────────────────────────── */}
-              <section className="mb-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/30 p-4">
-                <h3 className="mb-3 text-[12px] font-bold uppercase tracking-[0.5px] text-slate-500 dark:text-slate-400">
-                  Resumo Executivo
-                </h3>
-                <dl className="space-y-2.5 text-[13px]">
-                  <div className="flex items-center justify-between">
-                    <dt className="text-slate-600 dark:text-slate-400">Procedimento principal</dt>
-                    <dd className="font-semibold text-slate-950 dark:text-[#F4F6F8]">{money.format(calculation.surgeon_breakdown.principal_value)}</dd>
-                  </div>
-                  {calculation.surgeon_breakdown.additional_gross > 0 && (
-                    <div className="flex items-center justify-between">
-                      <dt className="text-slate-600 dark:text-slate-400">Procedimentos adicionais</dt>
-                      <dd className="font-semibold text-slate-950 dark:text-[#F4F6F8]">{money.format(calculation.surgeon_breakdown.additional_gross - calculation.surgeon_breakdown.additional_discounted)}</dd>
-                    </div>
-                  )}
-                  {(calculation.selected_adjustments ?? []).length > 0 && (
-                    <div className="flex items-center justify-between">
-                      <dt className="text-amber-700 dark:text-amber-400">Acréscimos CBHPM</dt>
-                      <dd className="font-semibold text-amber-700 dark:text-amber-400">+{money.format(calculation.adjustment_value ?? 0)}</dd>
-                    </div>
-                  )}
-                  <div className="border-t border-slate-300 dark:border-slate-600 pt-2 flex items-center justify-between">
-                    <dt className="font-bold text-slate-950 dark:text-[#F4F6F8]">Valor Final</dt>
-                    <dd className="font-grotesk text-[18px] font-bold text-slate-950 dark:text-[#F4F6F8]">{money.format(calculation.final_total)}</dd>
-                  </div>
-                </dl>
-              </section>
-
-              {/* ── PROCEDIMENTO PRINCIPAL (SEPARADO) ────────────────────── */}
-              {calculation.code_breakdown.find((b) => b.is_principal) && (
-                <section className="mb-6 rounded-xl border-2 border-primary/30 bg-primary/5 dark:border-slate-600 dark:bg-slate-700/30 p-4">
-                  <h3 className="mb-3 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-500 dark:text-slate-400">
-                    Procedimento Principal
-                  </h3>
-                  {calculation.code_breakdown
-                    .filter((b) => b.is_principal)
-                    .map((b) => (
-                      <div key={b.cbhpm_code} className="flex items-start justify-between gap-2">
-                        <div className="min-w-0">
-                          <div className="font-mono text-[12px] font-semibold text-slate-950 dark:text-[#F4F6F8]">{b.cbhpm_code}</div>
-                          <div className="text-[12px] text-slate-600 dark:text-slate-400 truncate">{b.description}</div>
-                        </div>
-                        <div className="shrink-0 text-right">
-                          <div className="text-[12px] font-semibold text-slate-500 dark:text-slate-400">{b.porte}</div>
-                          <div className="font-grotesk text-[14px] font-bold text-slate-950 dark:text-[#F4F6F8]">{money.format(b.base_value)}</div>
-                        </div>
-                      </div>
-                    ))}
-                </section>
-              )}
-
-              {/* ── MEMÓRIA DE CÁLCULO (REBAIXADA) ────────────────────── */}
-              <div className="mb-4 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
-                Memória de Cálculo
-              </div>
-
               {/* ── Procedimentos selecionados ──────────────────────────── */}
               <section className="mb-5">
                 <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-[#F4F6F8]0">
@@ -1247,20 +1175,43 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
               <div className="sapphire-divider my-4" />
 
-              {/* ── QR CODE ─────────────────────────────────────────────── */}
-              {shareUrl && (
-                <section className="mb-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/30 p-4 text-center">
-                  <div className="mb-3 text-[12px] font-bold uppercase tracking-[0.5px] text-slate-500 dark:text-slate-400">
-                    Abrir no Celular
+              {/* ── Valor Final ─────────────────────────────────────────── */}
+              <div
+                className="rounded-2xl p-4 text-white"
+                style={{ background: "linear-gradient(135deg, hsl(214,52%,24%), hsl(214,52%,18%))", boxShadow: "0 4px 20px hsla(214,52%,24%,0.35)" }}
+              >
+                <div className="mb-2 grid grid-cols-2 gap-1 text-[11px] opacity-75">
+                  <span>Cirurgião</span>
+                  <span className="text-right font-semibold">{money.format(calculation.lead_surgeon_fee)}</span>
+                  {calculation.auxiliaries_fee > 0 && (
+                    <>
+                      <span>Auxiliares</span>
+                      <span className="text-right font-semibold">{money.format(calculation.auxiliaries_fee)}</span>
+                    </>
+                  )}
+                  {calculation.anesthesiologist_fee > 0 && (
+                    <>
+                      <span>Anestesiologista</span>
+                      <span className="text-right font-semibold">{money.format(calculation.anesthesiologist_fee)}</span>
+                    </>
+                  )}
+                  {(calculation.selected_adjustments ?? []).length > 0 && (
+                    <>
+                      <span className="text-amber-300">Acréscimos CBHPM (+{(calculation.total_adjustment_percentage ?? 0).toFixed(0)}%)</span>
+                      <span className="text-right font-semibold text-amber-300">+{money.format(calculation.adjustment_value ?? 0)}</span>
+                    </>
+                  )}
+                </div>
+                <div className="mb-0.5 text-xs font-semibold uppercase tracking-[0.5px] opacity-75">Total da Equipe</div>
+                <div className="font-grotesk text-[36px] font-bold leading-none tracking-tight">
+                  {money.format(calculation.final_total)}
+                </div>
+                {selectedProcedures.length > 0 && (
+                  <div className="mt-1.5 text-[11px] font-medium opacity-65">
+                    {selectedProcedures.map((p) => p.name).join(" · ")}
                   </div>
-                  <div className="flex justify-center">
-                    <QRCodeSVG value={shareUrl} size={200} level="H" includeMargin />
-                  </div>
-                  <div className="mt-3 text-[11px] text-slate-600 dark:text-slate-400">
-                    Escanear código para visualizar no smartphone
-                  </div>
-                </section>
-              )}
+                )}
+              </div>
 
               {canShare && (
                 <div className="mt-4 flex flex-col gap-2">
