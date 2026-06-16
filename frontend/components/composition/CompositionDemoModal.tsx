@@ -16,11 +16,13 @@ export function CompositionDemoModal({
   onClose,
 }: CompositionDemoModalProps) {
   const [displayValue, setDisplayValue] = useState(0);
+  const [isClosing, setIsClosing] = useState(false);
   const data = compositionDemoData;
 
   useEffect(() => {
     if (!isOpen) {
       setDisplayValue(0);
+      setIsClosing(false);
       return;
     }
 
@@ -47,19 +49,41 @@ export function CompositionDemoModal({
     requestAnimationFrame(animate);
   }, [isOpen, data.totalValue]);
 
-  if (!isOpen) return null;
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 280);
+  };
+
+  if (!isOpen && !isClosing) return null;
 
   return (
     <>
       <style>{`
-        @keyframes modalGrowth {
-          0% {
+        @keyframes exampleModalEnter {
+          from {
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: translate(-50%, -50%) scale(0.94) translateY(14px);
+            filter: blur(6px);
           }
-          100% {
+          to {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1) translateY(0);
+            filter: blur(0);
+          }
+        }
+
+        @keyframes exampleModalExit {
+          from {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1) translateY(0);
+            filter: blur(0);
+          }
+          to {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.98) translateY(6px);
+            filter: blur(3px);
           }
         }
 
@@ -73,7 +97,16 @@ export function CompositionDemoModal({
         }
 
         .modal-content {
-          animation: modalGrowth 1500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          animation: exampleModalEnter 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .modal-content.closing {
+          animation: exampleModalExit 280ms cubic-bezier(0.4, 0, 1, 1) both !important;
+        }
+
+        .modal-scroll-wrapper {
+          overflow-y: auto;
+          max-height: calc(90vh - 160px);
         }
       `}</style>
 
@@ -87,12 +120,12 @@ export function CompositionDemoModal({
           zIndex: 40,
           backdropFilter: "blur(4px)",
         }}
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* Modal */}
       <div
-        className="modal-content"
+        className={`modal-content${isClosing ? " closing" : ""}`}
         style={{
           position: "fixed",
           top: "50%",
@@ -101,7 +134,6 @@ export function CompositionDemoModal({
           width: "90%",
           maxWidth: "900px",
           maxHeight: "90vh",
-          overflowY: "auto",
           backgroundColor: "#f5f3f0",
           borderRadius: "16px",
           boxShadow: "0 20px 60px rgba(0, 0, 0, 0.12)",
@@ -109,6 +141,7 @@ export function CompositionDemoModal({
           pointerEvents: "auto",
           display: "flex",
           flexDirection: "column",
+          overflow: "hidden",
         }}
       >
         {/* Header */}
@@ -149,7 +182,7 @@ export function CompositionDemoModal({
             </p>
           </div>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             style={{
               background: "none",
               border: "none",
@@ -174,14 +207,16 @@ export function CompositionDemoModal({
           </button>
         </div>
 
-        {/* Content */}
-        <div
-          style={{
-            padding: "24px",
-            display: "grid",
-            gap: "32px",
-          }}
-        >
+        {/* Content Scroll Wrapper */}
+        <div className="modal-scroll-wrapper">
+          {/* Content */}
+          <div
+            style={{
+              padding: "24px",
+              display: "grid",
+              gap: "32px",
+            }}
+          >
           {/* Block 1: Total Value */}
           <div
             style={{
@@ -599,6 +634,7 @@ export function CompositionDemoModal({
               </div>
             </div>
           </div>
+          </div>
         </div>
 
         {/* Footer */}
@@ -615,7 +651,7 @@ export function CompositionDemoModal({
           }}
         >
           <button
-            onClick={onClose}
+            onClick={handleClose}
             style={{
               padding: "10px 20px",
               backgroundColor: "transparent",
