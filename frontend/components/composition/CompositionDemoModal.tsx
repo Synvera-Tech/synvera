@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { X, CheckCircle2, Share2 } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { compositionDemoData } from "@/lib/composition-demo-data";
 
 interface CompositionDemoModalProps {
@@ -9,43 +10,6 @@ interface CompositionDemoModalProps {
   onClose: () => void;
 }
 
-// Fake QR Code SVG - simple grid pattern
-function FakeQRCode() {
-  const size = 120;
-  const cellSize = 15;
-  const cells = Math.floor(size / cellSize);
-
-  const generateQRPattern = () => {
-    const pattern = [];
-    for (let i = 0; i < cells; i++) {
-      for (let j = 0; j < cells; j++) {
-        const isBlack = Math.random() > 0.5;
-        pattern.push(
-          <rect
-            key={`${i}-${j}`}
-            x={i * cellSize}
-            y={j * cellSize}
-            width={cellSize}
-            height={cellSize}
-            fill={isBlack ? "#000" : "#fff"}
-          />
-        );
-      }
-    }
-    return pattern;
-  };
-
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
-      style={{ borderRadius: "8px" }}
-    >
-      {generateQRPattern()}
-    </svg>
-  );
-}
 
 export function CompositionDemoModal({
   isOpen,
@@ -60,8 +24,8 @@ export function CompositionDemoModal({
       return;
     }
 
-    // Animate from 0 to final value over 1.5 seconds
-    const duration = 1500;
+    // Animate from 0 to final value over 2 seconds
+    const duration = 2000;
     const startTime = Date.now();
     const targetValue = data.totalValue;
 
@@ -109,7 +73,7 @@ export function CompositionDemoModal({
         }
 
         .modal-content {
-          animation: modalGrowth 800ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          animation: modalGrowth 1500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
       `}</style>
 
@@ -139,10 +103,12 @@ export function CompositionDemoModal({
           maxHeight: "90vh",
           overflowY: "auto",
           backgroundColor: "#f5f3f0",
-          borderRadius: "12px",
+          borderRadius: "16px",
           boxShadow: "0 20px 60px rgba(0, 0, 0, 0.12)",
           border: "1px solid rgba(0, 0, 0, 0.08)",
           pointerEvents: "auto",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {/* Header */}
@@ -157,6 +123,8 @@ export function CompositionDemoModal({
             justifyContent: "space-between",
             alignItems: "flex-start",
             zIndex: 51,
+            borderTopLeftRadius: "16px",
+            borderTopRightRadius: "16px",
           }}
         >
           <div>
@@ -611,17 +579,22 @@ export function CompositionDemoModal({
                 </p>
                 <div
                   style={{
-                    width: "120px",
-                    height: "120px",
                     backgroundColor: "white",
-                    borderRadius: "6px",
+                    padding: "8px",
+                    borderRadius: "8px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    padding: "8px",
                   }}
                 >
-                  <FakeQRCode />
+                  <QRCodeSVG
+                    value={data.sharing.linkUrl}
+                    size={128}
+                    level="H"
+                    includeMargin={false}
+                    fgColor="#000000"
+                    bgColor="#ffffff"
+                  />
                 </div>
               </div>
             </div>
@@ -637,6 +610,8 @@ export function CompositionDemoModal({
             gap: "12px",
             justifyContent: "flex-end",
             backgroundColor: "#faf9f7",
+            borderBottomLeftRadius: "16px",
+            borderBottomRightRadius: "16px",
           }}
         >
           <button
