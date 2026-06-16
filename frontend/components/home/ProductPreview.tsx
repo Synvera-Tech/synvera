@@ -45,8 +45,8 @@ export function ProductPreview() {
       setTimeout(() => {
         setCurrentScenarioIndex((prev) => (prev + 1) % PREVIEW_SCENARIOS.length);
         setIsTransitioning(false);
-      }, 300);
-    }, 4000);
+      }, 600);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -65,8 +65,8 @@ export function ProductPreview() {
       <style>{`
         .preview-content {
           transition:
-            opacity 300ms ease,
-            transform 300ms ease;
+            opacity 600ms ease,
+            transform 600ms ease;
         }
 
         .preview-content.transitioning {
