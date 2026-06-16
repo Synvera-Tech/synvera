@@ -50,15 +50,33 @@ export function ProductPreview() {
             alignItems: "center",
             animation: "fadeInScale 0.8s ease-out 0.2s both",
           }}
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            const mockup = e.currentTarget.querySelector("[data-mockup]") as HTMLElement;
+            if (mockup) {
+              mockup.style.transform = `perspective(1000px) rotateX(${(y - 0.5) * 5}deg) rotateY(${(x - 0.5) * 5}deg)`;
+            }
+          }}
+          onMouseLeave={(e) => {
+            const mockup = e.currentTarget.querySelector("[data-mockup]") as HTMLElement;
+            if (mockup) {
+              mockup.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+            }
+          }}
         >
           {/* Left: mockup */}
           <div
+            data-mockup
             style={{
               background: "#0f1011",
               border: "1px solid rgba(120,148,184,0.16)",
               borderRadius: "12px",
               padding: "24px",
               boxShadow: "0 1px 3px rgba(0,0,0,0.20), 0 8px 24px rgba(0,0,0,0.15)",
+              transition: "all 500ms ease-out",
+              transformStyle: "preserve-3d",
             }}
           >
             {/* Mock header */}

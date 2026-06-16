@@ -104,11 +104,20 @@ export function FeaturesGrid() {
                     width: "44px",
                     height: "44px",
                     borderRadius: "8px",
-                    background: "linear-gradient(135deg, rgba(94,106,210,0.15), rgba(94,106,210,0.08))",
+                    background: "linear-gradient(135deg, rgba(94,106,210,0.20), rgba(94,106,210,0.10))",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     color: "#5e6ad2",
+                    transition: "all 300ms ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(94,106,210,0.30), rgba(94,106,210,0.20))";
+                    e.currentTarget.style.transform = "scale(1.1) rotate(5deg)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(94,106,210,0.20), rgba(94,106,210,0.10))";
+                    e.currentTarget.style.transform = "scale(1) rotate(0deg)";
                   }}
                 >
                   <Icon size={22} />

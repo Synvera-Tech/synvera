@@ -88,16 +88,20 @@ export function HowItWorks() {
                   transition: "all 200ms ease",
                   animation: `slideUp 0.7s ease-out ${0.2 + index * 0.1}s both`,
                   cursor: "pointer",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = "rgba(15,16,17,0.8)";
-                  e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
-                  e.currentTarget.style.transform = "translateY(-4px)";
+                  e.currentTarget.style.borderColor = "rgba(120,148,184,0.32)";
+                  e.currentTarget.style.transform = "translateY(-6px)";
+                  e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.25)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "#0f1011";
                   e.currentTarget.style.borderColor = "rgba(35,37,42,0.8)";
                   e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "none";
                 }}
               >
                 {/* Step number */}

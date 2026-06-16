@@ -52,16 +52,25 @@ export function HeroSection() {
             display: "inline-flex",
             alignItems: "center",
             gap: "8px",
-            padding: "6px 14px",
+            padding: "8px 16px",
             borderRadius: "20px",
-            border: "1px solid rgba(120,148,184,0.24)",
-            background: "rgba(120,148,184,0.08)",
+            border: "1px solid rgba(120,148,184,0.32)",
+            background: "linear-gradient(135deg, rgba(120,148,184,0.12), rgba(120,148,184,0.06))",
             marginBottom: "28px",
-            animation: "slideUp 0.6s ease-out",
+            animation: "slideUp 0.6s ease-out, float 3s ease-in-out infinite 0.3s",
+            backdropFilter: "blur(10px)",
           }}
         >
-          <span style={{ fontSize: "11px", fontWeight: 600, color: "#d0d6e0", letterSpacing: "0.4px" }}>
-            PRODUTO MÉDICO
+          <span style={{
+            display: "inline-block",
+            width: "6px",
+            height: "6px",
+            borderRadius: "50%",
+            background: "#5e6ad2",
+            animation: "pulse 2s ease-in-out infinite",
+          }} />
+          <span style={{ fontSize: "11px", fontWeight: 600, color: "#d0d6e0", letterSpacing: "0.5px" }}>
+            PLATAFORMA PREMIUM
           </span>
         </div>
 

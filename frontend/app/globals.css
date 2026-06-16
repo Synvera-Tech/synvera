@@ -38,6 +38,53 @@
   to   { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(157,179,208,0.20), 0 0 8px rgba(143,163,191,0.12); }
+  50% { box-shadow: 0 0 0 2px rgba(157,179,208,0.32), 0 0 16px rgba(143,163,191,0.20); }
+}
+
+@keyframes slideUpStagger {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInGlow {
+  0% { opacity: 0; filter: blur(8px); }
+  100% { opacity: 1; filter: blur(0); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes scaleInCenter {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes borderGlow {
+  0% { border-color: rgba(94,106,210,0.2); }
+  50% { border-color: rgba(94,106,210,0.4); }
+  100% { border-color: rgba(94,106,210,0.2); }
+}
+
 :root {
   --background: 209 43% 92%;
   --foreground: 220 18% 14%;
