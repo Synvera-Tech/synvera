@@ -87,10 +87,13 @@
 
 @keyframes shimmerStripe {
   0% {
-    backgroundPosition: -200% center;
+    backgroundPosition: 0% center;
+  }
+  50% {
+    backgroundPosition: 100% center;
   }
   100% {
-    backgroundPosition: 200% center;
+    backgroundPosition: 0% center;
   }
 }
 
