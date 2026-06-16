@@ -18,6 +18,26 @@
   to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 
+@keyframes hoverLift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-2px); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
 :root {
   --background: 209 43% 92%;
   --foreground: 220 18% 14%;

@@ -1,0 +1,199 @@
+"use client";
+
+import Link from "next/link";
+import { SignInButton } from "@clerk/nextjs";
+import { ChevronRight } from "lucide-react";
+
+export function HeroSection() {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "80px 24px 120px",
+        background: [
+          "radial-gradient(circle at top center, rgba(120,148,184,0.12) 0%, transparent 50%)",
+          "radial-gradient(circle at bottom right, rgba(120,148,184,0.06) 0%, transparent 60%)",
+          "linear-gradient(180deg, #010102 0%, #050508 100%)",
+        ].join(", "),
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Subtle background accent */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-200px",
+          right: "-200px",
+          width: "600px",
+          height: "600px",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(94,106,210,0.08), transparent 70%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
+          maxWidth: "720px",
+          textAlign: "center",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        {/* Badge */}
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "6px 14px",
+            borderRadius: "20px",
+            border: "1px solid rgba(120,148,184,0.24)",
+            background: "rgba(120,148,184,0.08)",
+            marginBottom: "28px",
+            animation: "slideUp 0.6s ease-out",
+          }}
+        >
+          <span style={{ fontSize: "11px", fontWeight: 600, color: "#d0d6e0", letterSpacing: "0.4px" }}>
+            PRODUTO MÉDICO
+          </span>
+        </div>
+
+        {/* Main headline */}
+        <h1
+          style={{
+            margin: "0 0 16px",
+            fontSize: "clamp(36px, 6vw, 52px)",
+            fontWeight: 800,
+            letterSpacing: "-1.5px",
+            color: "#f7f8f8",
+            lineHeight: 1.1,
+            animation: "slideUp 0.7s ease-out 0.1s both",
+          }}
+        >
+          Valoração médica com<br />
+          <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            precisão documental
+          </span>
+        </h1>
+
+        {/* Subheadline */}
+        <p
+          style={{
+            margin: "0 0 40px",
+            maxWidth: "580px",
+            fontSize: "16px",
+            lineHeight: 1.7,
+            color: "#d0d6e0",
+            marginLeft: "auto",
+            marginRight: "auto",
+            animation: "slideUp 0.7s ease-out 0.2s both",
+          }}
+        >
+          Baseado nas regras oficiais da CBHPM e da SBN, com cálculo determinístico, composições reutilizáveis e relatórios compartilháveis.
+        </p>
+
+        {/* CTAs */}
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            marginBottom: "48px",
+            animation: "slideUp 0.7s ease-out 0.3s both",
+          }}
+        >
+          <Link
+            href="/novo-calculo"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "12px 28px",
+              background: "linear-gradient(135deg, #1E3A5F 0%, #3D7DB8 100%)",
+              color: "#fff",
+              borderRadius: "8px",
+              fontSize: "15px",
+              fontWeight: 600,
+              textDecoration: "none",
+              border: "none",
+              cursor: "pointer",
+              transition: "all 200ms ease",
+              boxShadow: "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 4px 8px rgba(30,58,95,0.20), 0 10px 24px rgba(30,58,95,0.32), 0 16px 40px rgba(30,58,95,0.25)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25)";
+            }}
+          >
+            Iniciar cálculo
+            <ChevronRight size={16} />
+          </Link>
+
+          <button
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "12px 28px",
+              background: "rgba(120,148,184,0.12)",
+              color: "#f7f8f8",
+              borderRadius: "8px",
+              fontSize: "15px",
+              fontWeight: 600,
+              border: "1px solid rgba(120,148,184,0.24)",
+              cursor: "pointer",
+              transition: "all 150ms ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(120,148,184,0.18)";
+              e.currentTarget.style.borderColor = "rgba(143,163,191,0.32)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(120,148,184,0.12)";
+              e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
+            }}
+          >
+            Ver relatório exemplo
+          </button>
+        </div>
+
+        {/* Sign in hint */}
+        <p style={{ margin: 0, fontSize: "13px", color: "#8a8f98" }}>
+          Já tem conta?{" "}
+          <SignInButton mode="modal">
+            <button
+              type="button"
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                fontFamily: "inherit",
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "#d0d6e0",
+                cursor: "pointer",
+                textDecoration: "underline",
+                textUnderlineOffset: "3px",
+                textDecorationColor: "rgba(120,148,184,0.24)",
+              }}
+            >
+              Entrar
+            </button>
+          </SignInButton>
+        </p>
+      </div>
+    </div>
+  );
+}
