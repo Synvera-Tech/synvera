@@ -5,80 +5,39 @@ import { Calculator, Share2, Check, QrCode } from "lucide-react";
 
 const PREVIEW_SCENARIOS = [
   {
-    total: "R$ 32.847,52",
-    mainProcedure: "Ressecção de tumor intracraniano",
-    rule: "SBN + CBHPM 2025 + Complexidade alta",
+    total: "R$ 26.263,16",
+    mainProcedure: "CRANIECTOMIA DESCOMPRESSIVA",
+    rule: "SBN + CBHPM + AUXILIARES",
     auxiliaryProcedures: [
-      "Neuromonitorização contínua",
-      "Reconstrução de duramáter",
-      "Ossificação de crânio"
-    ]
-  },
-  {
-    total: "R$ 14.882,44",
-    mainProcedure: "Derivação ventrículo-peritoneal",
-    rule: "CBHPM 4.1 + composição agregada",
-    auxiliaryProcedures: [
-      "Implante de cateter ventricular",
-      "Implante de cateter peritoneal"
+      "DRENAGEM SUBDURAL",
+      "MONITORIZAÇÃO NEUROLÓGICA"
     ]
   },
   {
     total: "R$ 8.321,17",
-    mainProcedure: "Infiltração terapêutica de coluna",
-    rule: "CBHPM + variável por estrutura",
+    mainProcedure: "INFILTRAÇÃO FACETÁRIA LOMBAR",
+    rule: "CBHPM COLUNA",
     auxiliaryProcedures: [
-      "Infiltração facetária",
-      "Bloqueio foraminal"
+      "BLOQUEIO FORAMINAL",
+      "RADIOFREQUÊNCIA"
     ]
   },
   {
-    total: "R$ 28.441,89",
-    mainProcedure: "Clipagem de aneurisma cerebral",
-    rule: "SBN + CBHPM 2025 + Urgência",
+    total: "R$ 48.912,55",
+    mainProcedure: "ANEURISMA CEREBRAL GIGANTE",
+    rule: "MICROCIRURGIA VASCULAR",
     auxiliaryProcedures: [
-      "Angiografia intraoperatória",
-      "Monitorização neurofisiológica",
-      "Cisternal dissection"
+      "CLIPAGEM",
+      "MONITORIZAÇÃO INTRAOPERATÓRIA"
     ]
   },
   {
-    total: "R$ 9.763,33",
-    mainProcedure: "Rizotomia por radiofrequência",
-    rule: "CBHPM + procedimento minimamente invasivo",
+    total: "R$ 17.551,88",
+    mainProcedure: "ESTIMULAÇÃO MEDULAR",
+    rule: "NEUROMODULAÇÃO",
     auxiliaryProcedures: [
-      "Fluoroscopia terapêutica",
-      "Estimulação sensitiva"
-    ]
-  },
-  {
-    total: "R$ 19.524,71",
-    mainProcedure: "Evacuação de hematoma intracraniano",
-    rule: "SBN + CBHPM 2025 + Emergência",
-    auxiliaryProcedures: [
-      "Drenagem subdural",
-      "Hemostasia",
-      "Fechamento em camadas"
-    ]
-  },
-  {
-    total: "R$ 16.542,08",
-    mainProcedure: "Implante de estimulador medular",
-    rule: "CBHPM + dispositivo implantado",
-    auxiliaryProcedures: [
-      "Posicionamento fluoroscópico",
-      "Teste intraoperatório",
-      "Suturas de fixação"
-    ]
-  },
-  {
-    total: "R$ 25.618,94",
-    mainProcedure: "Microcirurgia vascular cerebral",
-    rule: "SBN + CBHPM 2025 + Microssutura",
-    auxiliaryProcedures: [
-      "Microscopia cirúrgica",
-      "Angiografia intraoperatória",
-      "Dissecação microvascular"
+      "IMPLANTE DE ELETRODOS",
+      "PROGRAMAÇÃO"
     ]
   }
 ];
