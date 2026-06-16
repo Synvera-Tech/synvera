@@ -2,60 +2,61 @@
 
 import Link from "next/link";
 import { SignInButton } from "@clerk/nextjs";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ChevronDown } from "lucide-react";
 
 export function HeroSection() {
   return (
     <div
       style={{
-        minHeight: "100vh",
+        minHeight: "90vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "80px 24px 120px",
+        padding: "60px 24px 80px",
         background: [
           "radial-gradient(circle at top center, rgba(120,148,184,0.12) 0%, transparent 50%)",
           "radial-gradient(circle at bottom right, rgba(120,148,184,0.06) 0%, transparent 60%)",
           "linear-gradient(180deg, #010102 0%, #050508 100%)",
         ].join(", "),
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
       }}
     >
       <style>{`
-        @keyframes shimmerStripe {
+        @keyframes shimmerDiagonal {
           0% {
-            transform: translateX(-200%);
+            transform: translateX(-150%) translateY(-150%);
+            opacity: 0;
+          }
+          5% {
+            opacity: 0.6;
+          }
+          50% {
+            opacity: 0.6;
+          }
+          95% {
+            opacity: 0;
           }
           100% {
-            transform: translateX(200%);
+            transform: translateX(150%) translateY(150%);
+            opacity: 0;
           }
         }
 
-        .shimmer-stripe {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 100%;
-          background: linear-gradient(
-            45deg,
-            transparent 0%,
-            rgba(94, 106, 210, 0.08) 25%,
-            rgba(94, 106, 210, 0.12) 50%,
-            rgba(94, 106, 210, 0.08) 75%,
-            transparent 100%
-          );
-          animation: shimmerStripe 6s linear infinite;
-          pointer-events: none;
-          filter: blur(2px);
+        @keyframes scrollCue {
+          0%, 100% { transform: translateY(0); opacity: 0.4; }
+          50% { transform: translateY(6px); opacity: 0.7; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          @keyframes shimmerStripe {
-            0% { transform: none; }
-            100% { transform: none; }
+          @keyframes shimmerDiagonal {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0; }
+          }
+          @keyframes scrollCue {
+            0%, 100% { transform: none; opacity: 0; }
+            50% { transform: none; opacity: 0; }
           }
         }
       `}</style>
@@ -81,6 +82,7 @@ export function HeroSection() {
           textAlign: "center",
           position: "relative",
           zIndex: 1,
+          width: "100%",
         }}
       >
         {/* Badge */}
@@ -111,7 +113,7 @@ export function HeroSection() {
           </span>
         </div>
 
-        {/* Main headline */}
+        {/* Main headline with shimmer stripe */}
         <h1
           style={{
             margin: "0 0 16px",
@@ -124,10 +126,29 @@ export function HeroSection() {
             position: "relative",
           }}
         >
-          <span style={{ position: "relative", display: "inline-block" }}>
-            Valoração médica com
-            <div className="shimmer-stripe" style={{ top: 0 }} />
-          </span>
+          {/* First line with shimmer effect */}
+          <div style={{ position: "relative", display: "inline-block", marginRight: "auto" }}>
+            <span style={{ position: "relative", zIndex: 2 }}>
+              Valoração médica com
+            </span>
+            {/* Shimmer stripe overlay */}
+            <div
+              style={{
+                position: "absolute",
+                top: "-10%",
+                left: "-10%",
+                right: "-10%",
+                bottom: "-10%",
+                background: "linear-gradient(45deg, transparent 0%, rgba(94,106,210,0.15) 25%, rgba(94,106,210,0.2) 50%, rgba(94,106,210,0.15) 75%, transparent 100%)",
+                backgroundSize: "200% 200%",
+                animation: "shimmerDiagonal 6s linear infinite",
+                pointerEvents: "none",
+                filter: "blur(2px)",
+                zIndex: 1,
+                mixBlendMode: "screen",
+              }}
+            />
+          </div>
           <br />
           <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
             precisão documental
@@ -244,6 +265,32 @@ export function HeroSection() {
             </button>
           </SignInButton>
         </p>
+      </div>
+
+      {/* Scroll cue */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "32px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "8px",
+          animation: "slideUp 0.8s ease-out 0.5s both",
+        }}
+      >
+        <span style={{ fontSize: "12px", color: "#8a8f98", fontWeight: 500, whiteSpace: "nowrap" }}>
+          Veja como funciona
+        </span>
+        <ChevronDown
+          size={18}
+          style={{
+            color: "#8a8f98",
+            animation: "scrollCue 2s ease-in-out infinite",
+          }}
+        />
       </div>
     </div>
   );

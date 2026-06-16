@@ -353,6 +353,10 @@ function UnauthenticatedHome() {
             to { transform: none; }
           }
         }
+
+        body {
+          scroll-behavior: smooth;
+        }
       `}</style>
 
       <HeroSection />
