@@ -805,12 +805,19 @@ function ShareContent() {
 // ─── Page shell ───────────────────────────────────────────────────────────────
 
 export default function SharePage() {
-  const reportDate = new Intl.DateTimeFormat("pt-BR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
-  const year = new Date().getFullYear();
+  const [reportDate, setReportDate] = useState("");
+  const [year, setYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    setReportDate(
+      new Intl.DateTimeFormat("pt-BR", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(new Date())
+    );
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <>

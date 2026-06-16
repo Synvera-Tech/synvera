@@ -1049,7 +1049,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
           {calculation && (
             <div className="mb-6 flex items-baseline justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
               <span className="text-[13px] text-slate-600 dark:text-slate-400">Valor Total</span>
-              <span className="font-grotesk text-[24px] font-bold text-slate-950 dark:text-[#F4F6F8]">
+              <span className="font-grotesk text-[24px] font-bold text-slate-950 dark:text-[#f7f8f8]">
                 {money.format(calculation.final_total)}
               </span>
             </div>

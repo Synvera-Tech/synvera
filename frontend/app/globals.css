@@ -346,11 +346,12 @@ html.dark body {
   }
 
   .results-card-header {
-    background: rgba(20, 21, 22, 0.9);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(241, 245, 248, 0.8);
+    border-bottom: 1px solid rgba(53, 92, 138, 0.1);
     padding: 1rem;
     margin: -1.75rem -1.75rem 1.5rem -1.75rem;
     border-radius: 1.5rem 1.5rem 0 0;
+    color: #0f172a;
   }
 
   html.dark .results-card-header {
@@ -370,6 +371,7 @@ html.dark body {
     :root:not(.light) .results-card-header {
       background: rgba(20, 21, 22, 0.9);
       border-bottom-color: rgba(35, 37, 42, 0.6);
+      color: #f7f8f8;
     }
   }
 
