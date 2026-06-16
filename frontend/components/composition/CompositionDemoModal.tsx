@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { X, CheckCircle2, Share2 } from "lucide-react";
 import { compositionDemoData } from "@/lib/composition-demo-data";
 
@@ -50,9 +51,39 @@ export function CompositionDemoModal({
   isOpen,
   onClose,
 }: CompositionDemoModalProps) {
-  if (!isOpen) return null;
-
+  const [displayValue, setDisplayValue] = useState(0);
   const data = compositionDemoData;
+
+  useEffect(() => {
+    if (!isOpen) {
+      setDisplayValue(0);
+      return;
+    }
+
+    // Animate from 0 to final value over 1.5 seconds
+    const duration = 1500;
+    const startTime = Date.now();
+    const targetValue = data.totalValue;
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing function: ease-out-cubic
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.floor(easeProgress * targetValue * 100) / 100;
+
+      setDisplayValue(currentValue);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [isOpen, data.totalValue]);
+
+  if (!isOpen) return null;
 
   return (
     <>
@@ -60,11 +91,11 @@ export function CompositionDemoModal({
         @keyframes modalGrowth {
           0% {
             opacity: 0;
-            transform: translateX(-50%) translateY(-50%) scale(0.8);
+            transform: translate(-50%, -50%) scale(0.8);
           }
           100% {
             opacity: 1;
-            transform: translateX(-50%) translateY(-50%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
           }
         }
 
@@ -78,7 +109,7 @@ export function CompositionDemoModal({
         }
 
         .modal-content {
-          animation: modalGrowth 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+          animation: modalGrowth 800ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
       `}</style>
 
@@ -211,9 +242,12 @@ export function CompositionDemoModal({
                 fontWeight: 800,
                 color: "#1a5a96",
                 lineHeight: 1,
+                minHeight: "50px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              R$ {data.totalValue.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}
+              R$ {displayValue.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}
             </p>
           </div>
 
