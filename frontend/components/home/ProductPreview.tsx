@@ -5,12 +5,13 @@ import { Calculator, Share2, Check, QrCode } from "lucide-react";
 
 const PREVIEW_SCENARIOS = [
   {
-    total: "R$ 26.263,16",
-    mainProcedure: "Craniectomia descompressiva",
-    rule: "SBN + CBHPM 2025 + Auxiliares",
+    total: "R$ 32.847,52",
+    mainProcedure: "Ressecção de tumor intracraniano",
+    rule: "SBN + CBHPM 2025 + Complexidade alta",
     auxiliaryProcedures: [
-      "Drenagem subdural",
-      "Monitorização neurológica"
+      "Neuromonitorização contínua",
+      "Reconstrução de duramáter",
+      "Ossificação de crânio"
     ]
   },
   {
@@ -24,11 +25,60 @@ const PREVIEW_SCENARIOS = [
   },
   {
     total: "R$ 8.321,17",
-    mainProcedure: "Infiltração de coluna",
+    mainProcedure: "Infiltração terapêutica de coluna",
     rule: "CBHPM + variável por estrutura",
     auxiliaryProcedures: [
       "Infiltração facetária",
       "Bloqueio foraminal"
+    ]
+  },
+  {
+    total: "R$ 28.441,89",
+    mainProcedure: "Clipagem de aneurisma cerebral",
+    rule: "SBN + CBHPM 2025 + Urgência",
+    auxiliaryProcedures: [
+      "Angiografia intraoperatória",
+      "Monitorização neurofisiológica",
+      "Cisternal dissection"
+    ]
+  },
+  {
+    total: "R$ 9.763,33",
+    mainProcedure: "Rizotomia por radiofrequência",
+    rule: "CBHPM + procedimento minimamente invasivo",
+    auxiliaryProcedures: [
+      "Fluoroscopia terapêutica",
+      "Estimulação sensitiva"
+    ]
+  },
+  {
+    total: "R$ 19.524,71",
+    mainProcedure: "Evacuação de hematoma intracraniano",
+    rule: "SBN + CBHPM 2025 + Emergência",
+    auxiliaryProcedures: [
+      "Drenagem subdural",
+      "Hemostasia",
+      "Fechamento em camadas"
+    ]
+  },
+  {
+    total: "R$ 16.542,08",
+    mainProcedure: "Implante de estimulador medular",
+    rule: "CBHPM + dispositivo implantado",
+    auxiliaryProcedures: [
+      "Posicionamento fluoroscópico",
+      "Teste intraoperatório",
+      "Suturas de fixação"
+    ]
+  },
+  {
+    total: "R$ 25.618,94",
+    mainProcedure: "Microcirurgia vascular cerebral",
+    rule: "SBN + CBHPM 2025 + Microssutura",
+    auxiliaryProcedures: [
+      "Microscopia cirúrgica",
+      "Angiografia intraoperatória",
+      "Dissecação microvascular"
     ]
   }
 ];
@@ -45,8 +95,8 @@ export function ProductPreview() {
       setTimeout(() => {
         setCurrentScenarioIndex((prev) => (prev + 1) % PREVIEW_SCENARIOS.length);
         setIsTransitioning(false);
-      }, 600);
-    }, 5000);
+      }, 800);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
@@ -63,19 +113,19 @@ export function ProductPreview() {
       }}
     >
       <style>{`
-        .preview-content {
+        .preview-field {
           transition:
-            opacity 600ms ease,
-            transform 600ms ease;
+            opacity 800ms cubic-bezier(0.4, 0, 0.2, 1),
+            transform 800ms cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .preview-content.transitioning {
+        .preview-field.transitioning {
           opacity: 0;
-          transform: translateY(-12px);
+          transform: translateY(-8px);
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .preview-content {
+          .preview-field {
             transition: none;
           }
         }
@@ -158,7 +208,7 @@ export function ProductPreview() {
               }}
             >
               {/* Total value - HERO of the preview */}
-              <div style={{ marginBottom: "32px" }}>
+              <div className={`preview-field${isTransitioning ? " transitioning" : ""}`} style={{ marginBottom: "32px" }}>
                 <p style={{ margin: "0 0 8px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Valor Total</p>
                 <p
                   style={{
@@ -174,7 +224,7 @@ export function ProductPreview() {
               </div>
 
               {/* Main procedure */}
-              <div style={{ marginBottom: "24px" }}>
+              <div className={`preview-field${isTransitioning ? " transitioning" : ""}`} style={{ marginBottom: "24px" }}>
                 <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimento Principal</p>
                 <div style={{
                   padding: "14px 16px",
@@ -190,7 +240,7 @@ export function ProductPreview() {
               </div>
 
               {/* Applied rule */}
-              <div style={{ marginBottom: "24px" }}>
+              <div className={`preview-field${isTransitioning ? " transitioning" : ""}`} style={{ marginBottom: "24px" }}>
                 <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Regra Aplicada</p>
                 <div style={{
                   padding: "12px 14px",
@@ -206,7 +256,7 @@ export function ProductPreview() {
               </div>
 
               {/* Auxiliary procedures */}
-              <div style={{ marginBottom: "24px" }}>
+              <div className={`preview-field${isTransitioning ? " transitioning" : ""}`} style={{ marginBottom: "24px" }}>
                 <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimentos Auxiliares</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   {currentScenario.auxiliaryProcedures.map((proc) => (

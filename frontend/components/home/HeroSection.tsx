@@ -49,7 +49,7 @@ export function HeroSection() {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           color: transparent;
-          animation: stripeShift 12s linear infinite;
+          animation: stripeShift 20s linear infinite;
           display: inline-block;
         }
 
