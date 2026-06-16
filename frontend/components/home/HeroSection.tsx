@@ -24,24 +24,33 @@ export function HeroSection() {
       }}
     >
       <style>{`
-        @keyframes shimmerDiagonal {
+        @keyframes stripeShift {
           0% {
-            transform: translateX(-150%) translateY(-150%);
-            opacity: 0;
-          }
-          5% {
-            opacity: 0.6;
-          }
-          50% {
-            opacity: 0.6;
-          }
-          95% {
-            opacity: 0;
+            background-position: -200% 0;
           }
           100% {
-            transform: translateX(150%) translateY(150%);
-            opacity: 0;
+            background-position: 200% 0;
           }
+        }
+
+        .hero-stripe-text {
+          background: linear-gradient(
+            90deg,
+            #f7f8f8 0%,
+            #f7f8f8 10%,
+            rgba(94, 106, 210, 0.25) 25%,
+            rgba(94, 106, 210, 0.35) 50%,
+            rgba(94, 106, 210, 0.25) 75%,
+            #f7f8f8 90%,
+            #f7f8f8 100%
+          );
+          background-size: 200% 100%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          color: transparent;
+          animation: stripeShift 6s linear infinite;
+          display: inline-block;
         }
 
         @keyframes scrollCue {
@@ -50,9 +59,8 @@ export function HeroSection() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          @keyframes shimmerDiagonal {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 0; }
+          @keyframes stripeShift {
+            0%, 100% { background-position: 0; }
           }
           @keyframes scrollCue {
             0%, 100% { transform: none; opacity: 0; }
@@ -126,29 +134,9 @@ export function HeroSection() {
             position: "relative",
           }}
         >
-          {/* First line with shimmer effect */}
-          <div style={{ position: "relative", display: "inline-block", marginRight: "auto" }}>
-            <span style={{ position: "relative", zIndex: 2 }}>
-              Valoração médica com
-            </span>
-            {/* Shimmer stripe overlay */}
-            <div
-              style={{
-                position: "absolute",
-                top: "-10%",
-                left: "-10%",
-                right: "-10%",
-                bottom: "-10%",
-                background: "linear-gradient(45deg, transparent 0%, rgba(94,106,210,0.15) 25%, rgba(94,106,210,0.2) 50%, rgba(94,106,210,0.15) 75%, transparent 100%)",
-                backgroundSize: "200% 200%",
-                animation: "shimmerDiagonal 6s linear infinite",
-                pointerEvents: "none",
-                filter: "blur(2px)",
-                zIndex: 1,
-                mixBlendMode: "screen",
-              }}
-            />
-          </div>
+          <span className="hero-stripe-text">
+            Valoração médica com
+          </span>
           <br />
           <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
             precisão documental

@@ -10,19 +10,26 @@ const VALUES = [
 ];
 
 export function ProductPreview() {
-  const [currentValueIndex, setCurrentValueIndex] = useState(0);
+  const [displayedValue, setDisplayedValue] = useState(VALUES[0]);
+  const [nextValue, setNextValue] = useState(VALUES[1]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning(true);
+
       setTimeout(() => {
-        setCurrentValueIndex((prev) => (prev + 1) % VALUES.length);
+        const nextIndex = (currentIndex + 1) % VALUES.length;
+        setDisplayedValue(VALUES[nextIndex]);
+        setCurrentIndex(nextIndex);
+        setNextValue(VALUES[(nextIndex + 1) % VALUES.length]);
         setIsTransitioning(false);
       }, 300);
     }, 4000);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [currentIndex]);
 
   return (
     <section
@@ -36,44 +43,20 @@ export function ProductPreview() {
       }}
     >
       <style>{`
-        @keyframes fadeOutUp {
-          0% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          100% {
-            opacity: 0;
-            transform: translateY(-12px);
-          }
+        .value-transition {
+          transition:
+            opacity 300ms ease,
+            transform 300ms ease;
         }
 
-        @keyframes fadeInDown {
-          0% {
-            opacity: 0;
-            transform: translateY(12px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .value-exit {
-          animation: fadeOutUp 300ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .value-enter {
-          animation: fadeInDown 300ms cubic-bezier(0.16, 1, 0.3, 1);
+        .value-transition.transitioning {
+          opacity: 0;
+          transform: translateY(-8px);
         }
 
         @media (prefers-reduced-motion: reduce) {
-          @keyframes fadeOutUp {
-            0% { opacity: 0; }
-            100% { opacity: 0; }
-          }
-          @keyframes fadeInDown {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+          .value-transition {
+            transition: none;
           }
         }
       `}</style>
@@ -152,33 +135,18 @@ export function ProductPreview() {
             <div style={{ marginBottom: "32px", animation: "slideUp 0.7s ease-out 0.4s both" }}>
               <p style={{ margin: "0 0 8px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Valor Total</p>
               <div style={{ position: "relative", minHeight: "48px", display: "flex", alignItems: "center" }}>
-                {VALUES.map((value, idx) => {
-                  const isActive = idx === currentValueIndex;
-                  const isExiting = isTransitioning && idx === (currentValueIndex - 1 + VALUES.length) % VALUES.length;
-                  return (
-                    <div
-                      key={idx}
-                      style={{
-                        position: "absolute",
-                        animation: isActive ? "fadeInDown 300ms cubic-bezier(0.16, 1, 0.3, 1)" : isExiting ? "fadeOutUp 300ms cubic-bezier(0.16, 1, 0.3, 1)" : "none",
-                        opacity: isActive ? 1 : 0,
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <p
-                        style={{
-                          margin: 0,
-                          fontSize: "40px",
-                          fontWeight: 800,
-                          color: "#f7f8f8",
-                          letterSpacing: "-1px",
-                        }}
-                      >
-                        {value}
-                      </p>
-                    </div>
-                  );
-                })}
+                <p
+                  className={`value-transition${isTransitioning ? " transitioning" : ""}`}
+                  style={{
+                    margin: 0,
+                    fontSize: "40px",
+                    fontWeight: 800,
+                    color: "#f7f8f8",
+                    letterSpacing: "-1px",
+                  }}
+                >
+                  {displayedValue}
+                </p>
               </div>
             </div>
 
