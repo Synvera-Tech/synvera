@@ -1046,6 +1046,15 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             <span className="clinical-pill rounded-full px-2.5 py-1 text-[11px] font-semibold">CBHPM 2025</span>
           </div>
 
+          {calculation && (
+            <div className="mb-6 flex items-baseline justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+              <span className="text-[13px] text-slate-600 dark:text-slate-400">Valor Total</span>
+              <span className="font-grotesk text-[24px] font-bold text-slate-950 dark:text-[#F4F6F8]">
+                {money.format(calculation.final_total)}
+              </span>
+            </div>
+          )}
+
           {calculation ? (
             <>
               {/* ── Procedimentos selecionados ──────────────────────────── */}
