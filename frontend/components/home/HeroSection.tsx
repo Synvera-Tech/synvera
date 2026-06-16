@@ -84,10 +84,35 @@ export function HeroSection() {
             color: "#f7f8f8",
             lineHeight: 1.1,
             animation: "slideUp 0.7s ease-out 0.1s both",
+            position: "relative",
+            overflow: "hidden",
           }}
         >
+          {/* Shimmer stripe overlay */}
+          <div
+            style={{
+              position: "absolute",
+              top: "-50%",
+              left: "-50%",
+              width: "200%",
+              height: "200%",
+              background: `repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 80px,
+                rgba(255, 255, 255, 0.08) 80px,
+                rgba(255, 255, 255, 0.08) 160px
+              )`,
+              filter: "blur(1px)",
+              animation: "shimmerStripe 6s ease-in-out infinite",
+              pointerEvents: "none",
+              WebkitMask: "linear-gradient(90deg, transparent 0%, white 20%, white 80%, transparent 100%)",
+              mask: "linear-gradient(90deg, transparent 0%, white 20%, white 80%, transparent 100%)",
+            }}
+          />
+
           Valoração médica com<br />
-          <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+          <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", position: "relative" }}>
             precisão documental
           </span>
         </h1>

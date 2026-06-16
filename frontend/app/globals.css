@@ -85,6 +85,15 @@
   100% { border-color: rgba(94,106,210,0.2); }
 }
 
+@keyframes shimmerStripe {
+  0% {
+    transform: translateX(-100%) translateY(-100%) skewX(-45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) skewX(-45deg);
+  }
+}
+
 :root {
   --background: 209 43% 92%;
   --foreground: 220 18% 14%;
