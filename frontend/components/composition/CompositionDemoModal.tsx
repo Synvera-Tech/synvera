@@ -8,6 +8,44 @@ interface CompositionDemoModalProps {
   onClose: () => void;
 }
 
+// Fake QR Code SVG - simple grid pattern
+function FakeQRCode() {
+  const size = 120;
+  const cellSize = 15;
+  const cells = Math.floor(size / cellSize);
+
+  const generateQRPattern = () => {
+    const pattern = [];
+    for (let i = 0; i < cells; i++) {
+      for (let j = 0; j < cells; j++) {
+        const isBlack = Math.random() > 0.5;
+        pattern.push(
+          <rect
+            key={`${i}-${j}`}
+            x={i * cellSize}
+            y={j * cellSize}
+            width={cellSize}
+            height={cellSize}
+            fill={isBlack ? "#000" : "#fff"}
+          />
+        );
+      }
+    }
+    return pattern;
+  };
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      style={{ borderRadius: "8px" }}
+    >
+      {generateQRPattern()}
+    </svg>
+  );
+}
+
 export function CompositionDemoModal({
   isOpen,
   onClose,
@@ -18,15 +56,40 @@ export function CompositionDemoModal({
 
   return (
     <>
+      <style>{`
+        @keyframes modalGrowth {
+          0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) scale(0.8);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-50%) scale(1);
+          }
+        }
+
+        @keyframes backdropFade {
+          0% { opacity: 0; }
+          100% { opacity: 1; }
+        }
+
+        .modal-backdrop {
+          animation: backdropFade 200ms ease-out;
+        }
+
+        .modal-content {
+          animation: modalGrowth 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+      `}</style>
+
       {/* Backdrop */}
       <div
+        className="modal-backdrop"
         style={{
           position: "fixed",
           inset: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
           zIndex: 40,
-          opacity: isOpen ? 1 : 0,
-          transition: "opacity 200ms ease-out",
           backdropFilter: "blur(4px)",
         }}
         onClick={onClose}
@@ -34,25 +97,21 @@ export function CompositionDemoModal({
 
       {/* Modal */}
       <div
+        className="modal-content"
         style={{
           position: "fixed",
           top: "50%",
           left: "50%",
-          transform: isOpen
-            ? "translateX(-50%) translateY(-50%) scale(1)"
-            : "translateX(-50%) translateY(-50%) scale(0.95)",
-          opacity: isOpen ? 1 : 0,
-          transition: "all 200ms ease-out",
           zIndex: 50,
           width: "90%",
           maxWidth: "900px",
           maxHeight: "90vh",
           overflowY: "auto",
-          backgroundColor: "#0a0a0c",
+          backgroundColor: "#f5f3f0",
           borderRadius: "12px",
-          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.8)",
-          border: "1px solid rgba(120, 148, 184, 0.16)",
-          pointerEvents: isOpen ? "auto" : "none",
+          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.12)",
+          border: "1px solid rgba(0, 0, 0, 0.08)",
+          pointerEvents: "auto",
         }}
       >
         {/* Header */}
@@ -60,8 +119,8 @@ export function CompositionDemoModal({
           style={{
             position: "sticky",
             top: 0,
-            backgroundColor: "#0a0a0c",
-            borderBottom: "1px solid rgba(120, 148, 184, 0.08)",
+            backgroundColor: "#f5f3f0",
+            borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
             padding: "24px",
             display: "flex",
             justifyContent: "space-between",
@@ -75,7 +134,7 @@ export function CompositionDemoModal({
                 margin: "0 0 8px",
                 fontSize: "24px",
                 fontWeight: 700,
-                color: "#f7f8f8",
+                color: "#1a1a1a",
               }}
             >
               Composição Exemplo
@@ -84,7 +143,7 @@ export function CompositionDemoModal({
               style={{
                 margin: 0,
                 fontSize: "14px",
-                color: "#8a8f98",
+                color: "#6b6b6b",
               }}
             >
               {data.procedure.description}
@@ -97,7 +156,7 @@ export function CompositionDemoModal({
               border: "none",
               padding: "8px",
               cursor: "pointer",
-              color: "#8a8f98",
+              color: "#6b6b6b",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -105,11 +164,11 @@ export function CompositionDemoModal({
             }}
             onMouseEnter={(e) =>
               ((e.currentTarget as HTMLButtonElement).style.color =
-                "#d0d6e0")
+                "#1a1a1a")
             }
             onMouseLeave={(e) =>
               ((e.currentTarget as HTMLButtonElement).style.color =
-                "#8a8f98")
+                "#6b6b6b")
             }
           >
             <X size={24} />
@@ -127,10 +186,10 @@ export function CompositionDemoModal({
           {/* Block 1: Total Value */}
           <div
             style={{
-              backgroundColor: "rgba(94, 106, 210, 0.04)",
+              backgroundColor: "#ede8e3",
               borderRadius: "10px",
               padding: "24px",
-              border: "1px solid rgba(94, 106, 210, 0.12)",
+              border: "1px solid rgba(0, 0, 0, 0.06)",
             }}
           >
             <p
@@ -138,7 +197,7 @@ export function CompositionDemoModal({
                 margin: "0 0 12px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#8a8f98",
+                color: "#6b6b6b",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -150,7 +209,7 @@ export function CompositionDemoModal({
                 margin: 0,
                 fontSize: "40px",
                 fontWeight: 800,
-                color: "#5e6ad2",
+                color: "#1a5a96",
                 lineHeight: 1,
               }}
             >
@@ -165,7 +224,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#8a8f98",
+                color: "#6b6b6b",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -174,10 +233,10 @@ export function CompositionDemoModal({
             </p>
             <div
               style={{
-                backgroundColor: "rgba(120, 148, 184, 0.04)",
+                backgroundColor: "#f0ebe5",
                 borderRadius: "10px",
                 padding: "20px",
-                border: "1px solid rgba(120, 148, 184, 0.12)",
+                border: "1px solid rgba(0, 0, 0, 0.06)",
               }}
             >
               <p
@@ -185,7 +244,7 @@ export function CompositionDemoModal({
                   margin: "0 0 8px",
                   fontSize: "14px",
                   fontWeight: 600,
-                  color: "#f7f8f8",
+                  color: "#1a1a1a",
                 }}
               >
                 {data.procedure.code}
@@ -194,7 +253,7 @@ export function CompositionDemoModal({
                 style={{
                   margin: "0 0 12px",
                   fontSize: "15px",
-                  color: "#d0d6e0",
+                  color: "#3a3a3a",
                   lineHeight: 1.5,
                 }}
               >
@@ -205,8 +264,8 @@ export function CompositionDemoModal({
                   margin: 0,
                   fontSize: "13px",
                   fontWeight: 600,
-                  color: "#8a8f98",
-                  backgroundColor: "rgba(120, 148, 184, 0.08)",
+                  color: "#6b6b6b",
+                  backgroundColor: "rgba(0, 0, 0, 0.05)",
                   display: "inline-block",
                   padding: "4px 12px",
                   borderRadius: "6px",
@@ -224,7 +283,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#8a8f98",
+                color: "#6b6b6b",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -244,30 +303,42 @@ export function CompositionDemoModal({
                     display: "flex",
                     gap: "12px",
                     alignItems: "flex-start",
-                    backgroundColor: "rgba(120, 148, 184, 0.04)",
+                    backgroundColor: "#f0ebe5",
                     borderRadius: "8px",
                     padding: "16px",
-                    border: "1px solid rgba(120, 148, 184, 0.12)",
+                    border: "1px solid rgba(0, 0, 0, 0.06)",
                   }}
                 >
                   <CheckCircle2
                     size={20}
                     style={{
-                      color: "#5e6ad2",
+                      color: "#1a5a96",
                       flexShrink: 0,
                       marginTop: "2px",
                     }}
                   />
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      color: "#d0d6e0",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {component.description}
-                  </p>
+                  <div style={{ flex: 1 }}>
+                    <p
+                      style={{
+                        margin: "0 0 4px",
+                        fontSize: "12px",
+                        color: "#6b6b6b",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {(component as any).code}
+                    </p>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "14px",
+                        color: "#3a3a3a",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {component.description}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -280,7 +351,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#8a8f98",
+                color: "#6b6b6b",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -289,10 +360,10 @@ export function CompositionDemoModal({
             </p>
             <div
               style={{
-                backgroundColor: "rgba(94, 106, 210, 0.04)",
+                backgroundColor: "#ede8e3",
                 borderRadius: "10px",
                 padding: "20px",
-                border: "1px solid rgba(94, 106, 210, 0.12)",
+                border: "1px solid rgba(0, 0, 0, 0.06)",
               }}
             >
               <p
@@ -300,7 +371,7 @@ export function CompositionDemoModal({
                   margin: "0 0 4px",
                   fontSize: "14px",
                   fontWeight: 700,
-                  color: "#5e6ad2",
+                  color: "#1a5a96",
                 }}
               >
                 {data.rule.name}
@@ -309,7 +380,7 @@ export function CompositionDemoModal({
                 style={{
                   margin: "0 0 12px",
                   fontSize: "15px",
-                  color: "#d0d6e0",
+                  color: "#3a3a3a",
                   lineHeight: 1.5,
                 }}
               >
@@ -319,7 +390,7 @@ export function CompositionDemoModal({
                 style={{
                   margin: 0,
                   fontSize: "13px",
-                  color: "#8a8f98",
+                  color: "#6b6b6b",
                 }}
               >
                 {data.rule.details}
@@ -334,7 +405,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#8a8f98",
+                color: "#6b6b6b",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -354,10 +425,10 @@ export function CompositionDemoModal({
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    backgroundColor: "rgba(120, 148, 184, 0.04)",
+                    backgroundColor: "#f0ebe5",
                     borderRadius: "8px",
                     padding: "16px",
-                    border: "1px solid rgba(120, 148, 184, 0.12)",
+                    border: "1px solid rgba(0, 0, 0, 0.06)",
                   }}
                 >
                   <div>
@@ -366,7 +437,7 @@ export function CompositionDemoModal({
                         margin: 0,
                         fontSize: "14px",
                         fontWeight: 600,
-                        color: "#d0d6e0",
+                        color: "#3a3a3a",
                       }}
                     >
                       {member.role}
@@ -375,7 +446,7 @@ export function CompositionDemoModal({
                       style={{
                         margin: "4px 0 0",
                         fontSize: "12px",
-                        color: "#8a8f98",
+                        color: "#6b6b6b",
                       }}
                     >
                       {member.percentage}% do total
@@ -386,7 +457,7 @@ export function CompositionDemoModal({
                       margin: 0,
                       fontSize: "16px",
                       fontWeight: 700,
-                      color: "#5e6ad2",
+                      color: "#1a5a96",
                     }}
                   >
                     R$ {member.amount.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}
@@ -403,7 +474,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#8a8f98",
+                color: "#6b6b6b",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -412,10 +483,10 @@ export function CompositionDemoModal({
             </p>
             <div
               style={{
-                backgroundColor: "rgba(120, 148, 184, 0.04)",
+                backgroundColor: "#f0ebe5",
                 borderRadius: "10px",
                 padding: "20px",
-                border: "1px solid rgba(120, 148, 184, 0.12)",
+                border: "1px solid rgba(0, 0, 0, 0.06)",
                 display: "grid",
                 gap: "20px",
               }}
@@ -432,24 +503,23 @@ export function CompositionDemoModal({
                   style={{
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     gap: "8px",
                     padding: "12px 16px",
-                    backgroundColor: "rgba(94, 106, 210, 0.08)",
-                    border: "1px solid rgba(94, 106, 210, 0.24)",
+                    backgroundColor: "#e8dfd5",
+                    border: "1px solid rgba(0, 0, 0, 0.12)",
                     borderRadius: "8px",
-                    color: "#d0d6e0",
+                    color: "#3a3a3a",
                     fontSize: "13px",
                     fontWeight: 600,
                     cursor: "pointer",
                     transition: "all 150ms ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(94, 106, 210, 0.12)";
+                    e.currentTarget.style.backgroundColor = "#ddd1c5";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(94, 106, 210, 0.08)";
+                    e.currentTarget.style.backgroundColor = "#e8dfd5";
                   }}
                 >
                   <Share2 size={16} />
@@ -459,24 +529,23 @@ export function CompositionDemoModal({
                   style={{
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     gap: "8px",
                     padding: "12px 16px",
-                    backgroundColor: "rgba(94, 106, 210, 0.08)",
-                    border: "1px solid rgba(94, 106, 210, 0.24)",
+                    backgroundColor: "#e8dfd5",
+                    border: "1px solid rgba(0, 0, 0, 0.12)",
                     borderRadius: "8px",
-                    color: "#d0d6e0",
+                    color: "#3a3a3a",
                     fontSize: "13px",
                     fontWeight: 600,
                     cursor: "pointer",
                     transition: "all 150ms ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(94, 106, 210, 0.12)";
+                    e.currentTarget.style.backgroundColor = "#ddd1c5";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      "rgba(94, 106, 210, 0.08)";
+                    e.currentTarget.style.backgroundColor = "#e8dfd5";
                   }}
                 >
                   <Share2 size={16} />
@@ -492,7 +561,7 @@ export function CompositionDemoModal({
                   alignItems: "center",
                   gap: "12px",
                   padding: "16px",
-                  backgroundColor: "rgba(0, 0, 0, 0.2)",
+                  backgroundColor: "rgba(0, 0, 0, 0.02)",
                   borderRadius: "8px",
                 }}
               >
@@ -500,7 +569,7 @@ export function CompositionDemoModal({
                   style={{
                     margin: 0,
                     fontSize: "12px",
-                    color: "#8a8f98",
+                    color: "#6b6b6b",
                     fontWeight: 600,
                   }}
                 >
@@ -508,19 +577,17 @@ export function CompositionDemoModal({
                 </p>
                 <div
                   style={{
-                    width: "100px",
-                    height: "100px",
+                    width: "120px",
+                    height: "120px",
                     backgroundColor: "white",
                     borderRadius: "6px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "12px",
-                    color: "#333",
-                    fontWeight: 600,
+                    padding: "8px",
                   }}
                 >
-                  [QR Code]
+                  <FakeQRCode />
                 </div>
               </div>
             </div>
@@ -530,12 +597,12 @@ export function CompositionDemoModal({
         {/* Footer */}
         <div
           style={{
-            borderTop: "1px solid rgba(120, 148, 184, 0.08)",
+            borderTop: "1px solid rgba(0, 0, 0, 0.08)",
             padding: "16px 24px",
             display: "flex",
             gap: "12px",
             justifyContent: "flex-end",
-            backgroundColor: "rgba(0, 0, 0, 0.2)",
+            backgroundColor: "#faf9f7",
           }}
         >
           <button
@@ -543,16 +610,16 @@ export function CompositionDemoModal({
             style={{
               padding: "10px 20px",
               backgroundColor: "transparent",
-              border: "1px solid rgba(120, 148, 184, 0.24)",
+              border: "1px solid rgba(0, 0, 0, 0.12)",
               borderRadius: "6px",
-              color: "#d0d6e0",
+              color: "#3a3a3a",
               fontSize: "13px",
               fontWeight: 600,
               cursor: "pointer",
               transition: "all 150ms ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(120, 148, 184, 0.08)";
+              e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.04)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "transparent";

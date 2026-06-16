@@ -12,22 +12,27 @@ export const compositionDemoData = {
   },
   components: [
     {
+      code: "3.14.03.01-0",
       description: "Tratamento cirúrgico da fístula liquórica",
       checked: true,
     },
     {
+      code: "3.14.05.08-2",
       description: "Reconstrução craniana ou craniofacial",
       checked: true,
     },
     {
+      code: "3.14.06.02-5",
       description: "Ressecção do osso temporal",
       checked: true,
     },
     {
+      code: "3.14.07.01-9",
       description: "Reconstrução com rotação do músculo temporal",
       checked: true,
     },
     {
+      code: "3.14.08.03-4",
       description: "Reconstrução com retalho da gálea aponeurótica",
       checked: true,
     },
