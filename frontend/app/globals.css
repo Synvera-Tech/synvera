@@ -87,10 +87,10 @@
 
 @keyframes shimmerStripe {
   0% {
-    transform: translateX(-150%) skewX(-45deg);
+    backgroundPosition: -200% center;
   }
   100% {
-    transform: translateX(150%) skewX(-45deg);
+    backgroundPosition: 200% center;
   }
 }
 

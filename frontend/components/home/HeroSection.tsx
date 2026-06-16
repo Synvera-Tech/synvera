@@ -90,25 +90,29 @@ export function HeroSection() {
           {/* Text with shimmer stripe */}
           <span style={{ position: "relative", display: "inline-block" }}>
             Valoração médica com
-            {/* Shimmer overlay */}
+            {/* Shimmer overlay with faded edges */}
             <div
               style={{
                 position: "absolute",
-                top: "0",
-                left: "0",
-                right: "0",
-                bottom: "0",
-                background: `repeating-linear-gradient(
+                top: "-20%",
+                left: "-10%",
+                right: "-10%",
+                bottom: "-20%",
+                background: `linear-gradient(
                   45deg,
-                  transparent,
-                  transparent 50px,
-                  rgba(255, 255, 255, 0.3) 50px,
-                  rgba(255, 255, 255, 0.3) 100px
+                  transparent 0%,
+                  transparent 40%,
+                  rgba(255, 255, 255, 0.15) 45%,
+                  rgba(255, 255, 255, 0.25) 50%,
+                  rgba(255, 255, 255, 0.15) 55%,
+                  transparent 60%,
+                  transparent 100%
                 )`,
-                animation: "shimmerStripe 5s ease-in-out infinite",
+                backgroundSize: "200% 200%",
+                animation: "shimmerStripe 6s ease-in-out infinite",
                 pointerEvents: "none",
                 mixBlendMode: "screen",
-                borderRadius: "4px",
+                filter: "blur(1px)",
               }}
             />
           </span>
