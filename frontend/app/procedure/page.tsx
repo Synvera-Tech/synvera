@@ -691,7 +691,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all duration-200",
                           checked
-                            ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
+                            ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7] checkbox-glow"
                             : "border-slate-300 dark:border-slate-600",
                         )}
                       >
@@ -1067,7 +1067,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     <div key={b.cbhpm_code} className={cn(
                       "flex items-end justify-between gap-1 rounded-xl px-3 py-2",
                       b.is_principal
-                        ? "border border-primary/20 bg-[#EAF0F6] dark:border-[#5D7EA7]/15 dark:bg-[#1F2A35]/40"
+                        ? "border border-primary/20 bg-[#EAF0F6] dark:border-[rgba(120,148,184,0.16)] dark:bg-[linear-gradient(180deg,rgba(120,148,184,0.08),rgba(120,148,184,0.03))]"
                         : "",
                     )}>
                       <div className="min-w-0">
