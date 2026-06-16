@@ -30,23 +30,23 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --background: 215 12% 6%;
-    --foreground: 218 12% 96%;
-    --primary: 210 32% 51%;
-    --muted: 215 10% 18%;
-    --muted-foreground: 215 10% 72%;
-    --border: 215 10% 16%;
+    --background: 210 40% 1%;
+    --foreground: 210 25% 98%;
+    --primary: 246 41% 50%;
+    --muted: 210 35% 8%;
+    --muted-foreground: 215 15% 80%;
+    --border: 210 20% 15%;
     color-scheme: dark;
   }
 }
 
 html.dark {
-  --background: 215 12% 6%;
-  --foreground: 218 12% 96%;
-  --primary: 210 32% 51%;
-  --muted: 215 10% 18%;
-  --muted-foreground: 215 10% 72%;
-  --border: 215 10% 16%;
+  --background: 210 40% 1%;
+  --foreground: 210 25% 98%;
+  --primary: 246 41% 50%;
+  --muted: 210 35% 8%;
+  --muted-foreground: 215 15% 80%;
+  --border: 210 20% 15%;
   color-scheme: dark;
 }
 
@@ -79,13 +79,13 @@ body {
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) body {
-    background: #0B0D10;
+    background: #010102;
     background-attachment: fixed;
   }
 }
 
 html.dark body {
-  background: #0B0D10;
+  background: #010102;
   background-attachment: fixed;
 }
 
@@ -151,22 +151,22 @@ html.dark body {
   }
 
   html.dark .nav-bar {
-    background: rgba(18, 21, 26, 0.86);
-    border-color: rgba(255, 255, 255, 0.10);
+    background: rgba(1, 1, 2, 0.8);
+    border-color: rgba(35, 37, 42, 0.6);
     box-shadow:
       0 1px 2px rgba(0, 0, 0, 0.20),
-      0 8px 24px rgba(0, 0, 0, 0.30),
-      0 2px 8px rgba(0, 0, 0, 0.15);
+      0 8px 24px rgba(0, 0, 0, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.10);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .nav-bar {
-      background: rgba(18, 21, 26, 0.86);
-      border-color: rgba(255, 255, 255, 0.10);
+      background: rgba(1, 1, 2, 0.8);
+      border-color: rgba(35, 37, 42, 0.6);
       box-shadow:
         0 1px 2px rgba(0, 0, 0, 0.20),
-        0 8px 24px rgba(0, 0, 0, 0.30),
-        0 2px 8px rgba(0, 0, 0, 0.15);
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.10);
     }
   }
 
@@ -266,22 +266,22 @@ html.dark body {
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .card-plush {
-      background: #252E3A;
-      border-color: rgba(91, 127, 168, 0.18) !important;
+      background: #0f1011;
+      border-color: rgba(35, 37, 42, 0.8) !important;
       box-shadow:
-        0 1px 2px rgba(0, 0, 0, 0.15),
-        0 4px 12px rgba(0, 0, 0, 0.20),
-        0 12px 32px rgba(0, 0, 0, 0.25);
+        0 1px 2px rgba(0, 0, 0, 0.20),
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 12px 32px rgba(0, 0, 0, 0.10);
     }
   }
 
   html.dark .card-plush {
-    background: #252E3A;
-    border-color: rgba(91, 127, 168, 0.18) !important;
+    background: #0f1011;
+    border-color: rgba(35, 37, 42, 0.8) !important;
     box-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.15),
-      0 4px 12px rgba(0, 0, 0, 0.20),
-      0 12px 32px rgba(0, 0, 0, 0.25);
+      0 1px 2px rgba(0, 0, 0, 0.20),
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      0 12px 32px rgba(0, 0, 0, 0.10);
   }
 
   .card-premium {
@@ -327,22 +327,22 @@ html.dark body {
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .results-card {
-      background: #212D40;
-      border-color: rgba(91, 127, 168, 0.20) !important;
+      background: #0f1011;
+      border-color: rgba(35, 37, 42, 0.8) !important;
       box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.25),
-        0 8px 24px rgba(0, 0, 0, 0.30),
-        0 16px 48px rgba(0, 0, 0, 0.35);
+        0 1px 3px rgba(0, 0, 0, 0.20),
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        0 16px 48px rgba(0, 0, 0, 0.10);
     }
   }
 
   html.dark .results-card {
-    background: #1E293B;
-    border-color: rgba(255, 255, 255, 0.10) !important;
+    background: #0f1011;
+    border-color: rgba(35, 37, 42, 0.8) !important;
     box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.25),
-      0 8px 24px rgba(0, 0, 0, 0.30),
-      0 16px 48px rgba(0, 0, 0, 0.35);
+      0 1px 3px rgba(0, 0, 0, 0.20),
+      0 8px 24px rgba(0, 0, 0, 0.15),
+      0 16px 48px rgba(0, 0, 0, 0.10);
   }
 
   .results-card-header {

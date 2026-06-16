@@ -80,7 +80,7 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
   return (
     <div className="space-y-2">
       <label
-        className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400"
+        className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-[#8a8f98]"
         htmlFor="procedure-search"
       >
         {label}
@@ -92,14 +92,14 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
           {value.map((v) => (
             <span
               key={v.id}
-              className="inline-flex items-center gap-1.5 rounded-md border border-blue-200 dark:border-slate-600 bg-blue-50 dark:bg-slate-700/50 px-3 py-1 text-[11px] font-semibold text-blue-700 dark:text-slate-200"
+              className="inline-flex items-center gap-1.5 rounded-md border border-blue-200 dark:border-[#34343a] bg-blue-50 dark:bg-[#141516] px-3 py-1 text-[11px] font-semibold text-blue-700 dark:text-[#d0d6e0]"
             >
               {v.name}
               <button
                 type="button"
                 onClick={() => removeChip(v.id)}
                 aria-label={`Remover ${v.name}`}
-                className="text-blue-400 hover:text-blue-700 dark:text-slate-500 dark:hover:text-slate-300 transition-colors"
+                className="text-blue-400 hover:text-blue-700 dark:text-[#8a8f98] dark:hover:text-[#d0d6e0] transition-colors"
               >
                 <X size={11} strokeWidth={2.5} />
               </button>
@@ -111,7 +111,7 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
       <div className="relative rounded-md overflow-hidden">
         <Search
           aria-hidden="true"
-          className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-[#8a8f98]"
           size={18}
         />
         <Input
@@ -130,7 +130,7 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
 
       {isOpen && sorted.length > 0 && (
         <div
-          className="overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900"
+          className="overflow-hidden rounded-2xl border border-slate-200 dark:border-[#23252a] bg-white dark:bg-[#0f1011]"
           style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.10)", maxHeight: "288px", overflowY: "auto" }}
         >
           {sorted.map((option) => {
@@ -141,14 +141,14 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
                 type="button"
                 onClick={() => handleSelect(option)}
                 className={cn(
-                  "block w-full border-b border-slate-50 dark:border-slate-800 px-4 py-3.5 text-left text-sm last:border-b-0 transition-colors",
+                  "block w-full border-b border-slate-50 dark:border-[#18191a] px-4 py-3.5 text-left text-sm last:border-b-0 transition-colors",
                   selected
-                    ? "bg-blue-50 dark:bg-slate-700/50"
-                    : "hover:bg-slate-50 dark:hover:bg-slate-800",
+                    ? "bg-blue-50 dark:bg-[#141516]"
+                    : "hover:bg-slate-50 dark:hover:bg-[#141516]",
                 )}
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className="font-semibold text-slate-950 dark:text-slate-50 leading-snug">
+                  <span className="font-semibold text-slate-950 dark:text-[#f7f8f8] leading-snug">
                     {option.name}
                   </span>
                   {selected ? (
