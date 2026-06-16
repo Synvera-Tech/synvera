@@ -695,7 +695,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                             : "border-slate-300 dark:border-slate-600",
                         )}
                       >
-                        {checked && <Check size={11} strokeWidth={3} />}
+                        {checked && <Check size={12} strokeWidth={3} />}
                       </button>
 
                       <div className="min-w-0 flex-1">
