@@ -23,6 +23,43 @@ export function HeroSection() {
         overflow: "hidden",
       }}
     >
+      <style>{`
+        @keyframes shimmerStripe {
+          0% {
+            transform: translateX(-200%);
+          }
+          100% {
+            transform: translateX(200%);
+          }
+        }
+
+        .shimmer-stripe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 100%;
+          background: linear-gradient(
+            45deg,
+            transparent 0%,
+            rgba(94, 106, 210, 0.08) 25%,
+            rgba(94, 106, 210, 0.12) 50%,
+            rgba(94, 106, 210, 0.08) 75%,
+            transparent 100%
+          );
+          animation: shimmerStripe 6s linear infinite;
+          pointer-events: none;
+          filter: blur(2px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          @keyframes shimmerStripe {
+            0% { transform: none; }
+            100% { transform: none; }
+          }
+        }
+      `}</style>
+
       {/* Subtle background accent */}
       <div
         style={{
@@ -70,7 +107,7 @@ export function HeroSection() {
             animation: "pulse 2s ease-in-out infinite",
           }} />
           <span style={{ fontSize: "11px", fontWeight: 600, color: "#d0d6e0", letterSpacing: "0.5px" }}>
-            INTELIGÊNCIA EM NEUROCIRURGIA
+            CBHPM + SBN
           </span>
         </div>
 
@@ -87,7 +124,10 @@ export function HeroSection() {
             position: "relative",
           }}
         >
-          Valoração médica com
+          <span style={{ position: "relative", display: "inline-block" }}>
+            Valoração médica com
+            <div className="shimmer-stripe" style={{ top: 0 }} />
+          </span>
           <br />
           <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
             precisão documental
@@ -176,7 +216,7 @@ export function HeroSection() {
               e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
             }}
           >
-            Ver relatório exemplo
+            Ver composição exemplo
           </button>
         </div>
 

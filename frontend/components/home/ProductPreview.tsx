@@ -1,8 +1,24 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Calculator, Share2, Check } from "lucide-react";
 
+const VALUES = [
+  "R$ 26.263,16",
+  "R$ 14.882,44",
+  "R$ 8.321,17",
+];
+
 export function ProductPreview() {
+  const [currentValueIndex, setCurrentValueIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentValueIndex((prev) => (prev + 1) % VALUES.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       style={{
@@ -11,6 +27,7 @@ export function ProductPreview() {
         borderTop: "1px solid rgba(35,37,42,0.6)",
       }}
     >
+
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         {/* Section header */}
         <div style={{ textAlign: "center", marginBottom: "60px" }}>
@@ -97,12 +114,27 @@ export function ProductPreview() {
               <span style={{ marginLeft: "auto", fontSize: "11px", color: "#8a8f98" }}>CBHPM 2025</span>
             </div>
 
-            {/* Mock value display */}
+            {/* Mock value display - dynamic */}
             <div style={{ marginBottom: "20px" }}>
               <p style={{ margin: "0 0 6px", fontSize: "12px", color: "#8a8f98" }}>Valor Total</p>
-              <p style={{ margin: 0, fontSize: "28px", fontWeight: 700, color: "#f7f8f8" }}>
-                R$ 26.263,16
-              </p>
+              <div style={{ position: "relative", height: "36px", display: "flex", alignItems: "center" }}>
+                {VALUES.map((value, idx) => (
+                  <p
+                    key={idx}
+                    style={{
+                      position: "absolute",
+                      margin: 0,
+                      fontSize: "28px",
+                      fontWeight: 700,
+                      color: "#f7f8f8",
+                      transition: "opacity 250ms ease-in-out",
+                      opacity: idx === currentValueIndex ? 1 : 0,
+                    }}
+                  >
+                    {value}
+                  </p>
+                ))}
+              </div>
             </div>
 
             {/* Mock procedures */}
