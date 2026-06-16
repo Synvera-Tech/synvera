@@ -346,7 +346,7 @@ html.dark body {
   }
 
   .results-card-header {
-    background: rgba(30, 41, 59, 0.8);
+    background: rgba(20, 21, 22, 0.9);
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
     padding: 1rem;
     margin: -1.75rem -1.75rem 1.5rem -1.75rem;
@@ -354,22 +354,22 @@ html.dark body {
   }
 
   html.dark .results-card-header {
-    background: rgba(30, 41, 59, 0.8);
-    border-bottom-color: rgba(255, 255, 255, 0.10);
-    color: #F4F6F8;
+    background: rgba(20, 21, 22, 0.9);
+    border-bottom-color: rgba(35, 37, 42, 0.6);
+    color: #f7f8f8;
   }
 
   html.dark .results-card h3,
   html.dark .results-card h4,
   html.dark .results-card span,
   html.dark .results-card p {
-    color: #F4F6F8 !important;
+    color: #f7f8f8 !important;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .results-card-header {
-      background: rgba(30, 41, 59, 0.8);
-      border-bottom-color: rgba(255, 255, 255, 0.10);
+      background: rgba(20, 21, 22, 0.9);
+      border-bottom-color: rgba(35, 37, 42, 0.6);
     }
   }
 
@@ -382,16 +382,16 @@ html.dark body {
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .badge-clinical {
-      background: linear-gradient(135deg, hsl(214 52% 28%), hsl(214 52% 22%));
-      border: 1px solid rgba(95, 132, 179, 0.4);
-      color: hsl(214, 40%, 70%);
+      background: #141516;
+      border: 1px solid rgba(35, 37, 42, 0.8);
+      color: #d0d6e0;
     }
   }
 
   html.dark .badge-clinical {
-    background: linear-gradient(135deg, hsl(214 52% 28%), hsl(214 52% 22%));
-    border: 1px solid rgba(95, 132, 179, 0.4);
-    color: hsl(214, 40%, 70%);
+    background: #141516;
+    border: 1px solid rgba(35, 37, 42, 0.8);
+    color: #d0d6e0;
   }
 
   .leader {
@@ -404,12 +404,12 @@ html.dark body {
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .leader {
-      border-bottom-color: rgba(71, 85, 105, 0.5);
+      border-bottom-color: rgba(35, 37, 42, 0.5);
     }
   }
 
   html.dark .leader {
-    border-bottom-color: rgba(71, 85, 105, 0.5);
+    border-bottom-color: rgba(35, 37, 42, 0.5);
   }
 
   .btn-calculate {
@@ -478,14 +478,14 @@ html.dark body {
   }
 
   html.dark .medical-toggle-panel {
-    background: linear-gradient(135deg, hsl(217 33% 14%), hsl(214 52% 14%));
-    border-color: rgba(95, 132, 179, 0.24);
+    background: #0f1011;
+    border-color: rgba(35, 37, 42, 0.8);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .medical-toggle-panel {
-      background: linear-gradient(135deg, hsl(217 33% 14%), hsl(214 52% 14%));
-      border-color: rgba(95, 132, 179, 0.24);
+      background: #0f1011;
+      border-color: rgba(35, 37, 42, 0.8);
     }
   }
 
@@ -495,14 +495,14 @@ html.dark body {
   }
 
   html.dark .clinical-icon-chip {
-    background: rgba(95, 132, 179, 0.16);
-    color: hsl(214, 40%, 68%);
+    background: rgba(35, 37, 42, 0.6);
+    color: #d0d6e0;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .clinical-icon-chip {
-      background: rgba(95, 132, 179, 0.16);
-      color: hsl(214, 40%, 68%);
+      background: rgba(35, 37, 42, 0.6);
+      color: #d0d6e0;
     }
   }
 
@@ -513,14 +513,14 @@ html.dark body {
   }
 
   html.dark .clinical-pill {
-    background: rgba(95, 132, 179, 0.16);
-    color: hsl(214, 40%, 72%);
+    background: rgba(35, 37, 42, 0.5);
+    color: #d0d6e0;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .clinical-pill {
-      background: rgba(95, 132, 179, 0.16);
-      color: hsl(214, 40%, 72%);
+      background: rgba(35, 37, 42, 0.5);
+      color: #d0d6e0;
     }
   }
 
@@ -530,12 +530,12 @@ html.dark body {
   }
 
   html.dark .sapphire-divider {
-    border-top-color: rgba(255, 255, 255, 0.12);
+    border-top-color: rgba(35, 37, 42, 0.8);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .sapphire-divider {
-      border-top-color: rgba(255, 255, 255, 0.12);
+      border-top-color: rgba(35, 37, 42, 0.8);
     }
   }
 
@@ -544,12 +544,12 @@ html.dark body {
   }
 
   html.dark .footer-divider {
-    background: linear-gradient(90deg, transparent, rgba(71, 85, 105, 0.8), transparent);
+    background: linear-gradient(90deg, transparent, rgba(35, 37, 42, 0.8), transparent);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .footer-divider {
-      background: linear-gradient(90deg, transparent, rgba(71, 85, 105, 0.8), transparent);
+      background: linear-gradient(90deg, transparent, rgba(35, 37, 42, 0.8), transparent);
     }
   }
 
@@ -580,28 +580,28 @@ html.dark body {
   }
 
   html.dark .workspace-panel {
-    background: #F4F6F8 !important;
-    border-color: rgba(15, 23, 42, 0.08) !important;
+    background: #0f1011 !important;
+    border-color: rgba(35, 37, 42, 0.8) !important;
   }
 
   html.dark .workspace-panel .card-plush {
-    background: #FFFFFF !important;
-    border-color: rgba(15, 23, 42, 0.08) !important;
+    background: #141516 !important;
+    border-color: rgba(35, 37, 42, 0.8) !important;
   }
 
   html.dark .workspace-panel input,
   html.dark .workspace-panel textarea,
   html.dark .workspace-panel select {
-    background: #FFFFFF !important;
-    color: #111827 !important;
-    border-color: rgba(15, 23, 42, 0.08) !important;
+    background: #0f1011 !important;
+    color: #f7f8f8 !important;
+    border-color: rgba(35, 37, 42, 0.8) !important;
   }
 
   html.dark .workspace-panel input:focus,
   html.dark .workspace-panel textarea:focus,
   html.dark .workspace-panel select:focus {
-    background: #FFFFFF !important;
-    border-color: rgba(15, 23, 42, 0.12) !important;
+    background: #0f1011 !important;
+    border-color: rgba(35, 37, 42, 0.8) !important;
   }
 
   html.dark .workspace-panel h1,
@@ -610,13 +610,13 @@ html.dark body {
   html.dark .workspace-panel h4,
   html.dark .workspace-panel h5,
   html.dark .workspace-panel h6 {
-    color: #111827 !important;
+    color: #f7f8f8 !important;
   }
 
   html.dark .workspace-panel p,
   html.dark .workspace-panel label,
   html.dark .workspace-panel span {
-    color: #111827 !important;
+    color: #f7f8f8 !important;
   }
 
   #procedure-search {
@@ -629,19 +629,19 @@ html.dark body {
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .workspace-panel {
-      background: #1A2330 !important;
-      border-color: rgba(91, 127, 168, 0.15) !important;
+      background: #0f1011 !important;
+      border-color: rgba(35, 37, 42, 0.8) !important;
     }
     :root:not(.light) .workspace-panel .card-plush {
-      background: #222E3D !important;
-      border-color: rgba(91, 127, 168, 0.18) !important;
+      background: #141516 !important;
+      border-color: rgba(35, 37, 42, 0.8) !important;
     }
     :root:not(.light) .workspace-panel input,
     :root:not(.light) .workspace-panel textarea,
     :root:not(.light) .workspace-panel select {
-      background: #2A3646 !important;
-      color: #D9E5F0 !important;
-      border-color: rgba(91, 127, 168, 0.20) !important;
+      background: #0f1011 !important;
+      color: #f7f8f8 !important;
+      border-color: rgba(35, 37, 42, 0.8) !important;
     }
   }
 
@@ -652,15 +652,15 @@ html.dark body {
   }
 
   html.dark .selected-cbhpm-card {
-    background: #242B35 !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+    background: #141516 !important;
+    border: 1.5px solid rgba(35, 37, 42, 0.8) !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) .selected-cbhpm-card {
-      background: #242B35 !important;
-      border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+      background: #141516 !important;
+      border: 1.5px solid rgba(35, 37, 42, 0.8) !important;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
   }
