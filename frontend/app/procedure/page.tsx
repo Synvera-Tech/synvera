@@ -585,7 +585,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
               <img src="/brand/afere-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
             </div>
             <div>
-              <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-[#111827]">Afere</span>
+              <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Afere</span>
               <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">NEUROCIRURGIA</span>
             </div>
           </Link>
@@ -625,7 +625,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
       {/* Hero */}
       <div className="relative z-[1] px-5 pb-6 pt-8 text-center">
-        <h1 className="m-0 mb-1.5 text-[30px] font-extrabold tracking-tight text-slate-950 dark:text-[#111827]">
+        <h1 className="m-0 mb-1.5 text-[30px] font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
           Composição de Honorários
         </h1>
         <p className="m-0 text-sm font-medium text-slate-500 dark:text-slate-400">
@@ -639,10 +639,10 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
       <div className="main-grid relative z-[1] mx-auto grid max-w-[1080px] gap-7 px-5 pb-12">
 
         {/* ── Left panel ──────────────────────────────────────────────────── */}
-        <div className="workspace-panel card-plush rounded-3xl border border-slate-200/80 dark:border-[rgba(15,23,42,0.08)] dark:bg-[#F4F6F8] p-8">
+        <div className="workspace-panel card-plush rounded-3xl border border-slate-200/80 dark:border-slate-700 dark:bg-slate-900 p-8">
           <div className="mb-6 flex items-center gap-2">
             <Stethoscope aria-hidden="true" className="text-primary" size={18} />
-            <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-[#111827]">Buscar Procedimento SBN</h2>
+            <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">Buscar Procedimento SBN</h2>
           </div>
           <div className="mb-6">
             <Autocomplete
@@ -700,7 +700,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-1.5">
-                          <span className="font-mono text-[11px] font-semibold text-slate-400 dark:text-[#111827]0">
+                          <span className="font-mono text-[11px] font-semibold text-slate-400 dark:text-slate-500">
                             {c.code}
                           </span>
                           <span className={cn(
@@ -751,7 +751,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "flex w-full items-start gap-3 rounded-xl border p-3 text-left transition-colors",
                           isSelected
-                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[rgba(255,255,255,0.10)] dark:bg-[#1F2A35]/50"
+                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
                             : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                         )}
                       >
@@ -770,7 +770,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           )}>
                             {route === "same" ? "Mesma via de acesso" : "Vias de acesso diferentes"}
                           </div>
-                          <div className="text-[11px] text-slate-400 dark:text-[#111827]0">
+                          <div className="text-[11px] text-slate-400 dark:text-slate-500">
                             {route === "same"
                               ? "CBHPM 4.1 — procedimento adicional valorado a 50%"
                               : "CBHPM 4.2 — procedimento adicional valorado a 70%"}
@@ -831,7 +831,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                             className={cn(
                               "flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition-colors",
                               spineModifiers.laterality === lateral
-                                ? "border-primary/30 bg-[#EAF0F6] dark:border-[rgba(255,255,255,0.10)] dark:bg-[#1F2A35]/50"
+                                ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
                                 : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                             )}
                           >
@@ -850,7 +850,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                               )}>
                                 {lateral === "UNILATERAL" ? "Unilateral" : "Bilateral"}
                               </div>
-                              <div className="text-[11px] text-slate-400 dark:text-[#111827]0">
+                              <div className="text-[11px] text-slate-400 dark:text-slate-500">
                                 {lateral === "UNILATERAL" ? "Um lado (1×)" : "Ambos os lados (2×)"}
                               </div>
                             </div>
@@ -908,7 +908,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                       <HeartPulse aria-hidden="true" size={16} />
                     </div>
                     <div>
-                      <div className="text-[13px] font-semibold text-slate-950 dark:text-[#111827]">Anestesiologista</div>
+                      <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">Anestesiologista</div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400">Incluir honorários do anestesista</div>
                     </div>
                   </div>
@@ -952,7 +952,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           {em.label} (+{em.pct}%)
                         </div>
                         {em.helper && (
-                          <div className="mt-0.5 text-[11px] text-slate-400 dark:text-[#111827]0 leading-relaxed">{em.helper}</div>
+                          <div className="mt-0.5 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">{em.helper}</div>
                         )}
                       </div>
                     </button>
@@ -961,7 +961,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
                 {/* Pediátrico — radio group (mutually exclusive) */}
                 <div className="space-y-1.5">
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.4px] text-slate-400 dark:text-[#111827]0 mb-1.5">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.4px] text-slate-400 dark:text-slate-500 mb-1.5">
                     Paciente pediátrico
                   </div>
                   {/* "Nenhuma" option */}
@@ -971,7 +971,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     className={cn(
                       "flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors",
                       activePediatric === null
-                        ? "border-primary/30 bg-[#EAF0F6] dark:border-[rgba(255,255,255,0.10)] dark:bg-[#1F2A35]/50"
+                        ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
                         : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                     )}
                   >
@@ -998,7 +998,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-colors",
                           isActive
-                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[rgba(255,255,255,0.10)] dark:bg-[#1F2A35]/50"
+                            ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
                             : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
                         )}
                       >
@@ -1029,7 +1029,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
           {selectedProcedures.length === 0 && !loadingDetail && (
             <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 py-10 text-center">
               <Stethoscope className="text-slate-300 dark:text-slate-600" size={32} />
-              <p className="text-sm text-slate-400 dark:text-[#111827]0">
+              <p className="text-sm text-slate-400 dark:text-slate-500">
                 Busque e selecione um procedimento SBN para montar a composição
               </p>
             </div>
@@ -1037,11 +1037,11 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
         </div>
 
         {/* ── Right panel ─────────────────────────────────────────────────── */}
-        <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[rgba(255,255,255,0.10)] p-7">
+        <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#5D7EA7]/20 p-7">
           <div className="results-card-header mb-6 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calculator aria-hidden="true" className="text-primary" size={18} />
-              <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-[#F4F6F8]">Valoração</h2>
+              <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">Valoração</h2>
             </div>
             <span className="clinical-pill rounded-full px-2.5 py-1 text-[11px] font-semibold">CBHPM 2025</span>
           </div>
@@ -1059,7 +1059,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             <>
               {/* ── Procedimentos selecionados ──────────────────────────── */}
               <section className="mb-5">
-                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-[#F4F6F8]0">
+                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
                   Procedimentos Selecionados
                 </h3>
                 <dl className="space-y-2">
@@ -1072,7 +1072,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                     )}>
                       <div className="min-w-0">
                         <dt className="flex items-center gap-1.5">
-                          <span className="font-mono text-[11px] text-slate-400 dark:text-[#F4F6F8]0">{b.cbhpm_code}</span>
+                          <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">{b.cbhpm_code}</span>
                           {b.is_principal && (
                             <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#5D7EA7]/10 dark:text-[#718BAE]">
                               principal
@@ -1083,7 +1083,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                       </div>
                       <div className="flex shrink-0 items-center gap-2">
                         <span className="text-[11px] font-semibold text-primary dark:text-[#718BAE]">{b.porte}</span>
-                        <span className="font-grotesk text-sm font-semibold text-slate-950 dark:text-[#F4F6F8]">
+                        <span className="font-grotesk text-sm font-semibold text-slate-950 dark:text-slate-50">
                           {money.format(b.base_value)}
                         </span>
                       </div>
@@ -1096,7 +1096,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
               {/* ── Regra aplicada ──────────────────────────────────────── */}
               <section className="mb-5">
-                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-[#F4F6F8]0">
+                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
                   Regra Aplicada
                 </h3>
                 <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/30 px-3 py-2.5 text-[12px] text-slate-500 dark:text-slate-400">
@@ -1127,7 +1127,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
               {/* ── Cálculo do cirurgião ─────────────────────────────────── */}
               <section className="mb-5">
-                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-[#F4F6F8]0">
+                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
                   Cálculo do Cirurgião
                 </h3>
                 <dl className="space-y-1.5">
@@ -1163,7 +1163,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
               {/* ── Cálculo dos auxiliares ──────────────────────────────── */}
               <section className="mb-5">
-                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-[#F4F6F8]0">
+                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
                   Cálculo dos Auxiliares
                 </h3>
                 <dl className="space-y-2.5 dark:text-slate-200">
@@ -1228,7 +1228,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                   <button
                     id="share-calculation-btn"
                     onClick={shareCalculation}
-                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/5 active:scale-[0.98] dark:border-[rgba(255,255,255,0.10)] dark:text-[#718BAE]"
+                    className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/5 active:scale-[0.98] dark:border-[#5D7EA7]/20 dark:text-[#718BAE]"
                     type="button"
                   >
                     <Share2 size={16} /> Compartilhar cálculo
@@ -1300,13 +1300,13 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                             onKeyDown={(e) => { if (e.key === "Enter") handleSaveComposition(); if (e.key === "Escape") setShowSaveForm(false); }}
                             placeholder="Ex: Craniotomia + DVP"
                             maxLength={120}
-                            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-[#111827] placeholder:text-slate-400 focus:border-primary dark:focus:border-[#5D7EA7] focus:outline-none transition-colors"
+                            className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-primary dark:focus:border-[#5D7EA7] focus:outline-none transition-colors"
                           />
                           <div className="flex gap-2">
                             <button
                               onClick={handleSaveComposition}
                               disabled={savingComposition || !compositionName.trim()}
-                              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-[rgba(255,255,255,0.10)] dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
+                              className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-[#5D7EA7]/20 dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
                               type="button"
                             >
                               {savingComposition
@@ -1346,8 +1346,8 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
               )}
 
               <div className="mt-4 flex items-start gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/50 p-3">
-                <Info aria-hidden="true" className="mt-px shrink-0 text-slate-400 dark:text-[#111827]0" size={15} />
-                <p className="m-0 text-[11px] font-medium leading-relaxed text-slate-400 dark:text-[#111827]0">
+                <Info aria-hidden="true" className="mt-px shrink-0 text-slate-400 dark:text-slate-500" size={15} />
+                <p className="m-0 text-[11px] font-medium leading-relaxed text-slate-400 dark:text-slate-500">
                   Valores calculados conforme Tabela CBHPM 2025/2026 (Faixa Original). Sujeito à variação por convênio.
                 </p>
               </div>
@@ -1355,7 +1355,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
           ) : (
             <div className="flex flex-col items-center gap-3 py-14 text-center">
               <Calculator className="text-slate-200 dark:text-slate-700" size={40} />
-              <p className="text-sm text-slate-400 dark:text-[#111827]0">
+              <p className="text-sm text-slate-400 dark:text-slate-500">
                 Selecione ao menos um código CBHPM para ver a valoração
               </p>
             </div>
@@ -1365,7 +1365,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
       <footer className="relative z-[1] px-5 pb-5 text-center">
         <div className="footer-divider mb-3.5 h-px" />
-        <p className="m-0 text-xs font-medium text-slate-400 dark:text-[#111827]0">
+        <p className="m-0 text-xs font-medium text-slate-400 dark:text-slate-500">
           2026 &nbsp;·&nbsp; <span className="font-bold text-slate-500">LabF5</span> &nbsp;·&nbsp; Todos os direitos reservados
         </p>
       </footer>
@@ -1388,7 +1388,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
           />
 
           {/* Card */}
-          <div className="card-plush relative w-full max-w-sm rounded-3xl border border-slate-200/80 bg-white p-7 dark:border-[rgba(15,23,42,0.08)] dark:bg-[#F4F6F8]">
+          <div className="card-plush relative w-full max-w-sm rounded-3xl border border-slate-200/80 bg-white p-7 dark:border-slate-700 dark:bg-slate-900">
             <button
               type="button"
               aria-label="Fechar"
@@ -1400,7 +1400,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
             <div className="mb-5 flex items-center gap-2">
               <Share2 size={16} className="text-primary dark:text-[#718BAE]" aria-hidden="true" />
-              <h2 id="share-modal-title" className="m-0 text-[15px] font-bold text-slate-950 dark:text-[#111827]">
+              <h2 id="share-modal-title" className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">
                 Compartilhar relatório
               </h2>
             </div>
@@ -1409,7 +1409,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             <button
               type="button"
               onClick={copyShareLink}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] dark:border-[rgba(255,255,255,0.10)] dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
+              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 bg-primary/5 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] dark:border-[#5D7EA7]/20 dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
             >
               {copied ? <><Check size={16} /> Link copiado!</> : <><Copy size={16} /> Copiar link</>}
             </button>
@@ -1433,7 +1433,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                   className="h-[148px] w-[148px]"
                 />
               </div>
-              <p className="flex items-center gap-1.5 text-[11px] font-medium text-slate-400 dark:text-[#111827]0">
+              <p className="flex items-center gap-1.5 text-[11px] font-medium text-slate-400 dark:text-slate-500">
                 <Smartphone size={12} aria-hidden="true" /> Escaneie para abrir no celular
               </p>
             </div>
@@ -1454,7 +1454,7 @@ function ResultRow({ label, value, note, strong }: { label: string; value: numbe
         {note && <span className="ml-1.5 text-[11px] font-semibold text-primary/70 dark:text-[#718BAE]/70">{note}</span>}
       </dt>
       <div className="leader" />
-      <dd className={cn("font-grotesk shrink-0 text-sm font-semibold", strong ? "text-slate-950 dark:text-[#111827]" : "text-slate-800 dark:text-[#111827]")}>
+      <dd className={cn("font-grotesk shrink-0 text-sm font-semibold", strong ? "text-slate-950 dark:text-slate-50" : "text-slate-800 dark:text-slate-100")}>
         {value === undefined ? "—" : money.format(value)}
       </dd>
     </div>
@@ -1464,10 +1464,10 @@ function ResultRow({ label, value, note, strong }: { label: string; value: numbe
 function BreakdownRow({ label, value, muted, strong }: { label: string; value: number; muted?: boolean; strong?: boolean }) {
   return (
     <div className="flex items-baseline justify-between gap-1">
-      <span className={cn("text-[12px]", strong ? "font-semibold text-slate-700 dark:text-slate-200" : muted ? "text-slate-400 dark:text-[#111827]0" : "text-slate-600 dark:text-slate-300")}>
+      <span className={cn("text-[12px]", strong ? "font-semibold text-slate-700 dark:text-slate-200" : muted ? "text-slate-400 dark:text-slate-500" : "text-slate-600 dark:text-slate-300")}>
         {label}
       </span>
-      <span className={cn("font-grotesk text-[13px] font-semibold", strong ? "text-slate-950 dark:text-[#111827]" : muted ? "text-slate-400 dark:text-[#111827]0" : "text-slate-800 dark:text-[#111827]")}>
+      <span className={cn("font-grotesk text-[13px] font-semibold", strong ? "text-slate-950 dark:text-slate-50" : muted ? "text-slate-400 dark:text-slate-500" : "text-slate-800 dark:text-slate-100")}>
         {money.format(value)}
       </span>
     </div>
