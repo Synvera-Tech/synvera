@@ -3,33 +3,53 @@
 import { useEffect, useState } from "react";
 import { Calculator, Share2, Check, QrCode } from "lucide-react";
 
-const VALUES = [
-  "R$ 26.263,16",
-  "R$ 14.882,44",
-  "R$ 8.321,17",
+const PREVIEW_SCENARIOS = [
+  {
+    total: "R$ 26.263,16",
+    mainProcedure: "Craniectomia descompressiva",
+    rule: "SBN + CBHPM 2025 + Auxiliares",
+    auxiliaryProcedures: [
+      "Drenagem subdural",
+      "Monitorização neurológica"
+    ]
+  },
+  {
+    total: "R$ 14.882,44",
+    mainProcedure: "Derivação ventrículo-peritoneal",
+    rule: "CBHPM 4.1 + composição agregada",
+    auxiliaryProcedures: [
+      "Implante de cateter ventricular",
+      "Implante de cateter peritoneal"
+    ]
+  },
+  {
+    total: "R$ 8.321,17",
+    mainProcedure: "Infiltração de coluna",
+    rule: "CBHPM + variável por estrutura",
+    auxiliaryProcedures: [
+      "Infiltração facetária",
+      "Bloqueio foraminal"
+    ]
+  }
 ];
 
 export function ProductPreview() {
-  const [displayedValue, setDisplayedValue] = useState(VALUES[0]);
-  const [nextValue, setNextValue] = useState(VALUES[1]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentScenarioIndex, setCurrentScenarioIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const currentScenario = PREVIEW_SCENARIOS[currentScenarioIndex];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning(true);
 
       setTimeout(() => {
-        const nextIndex = (currentIndex + 1) % VALUES.length;
-        setDisplayedValue(VALUES[nextIndex]);
-        setCurrentIndex(nextIndex);
-        setNextValue(VALUES[(nextIndex + 1) % VALUES.length]);
+        setCurrentScenarioIndex((prev) => (prev + 1) % PREVIEW_SCENARIOS.length);
         setIsTransitioning(false);
       }, 300);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, []);
 
   return (
     <section
@@ -43,19 +63,19 @@ export function ProductPreview() {
       }}
     >
       <style>{`
-        .value-transition {
+        .preview-content {
           transition:
             opacity 300ms ease,
             transform 300ms ease;
         }
 
-        .value-transition.transitioning {
+        .preview-content.transitioning {
           opacity: 0;
-          transform: translateY(-8px);
+          transform: translateY(-12px);
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .value-transition {
+          .preview-content {
             transition: none;
           }
         }
@@ -108,7 +128,6 @@ export function ProductPreview() {
               borderRadius: "12px",
               padding: "28px",
               boxShadow: "0 1px 3px rgba(0,0,0,0.20), 0 8px 32px rgba(0,0,0,0.15)",
-              transition: "all 250ms ease-out",
               animation: "slideUp 0.7s ease-out 0.3s both",
             }}
           >
@@ -131,12 +150,17 @@ export function ProductPreview() {
               <span style={{ marginLeft: "auto", fontSize: "11px", color: "#8a8f98" }}>CBHPM 2025</span>
             </div>
 
-            {/* Total value - HERO of the preview */}
-            <div style={{ marginBottom: "32px", animation: "slideUp 0.7s ease-out 0.4s both" }}>
-              <p style={{ margin: "0 0 8px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Valor Total</p>
-              <div style={{ position: "relative", minHeight: "48px", display: "flex", alignItems: "center" }}>
+            {/* Content that transitions - Caminho A */}
+            <div
+              className={`preview-content${isTransitioning ? " transitioning" : ""}`}
+              style={{
+                animation: "slideUp 0.7s ease-out 0.4s both",
+              }}
+            >
+              {/* Total value - HERO of the preview */}
+              <div style={{ marginBottom: "32px" }}>
+                <p style={{ margin: "0 0 8px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Valor Total</p>
                 <p
-                  className={`value-transition${isTransitioning ? " transitioning" : ""}`}
                   style={{
                     margin: 0,
                     fontSize: "40px",
@@ -145,126 +169,125 @@ export function ProductPreview() {
                     letterSpacing: "-1px",
                   }}
                 >
-                  {displayedValue}
+                  {currentScenario.total}
                 </p>
               </div>
-            </div>
 
-            {/* Main procedure */}
-            <div style={{ marginBottom: "24px", animation: "slideUp 0.7s ease-out 0.42s both" }}>
-              <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimento Principal</p>
-              <div style={{
-                padding: "14px 16px",
-                background: "linear-gradient(135deg, rgba(94,106,210,0.15), rgba(94,106,210,0.05))",
-                border: "1px solid rgba(94,106,210,0.2)",
-                borderRadius: "8px",
-                fontSize: "15px",
-                fontWeight: 600,
-                color: "#f7f8f8",
-              }}>
-                Craniectomia descompressiva
+              {/* Main procedure */}
+              <div style={{ marginBottom: "24px" }}>
+                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimento Principal</p>
+                <div style={{
+                  padding: "14px 16px",
+                  background: "linear-gradient(135deg, rgba(94,106,210,0.15), rgba(94,106,210,0.05))",
+                  border: "1px solid rgba(94,106,210,0.2)",
+                  borderRadius: "8px",
+                  fontSize: "15px",
+                  fontWeight: 600,
+                  color: "#f7f8f8",
+                }}>
+                  {currentScenario.mainProcedure}
+                </div>
               </div>
-            </div>
 
-            {/* Applied rule */}
-            <div style={{ marginBottom: "24px", animation: "slideUp 0.7s ease-out 0.44s both" }}>
-              <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Regra Aplicada</p>
-              <div style={{
-                padding: "12px 14px",
-                background: "rgba(120,148,184,0.08)",
-                border: "1px solid rgba(120,148,184,0.16)",
-                borderRadius: "6px",
-                fontSize: "12px",
-                color: "#d0d6e0",
-                fontFamily: "monospace",
-              }}>
-                SBN + CBHPM 2025 + Auxilia
-              </div>
-            </div>
-
-            {/* Auxiliary procedures */}
-            <div style={{ marginBottom: "24px", animation: "slideUp 0.7s ease-out 0.46s both" }}>
-              <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimentos Auxiliares</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                {["Drenagem subdural", "Monitorização neurológica"].map((proc, i) => (
-                  <div
-                    key={proc}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                      padding: "10px 12px",
-                      background: "linear-gradient(180deg, rgba(120,148,184,0.08), rgba(120,148,184,0.03))",
-                      border: "1px solid rgba(120,148,184,0.16)",
-                      borderRadius: "6px",
-                      fontSize: "12.5px",
-                      color: "#d0d6e0",
-                      animation: `slideUp 0.7s ease-out ${0.48 + i * 0.05}s both`,
-                    }}
-                  >
-                    <Check size={14} style={{ color: "#6F8FB8", flexShrink: 0 }} />
-                    {proc}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Bottom actions - QR + Share */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", animation: "slideUp 0.7s ease-out 0.55s both" }}>
-              {/* QR Code mockup */}
-              <div
-                style={{
-                  padding: "16px",
+              {/* Applied rule */}
+              <div style={{ marginBottom: "24px" }}>
+                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Regra Aplicada</p>
+                <div style={{
+                  padding: "12px 14px",
                   background: "rgba(120,148,184,0.08)",
                   border: "1px solid rgba(120,148,184,0.16)",
-                  borderRadius: "8px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "8px",
-                  cursor: "pointer",
-                  transition: "all 150ms ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(120,148,184,0.12)";
-                  e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(120,148,184,0.08)";
-                  e.currentTarget.style.borderColor = "rgba(120,148,184,0.16)";
-                }}
-              >
-                <QrCode size={20} style={{ color: "#5e6ad2" }} />
-                <span style={{ fontSize: "11px", fontWeight: 600, color: "#8a8f98" }}>QR Code</span>
+                  borderRadius: "6px",
+                  fontSize: "12px",
+                  color: "#d0d6e0",
+                  fontFamily: "monospace",
+                }}>
+                  {currentScenario.rule}
+                </div>
               </div>
 
-              {/* Share button */}
-              <button
-                style={{
-                  padding: "16px",
-                  background: "rgba(120,148,184,0.12)",
-                  border: "1px solid rgba(120,148,184,0.24)",
-                  borderRadius: "8px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "8px",
-                  cursor: "pointer",
-                  transition: "all 150ms ease",
-                  color: "#f7f8f8",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(120,148,184,0.18)";
-                  e.currentTarget.style.borderColor = "rgba(143,163,191,0.32)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(120,148,184,0.12)";
-                  e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
-                }}
-              >
-                <Share2 size={20} />
-                <span style={{ fontSize: "11px", fontWeight: 600 }}>Compartilhar</span>
-              </button>
+              {/* Auxiliary procedures */}
+              <div style={{ marginBottom: "24px" }}>
+                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimentos Auxiliares</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  {currentScenario.auxiliaryProcedures.map((proc) => (
+                    <div
+                      key={proc}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        padding: "10px 12px",
+                        background: "linear-gradient(180deg, rgba(120,148,184,0.08), rgba(120,148,184,0.03))",
+                        border: "1px solid rgba(120,148,184,0.16)",
+                        borderRadius: "6px",
+                        fontSize: "12.5px",
+                        color: "#d0d6e0",
+                      }}
+                    >
+                      <Check size={14} style={{ color: "#6F8FB8", flexShrink: 0 }} />
+                      {proc}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom actions - QR + Share */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                {/* QR Code mockup */}
+                <div
+                  style={{
+                    padding: "16px",
+                    background: "rgba(120,148,184,0.08)",
+                    border: "1px solid rgba(120,148,184,0.16)",
+                    borderRadius: "8px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "8px",
+                    cursor: "pointer",
+                    transition: "all 150ms ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(120,148,184,0.12)";
+                    e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(120,148,184,0.08)";
+                    e.currentTarget.style.borderColor = "rgba(120,148,184,0.16)";
+                  }}
+                >
+                  <QrCode size={20} style={{ color: "#5e6ad2" }} />
+                  <span style={{ fontSize: "11px", fontWeight: 600, color: "#8a8f98" }}>QR Code</span>
+                </div>
+
+                {/* Share button */}
+                <button
+                  style={{
+                    padding: "16px",
+                    background: "rgba(120,148,184,0.12)",
+                    border: "1px solid rgba(120,148,184,0.24)",
+                    borderRadius: "8px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "8px",
+                    cursor: "pointer",
+                    transition: "all 150ms ease",
+                    color: "#f7f8f8",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(120,148,184,0.18)";
+                    e.currentTarget.style.borderColor = "rgba(143,163,191,0.32)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(120,148,184,0.12)";
+                    e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
+                  }}
+                >
+                  <Share2 size={20} />
+                  <span style={{ fontSize: "11px", fontWeight: 600 }}>Compartilhar</span>
+                </button>
+              </div>
             </div>
           </div>
 
