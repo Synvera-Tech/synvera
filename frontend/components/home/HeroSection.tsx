@@ -20,7 +20,7 @@ export function HeroSection() {
           "linear-gradient(180deg, #010102 0%, #050508 100%)",
         ].join(", "),
         position: "relative",
-        overflow: "visible",
+        overflow: "hidden",
       }}
     >
       <style>{`
@@ -74,12 +74,12 @@ export function HeroSection() {
         style={{
           position: "absolute",
           top: "-200px",
-          right: "-200px",
+          right: "0",
           width: "600px",
           height: "600px",
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(94,106,210,0.08), transparent 70%)",
           pointerEvents: "none",
+          background: "radial-gradient(circle, rgba(94,106,210,0.08), transparent 70%)",
         }}
       />
 
@@ -117,7 +117,7 @@ export function HeroSection() {
             animation: "pulse 2s ease-in-out infinite",
           }} />
           <span style={{ fontSize: "11px", fontWeight: 600, color: "#d0d6e0", letterSpacing: "0.5px" }}>
-            CBHPM + SBN
+            VALORAÇÃO PARA NEUROCIRURGIA • COLUNA
           </span>
         </div>
 
@@ -230,7 +230,7 @@ export function HeroSection() {
         </div>
 
         {/* Sign in hint */}
-        <p style={{ margin: 0, fontSize: "13px", color: "#8a8f98" }}>
+        <p style={{ margin: 0, fontSize: "13px", color: "#8a8f98", marginBottom: "60px" }}>
           Já tem conta?{" "}
           <SignInButton mode="modal">
             <button
@@ -253,32 +253,28 @@ export function HeroSection() {
             </button>
           </SignInButton>
         </p>
-      </div>
 
-      {/* Scroll cue */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: "32px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "8px",
-          animation: "slideUp 0.8s ease-out 0.5s both",
-        }}
-      >
-        <span style={{ fontSize: "12px", color: "#8a8f98", fontWeight: 500, whiteSpace: "nowrap" }}>
-          Veja como funciona
-        </span>
-        <ChevronDown
-          size={18}
+        {/* Scroll cue */}
+        <div
           style={{
-            color: "#8a8f98",
-            animation: "scrollCue 2s ease-in-out infinite",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "8px",
+            animation: "slideUp 0.8s ease-out 0.5s both",
           }}
-        />
+        >
+          <span style={{ fontSize: "15px", color: "#d0d6e0", fontWeight: 600, whiteSpace: "nowrap" }}>
+            Veja como funciona
+          </span>
+          <ChevronDown
+            size={18}
+            style={{
+              color: "#8a8f98",
+              animation: "scrollCue 2s ease-in-out infinite",
+            }}
+          />
+        </div>
       </div>
     </div>
   );
