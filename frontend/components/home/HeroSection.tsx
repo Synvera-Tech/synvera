@@ -87,7 +87,7 @@ export function HeroSection() {
             position: "relative",
           }}
         >
-          Valoração médica com
+          <span className="shimmer-text">Valoração médica com</span>
           <br />
           <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
             precisão documental

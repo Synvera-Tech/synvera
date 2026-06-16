@@ -88,12 +88,15 @@
 @keyframes shimmerStripe {
   0% {
     backgroundPosition: 0% center;
+    opacity: 0.6;
   }
   50% {
     backgroundPosition: 100% center;
+    opacity: 1;
   }
   100% {
     backgroundPosition: 0% center;
+    opacity: 0.6;
   }
 }
 
@@ -780,5 +783,34 @@ html.dark body {
       background: linear-gradient(180deg, rgba(120, 148, 184, 0.24), rgba(120, 148, 184, 0.11)) !important;
       border-color: rgba(157, 179, 208, 0.40) !important;
     }
+  }
+
+  .shimmer-text {
+    position: relative;
+    display: inline-block;
+  }
+
+  .shimmer-text::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    background: linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 35%,
+      rgba(255, 255, 255, 0.2) 42%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.2) 58%,
+      transparent 65%,
+      transparent 100%
+    );
+    background-size: 300% 300%;
+    animation: shimmerStripe 5s ease-in-out infinite;
+    pointer-events: none;
+    mix-blend-mode: lighten;
+    filter: blur(1.5px);
   }
 }
