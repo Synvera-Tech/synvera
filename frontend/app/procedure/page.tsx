@@ -586,7 +586,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             </div>
             <div>
               <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Afere</span>
-              <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">NEUROCIRURGIA</span>
+              <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">Neurocirurgia · Coluna</span>
             </div>
           </Link>
           <div className="flex items-center gap-3">
