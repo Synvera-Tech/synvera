@@ -1,8 +1,8 @@
-# Afere System Audit
+# Synvera System Audit
 
 ## Purpose
 
-Coordinate the correct audit strategy for Afere issues.
+Coordinate the correct audit strategy for Synvera issues.
 
 Use this skill when the issue is ambiguous, cross-cutting, or may involve multiple layers of the system.
 
@@ -10,7 +10,7 @@ This skill does not replace specialized skills. It selects and sequences them.
 
 ## Invocation Examples
 
-/afere-system-audit
+/synvera-system-audit
 
 Analyze the issue, classify it, select the appropriate specialized skills, and define the investigation order before proposing changes.
 

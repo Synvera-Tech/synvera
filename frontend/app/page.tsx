@@ -91,7 +91,7 @@ export default function Home() {
   }
 
   const firstName = user?.firstName;
-  const greeting = firstName ? `Bem-vindo, Dr. ${firstName}.` : "Bem-vindo ao Afere.";
+  const greeting = firstName ? `Bem-vindo, Dr. ${firstName}.` : "Bem-vindo ao Synvera.";
 
   return (
     <main
@@ -135,10 +135,10 @@ export default function Home() {
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={22} height={21} style={{ display: "block" }} />
+              <img src="/brand/synvera-symbol.svg" alt="" aria-hidden="true" width={22} height={21} style={{ display: "block" }} />
             </div>
             <div>
-              <span style={{ display: "block", fontSize: "14px", fontWeight: 800, letterSpacing: "-0.3px", color: T.primary }}>Afere</span>
+              <span style={{ display: "block", fontSize: "14px", fontWeight: 800, letterSpacing: "-0.3px", color: T.primary }}>Synvera</span>
               <span style={{ display: "block", fontSize: "9px", fontWeight: 600, letterSpacing: "0.4px", textTransform: "uppercase", color: T.muted, lineHeight: 1 }}>NEUROCIRURGIA</span>
             </div>
           </Link>

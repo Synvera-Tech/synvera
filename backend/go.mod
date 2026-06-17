@@ -1,4 +1,4 @@
-module afere/backend
+module synvera/backend
 
 go 1.25.0
 

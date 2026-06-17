@@ -4,8 +4,8 @@ import (
 	"math"
 	"testing"
 
-	"afere/backend/internal/models"
-	"afere/backend/internal/service"
+	"synvera/backend/internal/models"
+	"synvera/backend/internal/service"
 )
 
 // round2 rounds to 2 decimal places for monetary comparisons.

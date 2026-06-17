@@ -1,5 +1,5 @@
 """
-Afere ETL — SBN Procedure PDF Parser
+Synvera ETL — SBN Procedure PDF Parser
 =====================================
 Parses the SBN "Manual de Diretrizes de Codificação dos Procedimentos em
 Neurocirurgia" PDF and extracts procedure → CBHPM code mappings.
@@ -12,7 +12,7 @@ PDF table structure (one big table per procedure):
   Row M : ['OPMEs', ...]                                              ← section ends
 
 Usage:
-    python afere_parser.py \
+    python synvera_parser.py \
         --sbn  data/raw_pdfs/<sbn_manual>.pdf \
         --out  backend/internal/repository/procedures.json \
         [--debug]

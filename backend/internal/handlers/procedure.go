@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"afere/backend/internal/generated"
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/generated"
+	"synvera/backend/internal/repository"
 )
 
 // makeGetProcedureHandler handles GET /api/procedures/{id}.

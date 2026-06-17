@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strings"
 
-	"afere/backend/internal/generated"
-	"afere/backend/internal/models"
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/generated"
+	"synvera/backend/internal/models"
+	"synvera/backend/internal/repository"
 
 	"github.com/google/uuid"
 )

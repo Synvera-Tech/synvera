@@ -6,7 +6,7 @@ import { ptBR } from "@clerk/localizations";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "Afere",
+  title: "Synvera",
   description: "Calculadora de honorários médicos para neurocirurgia.",
   manifest: "/site.webmanifest",
   // Next.js App Router auto-generates the favicon <link> tags from app/icon.svg

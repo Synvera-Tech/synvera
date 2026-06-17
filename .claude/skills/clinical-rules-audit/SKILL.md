@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This skill is responsible for auditing, validating, debugging, and tracing medical calculation rules implemented inside Afere.
+This skill is responsible for auditing, validating, debugging, and tracing medical calculation rules implemented inside Synvera.
 
 Its primary purpose is to prevent situations where:
 
@@ -22,7 +22,7 @@ The following sources are considered authoritative:
 1. CBHPM
 2. SBN Procedure Catalog
 3. Spine Surgery Coding Guidelines (SBC/SBOT/SBN)
-4. Official Afere Business Rules
+4. Official Synvera Business Rules
 5. Source PDFs provided by the customer
 
 If implementation and source documents disagree:

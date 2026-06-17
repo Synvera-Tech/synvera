@@ -1,9 +1,9 @@
 openapi: 3.1.0
 info:
-  title: Afere API
+  title: Synvera API
   version: 3.1.0
   description: >
-    Composition-builder API for the Afere medical procedure valuation platform.
+    Composition-builder API for the Synvera medical procedure valuation platform.
     Implements CBHPM 2022 items 4.1, 4.2, and 5.1 for correct multi-procedure
     discounting and auxiliary surgeon remuneration.
 
@@ -765,7 +765,7 @@ components:
       required: [public_id, created_at]
       description: >
         Only the public_id is returned. Use it to construct the shareable URL:
-        https://afere.app/calc/{public_id}
+        https://synvera.app/calc/{public_id}
       properties:
         public_id:
           type: string

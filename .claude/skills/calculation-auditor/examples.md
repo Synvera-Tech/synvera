@@ -2,7 +2,7 @@
 
 These examples serve as canonical references for the `calculation-auditor` skill. They demonstrate the required level of rigor: every input stated, every intermediate step shown, every rule cited.
 
-All examples use a UC (Unidade de Cobrança) reference value of **R$ 1,00** to isolate the formula from monetary inflation. In production, substitute the actual UC value configured in Afere.
+All examples use a UC (Unidade de Cobrança) reference value of **R$ 1,00** to isolate the formula from monetary inflation. In production, substitute the actual UC value configured in Synvera.
 
 ---
 

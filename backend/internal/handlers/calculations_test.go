@@ -7,9 +7,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"afere/backend/internal/generated"
-	"afere/backend/internal/handlers"
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/generated"
+	"synvera/backend/internal/handlers"
+	"synvera/backend/internal/repository"
 )
 
 // noopAuth is a passthrough AuthMiddlewareFunc for endpoints that do not require authentication.

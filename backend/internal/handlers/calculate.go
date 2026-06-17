@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"afere/backend/internal/generated"
-	"afere/backend/internal/models"
-	"afere/backend/internal/service"
+	"synvera/backend/internal/generated"
+	"synvera/backend/internal/models"
+	"synvera/backend/internal/service"
 )
 
 func calculateHandler(w http.ResponseWriter, r *http.Request) {

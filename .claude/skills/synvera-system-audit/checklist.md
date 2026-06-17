@@ -1,4 +1,4 @@
-# Afere System Audit Checklist
+# Synvera System Audit Checklist
 
 ## Classification
 

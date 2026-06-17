@@ -15,7 +15,7 @@ import (
 	"sync"
 	"time"
 
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/repository"
 )
 
 // ── Context key ───────────────────────────────────────────────────────────────
@@ -84,7 +84,7 @@ func MakeClerkAuthMiddleware(cfg ClerkConfig, repo repository.Repository) AuthMi
 func MakeTestAuthMiddleware(repo repository.Repository, testClerkUserID string) AuthMiddlewareFunc {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			physician, err := repo.FindOrCreatePhysician(testClerkUserID, "test@afere.app", "Test Physician")
+			physician, err := repo.FindOrCreatePhysician(testClerkUserID, "test@synvera.app", "Test Physician")
 			if err != nil {
 				http.Error(w, "test auth setup error", http.StatusInternalServerError)
 				return

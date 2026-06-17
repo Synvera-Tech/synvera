@@ -105,7 +105,7 @@ Then migrate.
 
 ---
 
-## Example 5 — Afere Calculation Composition
+## Example 5 — Synvera Calculation Composition
 
 Business Rule:
 

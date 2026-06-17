@@ -802,7 +802,7 @@ function ShareContent() {
 
       {/* Informational — shared-view marker */}
       <p className="px-8 pb-8 text-center text-[10px] text-slate-400 sm:px-12">
-        Visualizando via compartilhamento Afere
+        Visualizando via compartilhamento Synvera
       </p>
     </article>
   );
@@ -861,7 +861,7 @@ export default function SharePage() {
               </div>
               <div>
                 <p className="text-[15px] font-extrabold leading-none tracking-tight text-slate-900">
-                  Afere
+                  Synvera
                 </p>
                 <p className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.1em] leading-none text-slate-400 whitespace-nowrap">
                   Neurocirurgia · Coluna
@@ -904,14 +904,14 @@ export default function SharePage() {
             <div className="flex items-center justify-between">
               <p className="text-[11px] text-slate-400">
                 Gerado por{" "}
-                <span className="font-semibold text-slate-500">Afere</span>{" "}
+                <span className="font-semibold text-slate-500">Synvera</span>{" "}
                 · LabF5 · {year}
               </p>
               <Link
                 href="/"
                 className="no-print text-[11px] font-semibold text-[#1E3A5F] transition-colors hover:text-[#355C8A]"
               >
-                Conhecer o Afere ↗
+                Conhecer o Synvera ↗
               </Link>
               <p className="print-only text-[11px] text-slate-400">Valores de referência · CBHPM 2025/2026</p>
             </div>

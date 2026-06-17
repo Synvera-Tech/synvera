@@ -1,6 +1,6 @@
-# Afere
+# Synvera
 
-**Afere** is a high-performance medical billing calculator built exclusively for neurosurgeons. It solves the operational friction of reconciling the SBN (*Sociedade Brasileira de Neurocirurgia*) specialty catalog with the CBHPM (*Classificação Brasileira Hierarquizada de Procedimentos Médicos*) valuation table — producing a precise, real-time fee breakdown for the entire surgical team in seconds.
+**Synvera** is a high-performance medical billing calculator built exclusively for neurosurgeons. It solves the operational friction of reconciling the SBN (*Sociedade Brasileira de Neurocirurgia*) specialty catalog with the CBHPM (*Classificação Brasileira Hierarquizada de Procedimentos Médicos*) valuation table — producing a precise, real-time fee breakdown for the entire surgical team in seconds.
 
 The entire system is built under **Spec-Driven Design (SDD)**: the OpenAPI contract (`openapi.yaml`) is the single source of truth and precedes every implementation decision.
 
@@ -34,7 +34,7 @@ The entire system is built under **Spec-Driven Design (SDD)**: the OpenAPI contr
 ## Project Structure
 
 ```text
-afere/
+synvera/
 ├── .claude/                     # Project-level Claude Code skills
 ├── .devcontainer/               # Dev Container definition
 ├── .github/workflows/           # CI pipelines

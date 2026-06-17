@@ -1,4 +1,4 @@
--- Migration 001: Initial production schema for Afere
+-- Migration 001: Initial production schema for Synvera
 -- Compatible with Neon (PostgreSQL 15+).
 -- Run once on a fresh database before seeding.
 

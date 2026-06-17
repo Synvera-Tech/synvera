@@ -3,7 +3,7 @@ package handlers_test
 import (
 	"testing"
 
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/repository"
 )
 
 func TestFileRepositoryCatalogSize(t *testing.T) {

@@ -1,7 +1,7 @@
 package service
 
 import (
-	"afere/backend/internal/models"
+	"synvera/backend/internal/models"
 	"testing"
 )
 

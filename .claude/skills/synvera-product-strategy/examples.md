@@ -1,6 +1,6 @@
-# Afere Product Strategy — Evaluation Examples
+# Synvera Product Strategy — Evaluation Examples
 
-These are realistic feature evaluations using actual Afere domain scenarios. Use them as calibration references when applying the evaluation framework.
+These are realistic feature evaluations using actual Synvera domain scenarios. Use them as calibration references when applying the evaluation framework.
 
 ---
 
@@ -14,13 +14,13 @@ Calculation History
 
 ## Problem Solved
 
-Neurosurgeons and billing professionals frequently repeat similar procedures across different patients or billing cycles. Currently, each session in Afere starts from scratch. There is no way to review past valuations, compare honoraria across time, or audit a previous calculation without manually recreating it. This is a daily friction point for active users who bill regularly.
+Neurosurgeons and billing professionals frequently repeat similar procedures across different patients or billing cycles. Currently, each session in Synvera starts from scratch. There is no way to review past valuations, compare honoraria across time, or audit a previous calculation without manually recreating it. This is a daily friction point for active users who bill regularly.
 
 ## Benefits
 
 - Users can retrieve and review previous calculations without re-entering data.
 - Enables auditing and documentation for insurance disputes or hospital negotiations.
-- Creates session continuity — users have a reason to return to Afere rather than switching to a spreadsheet.
+- Creates session continuity — users have a reason to return to Synvera rather than switching to a spreadsheet.
 - Provides the data foundation for future features: statistics, trends, favorites.
 
 ## Risks
@@ -61,18 +61,18 @@ Patient Appointment Scheduling
 
 ## Problem Solved
 
-Neurosurgeons manage busy surgical schedules. A user suggested that Afere could help coordinate procedure scheduling alongside billing, reducing tool-switching between systems.
+Neurosurgeons manage busy surgical schedules. A user suggested that Synvera could help coordinate procedure scheduling alongside billing, reducing tool-switching between systems.
 
 ## Benefits
 
 - Theoretical reduction in tool fragmentation for solo practitioners.
-- Could capture more daily time-on-product if surgeons manage their schedule in Afere.
+- Could capture more daily time-on-product if surgeons manage their schedule in Synvera.
 
 ## Risks
 
 - Scheduling is a separate product category entirely. It requires calendar integration, notifications, conflict resolution, patient data storage, and likely LGPD/HIPAA-adjacent compliance obligations.
 - Pulls engineering and design resources away from the core valuation engine.
-- Positions Afere as an EMR-adjacent tool, attracting different competitors and different regulatory scrutiny.
+- Positions Synvera as an EMR-adjacent tool, attracting different competitors and different regulatory scrutiny.
 - Confuses the product's value proposition for both users and investors.
 
 ## Evaluation
@@ -93,7 +93,7 @@ Neurosurgeons manage busy surgical schedules. A user suggested that Afere could 
 
 ## Justification
 
-This violates Afere's core product identity. Scheduling is a fundamentally different domain with its own compliance surface, UX patterns, and competitive landscape. A score of 7/25 with High complexity makes this an easy rejection. The feature request likely reflects a user wanting to reduce app-switching, which is better solved by deepening Afere's core valuation workflow than by expanding into an adjacent category. Do not revisit unless the product strategy fundamentally changes.
+This violates Synvera's core product identity. Scheduling is a fundamentally different domain with its own compliance surface, UX patterns, and competitive landscape. A score of 7/25 with High complexity makes this an easy rejection. The feature request likely reflects a user wanting to reduce app-switching, which is better solved by deepening Synvera's core valuation workflow than by expanding into an adjacent category. Do not revisit unless the product strategy fundamentally changes.
 
 ---
 
@@ -107,12 +107,12 @@ Shareable PDF Report (Branded Honorarium Export)
 
 ## Problem Solved
 
-After completing a CBHPM valuation in Afere, neurosurgeons need to present the result to hospital administrators, health insurance operators, or billing departments. Currently, they screenshot the result or manually transcribe it into a Word document. A professional PDF export would replace this workaround.
+After completing a CBHPM valuation in Synvera, neurosurgeons need to present the result to hospital administrators, health insurance operators, or billing departments. Currently, they screenshot the result or manually transcribe it into a Word document. A professional PDF export would replace this workaround.
 
 ## Benefits
 
-- Dramatically increases the perceived professionalism of Afere's output.
-- The PDF carries Afere's brand into hospital and insurance workflows — every share is an acquisition touchpoint.
+- Dramatically increases the perceived professionalism of Synvera's output.
+- The PDF carries Synvera's brand into hospital and insurance workflows — every share is an acquisition touchpoint.
 - A high-quality report export is a clear premium feature: gate the branded export (or remove watermarks) behind a subscription.
 - Satisfies a real, frequently observed workflow: neurosurgeons presenting billing to third parties.
 
@@ -140,7 +140,7 @@ After completing a CBHPM valuation in Afere, neurosurgeons need to present the r
 
 ## Justification
 
-This is a tier-1 feature for Afere's monetization and acquisition strategy. Every PDF exported is a branded artifact that travels into hospital and insurance ecosystems — that is earned acquisition with zero marginal cost. The monetization leverage (watermarked free vs. clean premium) is direct and intuitive. It is a v2.3.x milestone item and should be treated as the anchor feature of that release. Begin scoping the PDF layout against CBHPM report conventions immediately.
+This is a tier-1 feature for Synvera's monetization and acquisition strategy. Every PDF exported is a branded artifact that travels into hospital and insurance ecosystems — that is earned acquisition with zero marginal cost. The monetization leverage (watermarked free vs. clean premium) is direct and intuitive. It is a v2.3.x milestone item and should be treated as the anchor feature of that release. Begin scoping the PDF layout against CBHPM report conventions immediately.
 
 ---
 
@@ -159,14 +159,14 @@ During CBHPM code selection, neurosurgeons must navigate hundreds of codes to fi
 ## Benefits
 
 - Reduces the time to build a complete calculation from scratch.
-- Lowers the expertise barrier: less experienced billing staff could use Afere without deep CBHPM knowledge.
+- Lowers the expertise barrier: less experienced billing staff could use Synvera without deep CBHPM knowledge.
 - Differentiating feature that no current competitor in the Brazilian neurosurgery billing space offers.
 
 ## Risks
 
 - Requires high-quality training data aligned with CBHPM + SBN coding conventions.
 - A wrong suggestion could result in underbilling or overbilling — a compliance risk.
-- Without sufficient usage data from Afere's own user base, suggestions will be based on generic medical text, not real neurosurgical billing patterns.
+- Without sufficient usage data from Synvera's own user base, suggestions will be based on generic medical text, not real neurosurgical billing patterns.
 - AI inference costs money at scale; pricing model must account for it.
 - Premature investment before usage volume makes the training data too sparse.
 
@@ -188,7 +188,7 @@ During CBHPM code selection, neurosurgeons must navigate hundreds of codes to fi
 
 ## Justification
 
-The scores are strong, but the timing is wrong. Afere does not yet have the usage volume to generate the domain-specific training signal needed for trustworthy suggestions. A premature AI feature that suggests incorrect CBHPM codes would damage trust faster than it builds it. This belongs in the v3.x era or as a deliberate v2.3.x research spike after usage data from Saved Calculations and History becomes available. Log it as a high-priority backlog item and revisit after 6 months of production usage data.
+The scores are strong, but the timing is wrong. Synvera does not yet have the usage volume to generate the domain-specific training signal needed for trustworthy suggestions. A premature AI feature that suggests incorrect CBHPM codes would damage trust faster than it builds it. This belongs in the v3.x era or as a deliberate v2.3.x research spike after usage data from Saved Calculations and History becomes available. Log it as a high-priority backlog item and revisit after 6 months of production usage data.
 
 ---
 
@@ -207,7 +207,7 @@ Most neurosurgeons have a core set of 10–20 procedures they perform repeatedly
 ## Benefits
 
 - Reduces time-to-calculation for experienced users.
-- Creates a personalized layer in Afere that increases switching cost — a user's favorites are a form of data lock-in.
+- Creates a personalized layer in Synvera that increases switching cost — a user's favorites are a form of data lock-in.
 - Directly feeds into future features: statistics per favorite, bulk calculation over a set of pinned procedures.
 
 ## Risks

@@ -136,4 +136,4 @@ UI
 
 until evidence identifies the failure point.
 
-This is the preferred debugging methodology for Afere.
+This is the preferred debugging methodology for Synvera.

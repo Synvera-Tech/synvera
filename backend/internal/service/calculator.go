@@ -1,7 +1,7 @@
-// Package service contains the deterministic valuation engine for Afere.
+// Package service contains the deterministic valuation engine for Synvera.
 package service
 
-import "afere/backend/internal/models"
+import "synvera/backend/internal/models"
 
 // anesthesiaFee is the fixed anesthesiologist fee in BRL, per the CBHPM table.
 const anesthesiaFee = 1200.00

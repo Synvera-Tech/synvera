@@ -1,4 +1,4 @@
--- Queries for the Afere domain model (sbn_procedures → sbn_cbhpm_mappings → cbhpm_codes).
+-- Queries for the Synvera domain model (sbn_procedures → sbn_cbhpm_mappings → cbhpm_codes).
 -- These are the canonical queries used by PostgresRepository.
 -- If sqlc codegen is wired into CI, these become the source of truth for generated types.
 

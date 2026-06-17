@@ -65,7 +65,7 @@ export const compositionDemoData = {
     },
   ],
   sharing: {
-    linkUrl: "https://afere.app/c/demo-composition",
+    linkUrl: "https://synvera.app/c/demo-composition",
     qrCode: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect fill='%23fff' width='120' height='120'/%3E%3Crect fill='%23000' x='10' y='10' width='100' height='100'/%3E%3C/svg%3E",
   },
 };

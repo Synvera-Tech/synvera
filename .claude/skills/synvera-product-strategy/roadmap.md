@@ -1,6 +1,6 @@
-# Afere Product Roadmap
+# Synvera Product Roadmap
 
-This document is the source of truth for roadmap awareness within the `afere-product-strategy` skill.
+This document is the source of truth for roadmap awareness within the `synvera-product-strategy` skill.
 
 When evaluating features, cross-reference the active milestone. Features that fit the current milestone receive higher priority. Features that belong to a future milestone should be logged as backlog — not scheduled — unless they are architectural prerequisites.
 
@@ -10,7 +10,7 @@ When evaluating features, cross-reference the active milestone. Features that fi
 
 **Theme: Persistence & Sharing**
 
-The current focus is on giving users a reason to return and making Afere's output shareable beyond the session.
+The current focus is on giving users a reason to return and making Synvera's output shareable beyond the session.
 
 | Feature              | Status       | Notes                                      |
 |----------------------|--------------|--------------------------------------------|
@@ -18,7 +18,7 @@ The current focus is on giving users a reason to return and making Afere's outpu
 | Calculation History  | Planned      | Chronological log of past valuations        |
 | Premium Sharing      | Planned      | Shareable report links with access controls |
 
-**Guiding principle for v2.2.x:** Every feature should either persist user work or extend Afere's reach beyond the calculator session.
+**Guiding principle for v2.2.x:** Every feature should either persist user work or extend Synvera's reach beyond the calculator session.
 
 ---
 
@@ -26,7 +26,7 @@ The current focus is on giving users a reason to return and making Afere's outpu
 
 **Theme: Output & Intelligence**
 
-The focus shifts to making Afere's output more professional and its insights more actionable.
+The focus shifts to making Synvera's output more professional and its insights more actionable.
 
 | Feature              | Status   | Notes                                          |
 |----------------------|----------|------------------------------------------------|
@@ -76,6 +76,6 @@ Regardless of roadmap phase, the following categories are permanently out of sco
 - Appointment scheduling
 - CRM or communication features
 - Accounting or ERP integrations
-- Features that require Afere to hold PII beyond account identity
+- Features that require Synvera to hold PII beyond account identity
 
 Any feature that touches these areas must be escalated to a full positioning review before evaluation proceeds.
