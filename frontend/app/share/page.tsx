@@ -853,7 +853,7 @@ export default function SharePage() {
           />
 
           {/* Report header */}
-          <header className="flex items-center justify-between border-b border-slate-100 px-8 py-6 sm:px-12">
+          <header className="flex items-center justify-between gap-8 border-b border-slate-100 px-8 py-6 sm:px-12 sm:gap-12">
             <div className="flex items-center gap-3.5">
               <div className="h-9 w-9 shrink-0 flex items-center justify-center rounded-[9px] border border-[rgba(53,92,138,0.12)]" style={{ background: "linear-gradient(145deg, #E6EEF5, #D8E5EE)" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
