@@ -853,8 +853,8 @@ export default function SharePage() {
           />
 
           {/* Report header */}
-          <header className="flex items-center justify-between gap-8 border-b border-slate-100 px-8 py-6 sm:px-12 sm:gap-12">
-            <div className="flex items-center gap-3.5">
+          <header className="flex items-center justify-between border-b border-slate-100 px-8 py-6 sm:px-12">
+            <div className="flex items-center gap-3.5 flex-shrink-0">
               <div className="h-9 w-9 shrink-0 flex items-center justify-center rounded-[9px] border border-[rgba(53,92,138,0.12)]" style={{ background: "linear-gradient(145deg, #E6EEF5, #D8E5EE)" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={24} height={23} style={{ display: "block" }} />
@@ -869,13 +869,14 @@ export default function SharePage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="hidden text-right sm:block">
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">
-                  Relatório de Honorários
-                </p>
-                <p className="mt-0.5 text-[10px] text-slate-400">{reportDate}</p>
-              </div>
+            <div className="hidden text-center flex-1 sm:block">
+              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">
+                Relatório de Honorários
+              </p>
+              <p className="mt-0.5 text-[10px] text-slate-400">{reportDate}</p>
+            </div>
+
+            <div className="flex items-center gap-4 flex-shrink-0">
               <ActionButtons />
             </div>
           </header>
