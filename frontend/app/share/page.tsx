@@ -380,6 +380,7 @@ function ShareContent() {
   const isSpineProcedure = (calculation?.code_breakdown ?? []).every((b) =>
     SPINE_CODES.includes(b.cbhpm_code)
   );
+  console.log("DEBUG: codes =", calculation?.code_breakdown?.map((b) => b.cbhpm_code), "isSpineProcedure =", isSpineProcedure);
 
   const accessRuleLabel =
     accessRoute === "same"
