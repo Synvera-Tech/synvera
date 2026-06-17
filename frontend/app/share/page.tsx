@@ -375,6 +375,12 @@ function ShareContent() {
   const hasTeam = hasAuxiliaries || calculation.anesthesiologist_fee > 0;
   const hasAdjustments = (calculation.selected_adjustments ?? []).length > 0;
 
+  // Spine procedure codes per CBHPM spine surgery manual
+  const SPINE_CODES = ["4.08.13.36-3", "3.14.03.33-6", "3.07.15.59-8", "2.01.03.14-0"];
+  const isSpineProcedure = calculation.code_breakdown.every((b) =>
+    SPINE_CODES.includes(b.cbhpm_code)
+  );
+
   const accessRuleLabel =
     accessRoute === "same"
       ? "Mesma via de acesso (CBHPM item 4.1) — adicionais valorados a 50%"
@@ -392,7 +398,7 @@ function ShareContent() {
         <div className="mt-8 grid grid-cols-3 gap-x-6 gap-y-5">
           <MetaField
             label="Via de acesso"
-            value={accessRoute === "same" ? "Mesma via" : "Vias diferentes"}
+            value={isSpineProcedure ? "Não aplicável" : (accessRoute === "same" ? "Mesma via" : "Vias diferentes")}
           />
           <MetaField
             label="Auxiliares"
