@@ -246,7 +246,7 @@ export default function NovoCalculo() {
                 Afere
               </span>
               <span style={{ fontSize: "9px", fontWeight: 500, color: "rgba(71,85,105,0.58)", letterSpacing: "0.2px", lineHeight: 1 }}>
-                Neurocirurgia
+                Neurocirurgia · Coluna
               </span>
             </div>
           </Link>

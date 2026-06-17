@@ -858,7 +858,7 @@ export default function SharePage() {
                   Afere
                 </p>
                 <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.22em] leading-none text-slate-400">
-                  Neurocirurgia
+                  Neurocirurgia · Coluna
                 </p>
               </div>
             </div>
