@@ -377,7 +377,7 @@ function ShareContent() {
 
   // Spine procedure codes per CBHPM spine surgery manual
   const SPINE_CODES = ["4.08.13.36-3", "3.14.03.33-6", "3.07.15.59-8", "2.01.03.14-0"];
-  const isSpineProcedure = calculation.code_breakdown.every((b) =>
+  const isSpineProcedure = (calculation?.code_breakdown ?? []).every((b) =>
     SPINE_CODES.includes(b.cbhpm_code)
   );
 
