@@ -732,7 +732,8 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                 })}
               </div>
 
-              {/* Access route selection */}
+              {/* Access route selection — hidden for spine-only procedures */}
+              {!allCbhpmCodes.every((c) => c.specialty === "SPINE") && (
               <div className="mb-5 rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
                 <div className="mb-3 flex items-center gap-2">
                   <Route aria-hidden="true" className="text-primary" size={15} />
@@ -781,6 +782,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                   })}
                 </div>
               </div>
+              )}
 
               {/* Spine billing variables */}
               {allCbhpmCodes.some((c) => {
@@ -791,11 +793,11 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                   <div className="flex items-center gap-2">
                     <Stethoscope aria-hidden="true" className="text-primary" size={15} />
                     <span className="text-[13px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      Variáveis de Coluna Vertebral
+                      Variantes
                     </span>
                   </div>
 
-                  {/* Quantity selector */}
+                  {/* Quantity selector — locked to 1 for CBHPM compliance */}
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400 mb-2">
                       Quantidade de Segmentos
@@ -806,17 +808,21 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           key={qty}
                           type="button"
                           onClick={() => setSpineModifiers((prev) => ({ ...prev, quantity_selected: qty }))}
+                          disabled
                           className={cn(
                             "px-3 h-9 rounded-xl border text-sm font-semibold transition-colors",
-                            spineModifiers.quantity_selected === qty
-                              ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
-                              : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary/40",
+                            qty === 1
+                              ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7] cursor-default"
+                              : "border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed",
                           )}
                         >
                           {qty}
                         </button>
                       ))}
                     </div>
+                    <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+                      Determinado pelo CBHPM. Para múltiplos segmentos, selecione o procedimento múltiplas vezes.
+                    </p>
                   </div>
 
                   {/* Laterality selector */}
