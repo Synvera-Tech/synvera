@@ -376,11 +376,10 @@ function ShareContent() {
   const hasAdjustments = (calculation.selected_adjustments ?? []).length > 0;
 
   // Spine procedure codes per CBHPM spine surgery manual
-  const SPINE_CODES = ["4.08.13.36-3", "3.14.03.33-6", "3.07.15.59-8", "2.01.03.14-0"];
-  const isSpineProcedure = (calculation?.code_breakdown ?? []).every((b) =>
+  const SPINE_CODES = ["4.08.13.36-3", "4.08.11.02-6", "3.14.03.33-6", "3.07.15.59-8", "2.01.03.14-0"];
+  const isSpineProcedure = (calculation?.code_breakdown ?? []).some((b) =>
     SPINE_CODES.includes(b.cbhpm_code)
   );
-  console.log("DEBUG: codes =", calculation?.code_breakdown?.map((b) => b.cbhpm_code), "isSpineProcedure =", isSpineProcedure);
 
   const accessRuleLabel =
     accessRoute === "same"
