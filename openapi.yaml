@@ -440,6 +440,15 @@ components:
         modifiers:
           $ref: '#/components/schemas/BillingModifiers'
           description: Spine-specific billing variables (optional).
+        adjustments:
+          type: array
+          items:
+            type: string
+          description: >
+            Array of CBHPM adjustment codes to apply to the calculation.
+            Valid codes: emergency_special_hours, pediatric_low_weight_or_premature,
+            pediatric_neonate_or_infant, pediatric_child_under_12.
+            Percentages are additive (e.g., two 30% adjustments = 60%, not 69%).
 
     CodeBreakdown:
       type: object
@@ -496,6 +505,24 @@ components:
           format: float
           description: Calculated fee for this auxiliary.
 
+    AppliedAdjustment:
+      type: object
+      required: [code, label, percentage, source]
+      properties:
+        code:
+          type: string
+          description: Adjustment code identifier.
+        label:
+          type: string
+          description: Human-readable label for the adjustment.
+        percentage:
+          type: number
+          format: float
+          description: Percentage value of this adjustment.
+        source:
+          type: string
+          description: Source reference (e.g., CBHPM manual section).
+
     SurgeonBreakdown:
       type: object
       required: [principal_value, additional_gross, discount_rate, additional_discounted, surgeon_total]
@@ -533,6 +560,9 @@ components:
         - anesthesiologist_fee
         - final_total
         - total_base
+        - selected_adjustments
+        - total_adjustment_percentage
+        - adjustment_value
       properties:
         code_breakdown:
           type: array
@@ -579,6 +609,19 @@ components:
           type: number
           format: float
           description: Absolute monetary value of the surcharge added to the total.
+        selected_adjustments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppliedAdjustment'
+          description: Array of CBHPM adjustments applied to this calculation.
+        total_adjustment_percentage:
+          type: number
+          format: float
+          description: Combined percentage from all applied adjustments (additive, not multiplicative).
+        adjustment_value:
+          type: number
+          format: float
+          description: Absolute monetary value of all combined adjustments.
 
     SaveCompositionRequest:
       type: object

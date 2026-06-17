@@ -219,6 +219,21 @@ func (e Specialty) Valid() bool {
 // AccessRouteType Whether all selected procedures were performed via the same access route (CBHPM 4.1 – 50% discount on secondary procedures) or different access routes (CBHPM 4.2 – 70% discount on secondary procedures).
 type AccessRouteType string
 
+// AppliedAdjustment defines model for AppliedAdjustment.
+type AppliedAdjustment struct {
+	// Code Adjustment code identifier.
+	Code string `json:"code"`
+
+	// Label Human-readable label for the adjustment.
+	Label string `json:"label"`
+
+	// Percentage Percentage value of this adjustment.
+	Percentage float32 `json:"percentage"`
+
+	// Source Source reference (e.g., CBHPM manual section).
+	Source string `json:"source"`
+}
+
 // AuxiliaryFee defines model for AuxiliaryFee.
 type AuxiliaryFee struct {
 	// Fee Calculated fee for this auxiliary.
@@ -305,6 +320,9 @@ type CalculateRequest struct {
 	// AccessRouteType Whether all selected procedures were performed via the same access route (CBHPM 4.1 – 50% discount on secondary procedures) or different access routes (CBHPM 4.2 – 70% discount on secondary procedures).
 	AccessRouteType AccessRouteType `json:"access_route_type"`
 
+	// Adjustments Array of CBHPM adjustment codes to apply to the calculation. Valid codes: emergency_special_hours, pediatric_low_weight_or_premature, pediatric_neonate_or_infant, pediatric_child_under_12. Percentages are additive (e.g., two 30% adjustments = 60%, not 69%).
+	Adjustments *[]string `json:"adjustments,omitempty"`
+
 	// AuxiliariesCount Number of auxiliary surgeons (0–4).
 	AuxiliariesCount int `json:"auxiliaries_count"`
 
@@ -326,6 +344,9 @@ type CalculateResponse struct {
 	// AccessRouteType Whether all selected procedures were performed via the same access route (CBHPM 4.1 – 50% discount on secondary procedures) or different access routes (CBHPM 4.2 – 70% discount on secondary procedures).
 	AccessRouteType AccessRouteType `json:"access_route_type"`
 
+	// AdjustmentValue Absolute monetary value of all combined adjustments.
+	AdjustmentValue float32 `json:"adjustment_value"`
+
 	// AnesthesiologistFee Fixed anesthesiologist fee (if applicable).
 	AnesthesiologistFee float32 `json:"anesthesiologist_fee"`
 
@@ -342,8 +363,14 @@ type CalculateResponse struct {
 	IndividualAuxiliaryFees []AuxiliaryFee `json:"individual_auxiliary_fees"`
 
 	// LeadSurgeonFee Final surgeon fee (equals surgeon_breakdown.surgeon_total).
-	LeadSurgeonFee   float32          `json:"lead_surgeon_fee"`
-	SurgeonBreakdown SurgeonBreakdown `json:"surgeon_breakdown"`
+	LeadSurgeonFee float32 `json:"lead_surgeon_fee"`
+
+	// SelectedAdjustments Array of CBHPM adjustments applied to this calculation.
+	SelectedAdjustments []AppliedAdjustment `json:"selected_adjustments"`
+	SurgeonBreakdown    SurgeonBreakdown    `json:"surgeon_breakdown"`
+
+	// TotalAdjustmentPercentage Combined percentage from all applied adjustments (additive, not multiplicative).
+	TotalAdjustmentPercentage float32 `json:"total_adjustment_percentage"`
 
 	// TotalBase Simple sum of all selected code porte values (before discounting). Retained for compatibility.
 	TotalBase float32 `json:"total_base"`

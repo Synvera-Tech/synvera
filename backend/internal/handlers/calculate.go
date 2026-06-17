@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"afere/backend/internal/generated"
@@ -40,15 +41,36 @@ func calculateHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "unknown porte: "+c.Porte, http.StatusBadRequest)
 			return
 		}
+
+		qty := 1
+		if c.QuantitySelected != nil {
+			qty = *c.QuantitySelected
+		}
+
+		lat := models.LateralityUnilateral
+		if c.Laterality != nil {
+			lat = models.Laterality(*c.Laterality)
+		}
+
 		selected = append(selected, models.SelectedCode{
-			CBHPMCode:   c.CbhpmCode,
-			Description: c.Description,
-			Porte:       c.Porte,
+			CBHPMCode:         c.CbhpmCode,
+			Description:       c.Description,
+			Porte:             c.Porte,
+			BillingMode:       models.BillingMode(c.BillingMode),
+			Specialty:         models.Specialty(c.Specialty),
+			LateralitySupport: c.LateralitySupport,
+			QuantitySelected:  qty,
+			Laterality:        lat,
 		})
 	}
 
 	accessRoute := models.AccessRouteType(req.AccessRouteType)
-	result := service.Calculate(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, nil)
+	adjustments := []string{}
+	if req.Adjustments != nil {
+		adjustments = *req.Adjustments
+	}
+	result := service.Calculate(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments)
+	fmt.Printf("DEBUG: service.Calculate returned - SelectedAdjustments=%d items, TotalAdjPct=%v, AdjValue=%v\n", len(result.SelectedAdjustments), result.TotalAdjustmentPercentage, result.AdjustmentValue)
 
 	breakdown := make([]generated.CodeBreakdown, 0, len(result.CodeBreakdown))
 	for _, b := range result.CodeBreakdown {
@@ -76,9 +98,19 @@ func calculateHandler(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
+	appliedAdj := make([]generated.AppliedAdjustment, 0, len(result.SelectedAdjustments))
+	for _, a := range result.SelectedAdjustments {
+		appliedAdj = append(appliedAdj, generated.AppliedAdjustment{
+			Code:       a.Code,
+			Label:      a.Label,
+			Percentage: float32(a.Percentage),
+			Source:     a.Source,
+		})
+	}
+
 	respondJSON(w, http.StatusOK, generated.CalculateResponse{
-		CodeBreakdown:       breakdown,
-		AccessRouteType:     generated.AccessRouteType(result.AccessRouteType),
+		CodeBreakdown:             breakdown,
+		AccessRouteType:           generated.AccessRouteType(result.AccessRouteType),
 		SurgeonBreakdown: generated.SurgeonBreakdown{
 			PrincipalValue:       float32(result.SurgeonBreakdown.PrincipalValue),
 			AdditionalGross:      float32(result.SurgeonBreakdown.AdditionalGross),
@@ -86,11 +118,14 @@ func calculateHandler(w http.ResponseWriter, r *http.Request) {
 			AdditionalDiscounted: float32(result.SurgeonBreakdown.AdditionalDiscounted),
 			SurgeonTotal:         float32(result.SurgeonBreakdown.SurgeonTotal),
 		},
-		TotalBase:               float32(result.TotalBase),
-		LeadSurgeonFee:          float32(result.LeadSurgeonFee),
-		IndividualAuxiliaryFees: auxFees,
-		AuxiliariesFee:          float32(result.AuxiliariesFee),
-		AnesthesiologistFee:     float32(result.AnesthesiologistFee),
-		FinalTotal:             float32(result.FinalTotal),
+		TotalBase:                 float32(result.TotalBase),
+		LeadSurgeonFee:            float32(result.LeadSurgeonFee),
+		IndividualAuxiliaryFees:   auxFees,
+		AuxiliariesFee:            float32(result.AuxiliariesFee),
+		AnesthesiologistFee:       float32(result.AnesthesiologistFee),
+		FinalTotal:                float32(result.FinalTotal),
+		SelectedAdjustments:       appliedAdj,
+		TotalAdjustmentPercentage: float32(result.TotalAdjustmentPercentage),
+		AdjustmentValue:           float32(result.AdjustmentValue),
 	})
 }

@@ -783,7 +783,10 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
               </div>
 
               {/* Spine billing variables */}
-              {allCbhpmCodes.some((c) => c.specialty === "SPINE") && (
+              {allCbhpmCodes.some((c) => {
+                const checked = selectedCodes.has(c.code);
+                return checked && (c.billing_mode !== "PER_PROCEDURE" || c.laterality_support);
+              }) && (
                 <div className="space-y-4 rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
                   <div className="flex items-center gap-2">
                     <Stethoscope aria-hidden="true" className="text-primary" size={15} />
@@ -865,7 +868,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
               {/* Auxiliaries + anesthesia */}
               <div className="mb-4 grid gap-3 sm:grid-cols-2">
                 <div>
-                  <div className="mb-2 flex items-center gap-2">
+                  <div className="mb-6 flex items-center gap-2">
                     <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400">
                       Número de Auxiliares
                     </label>
@@ -901,7 +904,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="mt-8 space-y-4">
                 <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
                   <div className="flex items-center gap-2.5">
                     <div className="clinical-icon-chip flex h-8 w-8 items-center justify-center rounded-full">
