@@ -378,27 +378,32 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
 
   // ── Build payload ─────────────────────────────────────────────────────────
 
+  const buildCodeEntry = useCallback(
+    (c: CBHPMCode) => ({
+      cbhpm_code: c.code,
+      description: c.description,
+      porte: c.porte,
+      billing_mode: c.billing_mode || "PER_PROCEDURE",
+      specialty: c.specialty || "NEUROSURGERY",
+      laterality_support: c.laterality_support || false,
+      quantity_selected: spineModifiers.quantity_selected,
+      laterality: spineModifiers.laterality,
+    }),
+    [spineModifiers],
+  );
+
   const buildCalculatePayload = useCallback(() => {
     const checked = allCbhpmCodes.filter((c) => selectedCodes.has(c.code));
     if (checked.length === 0) return null;
     return {
-      selected_codes: checked.map((c) => ({
-        cbhpm_code: c.code,
-        description: c.description,
-        porte: c.porte,
-        billing_mode: c.billing_mode || "PER_PROCEDURE",
-        specialty: c.specialty || "NEUROSURGERY",
-        laterality_support: c.laterality_support || false,
-        quantity_selected: spineModifiers.quantity_selected,
-        laterality: spineModifiers.laterality,
-      })),
+      selected_codes: checked.map(buildCodeEntry),
       auxiliaries_count: auxiliariesCount,
       requires_anesthesia: requiresAnesthesia,
       access_route_type: accessRoute,
       adjustments,
       modifiers: spineModifiers,
     };
-  }, [allCbhpmCodes, selectedCodes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, spineModifiers]);
+  }, [allCbhpmCodes, selectedCodes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, spineModifiers, buildCodeEntry]);
 
   // ── Real-time calculation (debounced 150 ms) ──────────────────────────────
 
@@ -439,16 +444,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
         name: trimmedName,
         sbn_procedure_id: selectedProcedures[0].id,
         sbn_procedure_name: selectedProcedures.map((p) => p.name).join(" + "),
-        selected_codes: checkedCodes.map((c) => ({
-          cbhpm_code: c.code,
-          description: c.description,
-          porte: c.porte,
-          billing_mode: c.billing_mode || "PER_PROCEDURE",
-          specialty: c.specialty || "NEUROSURGERY",
-          laterality_support: c.laterality_support || false,
-          quantity_selected: spineModifiers.quantity_selected,
-          laterality: spineModifiers.laterality,
-        })),
+        selected_codes: checkedCodes.map(buildCodeEntry),
         access_route_type: accessRoute,
         auxiliaries_count: auxiliariesCount,
         requires_anesthesia: requiresAnesthesia,
@@ -476,7 +472,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
     } finally {
       setSavingComposition(false);
     }
-  }, [compositionName, selectedProcedures, allCbhpmCodes, selectedCodes, accessRoute, auxiliariesCount, requiresAnesthesia, adjustments, getToken]);
+  }, [compositionName, selectedProcedures, allCbhpmCodes, selectedCodes, accessRoute, auxiliariesCount, requiresAnesthesia, adjustments, spineModifiers, getToken, buildCodeEntry]);
 
   // ── Update composition (loaded from URL) ──────────────────────────────────
 
@@ -491,15 +487,12 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
         name: loadedCompositionName,
         sbn_procedure_id: selectedProcedures[0].id,
         sbn_procedure_name: selectedProcedures.map((p) => p.name).join(" + "),
-        selected_codes: checkedCodes.map((c) => ({
-          cbhpm_code: c.code,
-          description: c.description,
-          porte: c.porte,
-        })),
+        selected_codes: checkedCodes.map(buildCodeEntry),
         access_route_type: accessRoute,
         auxiliaries_count: auxiliariesCount,
         requires_anesthesia: requiresAnesthesia,
         adjustments,
+        modifiers: spineModifiers,
       };
       const res = await fetch(`/api/compositions/${loadedCompositionId}`, {
         method: "PUT",
@@ -519,7 +512,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
     } finally {
       setSavingComposition(false);
     }
-  }, [loadedCompositionId, loadedCompositionName, selectedProcedures, allCbhpmCodes, selectedCodes, accessRoute, auxiliariesCount, requiresAnesthesia, adjustments, getToken]);
+  }, [loadedCompositionId, loadedCompositionName, selectedProcedures, allCbhpmCodes, selectedCodes, accessRoute, auxiliariesCount, requiresAnesthesia, adjustments, spineModifiers, getToken, buildCodeEntry]);
 
   // ── Share ─────────────────────────────────────────────────────────────────
 
@@ -537,8 +530,10 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
     url.searchParams.set("an", requiresAnesthesia ? "1" : "0");
     url.searchParams.set("route", accessRoute);
     if (adjustments.length > 0) url.searchParams.set("adj", adjustments.join(","));
+    if (spineModifiers.quantity_selected !== 1) url.searchParams.set("qty", String(spineModifiers.quantity_selected));
+    if (spineModifiers.laterality !== "UNILATERAL") url.searchParams.set("lat", spineModifiers.laterality);
     return url.toString();
-  }, [selectedProcedures, allCbhpmCodes, selectedCodes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments]);
+  }, [selectedProcedures, allCbhpmCodes, selectedCodes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, spineModifiers]);
 
   const shareCalculation = useCallback(() => {
     if (selectedProcedures.length === 0 || !calculation) return;

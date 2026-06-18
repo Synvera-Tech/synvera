@@ -422,6 +422,9 @@ type CompositionDetail struct {
 	AuxiliariesCount int             `json:"auxiliaries_count"`
 	CreatedAt        time.Time       `json:"created_at"`
 
+	// Adjustments Array of CBHPM adjustment codes active in this composition.
+	Adjustments []string `json:"adjustments"`
+
 	// Modifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 	Modifiers          *BillingModifiers  `json:"modifiers,omitempty"`
 	Name               string             `json:"name"`
@@ -431,9 +434,6 @@ type CompositionDetail struct {
 	SbnProcedureName   string             `json:"sbn_procedure_name"`
 	SelectedCodes      []SelectedCode     `json:"selected_codes"`
 	UpdatedAt          time.Time          `json:"updated_at"`
-
-	// UrgencyEmergency Whether the CBHPM item 2 urgency/emergency surcharge is active.
-	UrgencyEmergency bool `json:"urgency_emergency"`
 }
 
 // CompositionItem Lightweight composition projection for list responses (no selected codes).
@@ -506,6 +506,9 @@ type SaveCompositionRequest struct {
 	AccessRouteType  AccessRouteType `json:"access_route_type"`
 	AuxiliariesCount int             `json:"auxiliaries_count"`
 
+	// Adjustments Array of CBHPM adjustment codes to persist in the composition.
+	Adjustments *[]string `json:"adjustments,omitempty"`
+
 	// Modifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 	Modifiers *BillingModifiers `json:"modifiers,omitempty"`
 
@@ -519,9 +522,6 @@ type SaveCompositionRequest struct {
 	// SbnProcedureName SBN procedure name as displayed to the physician.
 	SbnProcedureName string         `json:"sbn_procedure_name"`
 	SelectedCodes    []SelectedCode `json:"selected_codes"`
-
-	// UrgencyEmergency Persists the CBHPM item 2 urgency/emergency surcharge preference.
-	UrgencyEmergency *bool `json:"urgency_emergency,omitempty"`
 }
 
 // SaveCompositionResponse defines model for SaveCompositionResponse.

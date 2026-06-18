@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"synvera/backend/internal/generated"
@@ -70,7 +69,6 @@ func calculateHandler(w http.ResponseWriter, r *http.Request) {
 		adjustments = *req.Adjustments
 	}
 	result := service.Calculate(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments)
-	fmt.Printf("DEBUG: service.Calculate returned - SelectedAdjustments=%d items, TotalAdjPct=%v, AdjValue=%v\n", len(result.SelectedAdjustments), result.TotalAdjustmentPercentage, result.AdjustmentValue)
 
 	breakdown := make([]generated.CodeBreakdown, 0, len(result.CodeBreakdown))
 	for _, b := range result.CodeBreakdown {

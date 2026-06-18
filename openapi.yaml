@@ -650,9 +650,14 @@ components:
           maximum: 4
         requires_anesthesia:
           type: boolean
-        urgency_emergency:
-          type: boolean
-          description: Persists the CBHPM item 2 urgency/emergency surcharge preference.
+        adjustments:
+          type: array
+          items:
+            type: string
+          description: >
+            Array of CBHPM adjustment codes to persist in the composition.
+            Valid codes: emergency_special_hours, pediatric_low_weight_or_premature,
+            pediatric_neonate_or_infant, pediatric_child_under_12.
         modifiers:
           $ref: '#/components/schemas/BillingModifiers'
           description: Spine-specific billing variables to persist in the composition (optional).
@@ -694,7 +699,7 @@ components:
 
     CompositionDetail:
       type: object
-      required: [public_id, name, sbn_procedure_name, selected_codes, access_route_type, auxiliaries_count, requires_anesthesia, urgency_emergency, created_at, updated_at]
+      required: [public_id, name, sbn_procedure_name, selected_codes, access_route_type, auxiliaries_count, requires_anesthesia, adjustments, created_at, updated_at]
       description: Full composition including selected CBHPM codes and spine-specific modifiers.
       properties:
         public_id:
@@ -716,9 +721,11 @@ components:
           type: integer
         requires_anesthesia:
           type: boolean
-        urgency_emergency:
-          type: boolean
-          description: Whether the CBHPM item 2 urgency/emergency surcharge is active.
+        adjustments:
+          type: array
+          items:
+            type: string
+          description: Array of CBHPM adjustment codes active in this composition.
         modifiers:
           $ref: '#/components/schemas/BillingModifiers'
           description: Spine-specific billing variables persisted in composition (optional).

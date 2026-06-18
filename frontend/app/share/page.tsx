@@ -14,7 +14,14 @@ type AccessRouteType = "same" | "different";
 type ProcedureDetail = {
   id: string;
   name: string;
-  cbhpm_codes: { code: string; description: string; porte: string }[];
+  cbhpm_codes: {
+    code: string;
+    description: string;
+    porte: string;
+    billing_mode?: string;
+    specialty?: string;
+    laterality_support?: boolean;
+  }[];
 };
 
 type AuxiliaryFee = { position: number; percentage: number; fee: number };
@@ -282,6 +289,8 @@ function ShareContent() {
   const accessRoute: AccessRouteType = rawRoute === "different" ? "different" : "same";
   const adjParam = searchParams.get("adj") ?? "";
   const adjustments = adjParam ? adjParam.split(",").filter(Boolean) : [];
+  const quantitySelected = Math.max(1, Number(searchParams.get("qty") ?? "1"));
+  const laterality = searchParams.get("lat") === "BILATERAL" ? "BILATERAL" : "UNILATERAL";
 
   const [procedure, setProcedure] = useState<ProcedureDetail | null>(null);
   const [calculation, setCalculation] = useState<CalculationResult | null>(null);
@@ -312,9 +321,19 @@ function ShareContent() {
         const selectedCodes = parsedCodes
           .map((code) => {
             const match = procData.cbhpm_codes.find((c) => c.code === code);
-            return { cbhpm_code: code, description: match?.description ?? "", porte: match?.porte ?? "" };
+            if (!match || !match.porte) return null;
+            return {
+              cbhpm_code: code,
+              description: match.description,
+              porte: match.porte,
+              billing_mode: match.billing_mode || "PER_PROCEDURE",
+              specialty: match.specialty || "NEUROSURGERY",
+              laterality_support: match.laterality_support || false,
+              quantity_selected: quantitySelected,
+              laterality,
+            };
           })
-          .filter((c) => c.porte !== "");
+          .filter((c): c is NonNullable<typeof c> => c !== null);
 
         if (selectedCodes.length === 0) throw new Error("Códigos CBHPM inválidos no link.");
 
@@ -340,7 +359,7 @@ function ShareContent() {
 
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute]);
+  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute, quantitySelected, laterality]);
 
   if (loading) {
     return (

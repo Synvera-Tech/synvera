@@ -48,15 +48,32 @@ func decodeAndValidateComposition(w http.ResponseWriter, r *http.Request) (gener
 func reqToComposition(req generated.SaveCompositionRequest) models.Composition {
 	codes := make([]models.SelectedCode, 0, len(req.SelectedCodes))
 	for _, c := range req.SelectedCodes {
+		qty := 1
+		if c.QuantitySelected != nil {
+			qty = *c.QuantitySelected
+		}
+		lat := models.LateralityUnilateral
+		if c.Laterality != nil {
+			lat = models.Laterality(*c.Laterality)
+		}
 		codes = append(codes, models.SelectedCode{
-			CBHPMCode:   c.CbhpmCode,
-			Description: c.Description,
-			Porte:       c.Porte,
+			CBHPMCode:         c.CbhpmCode,
+			Description:       c.Description,
+			Porte:             c.Porte,
+			BillingMode:       models.BillingMode(c.BillingMode),
+			Specialty:         models.Specialty(c.Specialty),
+			LateralitySupport: c.LateralitySupport,
+			QuantitySelected:  qty,
+			Laterality:        lat,
 		})
 	}
 	sbnProcID := ""
 	if req.SbnProcedureId != nil {
 		sbnProcID = *req.SbnProcedureId
+	}
+	adjustments := []string{}
+	if req.Adjustments != nil {
+		adjustments = *req.Adjustments
 	}
 	return models.Composition{
 		Name:               req.Name,
@@ -66,7 +83,7 @@ func reqToComposition(req generated.SaveCompositionRequest) models.Composition {
 		AccessRouteType:    models.AccessRouteType(req.AccessRouteType),
 		AuxiliariesCount:   req.AuxiliariesCount,
 		RequiresAnesthesia: req.RequiresAnesthesia,
-		Adjustments:        []string{},
+		Adjustments:        adjustments,
 	}
 }
 
@@ -174,10 +191,17 @@ func makeGetCompositionHandler(repo repository.Repository) http.HandlerFunc {
 		}
 		codes := make([]generated.SelectedCode, 0, len(comp.SelectedCodes))
 		for _, c := range comp.SelectedCodes {
+			lat := generated.Laterality(c.Laterality)
+			qty := c.QuantitySelected
 			codes = append(codes, generated.SelectedCode{
-				CbhpmCode:   c.CBHPMCode,
-				Description: c.Description,
-				Porte:       c.Porte,
+				CbhpmCode:         c.CBHPMCode,
+				Description:       c.Description,
+				Porte:             c.Porte,
+				BillingMode:       generated.BillingMode(c.BillingMode),
+				Specialty:         generated.Specialty(c.Specialty),
+				LateralitySupport: c.LateralitySupport,
+				QuantitySelected:  &qty,
+				Laterality:        &lat,
 			})
 		}
 		parsedID, parseErr := uuid.Parse(comp.PublicID)
@@ -190,6 +214,10 @@ func makeGetCompositionHandler(repo repository.Repository) http.HandlerFunc {
 		if comp.SBNProcedureID != "" {
 			sbnProcID = &comp.SBNProcedureID
 		}
+		adjustments := comp.Adjustments
+		if adjustments == nil {
+			adjustments = []string{}
+		}
 		respondJSON(w, http.StatusOK, generated.CompositionDetail{
 			PublicId:           parsedID,
 			Name:               comp.Name,
@@ -199,7 +227,7 @@ func makeGetCompositionHandler(repo repository.Repository) http.HandlerFunc {
 			AccessRouteType:    generated.AccessRouteType(comp.AccessRouteType),
 			AuxiliariesCount:   comp.AuxiliariesCount,
 			RequiresAnesthesia: comp.RequiresAnesthesia,
-			UrgencyEmergency:   false,
+			Adjustments:        adjustments,
 			CreatedAt:          comp.CreatedAt,
 			UpdatedAt:          comp.UpdatedAt,
 		})
@@ -234,10 +262,17 @@ func makeUpdateCompositionHandler(repo repository.Repository) http.HandlerFunc {
 		}
 		codes := make([]generated.SelectedCode, 0, len(updated.SelectedCodes))
 		for _, c := range updated.SelectedCodes {
+			lat := generated.Laterality(c.Laterality)
+			qty := c.QuantitySelected
 			codes = append(codes, generated.SelectedCode{
-				CbhpmCode:   c.CBHPMCode,
-				Description: c.Description,
-				Porte:       c.Porte,
+				CbhpmCode:         c.CBHPMCode,
+				Description:       c.Description,
+				Porte:             c.Porte,
+				BillingMode:       generated.BillingMode(c.BillingMode),
+				Specialty:         generated.Specialty(c.Specialty),
+				LateralitySupport: c.LateralitySupport,
+				QuantitySelected:  &qty,
+				Laterality:        &lat,
 			})
 		}
 		updatedID, parseErr := uuid.Parse(updated.PublicID)
@@ -250,6 +285,10 @@ func makeUpdateCompositionHandler(repo repository.Repository) http.HandlerFunc {
 		if updated.SBNProcedureID != "" {
 			updSbnProcID = &updated.SBNProcedureID
 		}
+		updAdjustments := updated.Adjustments
+		if updAdjustments == nil {
+			updAdjustments = []string{}
+		}
 		respondJSON(w, http.StatusOK, generated.CompositionDetail{
 			PublicId:           updatedID,
 			Name:               updated.Name,
@@ -259,7 +298,7 @@ func makeUpdateCompositionHandler(repo repository.Repository) http.HandlerFunc {
 			AccessRouteType:    generated.AccessRouteType(updated.AccessRouteType),
 			AuxiliariesCount:   updated.AuxiliariesCount,
 			RequiresAnesthesia: updated.RequiresAnesthesia,
-			UrgencyEmergency:   false,
+			Adjustments:        updAdjustments,
 			CreatedAt:          updated.CreatedAt,
 			UpdatedAt:          updated.UpdatedAt,
 		})
