@@ -121,14 +121,22 @@ func (r *PostgresRepository) SaveComposition(comp models.Composition, physicianI
 		return nil, fmt.Errorf("postgres: marshal adjustments: %w", err)
 	}
 
+	modifiersJSON, err := json.Marshal(comp.Modifiers)
+	if err != nil {
+		return nil, fmt.Errorf("postgres: marshal modifiers: %w", err)
+	}
+	if comp.Modifiers == nil {
+		modifiersJSON = []byte("{}")
+	}
+
 	ctx := context.Background()
 	err = r.pool.QueryRow(ctx, `
 		INSERT INTO compositions (
 			public_id, physician_id, name, sbn_procedure_id, sbn_procedure_name,
 			selected_codes, access_route_type, auxiliaries_count, requires_anesthesia,
-			adjustments
+			adjustments, modifiers
 		) VALUES (
-			$1::uuid, $2::uuid, $3, $4, $5, $6::jsonb, $7, $8, $9, $10::jsonb
+			$1::uuid, $2::uuid, $3, $4, $5, $6::jsonb, $7, $8, $9, $10::jsonb, $11::jsonb
 		)
 		RETURNING id::text, created_at, updated_at
 	`,
@@ -142,6 +150,7 @@ func (r *PostgresRepository) SaveComposition(comp models.Composition, physicianI
 		comp.AuxiliariesCount,
 		comp.RequiresAnesthesia,
 		string(adjJSON),
+		string(modifiersJSON),
 	).Scan(&comp.ID, &comp.CreatedAt, &comp.UpdatedAt)
 	if err != nil {
 		return nil, fmt.Errorf("postgres: save composition: %w", err)
@@ -199,17 +208,16 @@ func (r *PostgresRepository) GetCompositionByPublicID(publicID, physicianID stri
 	ctx := context.Background()
 
 	var comp models.Composition
-	var codesJSON []byte
+	var codesJSON, adjJSON, modifiersJSON []byte
 	var accessRoute string
 
-	var adjJSON []byte
 	err := r.pool.QueryRow(ctx, `
 		SELECT
 			id::text, public_id::text, name,
 			COALESCE(sbn_procedure_id, ''), sbn_procedure_name,
 			selected_codes, access_route_type,
 			auxiliaries_count, requires_anesthesia,
-			adjustments, created_at, updated_at
+			adjustments, modifiers, created_at, updated_at
 		FROM compositions
 		WHERE public_id = $1 AND physician_id = $2::uuid
 	`, publicID, physicianID).Scan(
@@ -217,7 +225,7 @@ func (r *PostgresRepository) GetCompositionByPublicID(publicID, physicianID stri
 		&comp.SBNProcedureID, &comp.SBNProcedureName,
 		&codesJSON, &accessRoute,
 		&comp.AuxiliariesCount, &comp.RequiresAnesthesia,
-		&adjJSON, &comp.CreatedAt, &comp.UpdatedAt,
+		&adjJSON, &modifiersJSON, &comp.CreatedAt, &comp.UpdatedAt,
 	)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil, nil
@@ -234,6 +242,14 @@ func (r *PostgresRepository) GetCompositionByPublicID(publicID, physicianID stri
 		if err := json.Unmarshal(adjJSON, &comp.Adjustments); err != nil {
 			return nil, fmt.Errorf("postgres: unmarshal adjustments: %w", err)
 		}
+	}
+	// Unmarshal global modifiers; fall back to nil for pre-018 rows (stored as '{}').
+	if len(modifiersJSON) > 0 && string(modifiersJSON) != "{}" {
+		var m models.CompositionModifiers
+		if err := json.Unmarshal(modifiersJSON, &m); err != nil {
+			return nil, fmt.Errorf("postgres: unmarshal modifiers: %w", err)
+		}
+		comp.Modifiers = &m
 	}
 	comp.AccessRouteType = models.AccessRouteType(accessRoute)
 	comp.PhysicianID = physicianID
@@ -254,6 +270,14 @@ func (r *PostgresRepository) UpdateComposition(publicID string, comp models.Comp
 		return nil, fmt.Errorf("postgres: marshal adjustments: %w", err)
 	}
 
+	modifiersJSON, err := json.Marshal(comp.Modifiers)
+	if err != nil {
+		return nil, fmt.Errorf("postgres: marshal modifiers: %w", err)
+	}
+	if comp.Modifiers == nil {
+		modifiersJSON = []byte("{}")
+	}
+
 	err = r.pool.QueryRow(ctx, `
 		UPDATE compositions SET
 			name                = $3,
@@ -264,6 +288,7 @@ func (r *PostgresRepository) UpdateComposition(publicID string, comp models.Comp
 			auxiliaries_count   = $8,
 			requires_anesthesia = $9,
 			adjustments         = $10::jsonb,
+			modifiers           = $11::jsonb,
 			updated_at          = now()
 		WHERE public_id = $1 AND physician_id = $2::uuid
 		RETURNING id::text, public_id::text, created_at, updated_at
@@ -278,6 +303,7 @@ func (r *PostgresRepository) UpdateComposition(publicID string, comp models.Comp
 		comp.AuxiliariesCount,
 		comp.RequiresAnesthesia,
 		string(adjJSON),
+		string(modifiersJSON),
 	).Scan(&comp.ID, &comp.PublicID, &comp.CreatedAt, &comp.UpdatedAt)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil, nil
@@ -320,15 +346,29 @@ func (r *PostgresRepository) SaveCalculation(calc models.Calculation) (*models.C
 		return nil, fmt.Errorf("postgres: marshal selected codes: %w", err)
 	}
 
+	if calc.Adjustments == nil {
+		calc.Adjustments = []string{}
+	}
+	adjJSON, err := json.Marshal(calc.Adjustments)
+	if err != nil {
+		return nil, fmt.Errorf("postgres: marshal adjustments: %w", err)
+	}
+
+	// physician_id is nil for anonymous calculations (endpoint is currently public).
+	var physicianID *string
+	if calc.PhysicianID != "" {
+		physicianID = &calc.PhysicianID
+	}
+
 	ctx := context.Background()
 	err = r.pool.QueryRow(ctx, `
 		INSERT INTO calculations (
 			public_id, procedure_name, procedure_sbn_code, selected_cbhpm_codes,
 			access_route, auxiliaries_count, requires_anesthesia,
 			surgeon_value, auxiliaries_total_value, anesthesiologist_value, team_total_value,
-			calculation_breakdown
+			calculation_breakdown, adjustments, physician_id
 		) VALUES (
-			$1::uuid, $2, $3, $4::jsonb, $5, $6, $7, $8, $9, $10, $11, $12::jsonb
+			$1::uuid, $2, $3, $4::jsonb, $5, $6, $7, $8, $9, $10, $11, $12::jsonb, $13::jsonb, $14
 		)
 		RETURNING id::text, created_at, updated_at
 	`,
@@ -344,6 +384,8 @@ func (r *PostgresRepository) SaveCalculation(calc models.Calculation) (*models.C
 		calc.AnesthesiologistValue,
 		calc.TeamTotalValue,
 		string(calc.BreakdownJSON),
+		string(adjJSON),
+		physicianID,
 	).Scan(&calc.ID, &calc.CreatedAt, &calc.UpdatedAt)
 	if err != nil {
 		return nil, fmt.Errorf("postgres: save calculation: %w", err)
@@ -400,7 +442,7 @@ func (r *PostgresRepository) GetCalculationByPublicID(publicID string) (*models.
 	ctx := context.Background()
 
 	var calc models.Calculation
-	var codesJSON, breakdownJSON []byte
+	var codesJSON, breakdownJSON, adjJSON []byte
 	var accessRoute string
 
 	err := r.pool.QueryRow(ctx, `
@@ -410,7 +452,7 @@ func (r *PostgresRepository) GetCalculationByPublicID(publicID string) (*models.
 			selected_cbhpm_codes, access_route,
 			auxiliaries_count, requires_anesthesia,
 			surgeon_value, auxiliaries_total_value, anesthesiologist_value, team_total_value,
-			calculation_breakdown, created_at, updated_at
+			calculation_breakdown, adjustments, created_at, updated_at
 		FROM calculations
 		WHERE public_id = $1
 	`, publicID).Scan(
@@ -419,7 +461,7 @@ func (r *PostgresRepository) GetCalculationByPublicID(publicID string) (*models.
 		&codesJSON, &accessRoute,
 		&calc.AuxiliariesCount, &calc.RequiresAnesthesia,
 		&calc.SurgeonValue, &calc.AuxiliariesTotalValue, &calc.AnesthesiologistValue, &calc.TeamTotalValue,
-		&breakdownJSON, &calc.CreatedAt, &calc.UpdatedAt,
+		&breakdownJSON, &adjJSON, &calc.CreatedAt, &calc.UpdatedAt,
 	)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil, nil
@@ -430,6 +472,12 @@ func (r *PostgresRepository) GetCalculationByPublicID(publicID string) (*models.
 
 	if err := json.Unmarshal(codesJSON, &calc.SelectedCBHPMCodes); err != nil {
 		return nil, fmt.Errorf("postgres: unmarshal selected codes: %w", err)
+	}
+	calc.Adjustments = []string{}
+	if len(adjJSON) > 0 {
+		if err := json.Unmarshal(adjJSON, &calc.Adjustments); err != nil {
+			return nil, fmt.Errorf("postgres: unmarshal adjustments: %w", err)
+		}
 	}
 	calc.AccessRoute = models.AccessRouteType(accessRoute)
 	calc.BreakdownJSON = json.RawMessage(breakdownJSON)

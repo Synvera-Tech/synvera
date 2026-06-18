@@ -75,6 +75,37 @@ func reqToComposition(req generated.SaveCompositionRequest) models.Composition {
 	if req.Adjustments != nil {
 		adjustments = *req.Adjustments
 	}
+
+	var modifiers *models.CompositionModifiers
+	if req.Modifiers != nil {
+		m := &models.CompositionModifiers{}
+		if req.Modifiers.QuantitySelected != nil {
+			m.QuantitySelected = *req.Modifiers.QuantitySelected
+		}
+		if req.Modifiers.Laterality != nil {
+			m.Laterality = models.Laterality(*req.Modifiers.Laterality)
+		}
+		if req.Modifiers.VertebralRegion != nil {
+			m.VertebralRegion = string(*req.Modifiers.VertebralRegion)
+		}
+		if req.Modifiers.SurgicalApproach != nil {
+			m.SurgicalApproach = string(*req.Modifiers.SurgicalApproach)
+		}
+		if req.Modifiers.FusionStatus != nil {
+			m.FusionStatus = string(*req.Modifiers.FusionStatus)
+		}
+		if req.Modifiers.ImplantCategory != nil {
+			m.ImplantCategory = string(*req.Modifiers.ImplantCategory)
+		}
+		if req.Modifiers.OsteoporosisAware != nil {
+			m.OsteoporosisAware = *req.Modifiers.OsteoporosisAware
+		}
+		if req.Modifiers.ClinicalContext != nil {
+			m.ClinicalContext = string(*req.Modifiers.ClinicalContext)
+		}
+		modifiers = m
+	}
+
 	return models.Composition{
 		Name:               req.Name,
 		SBNProcedureID:     sbnProcID,
@@ -84,7 +115,48 @@ func reqToComposition(req generated.SaveCompositionRequest) models.Composition {
 		AuxiliariesCount:   req.AuxiliariesCount,
 		RequiresAnesthesia: req.RequiresAnesthesia,
 		Adjustments:        adjustments,
+		Modifiers:          modifiers,
 	}
+}
+
+// modifiersToGenerated converts a domain CompositionModifiers pointer to the generated API type.
+// Returns nil when the domain value is nil (no modifiers recorded).
+func modifiersToGenerated(m *models.CompositionModifiers) *generated.BillingModifiers {
+	if m == nil {
+		return nil
+	}
+	g := &generated.BillingModifiers{}
+	if m.QuantitySelected != 0 {
+		g.QuantitySelected = &m.QuantitySelected
+	}
+	if m.Laterality != "" {
+		lat := generated.Laterality(m.Laterality)
+		g.Laterality = &lat
+	}
+	if m.VertebralRegion != "" {
+		vr := generated.BillingModifiersVertebralRegion(m.VertebralRegion)
+		g.VertebralRegion = &vr
+	}
+	if m.SurgicalApproach != "" {
+		sa := generated.BillingModifiersSurgicalApproach(m.SurgicalApproach)
+		g.SurgicalApproach = &sa
+	}
+	if m.FusionStatus != "" {
+		fs := generated.BillingModifiersFusionStatus(m.FusionStatus)
+		g.FusionStatus = &fs
+	}
+	if m.ImplantCategory != "" {
+		ic := generated.BillingModifiersImplantCategory(m.ImplantCategory)
+		g.ImplantCategory = &ic
+	}
+	if m.OsteoporosisAware {
+		g.OsteoporosisAware = &m.OsteoporosisAware
+	}
+	if m.ClinicalContext != "" {
+		cc := generated.BillingModifiersClinicalContext(m.ClinicalContext)
+		g.ClinicalContext = &cc
+	}
+	return g
 }
 
 // requirePhysician extracts the physician ID from the request context.
@@ -228,6 +300,7 @@ func makeGetCompositionHandler(repo repository.Repository) http.HandlerFunc {
 			AuxiliariesCount:   comp.AuxiliariesCount,
 			RequiresAnesthesia: comp.RequiresAnesthesia,
 			Adjustments:        adjustments,
+			Modifiers:          modifiersToGenerated(comp.Modifiers),
 			CreatedAt:          comp.CreatedAt,
 			UpdatedAt:          comp.UpdatedAt,
 		})
@@ -299,6 +372,7 @@ func makeUpdateCompositionHandler(repo repository.Repository) http.HandlerFunc {
 			AuxiliariesCount:   updated.AuxiliariesCount,
 			RequiresAnesthesia: updated.RequiresAnesthesia,
 			Adjustments:        updAdjustments,
+			Modifiers:          modifiersToGenerated(updated.Modifiers),
 			CreatedAt:          updated.CreatedAt,
 			UpdatedAt:          updated.UpdatedAt,
 		})

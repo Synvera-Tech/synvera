@@ -57,11 +57,32 @@ func makeSaveCalculationHandler(repo repository.Repository) http.HandlerFunc {
 
 		selectedCodes := make([]models.SelectedCode, 0, len(req.SelectedCodes))
 		for _, c := range req.SelectedCodes {
+			qty := 1
+			if c.QuantitySelected != nil {
+				qty = *c.QuantitySelected
+			}
+			lat := models.LateralityUnilateral
+			if c.Laterality != nil {
+				lat = models.Laterality(*c.Laterality)
+			}
 			selectedCodes = append(selectedCodes, models.SelectedCode{
-				CBHPMCode:   c.CbhpmCode,
-				Description: c.Description,
-				Porte:       c.Porte,
+				CBHPMCode:         c.CbhpmCode,
+				Description:       c.Description,
+				Porte:             c.Porte,
+				BillingMode:       models.BillingMode(c.BillingMode),
+				Specialty:         models.Specialty(c.Specialty),
+				LateralitySupport: c.LateralitySupport,
+				QuantitySelected:  qty,
+				Laterality:        lat,
 			})
+		}
+
+		// Extract the adjustment codes that were active from the pre-computed result.
+		// SaveCalculationRequest does not carry a separate adjustments field; the applied
+		// codes are present in CalculationResult.SelectedAdjustments (set by the engine).
+		adjustments := make([]string, 0, len(req.CalculationResult.SelectedAdjustments))
+		for _, a := range req.CalculationResult.SelectedAdjustments {
+			adjustments = append(adjustments, a.Code)
 		}
 
 		sbnCode := ""
@@ -73,6 +94,7 @@ func makeSaveCalculationHandler(repo repository.Repository) http.HandlerFunc {
 			ProcedureName:         req.ProcedureName,
 			ProcedureSBNCode:      sbnCode,
 			SelectedCBHPMCodes:    selectedCodes,
+			Adjustments:           adjustments,
 			AccessRoute:           models.AccessRouteType(req.AccessRouteType),
 			AuxiliariesCount:      req.AuxiliariesCount,
 			RequiresAnesthesia:    req.RequiresAnesthesia,

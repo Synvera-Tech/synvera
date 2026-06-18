@@ -168,30 +168,20 @@ type CalculationResult struct {
 	FinalTotal          float64
 }
 
-// CalculationModifiers persists spine billing variable selections for a calculation.
-// All fields are optional; defaults apply when not specified.
-type CalculationModifiers struct {
-	QuantitySelected   int       // Number of segments/vertebrae/structures (default: 1)
-	Laterality         Laterality // UNILATERAL or BILATERAL (default: UNILATERAL)
-	// Future metadata fields (not affecting calculations)
-	VertebralRegion   string // cervical, thoracic, lumbar, lumbosacral, sacral
-	SurgicalApproach  string // anterior, posterior, posterolateral, lateral, minimally_invasive
-	FusionStatus      string // decompression_only, fusion, hybrid
-	ImplantCategory   string // graft, hardware, arthroplasty, neural_device
-	OsteoporosisAware bool
-	ClinicalContext   string // traumatic, degenerative, neoplastic, infectious, deformity, revision
-}
-
 // Calculation is a persisted valuation record.
 // BreakdownJSON holds the full CalculateResponse JSON for audit purposes.
-// The schema is designed for a future Calculation → User foreign key (migration 006).
-// Extended to include spine-specific billing modifiers.
+// Adjustments holds the CBHPM adjustment codes that were active at calculation time
+// (e.g. ["emergency_special_hours"]) so the result can be replayed deterministically.
+// PhysicianID links to physician_accounts when the calculation was saved while authenticated;
+// NULL for anonymous (pre-login) calculations.
 type Calculation struct {
 	ID                    string
 	PublicID              string
+	PhysicianID           string // empty when calculation is anonymous
 	ProcedureName         string
 	ProcedureSBNCode      string
 	SelectedCBHPMCodes    []SelectedCode
+	Adjustments           []string // CBHPM adjustment codes applied to this calculation
 	AccessRoute           AccessRouteType
 	AuxiliariesCount      int
 	RequiresAnesthesia    bool
@@ -200,7 +190,6 @@ type Calculation struct {
 	AnesthesiologistValue float64
 	TeamTotalValue        float64
 	BreakdownJSON         json.RawMessage
-	Modifiers             *CalculationModifiers // nil if no spine-specific modifiers
 	CreatedAt             time.Time
 	UpdatedAt             time.Time
 }
@@ -232,18 +221,18 @@ type PhysicianAccount struct {
 	UpdatedAt   time.Time
 }
 
-// CompositionModifiers persists spine billing variable selections for a composition.
-// All fields are optional; defaults apply when not specified.
+// CompositionModifiers holds the physician's global spine billing variable selections for a
+// composition. Persisted as JSONB in compositions.modifiers (migration 018).
+// QuantitySelected and Laterality affect calculations; the remaining fields are informational.
 type CompositionModifiers struct {
-	QuantitySelected   int       // Number of segments/vertebrae/structures (default: 1)
-	Laterality         Laterality // UNILATERAL or BILATERAL (default: UNILATERAL)
-	// Future metadata fields (not affecting calculations)
-	VertebralRegion   string // cervical, thoracic, lumbar, lumbosacral, sacral
-	SurgicalApproach  string // anterior, posterior, posterolateral, lateral, minimally_invasive
-	FusionStatus      string // decompression_only, fusion, hybrid
-	ImplantCategory   string // graft, hardware, arthroplasty, neural_device
-	OsteoporosisAware bool
-	ClinicalContext   string // traumatic, degenerative, neoplastic, infectious, deformity, revision
+	QuantitySelected  int        `json:"quantity_selected,omitempty"`
+	Laterality        Laterality `json:"laterality,omitempty"`
+	VertebralRegion   string     `json:"vertebral_region,omitempty"`
+	SurgicalApproach  string     `json:"surgical_approach,omitempty"`
+	FusionStatus      string     `json:"fusion_status,omitempty"`
+	ImplantCategory   string     `json:"implant_category,omitempty"`
+	OsteoporosisAware bool       `json:"osteoporosis_aware,omitempty"`
+	ClinicalContext   string     `json:"clinical_context,omitempty"`
 }
 
 // Composition is a reusable surgical template created by the physician.

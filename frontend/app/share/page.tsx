@@ -6,71 +6,13 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { QRCodeSVG } from "qrcode.react";
 import { cn } from "@/components/ui/utils";
-
-// ─── Domain types ─────────────────────────────────────────────────────────────
-
-type AccessRouteType = "same" | "different";
-
-type ProcedureDetail = {
-  id: string;
-  name: string;
-  cbhpm_codes: {
-    code: string;
-    description: string;
-    porte: string;
-    billing_mode?: string;
-    specialty?: string;
-    laterality_support?: boolean;
-  }[];
-};
-
-type AuxiliaryFee = { position: number; percentage: number; fee: number };
-
-type SurgeonBreakdown = {
-  principal_value: number;
-  additional_gross: number;
-  discount_rate: number;
-  additional_discounted: number;
-  surgeon_total: number;
-};
-
-type CodeBreakdown = {
-  cbhpm_code: string;
-  description: string;
-  porte: string;
-  base_value: number;
-  is_principal: boolean;
-};
-
-type AppliedAdjustment = {
-  code: string;
-  label: string;
-  percentage: number;
-  source: string;
-};
-
-type CalculationResult = {
-  code_breakdown: CodeBreakdown[];
-  access_route_type: AccessRouteType;
-  surgeon_breakdown: SurgeonBreakdown;
-  lead_surgeon_fee: number;
-  individual_auxiliary_fees: AuxiliaryFee[];
-  auxiliaries_fee: number;
-  anesthesiologist_fee: number;
-  final_total: number;
-  total_base: number;
-  base_surgeon_value: number;
-  base_auxiliaries_total_value: number;
-  base_anesthesiologist_value: number;
-  base_team_total_value: number;
-  selected_adjustments: AppliedAdjustment[];
-  total_adjustment_percentage: number;
-  adjustment_value: number;
-};
-
-// ─── Formatters ───────────────────────────────────────────────────────────────
-
-const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+import type {
+  AccessRouteType,
+  ProcedureDetail,
+  CalculationResult,
+} from "@/lib/procedure/types";
+import { money } from "@/lib/procedure/formatters";
+import { buildCodeEntry } from "@/lib/procedure/payload-builders";
 
 // ─── Print + screen CSS ───────────────────────────────────────────────────────
 
@@ -322,16 +264,7 @@ function ShareContent() {
           .map((code) => {
             const match = procData.cbhpm_codes.find((c) => c.code === code);
             if (!match || !match.porte) return null;
-            return {
-              cbhpm_code: code,
-              description: match.description,
-              porte: match.porte,
-              billing_mode: match.billing_mode || "PER_PROCEDURE",
-              specialty: match.specialty || "NEUROSURGERY",
-              laterality_support: match.laterality_support || false,
-              quantity_selected: quantitySelected,
-              laterality,
-            };
+            return buildCodeEntry(match, { quantity_selected: quantitySelected, laterality });
           })
           .filter((c): c is NonNullable<typeof c> => c !== null);
 

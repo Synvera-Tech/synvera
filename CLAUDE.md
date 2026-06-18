@@ -134,3 +134,30 @@ cd frontend && npx shadcn@latest add <component>
 
 - Never log real medical procedures or prices to the console.
 - Ensure the frontend respects the **Privacy-First** landing page requirement defined in the `PRD.md`.
+
+---
+
+# 🗄️ Database and SQLC Workflow
+
+- Migrations are the source of truth.
+- `schema.sql` must match the effective post-migration schema at all times.
+- After every migration:
+  1. Rebuild `schema.sql` to reflect the final state.
+  2. Run `sqlc generate` from `backend/db/`.
+  3. Run `go test ./...` and confirm green.
+- No schema change is complete until:
+  - Migration file exists in `backend/db/migrations/`.
+  - `schema.sql` is updated.
+  - SQLC is regenerated with no errors.
+  - All tests pass.
+- Do not create migration-backed tables or columns without a corresponding write path, read path, and tests. Dead schema fields are forbidden.
+
+---
+
+# 📋 Auditability Principles
+
+- Calculations must preserve inputs: `selected_cbhpm_codes`, `adjustments`, `access_route`, `auxiliaries_count`, `requires_anesthesia`, `physician_id`.
+- Calculations must preserve outputs: `calculation_breakdown` (verbatim engine JSON), plus promoted fee columns.
+- Compositions must preserve `selected_codes` (all 8 fields per code) and `modifiers`.
+- Historical calculations must be reproducible: given a stored row, `service.Calculate()` fed the stored inputs must reproduce the stored outputs within float32 precision.
+- Schema drift is forbidden: a stale `schema.sql` silently breaks `sqlc generate` and can cause data loss.

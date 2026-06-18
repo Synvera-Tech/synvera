@@ -167,6 +167,10 @@ Full schema: [`openapi.yaml`](openapi.yaml)
 
 ---
 
+> Operational instructions for agents — database workflow, auditability principles, CLI commands, and behavioral constraints — are maintained in [`CLAUDE.md`](CLAUDE.md).
+
+---
+
 ## Conventions
 
 ### Language split
