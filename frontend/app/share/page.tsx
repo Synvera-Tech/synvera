@@ -863,7 +863,7 @@ export default function SharePage() {
                 <p className="text-[15px] font-extrabold leading-none tracking-tight text-slate-900">
                   Synvera
                 </p>
-                <p className="mt-0.5 text-[8px] font-semibold uppercase tracking-[0.1em] leading-none text-slate-400 whitespace-nowrap">
+                <p className="mt-1.5 text-[8px] font-semibold uppercase tracking-[0.1em] leading-none text-slate-400 whitespace-nowrap">
                   Neurocirurgia · Coluna
                 </p>
               </div>
