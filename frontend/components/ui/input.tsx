@@ -5,9 +5,9 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
   return (
     <input
       className={cn(
-        "h-12 w-full bg-white dark:bg-white px-3.5 text-sm text-slate-950 dark:text-slate-950 outline-none transition",
-        "border border-slate-200 dark:border-slate-200 ring-0 focus:ring-0 focus:outline-none focus:border-slate-300 dark:focus:border-slate-300 appearance-none",
-        "placeholder:text-slate-400 dark:placeholder:text-slate-400",
+        "h-12 w-full bg-white dark:bg-[#0f1011] px-3.5 text-sm text-slate-950 dark:text-[#f7f8f8] outline-none transition",
+        "border border-slate-200 dark:border-[#23252a] ring-0 focus:ring-0 focus:outline-none focus:border-slate-300 dark:focus:border-[#34343a] appearance-none",
+        "placeholder:text-slate-400 dark:placeholder:text-[#8a8f98]",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}

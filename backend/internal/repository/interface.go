@@ -1,9 +1,9 @@
-// Package repository defines the data-access contract for Afere.
+// Package repository defines the data-access contract for Synvera.
 package repository
 
-import "afere/backend/internal/models"
+import "synvera/backend/internal/models"
 
-// Repository is the unified data-access contract for Afere.
+// Repository is the unified data-access contract for Synvera.
 // Both FileRepository (development/fallback) and PostgresRepository (production)
 // must satisfy this interface.
 type Repository interface {

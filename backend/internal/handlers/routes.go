@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/repository"
 )
 
 // RegisterRoutes wires all HTTP routes onto mux, injecting the repository and

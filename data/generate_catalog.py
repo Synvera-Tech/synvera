@@ -1,5 +1,5 @@
 """
-generate_catalog.py — Three-phase ETL for the Afere procedure catalog.
+generate_catalog.py — Three-phase ETL for the Synvera procedure catalog.
 
 Phase 1 (parse_catalog): Parses the SBN MCPN PDF (neurosurgery procedures) to
     extract (procedure_name, cbhpm_code, description, porte) rows.

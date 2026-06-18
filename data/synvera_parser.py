@@ -3,9 +3,9 @@ import re
 import pdfplumber
 from typing import List, Dict, Optional
 
-class AfereETL:
+class SynveraETL:
     """
-    Script de Extração e Cálculo para o Afere (LabF5).
+    Script de Extração e Cálculo para o Synvera (LabF5).
     Versão definitiva com importação global de dependências e caminhos relativos ao monorepo.
     """
 
@@ -116,7 +116,7 @@ class AfereETL:
         Inclui tanto procedimentos gerais como procedimentos específicos de coluna.
         """
         with open(output_path, 'w', encoding='utf-8') as f:
-            f.write("-- Estrutura e Inserção de Dados - Afere\n\n")
+            f.write("-- Estrutura e Inserção de Dados - Synvera\n\n")
             f.write("CREATE TABLE IF NOT EXISTS portes_valores (\n")
             f.write("    porte VARCHAR(5) PRIMARY KEY,\n")
             f.write("    valor NUMERIC(10, 2) NOT NULL\n")
@@ -173,7 +173,7 @@ class AfereETL:
 
 if __name__ == '__main__':
     # O script está dentro de 'data/', então ele deve procurar na subpasta 'raw_pdfs/'
-    etl = AfereETL(
+    etl = SynveraETL(
         'raw_pdfs/Manual_De_Diretrizes_De_Codificacao_Dos_Procedimentos_Em_Neurocirurgia-2018.pdf',
         'raw_pdfs/COMUNICADO-CBHPM-2025_2026.pdf',
         'raw_pdfs/Manual_De_Diretrizes_De_Codificacao_Em_Cirurgia_De_Coluna_Vertebral-3ed-2025.pdf'

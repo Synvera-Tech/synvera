@@ -3,8 +3,8 @@ package handlers
 import (
 	"net/http"
 
-	"afere/backend/internal/generated"
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/generated"
+	"synvera/backend/internal/repository"
 )
 
 func makeSearchHandler(repo repository.Repository) http.HandlerFunc {

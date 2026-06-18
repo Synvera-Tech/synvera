@@ -4,6 +4,10 @@ import { SignInButton, UserButton, useAuth, useUser } from "@clerk/nextjs";
 import { BookmarkCheck, ChevronRight, FileText, Plus, Share2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { HeroSection } from "@/components/home/HeroSection";
+import { ProductPreview } from "@/components/home/ProductPreview";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { FeaturesGrid } from "@/components/home/FeaturesGrid";
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -83,11 +87,11 @@ export default function Home() {
   }
 
   if (!isSignedIn) {
-    return <UnauthenticatedEntry />;
+    return <UnauthenticatedHome />;
   }
 
   const firstName = user?.firstName;
-  const greeting = firstName ? `Bem-vindo, Dr. ${firstName}.` : "Bem-vindo ao Afere.";
+  const greeting = firstName ? `Bem-vindo, Dr. ${firstName}.` : "Bem-vindo ao Synvera.";
 
   return (
     <main
@@ -131,10 +135,10 @@ export default function Home() {
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={22} height={21} style={{ display: "block" }} />
+              <img src="/brand/synvera-symbol.svg" alt="" aria-hidden="true" width={22} height={21} style={{ display: "block" }} />
             </div>
             <div>
-              <span style={{ display: "block", fontSize: "14px", fontWeight: 800, letterSpacing: "-0.3px", color: T.primary }}>Afere</span>
+              <span style={{ display: "block", fontSize: "14px", fontWeight: 800, letterSpacing: "-0.3px", color: T.primary }}>Synvera</span>
               <span style={{ display: "block", fontSize: "9px", fontWeight: 600, letterSpacing: "0.4px", textTransform: "uppercase", color: T.muted, lineHeight: 1 }}>NEUROCIRURGIA</span>
             </div>
           </Link>
@@ -275,306 +279,220 @@ export default function Home() {
   );
 }
 
-// ─── Unauthenticated entry ────────────────────────────────────────────────────
+// ─── Unauthenticated Home ─────────────────────────────────────────────────────
 
-function UnauthenticatedEntry() {
-  const [ctaHovered, setCtaHovered] = useState(false);
-
+function UnauthenticatedHome() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: [
-          "radial-gradient(circle at top center, rgba(53,92,138,0.22) 0%, transparent 50%)",
-          "radial-gradient(circle at bottom right, rgba(53,92,138,0.08) 0%, transparent 60%)",
-          "linear-gradient(180deg, #D4DEE8 0%, #CBD6E2 100%)",
-        ].join(", "),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "0 20px",
-      }}
-    >
+    <>
+      <style>{`
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
-      {/* ── Content centred in the viewport ── */}
-      <div
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(-12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeInScale {
+          from {
+            opacity: 0;
+            transform: scale(0.98);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          @keyframes slideUp {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes slideInRight {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes fadeInScale {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes float {
+            0%, 100% { transform: none; }
+            50% { transform: none; }
+          }
+          @keyframes spin {
+            to { transform: none; }
+          }
+        }
+
+        body {
+          scroll-behavior: smooth;
+        }
+      `}</style>
+
+      <HeroSection />
+      <ProductPreview />
+      <HowItWorks />
+      <FeaturesGrid />
+
+      {/* CTA Footer */}
+      <section
         style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          width: "100%",
-          padding: "64px 0 48px",
+          padding: "60px 24px",
+          background: "linear-gradient(180deg, #050508 0%, #010102 100%)",
+          borderTop: "1px solid rgba(35,37,42,0.6)",
+          textAlign: "center",
         }}
       >
-        <div style={{ width: "100%", maxWidth: "580px", display: "flex", flexDirection: "column", gap: "26px" }}>
-        <div
-          style={{
-            width: "100%", textAlign: "center",
-            background: "#F1F5F8",
-            backdropFilter: "blur(24px) saturate(160%)",
-            WebkitBackdropFilter: "blur(24px) saturate(160%)",
-            borderRadius: "24px",
-            border: "1px solid rgba(53,92,138,0.12)",
-            padding: "52px 44px 44px",
-            boxShadow: "0 1px 2px rgba(15,23,42,0.05), 0 4px 12px rgba(15,23,42,0.08), 0 12px 32px rgba(15,23,42,0.12)",
-          }}
-        >
-
-          {/* Logo mark */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "16px", marginBottom: "56px" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/afere-symbol.svg"
-              alt="Afere"
-              width={58}
-              height={55}
-              style={{ display: "block" }}
-            />
-            <div>
-              <p style={{
-                margin: "0 0 3px",
-                fontSize: "18px", fontWeight: 800,
-                letterSpacing: "-0.3px", color: "#0F172A",
-              }}>
-                Afere
-              </p>
-              <p style={{
-                margin: 0,
-                fontSize: "9.5px", fontWeight: 700,
-                letterSpacing: "1.6px", textTransform: "uppercase",
-                color: "#94A3B8",
-              }}>
-                Neurocirurgia
-              </p>
-            </div>
-          </div>
-
-          {/* Headline */}
-          <h1
+        <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+          <h2
             style={{
-              margin: "0 0 24px",
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "clamp(32px, 5.3vw, 42px)",
-              fontWeight: 900,
-              letterSpacing: "-1.2px",
-              lineHeight: 1.06,
-              color: "#243F68",
+              margin: "0 0 16px",
+              fontSize: "32px",
+              fontWeight: 700,
+              color: "#f7f8f8",
+              letterSpacing: "-0.8px",
             }}
           >
-            Valoração médica com<br />precisão documental.
-          </h1>
-
-          {/* Subheadline */}
+            Pronto para começar?
+          </h2>
           <p
             style={{
-              margin: "0 auto 48px",
-              maxWidth: "400px",
-              fontSize: "14.5px",
-              lineHeight: 1.75,
-              color: "#475569",
+              margin: "0 0 32px",
+              fontSize: "16px",
+              color: "#d0d6e0",
             }}
           >
-            Baseado nas regras oficiais da CBHPM e da SBN, com cálculo
-            determinístico, composições reutilizáveis e relatórios compartilháveis.
+            Valorize seus procedimentos com precisão. Sem surpresas, sem erros.
           </p>
-
-          {/* Thin rule */}
-          <div
+          <Link
+            href="/novo-calculo"
             style={{
-              width: "40px", height: "1px",
-              backgroundColor: "#CBD5E1",
-              margin: "0 auto 36px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "12px 28px",
+              background: "linear-gradient(135deg, #1E3A5F 0%, #3D7DB8 100%)",
+              color: "#fff",
+              borderRadius: "8px",
+              fontSize: "15px",
+              fontWeight: 600,
+              textDecoration: "none",
+              border: "none",
+              cursor: "pointer",
+              transition: "all 200ms ease",
+              boxShadow: "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25)",
             }}
-          />
-
-          {/* Primary CTA */}
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "22px" }}>
-            <Link
-              href="/novo-calculo"
-              onMouseEnter={() => setCtaHovered(true)}
-              onMouseLeave={() => setCtaHovered(false)}
-              style={{
-                display: "inline-flex", alignItems: "center", justifyContent: "center",
-                width: "100%", maxWidth: "260px", height: "50px",
-                background: "linear-gradient(135deg, #232D3B 0%, #3D7DB8 100%)",
-                boxShadow: ctaHovered
-                  ? "0 4px 8px rgba(30,58,95,0.20), 0 10px 24px rgba(30,58,95,0.32), 0 16px 40px rgba(30,58,95,0.25)"
-                  : "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25), 0 12px 32px rgba(30,58,95,0.18)",
-                color: "#fff",
-                borderRadius: "12px",
-                fontSize: "15px", fontWeight: 600,
-                letterSpacing: "0.1px",
-                textDecoration: "none",
-                border: "none",
-                transition: "all 200ms ease",
-                transform: ctaHovered ? "translateY(-2px)" : "translateY(0)",
-              }}
-            >
-              Iniciar cálculo
-            </Link>
-          </div>
-
-          {/* Secondary — sign in */}
-          <p style={{ margin: 0, fontSize: "13px", color: "#64748B" }}>
-            Já tem conta?{" "}
-            <SignInButton mode="modal">
-              <button
-                type="button"
-                style={{
-                  background: "none", border: "none", padding: 0,
-                  fontFamily: "inherit", fontSize: "13px", fontWeight: 600,
-                  color: "#475569", cursor: "pointer",
-                  textDecoration: "underline", textUnderlineOffset: "3px",
-                  textDecorationColor: "#CBD5E1",
-                }}
-              >
-                Entrar
-              </button>
-            </SignInButton>
-          </p>
-
-        </div>
-
-        {/* ── O que você pode fazer ── */}
-        <section>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px", padding: "0 2px" }}>
-            <h2
-              style={{
-                margin: 0, fontSize: "12px", fontWeight: 700,
-                color: T.secondary, letterSpacing: "0.3px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              O que você pode fazer
-            </h2>
-            <div style={{ flex: 1, height: "1px", backgroundColor: T.cardBorder }} />
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(252px, 1fr))",
-              gap: "12px",
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 4px 8px rgba(30,58,95,0.20), 0 10px 24px rgba(30,58,95,0.32), 0 16px 40px rgba(30,58,95,0.25)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25)";
             }}
           >
-            <CapabilityCard
-              icon={<Plus size={15} aria-hidden="true" />}
-              title="Novo cálculo"
-              description="Monte composições CBHPM/SBN com cálculo determinístico e atualização instantânea dos honorários."
-              actionLabel="Iniciar cálculo"
-              href="/novo-calculo"
-            />
-            <CapabilityCard
-              icon={<BookmarkCheck size={15} aria-hidden="true" />}
-              title="Composições reutilizáveis"
-              description="Salve estruturas de procedimentos para reutilização futura sem armazenar valores calculados."
-              actionLabel="Ver composições"
-              signIn
-            />
-            <CapabilityCard
-              icon={<Share2 size={15} aria-hidden="true" />}
-              title="Compartilhamento Premium"
-              description="Compartilhe relatórios profissionais por link público com visualização otimizada para desktop e celular."
-              actionLabel="Compartilhar relatório"
-              signIn
-            />
-            <CapabilityCard
-              icon={<FileText size={15} aria-hidden="true" />}
-              title="Consulta documental"
-              description="Consulte regras, instruções e referências da CBHPM e da SBN diretamente pela plataforma."
-              actionLabel="Em breve"
-              disabled
-            />
-          </div>
-        </section>
-
+            Iniciar cálculo
+            <ChevronRight size={16} />
+          </Link>
         </div>
-      </div>
-
-      {/* ── Footer ── */}
-      <div style={{ padding: "0 20px 28px", textAlign: "center" }}>
-        <p style={{ margin: 0, fontSize: "11px", color: "#94A3B8" }}>
-          2026 · LabF5 · Todos os direitos reservados
-        </p>
-      </div>
-
-    </main>
+      </section>
+    </>
   );
 }
 
-// ─── Nav link ─────────────────────────────────────────────────────────────────
+// ─── Components ────────────────────────────────────────────────────────────────
 
-function NavLink({
-  href,
-  children,
-  active,
-  disabled,
-  label,
-}: {
+interface NavLinkProps {
   href: string;
   children?: React.ReactNode;
   active?: boolean;
   disabled?: boolean;
   label?: string;
-}) {
-  const baseStyle: React.CSSProperties = {
-    display: "inline-flex", alignItems: "center", gap: "5px",
-    padding: "5px 11px",
-    borderRadius: "7px",
-    fontSize: "13px", fontWeight: 500,
-    textDecoration: "none",
-    transition: "background-color 120ms ease, color 120ms ease",
-  };
+}
 
+function NavLink({ href, children, active, disabled, label }: NavLinkProps) {
+  const text = children || label;
   if (disabled) {
     return (
       <span
         style={{
-          ...baseStyle,
-          color: T.inputBorder,
-          cursor: "default",
+          display: "inline-flex",
+          alignItems: "center",
+          padding: "8px 16px",
+          fontSize: "13px",
+          fontWeight: 500,
+          color: T.muted,
+          opacity: 0.5,
+          cursor: "not-allowed",
         }}
       >
-        {label ?? children}
-        <span
-          style={{
-            fontSize: "9.5px", fontWeight: 700,
-            color: T.muted, background: "rgba(203,213,225,0.35)",
-            borderRadius: "4px", padding: "1px 5px",
-          }}
-        >
-          Em breve
-        </span>
+        {text}
       </span>
     );
   }
-
   return (
     <Link
       href={href}
       style={{
-        ...baseStyle,
-        color: active ? T.primary : T.muted,
-        backgroundColor: active ? "rgba(255,255,255,0.65)" : "transparent",
-        boxShadow: active ? "0 1px 3px rgba(15,23,42,0.08)" : "none",
-        fontWeight: active ? 600 : 500,
+        display: "inline-flex",
+        alignItems: "center",
+        padding: "8px 16px",
+        fontSize: "13px",
+        fontWeight: 500,
+        color: active ? T.primary : T.secondary,
+        textDecoration: "none",
+        borderRadius: "6px",
+        transition: "background-color 150ms ease",
       }}
+      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(15,23,42,0.04)")}
+      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
     >
-      {label ?? children}
+      {text}
     </Link>
   );
 }
 
-// ─── Section header ───────────────────────────────────────────────────────────
+interface SectionHeaderProps {
+  title: string;
+}
 
-function SectionHeader({ title }: { title: string }) {
+function SectionHeader({ title }: SectionHeaderProps) {
   return (
-    <div style={{ marginBottom: "16px", display: "flex", alignItems: "center", gap: "14px" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px", padding: "0 2px" }}>
       <h2
         style={{
-          margin: 0, fontSize: "11px", fontWeight: 700,
-          color: T.muted, letterSpacing: "0.5px", textTransform: "uppercase",
+          margin: 0, fontSize: "14px", fontWeight: 700,
+          color: T.secondary, letterSpacing: "0.3px",
           whiteSpace: "nowrap",
         }}
       >
@@ -585,271 +503,112 @@ function SectionHeader({ title }: { title: string }) {
   );
 }
 
-// ─── Composition card ─────────────────────────────────────────────────────────
+interface CompositionCardProps {
+  comp: CompositionItem;
+}
 
-function CompositionCard({ comp }: { comp: CompositionItem }) {
-  const [hovered, setHovered] = useState(false);
-
-  const date = new Date(comp.created_at).toLocaleDateString("pt-BR", {
-    day: "2-digit", month: "2-digit", year: "numeric",
-  });
-
-  const href = `/procedure?composition=${encodeURIComponent(comp.public_id)}`;
-
+function CompositionCard({ comp }: CompositionCardProps) {
   return (
     <Link
-      href={href}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      href={`/novo-calculo?composition=${comp.public_id}`}
       style={{
-        display: "block",
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+        padding: "16px 14px",
+        backgroundColor: "#fff",
+        borderRadius: "10px",
+        border: `1px solid ${T.cardBorder}`,
         textDecoration: "none",
-        borderRadius: "12px",
-        border: `1.5px solid ${hovered ? "#5D7EA7" : T.cardBorder}`,
-        padding: "16px 16px 14px",
-        backgroundColor: hovered ? "#FAFBFD" : T.surface,
-        transition: "border-color 130ms ease, background-color 110ms ease",
-        boxShadow: hovered ? "0 2px 12px rgba(15,23,42,0.07)" : "none",
+        transition: "all 150ms ease",
+        cursor: "pointer",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = "#F8FAFC";
+        e.currentTarget.style.borderColor = "rgba(53,92,138,0.24)";
+        e.currentTarget.style.boxShadow = "0 4px 12px rgba(15,23,42,0.08)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = "#fff";
+        e.currentTarget.style.borderColor = T.cardBorder;
+        e.currentTarget.style.boxShadow = "none";
       }}
     >
-      <p
-        style={{
-          margin: "0 0 3px", fontSize: "13.5px", fontWeight: 700,
-          color: T.primary, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-        }}
-      >
-        {comp.name}
-      </p>
-      <p
-        style={{
-          margin: "0 0 10px", fontSize: "12px", color: T.secondary,
-          overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-        }}
-      >
-        {comp.sbn_procedure_name}
-      </p>
-      <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "5px" }}>
-        <span style={{ fontSize: "11px", color: T.muted }}>{date}</span>
-        {comp.auxiliaries_count > 0 && (
-          <span style={{ fontSize: "10.5px", fontWeight: 600, color: T.sapphire, background: "rgba(53,92,138,0.12)", borderRadius: "4px", padding: "1px 5px" }}>
-            {comp.auxiliaries_count} aux.
-          </span>
-        )}
-        {comp.requires_anesthesia && (
-          <span style={{ fontSize: "10.5px", fontWeight: 600, color: "#6D28D9", background: "#EDE9FE", borderRadius: "4px", padding: "1px 5px" }}>
-            Anest.
-          </span>
-        )}
+      <div>
+        <p style={{ margin: "0 0 2px", fontSize: "13px", fontWeight: 600, color: T.primary }}>{comp.name}</p>
+        <p style={{ margin: "0 0 6px", fontSize: "11.5px", color: T.muted }}>{comp.sbn_procedure_name}</p>
       </div>
-      <div
-        style={{
-          marginTop: "12px", display: "flex", alignItems: "center", gap: "3px",
-          color: "#5D7EA7", fontSize: "12px", fontWeight: 600,
-        }}
-      >
-        Abrir
-        <ChevronRight size={12} aria-hidden="true" />
+      <div style={{ display: "flex", gap: "8px", fontSize: "11px", color: T.secondary }}>
+        <span>
+          {comp.auxiliaries_count} {comp.auxiliaries_count === 1 ? "auxiliar" : "auxiliares"}
+        </span>
+        {comp.requires_anesthesia && <span>• Anestesia</span>}
       </div>
     </Link>
   );
 }
 
-// ─── Capability card (home "O que você pode fazer") ───────────────────────────
-
-function CapabilityCard({
-  icon,
-  title,
-  description,
-  actionLabel,
-  href,
-  signIn,
-  disabled,
-}: {
+interface ToolCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
-  actionLabel: string;
   href?: string;
-  signIn?: boolean;
   disabled?: boolean;
-}) {
-  const [hovered, setHovered] = useState(false);
-  const interactive = !disabled;
-  const active = hovered && interactive;
+  signIn?: boolean;
+}
 
-  const cardStyle: React.CSSProperties = {
-    display: "flex", flexDirection: "column", height: "100%",
-    textAlign: "left",
-    borderRadius: "14px",
-    border: `1px solid ${active ? "#5D7EA7" : T.cardBorder}`,
-    padding: "18px 18px 16px",
-    backgroundColor: T.surface,
-    boxShadow: active
-      ? "0 4px 16px rgba(15,23,42,0.09)"
-      : "0 1px 2px rgba(15,23,42,0.04)",
-    transition: "border-color 140ms ease, box-shadow 140ms ease",
-    cursor: disabled ? "default" : "pointer",
-    opacity: disabled ? 0.6 : 1,
-  };
-
-  const inner = (
-    <div style={cardStyle}>
-      <div
-        style={{
-          width: "30px", height: "30px", borderRadius: "8px",
-          backgroundColor: "#EEF3F8",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          color: T.sapphire,
-          marginBottom: "12px",
-        }}
-      >
-        {icon}
+function ToolCard({ icon, title, description, href, disabled, signIn }: ToolCardProps) {
+  const content = (
+    <>
+      <div style={{ color: disabled ? T.inputBorder : T.primary }}>{icon}</div>
+      <div>
+        <h3 style={{ margin: "0 0 4px", fontSize: "13px", fontWeight: 600, color: T.primary }}>{title}</h3>
+        <p style={{ margin: 0, fontSize: "12px", color: T.muted, lineHeight: 1.5 }}>{description}</p>
       </div>
-      <p style={{ margin: "0 0 5px", fontSize: "13.5px", fontWeight: 700, color: T.primary }}>
-        {title}
-      </p>
-      <p style={{ margin: 0, fontSize: "12px", color: T.muted, lineHeight: 1.55 }}>
-        {description}
-      </p>
-      <div style={{ flex: 1, minHeight: "12px" }} />
-      {disabled ? (
-        <span
-          style={{
-            alignSelf: "flex-start",
-            fontSize: "10px", fontWeight: 600, color: T.muted,
-            background: "#F1F5F9", borderRadius: "5px", padding: "2px 7px",
-          }}
-        >
-          {actionLabel}
-        </span>
-      ) : (
-        <span
-          style={{
-            display: "inline-flex", alignItems: "center", gap: "3px",
-            fontSize: "12px", fontWeight: 600, color: "#5D7EA7",
-          }}
-        >
-          {actionLabel}
-          <ChevronRight size={13} aria-hidden="true" />
-        </span>
-      )}
-    </div>
+    </>
   );
 
+  const baseStyle = {
+    display: "flex",
+    gap: "12px",
+    padding: "14px",
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    border: `1px solid ${T.cardBorder}`,
+    textDecoration: "none",
+    transition: "all 150ms ease",
+    cursor: disabled ? "not-allowed" : "pointer",
+    opacity: disabled ? 0.5 : 1,
+  } as const;
+
   if (disabled) {
-    return (
-      <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-        {inner}
-      </div>
-    );
+    return <div style={baseStyle}>{content}</div>;
   }
 
   if (signIn) {
     return (
       <SignInButton mode="modal">
-        <div
-          role="button"
-          tabIndex={0}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-        >
-          {inner}
-        </div>
+        <button style={{ ...baseStyle, background: "none", padding: "14px", border: `1px solid ${T.cardBorder}` }}>
+          {content}
+        </button>
       </SignInButton>
     );
   }
 
   return (
     <Link
-      href={href ?? "#"}
-      style={{ textDecoration: "none" }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      href={href || "#"}
+      style={baseStyle}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = "#F8FAFC";
+        e.currentTarget.style.borderColor = "rgba(53,92,138,0.24)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = "#fff";
+        e.currentTarget.style.borderColor = T.cardBorder;
+      }}
     >
-      {inner}
-    </Link>
-  );
-}
-
-// ─── Tool card ────────────────────────────────────────────────────────────────
-
-function ToolCard({
-  icon,
-  title,
-  description,
-  href,
-  disabled,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  href?: string;
-  disabled?: boolean;
-}) {
-  const [hovered, setHovered] = useState(false);
-
-  const cardStyle: React.CSSProperties = {
-    borderRadius: "12px",
-    border: `1.5px solid ${hovered && !disabled ? "#5D7EA7" : T.cardBorder}`,
-    padding: "20px 18px 18px",
-    backgroundColor: hovered && !disabled ? "#FAFBFD" : T.surface,
-    transition: "border-color 130ms ease, background-color 110ms ease",
-    cursor: disabled ? "default" : "pointer",
-    opacity: disabled ? 0.52 : 1,
-  };
-
-  const inner = (
-    <div style={cardStyle}>
-      <div
-        style={{
-          width: "36px", height: "36px", borderRadius: "9px",
-          backgroundColor: "#F1F5F9",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          color: T.secondary,
-          marginBottom: "12px",
-        }}
-      >
-        {icon}
-      </div>
-      <p style={{ margin: "0 0 4px", fontSize: "13.5px", fontWeight: 700, color: T.primary }}>
-        {title}
-      </p>
-      <p style={{ margin: 0, fontSize: "12px", color: T.muted, lineHeight: 1.55 }}>
-        {description}
-      </p>
-      {disabled && (
-        <span
-          style={{
-            display: "inline-block", marginTop: "10px",
-            fontSize: "10px", fontWeight: 600, color: T.muted,
-            background: "#F1F5F9", borderRadius: "4px", padding: "2px 7px",
-          }}
-        >
-          Em breve
-        </span>
-      )}
-    </div>
-  );
-
-  if (disabled || !href) {
-    return (
-      <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        {inner}
-      </div>
-    );
-  }
-
-  return (
-    <Link
-      href={href}
-      style={{ textDecoration: "none" }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {inner}
+      {content}
     </Link>
   );
 }

@@ -580,13 +580,13 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             <div className="brand-mark h-9 w-9 shrink-0">
               {/* Theme-aware: navy mark on the light tile, white mark in dark mode. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={24} height={23} className="block dark:hidden" />
+              <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} className="block dark:hidden" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/afere-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
+              <img src="/brand/synvera-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
             </div>
             <div>
-              <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Afere</span>
-              <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">NEUROCIRURGIA</span>
+              <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Synvera</span>
+              <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">Neurocirurgia · Coluna</span>
             </div>
           </Link>
           <div className="flex items-center gap-3">
@@ -691,11 +691,11 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                         className={cn(
                           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all duration-200",
                           checked
-                            ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
+                            ? "border-primary bg-primary text-white dark:border-[#9DB3D0] dark:bg-[#6F8FB8] checkbox-glow"
                             : "border-slate-300 dark:border-slate-600",
                         )}
                       >
-                        {checked && <Check size={11} strokeWidth={3} />}
+                        {checked && <Check size={12} strokeWidth={3} />}
                       </button>
 
                       <div className="min-w-0 flex-1">
@@ -732,7 +732,8 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                 })}
               </div>
 
-              {/* Access route selection */}
+              {/* Access route selection — hidden for spine-only procedures */}
+              {!allCbhpmCodes.every((c) => c.specialty === "SPINE") && (
               <div className="mb-5 rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
                 <div className="mb-3 flex items-center gap-2">
                   <Route aria-hidden="true" className="text-primary" size={15} />
@@ -781,18 +782,22 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                   })}
                 </div>
               </div>
+              )}
 
               {/* Spine billing variables */}
-              {allCbhpmCodes.some((c) => c.specialty === "SPINE") && (
+              {allCbhpmCodes.some((c) => {
+                const checked = selectedCodes.has(c.code);
+                return checked && (c.billing_mode !== "PER_PROCEDURE" || c.laterality_support);
+              }) && (
                 <div className="space-y-4 rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
                   <div className="flex items-center gap-2">
                     <Stethoscope aria-hidden="true" className="text-primary" size={15} />
                     <span className="text-[13px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      Variáveis de Coluna Vertebral
+                      Variantes
                     </span>
                   </div>
 
-                  {/* Quantity selector */}
+                  {/* Quantity selector — locked to 1 for CBHPM compliance */}
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400 mb-2">
                       Quantidade de Segmentos
@@ -803,17 +808,21 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                           key={qty}
                           type="button"
                           onClick={() => setSpineModifiers((prev) => ({ ...prev, quantity_selected: qty }))}
+                          disabled
                           className={cn(
                             "px-3 h-9 rounded-xl border text-sm font-semibold transition-colors",
-                            spineModifiers.quantity_selected === qty
-                              ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
-                              : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary/40",
+                            qty === 1
+                              ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7] cursor-default"
+                              : "border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed",
                           )}
                         >
                           {qty}
                         </button>
                       ))}
                     </div>
+                    <p className="mt-2 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+                      Determinado pelo CBHPM. Para múltiplos segmentos, selecione o procedimento múltiplas vezes.
+                    </p>
                   </div>
 
                   {/* Laterality selector */}
@@ -865,7 +874,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
               {/* Auxiliaries + anesthesia */}
               <div className="mb-4 grid gap-3 sm:grid-cols-2">
                 <div>
-                  <div className="mb-2 flex items-center gap-2">
+                  <div className="mb-6 flex items-center gap-2">
                     <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400">
                       Número de Auxiliares
                     </label>
@@ -901,7 +910,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="mt-8 space-y-4">
                 <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
                   <div className="flex items-center gap-2.5">
                     <div className="clinical-icon-chip flex h-8 w-8 items-center justify-center rounded-full">
@@ -1049,7 +1058,7 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
           {calculation && (
             <div className="mb-6 flex items-baseline justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
               <span className="text-[13px] text-slate-600 dark:text-slate-400">Valor Total</span>
-              <span className="font-grotesk text-[24px] font-bold text-slate-950 dark:text-[#F4F6F8]">
+              <span className="font-grotesk text-[24px] font-bold text-slate-950 dark:text-[#f7f8f8]">
                 {money.format(calculation.final_total)}
               </span>
             </div>
@@ -1065,9 +1074,9 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
                 <dl className="space-y-2">
                   {calculation.code_breakdown.map((b) => (
                     <div key={b.cbhpm_code} className={cn(
-                      "flex items-end justify-between gap-1 rounded-xl px-3 py-2",
+                      "flex items-end justify-between gap-1 rounded-xl px-3 py-2 transition-colors",
                       b.is_principal
-                        ? "border border-primary/20 bg-[#EAF0F6] dark:border-[#5D7EA7]/15 dark:bg-[#1F2A35]/40"
+                        ? "border border-primary/20 bg-[#EAF0F6] principal-row"
                         : "",
                     )}>
                       <div className="min-w-0">

@@ -1,5 +1,5 @@
 {
-  "name": "afere-frontend",
+  "name": "synvera-frontend",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",

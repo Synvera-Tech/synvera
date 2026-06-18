@@ -7,9 +7,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"afere/backend/internal/generated"
-	"afere/backend/internal/handlers"
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/generated"
+	"synvera/backend/internal/handlers"
+	"synvera/backend/internal/repository"
 )
 
 // noopAuth is a passthrough AuthMiddlewareFunc for endpoints that do not require authentication.
@@ -21,11 +21,11 @@ func minimalValidRequest() generated.SaveCalculationRequest {
 	return generated.SaveCalculationRequest{
 		ProcedureName: "Craniectomia descompressiva",
 		SelectedCodes: []generated.SelectedCode{
-			{CBHPMCode: "3.01.01.11-5", Description: "Craniectomia", Porte: "10A"},
+			{CbhpmCode: "3.01.01.11-5", Description: "Craniectomia", Porte: "10A"},
 		},
 		AuxiliariesCount:   1,
 		RequiresAnesthesia: true,
-		AccessRouteType:    generated.AccessRouteSame,
+		AccessRouteType:    generated.Same,
 		CalculationResult: generated.CalculateResponse{
 			LeadSurgeonFee: 1250.00,
 			AuxiliariesFee: 750.00,
@@ -71,7 +71,7 @@ func TestSaveCalculation_Success(t *testing.T) {
 	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
-	if resp.PublicID == "" {
+	if resp.PublicId.String() == "" {
 		t.Error("expected non-empty public_id")
 	}
 	if resp.CreatedAt.IsZero() {
@@ -157,7 +157,7 @@ func TestListCalculations_Empty(t *testing.T) {
 	if w.Code != http.StatusOK {
 		t.Fatalf("expected 200, got %d: %s", w.Code, w.Body.String())
 	}
-	var result []generated.CalculationSummary
+	var result []map[string]interface{}
 	if err := json.NewDecoder(w.Body).Decode(&result); err != nil {
 		t.Fatalf("decode: %v", err)
 	}
@@ -181,7 +181,7 @@ func TestListCalculations_AfterSave(t *testing.T) {
 	if w.Code != http.StatusOK {
 		t.Fatalf("expected 200, got %d: %s", w.Code, w.Body.String())
 	}
-	var result []generated.CalculationSummary
+	var result []map[string]interface{}
 	if err := json.NewDecoder(w.Body).Decode(&result); err != nil {
 		t.Fatalf("decode: %v", err)
 	}
@@ -189,13 +189,15 @@ func TestListCalculations_AfterSave(t *testing.T) {
 		t.Errorf("expected 2 items, got %d", len(result))
 	}
 	for _, s := range result {
-		if s.PublicID == "" {
+		publicID, ok := s["public_id"]
+		if !ok || publicID == "" {
 			t.Error("expected non-empty public_id")
 		}
-		if s.TeamTotalValue <= 0 {
-			t.Errorf("expected positive team_total_value, got %f", s.TeamTotalValue)
+		teamTotal, ok := s["team_total_value"].(float64)
+		if !ok || teamTotal <= 0 {
+			t.Errorf("expected positive team_total_value")
 		}
-		if s.CreatedAt.IsZero() {
+		if createdAt, ok := s["created_at"]; !ok || createdAt == nil {
 			t.Error("expected non-zero created_at")
 		}
 	}
@@ -215,7 +217,7 @@ func TestGetCalculation_Success(t *testing.T) {
 	}
 
 	// Retrieve by public_id
-	gw := getCalculation(t, repo, saveResp.PublicID)
+	gw := getCalculation(t, repo, saveResp.PublicId.String())
 	if gw.Code != http.StatusOK {
 		t.Fatalf("expected 200, got %d: %s", gw.Code, gw.Body.String())
 	}
@@ -224,8 +226,8 @@ func TestGetCalculation_Success(t *testing.T) {
 	if err := json.NewDecoder(gw.Body).Decode(&calc); err != nil {
 		t.Fatalf("decode get response: %v", err)
 	}
-	if calc.PublicID != saveResp.PublicID {
-		t.Errorf("public_id mismatch: got %q, want %q", calc.PublicID, saveResp.PublicID)
+	if calc.PublicId != saveResp.PublicId {
+		t.Errorf("public_id mismatch: got %q, want %q", calc.PublicId, saveResp.PublicId)
 	}
 	if calc.ProcedureName != "Craniectomia descompressiva" {
 		t.Errorf("unexpected procedure_name: %q", calc.ProcedureName)
@@ -262,13 +264,13 @@ func TestDeleteCalculation_Success(t *testing.T) {
 		t.Fatalf("decode save response: %v", err)
 	}
 
-	dw := deleteCalculation(t, repo, saveResp.PublicID)
+	dw := deleteCalculation(t, repo, saveResp.PublicId.String())
 	if dw.Code != http.StatusNoContent {
 		t.Fatalf("expected 204, got %d: %s", dw.Code, dw.Body.String())
 	}
 
 	// Confirm it's gone
-	gw := getCalculation(t, repo, saveResp.PublicID)
+	gw := getCalculation(t, repo, saveResp.PublicId.String())
 	if gw.Code != http.StatusNotFound {
 		t.Fatalf("expected 404 after delete, got %d", gw.Code)
 	}
@@ -292,7 +294,7 @@ func TestDeleteCalculation_MethodNotAllowed(t *testing.T) {
 
 	mux := http.NewServeMux()
 	handlers.RegisterRoutes(mux, repo, noopAuth)
-	req := httptest.NewRequest(http.MethodPatch, "/api/calculations/"+saveResp.PublicID, nil)
+	req := httptest.NewRequest(http.MethodPatch, "/api/calculations/"+saveResp.PublicId.String(), nil)
 	w := httptest.NewRecorder()
 	mux.ServeHTTP(w, req)
 	if w.Code != http.StatusMethodNotAllowed {
@@ -305,7 +307,7 @@ func TestCalculationPersistenceRoundtrip(t *testing.T) {
 	original := minimalValidRequest()
 	original.AuxiliariesCount = 2
 	original.RequiresAnesthesia = true
-	original.AccessRouteType = generated.AccessRouteDifferent
+	original.AccessRouteType = generated.Different
 	original.CalculationResult = generated.CalculateResponse{
 		LeadSurgeonFee:      2500.00,
 		AuxiliariesFee:      1000.00,
@@ -320,7 +322,7 @@ func TestCalculationPersistenceRoundtrip(t *testing.T) {
 	var saveResp generated.SaveCalculationResponse
 	_ = json.NewDecoder(pw.Body).Decode(&saveResp)
 
-	gw := getCalculation(t, repo, saveResp.PublicID)
+	gw := getCalculation(t, repo, saveResp.PublicId.String())
 	if gw.Code != http.StatusOK {
 		t.Fatalf("get failed: %d", gw.Code)
 	}
@@ -333,8 +335,8 @@ func TestCalculationPersistenceRoundtrip(t *testing.T) {
 	if !calc.RequiresAnesthesia {
 		t.Error("expected requires_anesthesia=true")
 	}
-	if calc.AccessRouteType != generated.AccessRouteDifferent {
-		t.Errorf("access_route_type: got %q, want %q", calc.AccessRouteType, generated.AccessRouteDifferent)
+	if calc.AccessRouteType != generated.Different {
+		t.Errorf("access_route_type: got %q, want %q", calc.AccessRouteType, generated.Different)
 	}
 	if calc.SurgeonValue != 2500.00 {
 		t.Errorf("surgeon_value: got %f, want 2500", calc.SurgeonValue)
@@ -342,7 +344,8 @@ func TestCalculationPersistenceRoundtrip(t *testing.T) {
 	if calc.TeamTotalValue != 4000.00 {
 		t.Errorf("team_total_value: got %f, want 4000", calc.TeamTotalValue)
 	}
-	if len(calc.CalculationBreakdown) == 0 {
+	// CalculationBreakdown is interface{}, so we just check it's not nil
+	if calc.CalculationBreakdown == nil {
 		t.Error("expected non-empty calculation_breakdown")
 	}
 }

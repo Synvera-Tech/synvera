@@ -240,13 +240,13 @@ export default function NovoCalculo() {
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={20} height={19} style={{ display: "block", flexShrink: 0 }} />
+            <img src="/brand/synvera-symbol.svg" alt="" aria-hidden="true" width={20} height={19} style={{ display: "block", flexShrink: 0 }} />
             <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
               <span style={{ fontSize: "13px", fontWeight: 700, color: T.primary, letterSpacing: "-0.2px", lineHeight: 1 }}>
-                Afere
+                Synvera
               </span>
               <span style={{ fontSize: "9px", fontWeight: 500, color: "rgba(71,85,105,0.58)", letterSpacing: "0.2px", lineHeight: 1 }}>
-                Neurocirurgia
+                Neurocirurgia · Coluna
               </span>
             </div>
           </Link>
@@ -332,7 +332,7 @@ export default function NovoCalculo() {
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "18px" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/brand/afere-symbol.svg"
+                src="/brand/synvera-symbol.svg"
                 alt=""
                 aria-hidden="true"
                 width={51}

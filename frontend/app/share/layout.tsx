@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Afere — Relatório de Valoração Médica",
-  description: "Valoração referencial de procedimento médico gerada pelo Afere.",
+  title: "Synvera — Relatório de Valoração Médica",
+  description: "Valoração referencial de procedimento médico gerada pelo Synvera.",
   openGraph: {
-    title: "Afere — Relatório de Valoração Médica",
-    description: "Valoração referencial de procedimento médico gerada pelo Afere.",
+    title: "Synvera — Relatório de Valoração Médica",
+    description: "Valoração referencial de procedimento médico gerada pelo Synvera.",
     type: "article",
-    siteName: "Afere",
+    siteName: "Synvera",
   },
   twitter: {
     card: "summary",
-    title: "Afere — Relatório de Valoração Médica",
-    description: "Valoração referencial de procedimento médico gerada pelo Afere.",
+    title: "Synvera — Relatório de Valoração Médica",
+    description: "Valoração referencial de procedimento médico gerada pelo Synvera.",
   },
 };
 

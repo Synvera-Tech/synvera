@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"afere/backend/internal/models"
+	"synvera/backend/internal/models"
 )
 
 //go:embed procedures.json

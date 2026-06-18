@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"afere/backend/internal/config"
-	"afere/backend/internal/handlers"
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/config"
+	"synvera/backend/internal/handlers"
+	"synvera/backend/internal/repository"
 )
 
 func main() {
@@ -21,11 +21,11 @@ func main() {
 			log.Printf("postgres: connection failed (%v) — falling back to file catalog", err)
 			repo = repository.NewFileRepository()
 		} else {
-			log.Printf("Afere API: connected to Neon PostgreSQL")
+			log.Printf("Synvera API: connected to Neon PostgreSQL")
 			repo = pgRepo
 		}
 	} else {
-		log.Printf("Afere API: DATABASE_URL not set — using embedded file catalog")
+		log.Printf("Synvera API: DATABASE_URL not set — using embedded file catalog")
 		repo = repository.NewFileRepository()
 	}
 
@@ -38,7 +38,7 @@ func main() {
 	handlers.RegisterRoutes(mux, repo, auth)
 
 	addr := ":" + cfg.Port
-	log.Printf("Afere API is listening on %s", addr)
+	log.Printf("Synvera API is listening on %s", addr)
 	if err := http.ListenAndServe(addr, mux); err != nil {
 		log.Fatal(err)
 	}

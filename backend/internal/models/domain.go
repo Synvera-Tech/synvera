@@ -1,4 +1,4 @@
-// Package models defines the core domain types for the Afere platform.
+// Package models defines the core domain types for the Synvera platform.
 package models
 
 import (
@@ -221,7 +221,7 @@ type CalculationSummary struct {
 	CreatedAt             time.Time
 }
 
-// PhysicianAccount maps a Clerk identity to an Afere physician record.
+// PhysicianAccount maps a Clerk identity to a Synvera physician record.
 // The internal id is the FK used in compositions; clerk_user_id is the JWT sub.
 type PhysicianAccount struct {
 	ID          string

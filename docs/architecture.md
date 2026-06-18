@@ -1,8 +1,8 @@
-# Afere Architecture
+# Synvera Architecture
 
 ## Overview
 
-Afere is a deterministic medical procedure pricing platform built around the correct **SBN 1:N CBHPM** domain model. One SBN surgical package maps to multiple CBHPM billable codes. Physicians select which codes were performed, declare the access route type, and receive a real-time breakdown applying validated CBHPM 2022 billing rules.
+Synvera is a deterministic medical procedure pricing platform built around the correct **SBN 1:N CBHPM** domain model. One SBN surgical package maps to multiple CBHPM billable codes. Physicians select which codes were performed, declare the access route type, and receive a real-time breakdown applying validated CBHPM 2022 billing rules.
 
 See [domain-model.md](domain-model.md) for the full domain concepts, ER diagram, and calculation rules.
 
@@ -98,7 +98,7 @@ Responsibilities:
 
 ### Provider
 
-**Clerk** is the authentication provider. It handles identity (Google OAuth, email magic link), session management, and JWT issuance. Afere does not store passwords or issue its own tokens.
+**Clerk** is the authentication provider. It handles identity (Google OAuth, email magic link), session management, and JWT issuance. Synvera does not store passwords or issue its own tokens.
 
 ### Flow
 
@@ -126,7 +126,7 @@ Responsibilities:
 
 ### `physician_accounts` table
 
-Maps a Clerk identity to an Afere physician record. `FindOrCreatePhysician` upserts on `clerk_user_id`, ensuring exactly one internal UUID per Clerk account.
+Maps a Clerk identity to an Synvera physician record. `FindOrCreatePhysician` upserts on `clerk_user_id`, ensuring exactly one internal UUID per Clerk account.
 
 ```
 physician_accounts

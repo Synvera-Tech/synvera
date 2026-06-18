@@ -8,7 +8,7 @@
 
 ## Overview
 
-This document details the implementation of spine surgery billing variables in Afere. The system now supports:
+This document details the implementation of spine surgery billing variables in Synvera. The system now supports:
 
 1. **Billing modes** — How procedure values scale with quantity
 2. **Specialty classification** — NEUROSURGERY (default) or SPINE

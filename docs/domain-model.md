@@ -1,8 +1,8 @@
-# Domain Model — Afere
+# Domain Model — Synvera
 
 ## Business Context
 
-Afere is a medical billing calculator for neurosurgeons in Brazil. Physicians bill insurance companies using the **CBHPM** table (Classificação Brasileira Hierarquizada de Procedimentos Médicos). The **SBN** (Sociedade Brasileira de Neurocirurgia) groups related CBHPM codes into named surgical packages for practical use.
+Synvera is a medical billing calculator for neurosurgeons in Brazil. Physicians bill insurance companies using the **CBHPM** table (Classificação Brasileira Hierarquizada de Procedimentos Médicos). The **SBN** (Sociedade Brasileira de Neurocirurgia) groups related CBHPM codes into named surgical packages for practical use.
 
 One SBN surgical package maps to **one or more** CBHPM billable codes. Each code carries an intrinsic **porte** (complexity class) that determines its monetary value. The physician selects which codes were actually performed and declares whether the procedures shared the same access route — this drives the multi-procedure discount rule.
 
@@ -12,7 +12,7 @@ One SBN surgical package maps to **one or more** CBHPM billable codes. Each code
 
 | Concept | Description |
 |---|---|
-| **Physician Account** | An authenticated Afere user. Maps a Clerk identity (JWT `sub`) to an internal UUID. Created automatically on first sign-in. |
+| **Physician Account** | An authenticated Synvera user. Maps a Clerk identity (JWT `sub`) to an internal UUID. Created automatically on first sign-in. |
 | **SBN Procedure** | A named surgical package published by the SBN. Has a code and a human-readable name. |
 | **CBHPM Code** | A billable line item from the national procedure table. Has a code, description, and an intrinsic porte. |
 | **Porte** | A complexity class (e.g. `7A`, `8B`) with a fixed BRL value defined by CBHPM 2025/2026 (Faixa Original). Read-only — the physician cannot change a code's porte. |

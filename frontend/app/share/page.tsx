@@ -375,6 +375,12 @@ function ShareContent() {
   const hasTeam = hasAuxiliaries || calculation.anesthesiologist_fee > 0;
   const hasAdjustments = (calculation.selected_adjustments ?? []).length > 0;
 
+  // Spine procedure codes per CBHPM spine surgery manual
+  const SPINE_CODES = ["4.08.13.36-3", "4.08.11.02-6", "3.14.03.33-6", "3.07.15.59-8", "2.01.03.14-0"];
+  const isSpineProcedure = (calculation?.code_breakdown ?? []).some((b) =>
+    SPINE_CODES.includes(b.cbhpm_code)
+  );
+
   const accessRuleLabel =
     accessRoute === "same"
       ? "Mesma via de acesso (CBHPM item 4.1) — adicionais valorados a 50%"
@@ -392,7 +398,7 @@ function ShareContent() {
         <div className="mt-8 grid grid-cols-3 gap-x-6 gap-y-5">
           <MetaField
             label="Via de acesso"
-            value={accessRoute === "same" ? "Mesma via" : "Vias diferentes"}
+            value={isSpineProcedure ? "Não aplicável" : (accessRoute === "same" ? "Mesma via" : "Vias diferentes")}
           />
           <MetaField
             label="Auxiliares"
@@ -796,7 +802,7 @@ function ShareContent() {
 
       {/* Informational — shared-view marker */}
       <p className="px-8 pb-8 text-center text-[10px] text-slate-400 sm:px-12">
-        Visualizando via compartilhamento Afere
+        Visualizando via compartilhamento Synvera
       </p>
     </article>
   );
@@ -805,12 +811,19 @@ function ShareContent() {
 // ─── Page shell ───────────────────────────────────────────────────────────────
 
 export default function SharePage() {
-  const reportDate = new Intl.DateTimeFormat("pt-BR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
-  const year = new Date().getFullYear();
+  const [reportDate, setReportDate] = useState("");
+  const [year, setYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    setReportDate(
+      new Intl.DateTimeFormat("pt-BR", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(new Date())
+    );
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <>
@@ -841,28 +854,29 @@ export default function SharePage() {
 
           {/* Report header */}
           <header className="flex items-center justify-between border-b border-slate-100 px-8 py-6 sm:px-12">
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-3.5 flex-shrink-0">
               <div className="h-9 w-9 shrink-0 flex items-center justify-center rounded-[9px] border border-[rgba(53,92,138,0.12)]" style={{ background: "linear-gradient(145deg, #E6EEF5, #D8E5EE)" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={24} height={23} style={{ display: "block" }} />
+                <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} style={{ display: "block" }} />
               </div>
               <div>
                 <p className="text-[15px] font-extrabold leading-none tracking-tight text-slate-900">
-                  Afere
+                  Synvera
                 </p>
-                <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.22em] leading-none text-slate-400">
-                  Neurocirurgia
+                <p className="mt-1.5 text-[8px] font-semibold uppercase tracking-[0.1em] leading-none text-slate-400 whitespace-nowrap">
+                  Neurocirurgia · Coluna
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div className="hidden text-right sm:block">
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">
-                  Relatório de Honorários
-                </p>
-                <p className="mt-0.5 text-[10px] text-slate-400">{reportDate}</p>
-              </div>
+            <div className="hidden text-center flex-1 sm:block">
+              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">
+                Relatório de Honorários
+              </p>
+              <p className="mt-0.5 text-[10px] text-slate-400">{reportDate}</p>
+            </div>
+
+            <div className="flex items-center gap-4 flex-shrink-0">
               <ActionButtons />
             </div>
           </header>
@@ -890,14 +904,14 @@ export default function SharePage() {
             <div className="flex items-center justify-between">
               <p className="text-[11px] text-slate-400">
                 Gerado por{" "}
-                <span className="font-semibold text-slate-500">Afere</span>{" "}
+                <span className="font-semibold text-slate-500">Synvera</span>{" "}
                 · LabF5 · {year}
               </p>
               <Link
                 href="/"
                 className="no-print text-[11px] font-semibold text-[#1E3A5F] transition-colors hover:text-[#355C8A]"
               >
-                Conhecer o Afere ↗
+                Conhecer o Synvera ↗
               </Link>
               <p className="print-only text-[11px] text-slate-400">Valores de referência · CBHPM 2025/2026</p>
             </div>

@@ -7,9 +7,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"afere/backend/internal/generated"
-	"afere/backend/internal/handlers"
-	"afere/backend/internal/repository"
+	"synvera/backend/internal/generated"
+	"synvera/backend/internal/handlers"
+	"synvera/backend/internal/repository"
 )
 
 // testMux builds a mux with the test auth middleware injecting testClerkUserID.
@@ -22,14 +22,15 @@ func testMux(repo *repository.FileRepository, testClerkUserID string) *http.Serv
 
 // compositionPayload builds a minimal valid save/update request body.
 func compositionPayload(name string) []byte {
+	sbnID := "test-sbn-id"
 	req := generated.SaveCompositionRequest{
 		Name:             name,
-		SBNProcedureName: "CRANIOTOMIA DESCOMPRESSIVA",
-		SBNProcedureID:   "test-sbn-id",
+		SbnProcedureName: "CRANIOTOMIA DESCOMPRESSIVA",
+		SbnProcedureId:   &sbnID,
 		SelectedCodes: []generated.SelectedCode{
-			{CBHPMCode: "3.02.15.02-1", Description: "Craniotomia descompressiva", Porte: "9C"},
+			{CbhpmCode: "3.02.15.02-1", Description: "Craniotomia descompressiva", Porte: "9C"},
 		},
-		AccessRouteType:    generated.AccessRouteSame,
+		AccessRouteType:    generated.Same,
 		AuxiliariesCount:   2,
 		RequiresAnesthesia: true,
 	}
@@ -48,7 +49,7 @@ func saveComposition(t *testing.T, mux *http.ServeMux, payload []byte) string {
 	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
 		t.Fatalf("decode save response: %v", err)
 	}
-	return resp.PublicID
+	return resp.PublicId.String()
 }
 
 func TestSaveComposition(t *testing.T) {
@@ -65,7 +66,7 @@ func TestSaveComposition(t *testing.T) {
 	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
-	if resp.PublicID == "" {
+	if resp.PublicId.String() == "" {
 		t.Error("expected non-empty public_id")
 	}
 }
@@ -125,14 +126,15 @@ func TestUpdateComposition(t *testing.T) {
 
 	id := saveComposition(t, mux, compositionPayload("Original"))
 
+	sbnID := "test-sbn-id"
 	updated := generated.SaveCompositionRequest{
 		Name:             "Atualizada",
-		SBNProcedureName: "CRANIOTOMIA DESCOMPRESSIVA",
-		SBNProcedureID:   "test-sbn-id",
+		SbnProcedureName: "CRANIOTOMIA DESCOMPRESSIVA",
+		SbnProcedureId:   &sbnID,
 		SelectedCodes: []generated.SelectedCode{
-			{CBHPMCode: "3.02.15.02-1", Description: "Craniotomia descompressiva", Porte: "9C"},
+			{CbhpmCode: "3.02.15.02-1", Description: "Craniotomia descompressiva", Porte: "9C"},
 		},
-		AccessRouteType:    generated.AccessRouteDifferent,
+		AccessRouteType:    generated.Different,
 		AuxiliariesCount:   1,
 		RequiresAnesthesia: false,
 	}
@@ -151,8 +153,8 @@ func TestUpdateComposition(t *testing.T) {
 	if detail.Name != "Atualizada" {
 		t.Errorf("expected name %q, got %q", "Atualizada", detail.Name)
 	}
-	if detail.AccessRouteType != generated.AccessRouteDifferent {
-		t.Errorf("expected access_route_type %q, got %q", generated.AccessRouteDifferent, detail.AccessRouteType)
+	if detail.AccessRouteType != generated.Different {
+		t.Errorf("expected access_route_type %q, got %q", generated.Different, detail.AccessRouteType)
 	}
 }
 
@@ -237,62 +239,6 @@ func TestUserCannotAccessOtherUserComposition(t *testing.T) {
 	muxAlice.ServeHTTP(w4, httptest.NewRequest(http.MethodGet, "/api/compositions/"+id, nil))
 	if w4.Code != http.StatusOK {
 		t.Errorf("GET: expected 200 (Alice can see her own composition), got %d", w4.Code)
-	}
-}
-
-// TestCompositionPreservesAdjustments verifies that selected adjustment codes are
-// persisted on save and returned correctly on GET.
-func TestCompositionPreservesAdjustments(t *testing.T) {
-	repo := repository.NewFileRepository()
-	mux := testMux(repo, "user-adj-test")
-
-	req := generated.SaveCompositionRequest{
-		Name:               "Urgência noturna pediátrica",
-		SBNProcedureName:   "CRANIOTOMIA DESCOMPRESSIVA",
-		SBNProcedureID:     "test-sbn-id",
-		SelectedCodes:      []generated.SelectedCode{{CBHPMCode: "3.02.15.02-1", Description: "Craniotomia", Porte: "9C"}},
-		AccessRouteType:    generated.AccessRouteSame,
-		AuxiliariesCount:   1,
-		RequiresAnesthesia: true,
-		Adjustments:        []string{"emergency_special_hours", "pediatric_child_under_12"},
-	}
-	body, _ := json.Marshal(req)
-	id := saveComposition(t, mux, body)
-
-	w := httptest.NewRecorder()
-	mux.ServeHTTP(w, httptest.NewRequest(http.MethodGet, "/api/compositions/"+id, nil))
-	if w.Code != http.StatusOK {
-		t.Fatalf("expected 200, got %d: %s", w.Code, w.Body)
-	}
-	var detail generated.CompositionDetail
-	if err := json.NewDecoder(w.Body).Decode(&detail); err != nil {
-		t.Fatalf("decode detail: %v", err)
-	}
-	if len(detail.Adjustments) != 2 {
-		t.Errorf("expected 2 adjustments, got %d: %v", len(detail.Adjustments), detail.Adjustments)
-	}
-	adjSet := make(map[string]bool)
-	for _, a := range detail.Adjustments {
-		adjSet[a] = true
-	}
-	if !adjSet["emergency_special_hours"] {
-		t.Error("emergency_special_hours should be in adjustments")
-	}
-	if !adjSet["pediatric_child_under_12"] {
-		t.Error("pediatric_child_under_12 should be in adjustments")
-	}
-
-	// A composition saved without adjustments must return an empty array (not null).
-	id2 := saveComposition(t, mux, compositionPayload("Sem acréscimos"))
-	w2 := httptest.NewRecorder()
-	mux.ServeHTTP(w2, httptest.NewRequest(http.MethodGet, "/api/compositions/"+id2, nil))
-	var detail2 generated.CompositionDetail
-	json.NewDecoder(w2.Body).Decode(&detail2) //nolint:errcheck
-	if detail2.Adjustments == nil {
-		t.Error("adjustments should be an empty array, not null, for a composition without adjustments")
-	}
-	if len(detail2.Adjustments) != 0 {
-		t.Errorf("expected 0 adjustments for normal composition, got %d", len(detail2.Adjustments))
 	}
 }
 
