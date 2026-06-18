@@ -1,4 +1,4 @@
-# Skill: synvera-product-strategy
+# Synvera Product Strategy
 
 ## Role
 

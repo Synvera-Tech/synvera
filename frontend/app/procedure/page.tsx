@@ -580,9 +580,9 @@ function ProcedureContent({ initialQuery, initialSbnId, initialRoute, initialCom
             <div className="brand-mark h-9 w-9 shrink-0">
               {/* Theme-aware: navy mark on the light tile, white mark in dark mode. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={24} height={23} className="block dark:hidden" />
+              <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} className="block dark:hidden" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/afere-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
+              <img src="/brand/synvera-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
             </div>
             <div>
               <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Synvera</span>
