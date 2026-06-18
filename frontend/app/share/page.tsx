@@ -857,7 +857,7 @@ export default function SharePage() {
             <div className="flex items-center gap-3.5 flex-shrink-0">
               <div className="h-9 w-9 shrink-0 flex items-center justify-center rounded-[9px] border border-[rgba(53,92,138,0.12)]" style={{ background: "linear-gradient(145deg, #E6EEF5, #D8E5EE)" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/afere-symbol.svg" alt="" aria-hidden="true" width={24} height={23} style={{ display: "block" }} />
+                <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} style={{ display: "block" }} />
               </div>
               <div>
                 <p className="text-[15px] font-extrabold leading-none tracking-tight text-slate-900">
