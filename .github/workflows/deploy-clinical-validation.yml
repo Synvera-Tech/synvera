@@ -1,0 +1,27 @@
+name: Deploy feature/clinical-validation to Production
+
+on:
+  push:
+    branches:
+      - feature/clinical-validation
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel production deployment
+        run: |
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "name": "synvera",
+              "gitSource": {
+                "type": "github",
+                "repoId": 1255321872,
+                "sha": "${{ github.sha }}",
+                "ref": "feature/clinical-validation"
+              },
+              "target": "production"
+            }' \
+            "https://api.vercel.com/v13/deployments?teamId=team_sIuiG3giFfcoN1kZHNw9rj0W&forceNew=1"
