@@ -100,6 +100,26 @@ export function HeroSection() {
           width: "100%",
         }}
       >
+        {/* Wordmark */}
+        <div
+          style={{
+            marginBottom: "36px",
+            animation: "slideUp 0.4s ease-out",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "12px",
+              fontWeight: 700,
+              letterSpacing: "4px",
+              color: "rgba(247,248,248,0.38)",
+              textTransform: "uppercase",
+            }}
+          >
+            Synvera
+          </span>
+        </div>
+
         {/* Badge */}
         <div
           style={{
