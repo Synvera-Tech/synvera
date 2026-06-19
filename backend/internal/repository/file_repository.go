@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"synvera/backend/internal/models"
+	"synvera/backend/internal/service"
 )
 
 //go:embed procedures.json
@@ -328,6 +329,32 @@ func (r *FileRepository) DeleteCompositionByPublicID(publicID, physicianID strin
 	}
 	delete(r.compositions, publicID)
 	return true, nil
+}
+
+// ── CBHPM versioning ──────────────────────────────────────────────────────────
+
+// fileRepoVersionID is the synthetic version ID used by the in-memory repository.
+const fileRepoVersionID = "file-cbhpm-2025-2026"
+
+// GetActivePorteVersion returns a hardcoded CBHPMVersion representing the 2025-2026
+// edition. FileRepository always has exactly one active version.
+func (r *FileRepository) GetActivePorteVersion() (*models.CBHPMVersion, error) {
+	return &models.CBHPMVersion{
+		ID:       fileRepoVersionID,
+		Code:     "2025-2026",
+		Label:    "CBHPM 2025/2026 (INPC 5,10%)",
+		IsActive: true,
+	}, nil
+}
+
+// GetPorteValues returns a copy of the hardcoded PorteValues map for any version ID.
+// In production the map is resolved from the database; here it mirrors the same values.
+func (r *FileRepository) GetPorteValues(_ string) (map[string]float64, error) {
+	cp := make(map[string]float64, len(service.PorteValues))
+	for k, v := range service.PorteValues {
+		cp[k] = v
+	}
+	return cp, nil
 }
 
 // ── Calculation snapshot persistence (legacy) ─────────────────────────────────

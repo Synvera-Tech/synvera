@@ -173,11 +173,15 @@ type CalculationResult struct {
 // Adjustments holds the CBHPM adjustment codes that were active at calculation time
 // (e.g. ["emergency_special_hours"]) so the result can be replayed deterministically.
 // PhysicianID links to physician_accounts when the calculation was saved while authenticated;
-// NULL for anonymous (pre-login) calculations.
+// empty for anonymous (pre-login) calculations.
+// CBHPMVersionID links to cbhpm_versions to record which porte table was active at save time.
+// Empty for calculations saved before migration 021 (pre-versioning rows).
 type Calculation struct {
 	ID                    string
 	PublicID              string
 	PhysicianID           string // empty when calculation is anonymous
+	CBHPMVersionID        string // empty for pre-versioning rows (before migration 021)
+	CBHPMVersionCode      string // denormalized; e.g. "2025-2026" — empty for pre-021 rows
 	ProcedureName         string
 	ProcedureSBNCode      string
 	SelectedCBHPMCodes    []SelectedCode
@@ -208,6 +212,17 @@ type CalculationSummary struct {
 	RequiresAnesthesia    bool
 	AccessRoute           AccessRouteType
 	CreatedAt             time.Time
+}
+
+// CBHPMVersion identifies a specific edition of the CBHPM porte table.
+// The active version is used for all new calculations; historical calculations
+// reference the version that was active at creation time, enabling deterministic replay.
+type CBHPMVersion struct {
+	ID        string
+	Code      string // e.g. "2025-2026"
+	Label     string // e.g. "CBHPM 2025/2026 (INPC 5,10%)"
+	IsActive  bool
+	CreatedAt time.Time
 }
 
 // PhysicianAccount maps a Clerk identity to a Synvera physician record.

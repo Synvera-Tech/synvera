@@ -3,7 +3,27 @@ package service
 
 import "synvera/backend/internal/models"
 
+// CalculateWithPortes is the versioned entry point for the CBHPM valuation engine.
+// porteValues is the porte→value_brl lookup resolved from the active CBHPM version
+// in the repository, allowing historical calculations to replay with the exact porte
+// table that was active at creation time.
+//
+// See Calculate for the full billing rules documentation.
+func CalculateWithPortes(
+	codes []models.SelectedCode,
+	auxiliariesCount int,
+	requiresAnesthesia bool,
+	accessRoute models.AccessRouteType,
+	adjustments []string,
+	porteValues map[string]float64,
+) models.CalculationResult {
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues)
+}
+
 // Calculate applies validated CBHPM billing rules to a physician-assembled composition.
+// It uses the hardcoded PorteValues map (CBHPM 2025/2026 with INPC 5.10%).
+// Preserved for backward compatibility with existing tests and internal callers.
+// New production code should use CalculateWithPortes to support CBHPM versioning.
 //
 // Surgeon valuation (CBHPM 2022):
 //   - Single procedure: 100% of its porte value.
@@ -34,6 +54,18 @@ func Calculate(
 	accessRoute models.AccessRouteType,
 	adjustments []string,
 ) models.CalculationResult {
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues)
+}
+
+// calculate is the shared implementation behind Calculate and CalculateWithPortes.
+func calculate(
+	codes []models.SelectedCode,
+	auxiliariesCount int,
+	requiresAnesthesia bool,
+	accessRoute models.AccessRouteType,
+	adjustments []string,
+	porteValues map[string]float64,
+) models.CalculationResult {
 	// ── Step 1: resolve porte values, apply spine multipliers, find principal ───
 
 	type entry struct {
@@ -50,7 +82,7 @@ func Calculate(
 	principalAdjustedValue := 0.0
 
 	for i, c := range codes {
-		baseVal := PorteValues[c.Porte]
+		baseVal := porteValues[c.Porte]
 		qtyMult := calculateQuantityMultiplier(c.BillingMode, c.QuantitySelected)
 		latMult := calculateLateralityMultiplier(c.Laterality, c.LateralitySupport)
 		adjVal := baseVal * qtyMult * latMult

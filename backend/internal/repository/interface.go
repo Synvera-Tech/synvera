@@ -1,7 +1,15 @@
 // Package repository defines the data-access contract for Synvera.
 package repository
 
-import "synvera/backend/internal/models"
+import (
+	"errors"
+
+	"synvera/backend/internal/models"
+)
+
+// ErrNoActiveVersion is returned by GetActivePorteVersion when no CBHPM version
+// has been marked active in the database. This is a fatal configuration error.
+var ErrNoActiveVersion = errors.New("no active CBHPM version configured")
 
 // Repository is the unified data-access contract for Synvera.
 // Both FileRepository (development/fallback) and PostgresRepository (production)
@@ -44,6 +52,16 @@ type Repository interface {
 	// DeleteCompositionByPublicID removes a composition owned by physicianID.
 	// Returns (true, nil) when deleted, (false, nil) when not found or wrong owner.
 	DeleteCompositionByPublicID(publicID, physicianID string) (bool, error)
+
+	// ── CBHPM versioning ──────────────────────────────────────────────────────
+
+	// GetActivePorteVersion returns the currently-active CBHPM version record.
+	// Returns ErrNoActiveVersion when no active version exists.
+	GetActivePorteVersion() (*models.CBHPMVersion, error)
+
+	// GetPorteValues returns a porte→value_brl map for the given CBHPM version ID.
+	// The map is a snapshot suitable for passing to service.CalculateWithPortes.
+	GetPorteValues(cbhpmVersionID string) (map[string]float64, error)
 
 	// ── Calculations (legacy snapshot persistence) ────────────────────────────
 

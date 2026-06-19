@@ -10,31 +10,23 @@ import (
 
 type Calculation struct {
 	ID                    pgtype.UUID
+	PublicID              pgtype.UUID
+	PhysicianID           pgtype.UUID
+	CbhpmVersionID        pgtype.UUID
 	ProcedureName         string
 	ProcedureSbnCode      pgtype.Text
+	SelectedCbhpmCodes    []byte
+	Adjustments           []byte
+	AccessRoute           string
+	AuxiliariesCount      int32
+	RequiresAnesthesia    bool
 	SurgeonValue          pgtype.Numeric
 	AuxiliariesTotalValue pgtype.Numeric
 	AnesthesiologistValue pgtype.Numeric
 	TeamTotalValue        pgtype.Numeric
-	AuxiliariesCount      pgtype.Int2
-	RequiresAnesthesia    pgtype.Bool
-	AccessRoute           pgtype.Text
+	CalculationBreakdown  []byte
 	CreatedAt             pgtype.Timestamptz
 	UpdatedAt             pgtype.Timestamptz
-}
-
-type CalculationModifier struct {
-	ID                pgtype.UUID
-	CalculationID     pgtype.UUID
-	QuantitySelected  pgtype.Int4
-	Laterality        pgtype.Text
-	VertebralRegion   pgtype.Text
-	SurgicalApproach  pgtype.Text
-	FusionStatus      pgtype.Text
-	ImplantCategory   pgtype.Text
-	OsteoporosisAware pgtype.Bool
-	ClinicalContext   pgtype.Text
-	CreatedAt         pgtype.Timestamptz
 }
 
 type CbhpmCode struct {
@@ -48,32 +40,29 @@ type CbhpmCode struct {
 	CreatedAt         pgtype.Timestamptz
 }
 
-type Composition struct {
-	ID                 pgtype.UUID
-	PhysicianID        pgtype.UUID
-	SbnProcedureID     pgtype.UUID
-	Name               string
-	Adjustments        []byte
-	AuxiliariesCount   int16
-	RequiresAnesthesia bool
-	AccessRouteType    pgtype.Text
-	CreatedAt          pgtype.Timestamptz
-	UpdatedAt          pgtype.Timestamptz
+type CbhpmVersion struct {
+	ID        pgtype.UUID
+	Code      string
+	Label     string
+	IsActive  bool
+	CreatedAt pgtype.Timestamptz
 }
 
-type CompositionModifier struct {
-	ID                pgtype.UUID
-	CompositionID     pgtype.UUID
-	QuantitySelected  pgtype.Int4
-	Laterality        pgtype.Text
-	VertebralRegion   pgtype.Text
-	SurgicalApproach  pgtype.Text
-	FusionStatus      pgtype.Text
-	ImplantCategory   pgtype.Text
-	OsteoporosisAware pgtype.Bool
-	ClinicalContext   pgtype.Text
-	CreatedAt         pgtype.Timestamptz
-	UpdatedAt         pgtype.Timestamptz
+type Composition struct {
+	ID                 pgtype.UUID
+	PublicID           pgtype.UUID
+	PhysicianID        pgtype.UUID
+	Name               string
+	SbnProcedureID     pgtype.Text
+	SbnProcedureName   string
+	SelectedCodes      []byte
+	AccessRouteType    string
+	AuxiliariesCount   int32
+	RequiresAnesthesia bool
+	Adjustments        []byte
+	Modifiers          []byte
+	CreatedAt          pgtype.Timestamptz
+	UpdatedAt          pgtype.Timestamptz
 }
 
 type PhysicianAccount struct {
@@ -88,6 +77,14 @@ type PhysicianAccount struct {
 type Porte struct {
 	Code     string
 	ValueBrl pgtype.Numeric
+}
+
+type PorteValue struct {
+	ID             pgtype.UUID
+	CbhpmVersionID pgtype.UUID
+	Porte          string
+	ValueBrl       pgtype.Numeric
+	CreatedAt      pgtype.Timestamptz
 }
 
 type SbnCbhpmMapping struct {

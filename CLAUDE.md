@@ -8,6 +8,56 @@ This file provides exhaustive architectural constraints, CLI commands, and behav
 
 ---
 
+## Architecture Decision Records (ADRs)
+
+The Synvera project maintains architecture decision records under:
+
+```
+docs/architecture/adr/
+```
+
+ADRs document why architectural decisions were made, what alternatives were considered, what tradeoffs were accepted, and what future engineers must understand before modifying the system.
+
+Before proposing changes to any of the following areas:
+
+- database schema
+- persistence model
+- calculation engine
+- auditability model
+- composition structure
+- JSONB persistence
+- CBHPM modeling
+- clinical modifiers
+- calculation replay
+- traceability features
+
+the agent must:
+
+1. Read all relevant ADRs under `docs/architecture/adr/`.
+2. Identify which ADRs apply to the proposed change.
+3. Explain whether the proposed change:
+   - reinforces an ADR;
+   - extends an ADR;
+   - contradicts an ADR.
+4. If contradicting an ADR:
+   - explain why the contradiction is justified;
+   - explain the expected benefits;
+   - explain the migration risks.
+
+Architectural changes must not be proposed without ADR review.
+
+**Current ADRs:**
+
+| ID | Title |
+|---|---|
+| ADR-001 | Persist Calculation Inputs |
+| ADR-002 | JSONB Composition Model |
+| ADR-003 | Remove Dead Modifier Tables |
+
+Future ADRs may supersede or extend previous decisions.
+
+---
+
 # 🏗️ Architecture & Monorepo Topology
 
 This is a strict Monorepo using a 3-tier topology:
@@ -159,5 +209,71 @@ cd frontend && npx shadcn@latest add <component>
 - Calculations must preserve inputs: `selected_cbhpm_codes`, `adjustments`, `access_route`, `auxiliaries_count`, `requires_anesthesia`, `physician_id`.
 - Calculations must preserve outputs: `calculation_breakdown` (verbatim engine JSON), plus promoted fee columns.
 - Compositions must preserve `selected_codes` (all 8 fields per code) and `modifiers`.
-- Historical calculations must be reproducible: given a stored row, `service.Calculate()` fed the stored inputs must reproduce the stored outputs within float32 precision.
+- Historical calculations must be reproducible: given a stored row, `service.CalculateWithPortes()` fed the stored inputs and the porte values for the stored `cbhpm_version_id` must reproduce the stored outputs within float32 precision.
 - Schema drift is forbidden: a stale `schema.sql` silently breaks `sqlc generate` and can cause data loss.
+
+---
+
+# 🏷️ CBHPM Versioning Rules
+
+CBHPM versioning was introduced in migrations 019–021. See `docs/architecture/ADR-004-cbhpm-versioning.md` for the full decision record.
+
+## Invariants
+
+- At most one `cbhpm_versions` row may have `is_active = TRUE` at any time (enforced by partial unique index `uix_cbhpm_versions_active`).
+- Every `porte_values` row belongs to exactly one `cbhpm_version_id`. Portes are unique per version: `UNIQUE(cbhpm_version_id, porte)`.
+- Every new calculation records the active version in `calculations.cbhpm_version_id` at save time.
+- Pre-021 rows have a backfilled `cbhpm_version_id` pointing to the `2025-2026` version.
+
+## Engine entry points
+
+- `service.Calculate(...)` — backward-compatible wrapper; uses the hardcoded `service.PorteValues` map. **For tests only.**
+- `service.CalculateWithPortes(..., porteValues map[string]float64)` — versioned entry point used by all production handlers. Always call this in new handler code.
+
+## Adding a new CBHPM edition
+
+1. Insert a row into `cbhpm_versions` with `is_active = FALSE`.
+2. Populate `porte_values` for the new version.
+3. Update `portes.go` to match the new values (for test parity via `FileRepository`).
+4. Deactivate the old version and activate the new one in a single transaction: `UPDATE cbhpm_versions SET is_active = (code = '<new-code>')`.
+5. Create a migration file covering all four steps.
+6. Rebuild `schema.sql`, run `sqlc generate`, run `go test ./...`.
+
+## Forbidden actions
+
+- Never alter existing `porte_values` rows — create a new version instead.
+- Never delete a `cbhpm_versions` row that is referenced by saved calculations.
+- Never expose `cbhpm_version_id` or version metadata in API responses without updating `openapi.yaml` first (requires explicit user consent per CLAUDE.md).
+
+## Active Version Semantics
+
+The database enforces **at most one active CBHPM version** through a partial unique index.
+
+This means:
+
+- zero active versions is allowed by the database;
+- one active version is allowed;
+- multiple active versions are forbidden.
+
+The application layer is responsible for treating the absence of an active version as a configuration error.
+
+Runtime calculations must fail explicitly when no active CBHPM version exists.
+
+The expected flow is:
+
+```
+GetActivePorteVersion()
+→ ErrNoActiveVersion
+→ HTTP 500
+→ explicit operational visibility
+```
+
+This behavior is intentional and prevents calculations from silently using an undefined porte table.
+
+Persisting an already-computed calculation may tolerate a missing active version because the complete `calculation_breakdown` has already been captured and stored.
+
+Agents must not assume that the database guarantees exactly one active version.
+
+The invariant is:
+
+> "At most one active version in the database, at least one active version required for runtime calculations."

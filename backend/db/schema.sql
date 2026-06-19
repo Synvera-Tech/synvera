@@ -1,6 +1,6 @@
 -- Synvera Database Schema — canonical post-migration state.
 --
--- This file represents the full schema AFTER all migrations (001–018) have been applied.
+-- This file represents the full schema AFTER all migrations (001–021) have been applied.
 -- It is the source of truth for sqlc code generation (sqlc.yaml references this file).
 --
 -- When a new migration is added, update this file to match the final state and run:
@@ -26,6 +26,9 @@
 --   016 — DROP calculation_modifiers + composition_modifiers (dead tables, never used)
 --   017 — add adjustments JSONB + physician_id to calculations
 --   018 — add modifiers JSONB to compositions
+--   019 — cbhpm_versions table (tracks CBHPM edition used for billing)
+--   020 — porte_values table (porte→value_brl scoped to a CBHPM version)
+--   021 — backfill: insert 2025-2026 version, seed porte_values, add cbhpm_version_id to calculations
 
 CREATE EXTENSION IF NOT EXISTS unaccent;
 
@@ -103,6 +106,46 @@ CREATE INDEX IF NOT EXISTS idx_mappings_sbn_procedure
     ON sbn_cbhpm_mappings (sbn_procedure_id, sort_order);
 
 -- ---------------------------------------------------------------------------
+-- cbhpm_versions: tracks editions of the CBHPM porte table used for billing
+--
+-- Exactly one version may be active at a time, enforced by a partial unique index.
+-- The active version is used for all new calculations; historical calculations
+-- reference whichever version was active at creation time.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS cbhpm_versions (
+    id         UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+    code       VARCHAR(20) UNIQUE NOT NULL,
+    label      TEXT        NOT NULL,
+    is_active  BOOLEAN     NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- Partial unique index: at most one active version at a time.
+CREATE UNIQUE INDEX IF NOT EXISTS uix_cbhpm_versions_active
+    ON cbhpm_versions (is_active)
+    WHERE is_active = TRUE;
+
+-- ---------------------------------------------------------------------------
+-- porte_values: porte→value_brl pairs scoped to a CBHPM version
+--
+-- Enables historical calculations to replay with the porte table that was
+-- active at creation time, even after future tariff revisions.
+-- The legacy `portes` table is retained for backward compatibility.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS porte_values (
+    id               UUID           PRIMARY KEY DEFAULT gen_random_uuid(),
+    cbhpm_version_id UUID           NOT NULL REFERENCES cbhpm_versions(id) ON DELETE CASCADE,
+    porte            VARCHAR(5)     NOT NULL,
+    value_brl        NUMERIC(10, 2) NOT NULL CHECK (value_brl > 0),
+    created_at       TIMESTAMPTZ    NOT NULL DEFAULT now(),
+
+    UNIQUE (cbhpm_version_id, porte)
+);
+
+CREATE INDEX IF NOT EXISTS idx_porte_values_version_id
+    ON porte_values (cbhpm_version_id);
+
+-- ---------------------------------------------------------------------------
 -- physician_accounts: maps Clerk identities to Synvera physician records
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS physician_accounts (
@@ -127,12 +170,16 @@ CREATE INDEX IF NOT EXISTS idx_physician_accounts_clerk_user_id
 --                         (e.g. ["emergency_special_hours"]). Added in migration 017.
 -- physician_id          — nullable; NULL for anonymous (pre-login) calculations.
 --                         Added in migration 017.
+-- cbhpm_version_id      — nullable FK to cbhpm_versions; records which porte table
+--                         edition was active when this calculation was saved. NULL for
+--                         pre-021 rows. Added in migration 021.
 -- calculation_breakdown — full CalculateResponse JSON for audit and display.
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS calculations (
     id                      UUID           PRIMARY KEY DEFAULT gen_random_uuid(),
     public_id               UUID           UNIQUE NOT NULL,
     physician_id            UUID           REFERENCES physician_accounts(id) ON DELETE SET NULL,
+    cbhpm_version_id        UUID           REFERENCES cbhpm_versions(id) ON DELETE SET NULL,
     procedure_name          TEXT           NOT NULL,
     procedure_sbn_code      TEXT,
     selected_cbhpm_codes    JSONB          NOT NULL,

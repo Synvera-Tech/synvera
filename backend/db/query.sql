@@ -54,3 +54,24 @@ ORDER BY m.sort_order, cc.code;
 SELECT code, value_brl
 FROM portes
 WHERE code = sqlc.arg(code);
+
+-- name: GetActivePorteVersion :one
+-- Returns the currently-active CBHPM version record.
+-- Errors when no active version exists (uix_cbhpm_versions_active guarantees at most one).
+SELECT id::text, code, label, is_active, created_at
+FROM cbhpm_versions
+WHERE is_active = TRUE
+LIMIT 1;
+
+-- name: GetPorteValuesByVersion :many
+-- Returns all porte→value_brl pairs for the given CBHPM version.
+SELECT porte, value_brl
+FROM porte_values
+WHERE cbhpm_version_id = sqlc.arg(cbhpm_version_id)::uuid
+ORDER BY porte;
+
+-- name: GetCBHPMVersionByCode :one
+-- Returns a CBHPM version by its short code (e.g. "2025-2026").
+SELECT id::text, code, label, is_active, created_at
+FROM cbhpm_versions
+WHERE code = sqlc.arg(code);

@@ -90,6 +90,15 @@ func makeSaveCalculationHandler(repo repository.Repository) http.HandlerFunc {
 			sbnCode = *req.ProcedureSbnCode
 		}
 
+		// Fetch the active CBHPM version so we can record which porte table was
+		// used when the calculation was saved. The version ID enables deterministic replay.
+		cbhpmVersionID := ""
+		if version, err := repo.GetActivePorteVersion(); err == nil {
+			cbhpmVersionID = version.ID
+		} else {
+			log.Printf("save calculation: get active cbhpm version (non-fatal): %v", err)
+		}
+
 		calc := models.Calculation{
 			ProcedureName:         req.ProcedureName,
 			ProcedureSBNCode:      sbnCode,
@@ -103,6 +112,7 @@ func makeSaveCalculationHandler(repo repository.Repository) http.HandlerFunc {
 			AnesthesiologistValue: float64(req.CalculationResult.AnesthesiologistFee),
 			TeamTotalValue:        float64(req.CalculationResult.FinalTotal),
 			BreakdownJSON:         json.RawMessage(breakdownJSON),
+			CBHPMVersionID:        cbhpmVersionID,
 		}
 
 		saved, err := repo.SaveCalculation(calc)

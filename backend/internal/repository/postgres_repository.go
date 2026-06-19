@@ -331,6 +331,57 @@ func (r *PostgresRepository) DeleteCompositionByPublicID(publicID, physicianID s
 	return tag.RowsAffected() > 0, nil
 }
 
+// ── CBHPM versioning ──────────────────────────────────────────────────────────
+
+// GetActivePorteVersion returns the currently-active CBHPM version record.
+// Returns ErrNoActiveVersion when no active version exists.
+func (r *PostgresRepository) GetActivePorteVersion() (*models.CBHPMVersion, error) {
+	ctx := context.Background()
+	var v models.CBHPMVersion
+	err := r.pool.QueryRow(ctx, `
+		SELECT id::text, code, label, is_active, created_at
+		FROM cbhpm_versions
+		WHERE is_active = TRUE
+		LIMIT 1
+	`).Scan(&v.ID, &v.Code, &v.Label, &v.IsActive, &v.CreatedAt)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return nil, ErrNoActiveVersion
+	}
+	if err != nil {
+		return nil, fmt.Errorf("postgres: get active porte version: %w", err)
+	}
+	return &v, nil
+}
+
+// GetPorteValues returns a porte→value_brl map for the given CBHPM version ID.
+func (r *PostgresRepository) GetPorteValues(cbhpmVersionID string) (map[string]float64, error) {
+	ctx := context.Background()
+	rows, err := r.pool.Query(ctx, `
+		SELECT porte, value_brl
+		FROM porte_values
+		WHERE cbhpm_version_id = $1::uuid
+		ORDER BY porte
+	`, cbhpmVersionID)
+	if err != nil {
+		return nil, fmt.Errorf("postgres: get porte values: %w", err)
+	}
+	defer rows.Close()
+
+	result := make(map[string]float64)
+	for rows.Next() {
+		var porte string
+		var valueBRL float64
+		if err := rows.Scan(&porte, &valueBRL); err != nil {
+			return nil, fmt.Errorf("postgres: scan porte value: %w", err)
+		}
+		result[porte] = valueBRL
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 // ── Calculation snapshot persistence (legacy) ─────────────────────────────────
 
 // SaveCalculation inserts a new calculation row and returns the record with its
@@ -354,10 +405,14 @@ func (r *PostgresRepository) SaveCalculation(calc models.Calculation) (*models.C
 		return nil, fmt.Errorf("postgres: marshal adjustments: %w", err)
 	}
 
-	// physician_id is nil for anonymous calculations (endpoint is currently public).
+	// physician_id and cbhpm_version_id are nullable.
 	var physicianID *string
 	if calc.PhysicianID != "" {
 		physicianID = &calc.PhysicianID
+	}
+	var cbhpmVersionID *string
+	if calc.CBHPMVersionID != "" {
+		cbhpmVersionID = &calc.CBHPMVersionID
 	}
 
 	ctx := context.Background()
@@ -366,9 +421,9 @@ func (r *PostgresRepository) SaveCalculation(calc models.Calculation) (*models.C
 			public_id, procedure_name, procedure_sbn_code, selected_cbhpm_codes,
 			access_route, auxiliaries_count, requires_anesthesia,
 			surgeon_value, auxiliaries_total_value, anesthesiologist_value, team_total_value,
-			calculation_breakdown, adjustments, physician_id
+			calculation_breakdown, adjustments, physician_id, cbhpm_version_id
 		) VALUES (
-			$1::uuid, $2, $3, $4::jsonb, $5, $6, $7, $8, $9, $10, $11, $12::jsonb, $13::jsonb, $14
+			$1::uuid, $2, $3, $4::jsonb, $5, $6, $7, $8, $9, $10, $11, $12::jsonb, $13::jsonb, $14, $15
 		)
 		RETURNING id::text, created_at, updated_at
 	`,
@@ -386,6 +441,7 @@ func (r *PostgresRepository) SaveCalculation(calc models.Calculation) (*models.C
 		string(calc.BreakdownJSON),
 		string(adjJSON),
 		physicianID,
+		cbhpmVersionID,
 	).Scan(&calc.ID, &calc.CreatedAt, &calc.UpdatedAt)
 	if err != nil {
 		return nil, fmt.Errorf("postgres: save calculation: %w", err)
@@ -444,17 +500,20 @@ func (r *PostgresRepository) GetCalculationByPublicID(publicID string) (*models.
 	var calc models.Calculation
 	var codesJSON, breakdownJSON, adjJSON []byte
 	var accessRoute string
+	var cbhpmVersionID, cbhpmVersionCode *string
 
 	err := r.pool.QueryRow(ctx, `
 		SELECT
-			id::text, public_id,
-			procedure_name, COALESCE(procedure_sbn_code, ''),
-			selected_cbhpm_codes, access_route,
-			auxiliaries_count, requires_anesthesia,
-			surgeon_value, auxiliaries_total_value, anesthesiologist_value, team_total_value,
-			calculation_breakdown, adjustments, created_at, updated_at
-		FROM calculations
-		WHERE public_id = $1
+			c.id::text, c.public_id,
+			c.procedure_name, COALESCE(c.procedure_sbn_code, ''),
+			c.selected_cbhpm_codes, c.access_route,
+			c.auxiliaries_count, c.requires_anesthesia,
+			c.surgeon_value, c.auxiliaries_total_value, c.anesthesiologist_value, c.team_total_value,
+			c.calculation_breakdown, c.adjustments, c.created_at, c.updated_at,
+			c.cbhpm_version_id::text, v.code
+		FROM calculations c
+		LEFT JOIN cbhpm_versions v ON v.id = c.cbhpm_version_id
+		WHERE c.public_id = $1
 	`, publicID).Scan(
 		&calc.ID, &calc.PublicID,
 		&calc.ProcedureName, &calc.ProcedureSBNCode,
@@ -462,6 +521,7 @@ func (r *PostgresRepository) GetCalculationByPublicID(publicID string) (*models.
 		&calc.AuxiliariesCount, &calc.RequiresAnesthesia,
 		&calc.SurgeonValue, &calc.AuxiliariesTotalValue, &calc.AnesthesiologistValue, &calc.TeamTotalValue,
 		&breakdownJSON, &adjJSON, &calc.CreatedAt, &calc.UpdatedAt,
+		&cbhpmVersionID, &cbhpmVersionCode,
 	)
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil, nil
@@ -481,6 +541,12 @@ func (r *PostgresRepository) GetCalculationByPublicID(publicID string) (*models.
 	}
 	calc.AccessRoute = models.AccessRouteType(accessRoute)
 	calc.BreakdownJSON = json.RawMessage(breakdownJSON)
+	if cbhpmVersionID != nil {
+		calc.CBHPMVersionID = *cbhpmVersionID
+	}
+	if cbhpmVersionCode != nil {
+		calc.CBHPMVersionCode = *cbhpmVersionCode
+	}
 	return &calc, nil
 }
 

@@ -11,6 +11,64 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const getActivePorteVersion = `-- name: GetActivePorteVersion :one
+SELECT id::text, code, label, is_active, created_at
+FROM cbhpm_versions
+WHERE is_active = TRUE
+LIMIT 1
+`
+
+type GetActivePorteVersionRow struct {
+	ID        string
+	Code      string
+	Label     string
+	IsActive  bool
+	CreatedAt pgtype.Timestamptz
+}
+
+// Returns the currently-active CBHPM version record.
+// Errors when no active version exists (uix_cbhpm_versions_active guarantees at most one).
+func (q *Queries) GetActivePorteVersion(ctx context.Context) (GetActivePorteVersionRow, error) {
+	row := q.db.QueryRow(ctx, getActivePorteVersion)
+	var i GetActivePorteVersionRow
+	err := row.Scan(
+		&i.ID,
+		&i.Code,
+		&i.Label,
+		&i.IsActive,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
+const getCBHPMVersionByCode = `-- name: GetCBHPMVersionByCode :one
+SELECT id::text, code, label, is_active, created_at
+FROM cbhpm_versions
+WHERE code = $1
+`
+
+type GetCBHPMVersionByCodeRow struct {
+	ID        string
+	Code      string
+	Label     string
+	IsActive  bool
+	CreatedAt pgtype.Timestamptz
+}
+
+// Returns a CBHPM version by its short code (e.g. "2025-2026").
+func (q *Queries) GetCBHPMVersionByCode(ctx context.Context, code string) (GetCBHPMVersionByCodeRow, error) {
+	row := q.db.QueryRow(ctx, getCBHPMVersionByCode, code)
+	var i GetCBHPMVersionByCodeRow
+	err := row.Scan(
+		&i.ID,
+		&i.Code,
+		&i.Label,
+		&i.IsActive,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getPorteValue = `-- name: GetPorteValue :one
 SELECT code, value_brl
 FROM portes
@@ -22,6 +80,39 @@ func (q *Queries) GetPorteValue(ctx context.Context, code string) (Porte, error)
 	var i Porte
 	err := row.Scan(&i.Code, &i.ValueBrl)
 	return i, err
+}
+
+const getPorteValuesByVersion = `-- name: GetPorteValuesByVersion :many
+SELECT porte, value_brl
+FROM porte_values
+WHERE cbhpm_version_id = $1::uuid
+ORDER BY porte
+`
+
+type GetPorteValuesByVersionRow struct {
+	Porte    string
+	ValueBrl pgtype.Numeric
+}
+
+// Returns all porte→value_brl pairs for the given CBHPM version.
+func (q *Queries) GetPorteValuesByVersion(ctx context.Context, cbhpmVersionID pgtype.UUID) ([]GetPorteValuesByVersionRow, error) {
+	rows, err := q.db.Query(ctx, getPorteValuesByVersion, cbhpmVersionID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetPorteValuesByVersionRow
+	for rows.Next() {
+		var i GetPorteValuesByVersionRow
+		if err := rows.Scan(&i.Porte, &i.ValueBrl); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const getProcedureByID = `-- name: GetProcedureByID :one

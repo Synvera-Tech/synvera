@@ -13,7 +13,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.Repository, auth AuthMid
 	mux.HandleFunc("/api/health", withCORS(health))
 	mux.HandleFunc("/api/procedures/search", withCORS(makeSearchHandler(repo)))
 	mux.HandleFunc("/api/procedures/", withCORS(makeGetProcedureHandler(repo)))
-	mux.HandleFunc("/api/calculate", withCORS(calculateHandler))
+	mux.HandleFunc("/api/calculate", withCORS(makeCalculateHandler(repo)))
 
 	// Compositions — protected by Clerk authentication.
 	// CORS is applied outside auth so that OPTIONS preflight requests are handled
