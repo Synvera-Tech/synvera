@@ -97,6 +97,34 @@
   }
 }
 
+@keyframes shimmerBtn {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  20%, 100% { transform: translateX(300%) rotate(45deg); }
+}
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255,255,255,0.08) 45%,
+    rgba(255,255,255,0.18) 50%,
+    rgba(255,255,255,0.08) 55%,
+    transparent 100%
+  );
+  animation: shimmerBtn 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
 :root {
   --background: 209 43% 92%;
   --foreground: 220 18% 14%;

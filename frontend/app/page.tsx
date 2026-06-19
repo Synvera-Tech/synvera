@@ -5,9 +5,15 @@ import { BookmarkCheck, ChevronRight, FileText, Plus, Share2 } from "lucide-reac
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { HeroSection } from "@/components/home/HeroSection";
-import { ProductPreview } from "@/components/home/ProductPreview";
-import { HowItWorks } from "@/components/home/HowItWorks";
-import { FeaturesGrid } from "@/components/home/FeaturesGrid";
+import { NavBar } from "@/components/home/NavBar";
+import { FlowSection } from "@/components/home/FlowSection";
+import { AuditabilitySection } from "@/components/home/AuditabilitySection";
+import { BenefitsSection } from "@/components/home/BenefitsSection";
+import { CompositionsSection } from "@/components/home/CompositionsSection";
+import { PricingSection } from "@/components/home/PricingSection";
+import { FaqSection } from "@/components/home/FaqSection";
+import { CtaSection } from "@/components/home/CtaSection";
+import { Footer } from "@/components/home/Footer";
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -359,73 +365,16 @@ function UnauthenticatedHome() {
         }
       `}</style>
 
+      <NavBar />
       <HeroSection />
-      <ProductPreview />
-      <HowItWorks />
-      <FeaturesGrid />
-
-      {/* CTA Footer */}
-      <section
-        style={{
-          padding: "60px 24px",
-          background: "linear-gradient(180deg, #050508 0%, #010102 100%)",
-          borderTop: "1px solid rgba(35,37,42,0.6)",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-          <h2
-            style={{
-              margin: "0 0 16px",
-              fontSize: "32px",
-              fontWeight: 700,
-              color: "#f7f8f8",
-              letterSpacing: "-0.8px",
-            }}
-          >
-            Pronto para começar?
-          </h2>
-          <p
-            style={{
-              margin: "0 0 32px",
-              fontSize: "16px",
-              color: "#d0d6e0",
-            }}
-          >
-            Valorize seus procedimentos com precisão. Sem surpresas, sem erros.
-          </p>
-          <Link
-            href="/novo-calculo"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "12px 28px",
-              background: "linear-gradient(135deg, #1E3A5F 0%, #3D7DB8 100%)",
-              color: "#fff",
-              borderRadius: "8px",
-              fontSize: "15px",
-              fontWeight: 600,
-              textDecoration: "none",
-              border: "none",
-              cursor: "pointer",
-              transition: "all 200ms ease",
-              boxShadow: "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 4px 8px rgba(30,58,95,0.20), 0 10px 24px rgba(30,58,95,0.32), 0 16px 40px rgba(30,58,95,0.25)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25)";
-            }}
-          >
-            Iniciar cálculo
-            <ChevronRight size={16} />
-          </Link>
-        </div>
-      </section>
+      <FlowSection />
+      <AuditabilitySection />
+      <BenefitsSection />
+      <CompositionsSection />
+      <PricingSection />
+      <FaqSection />
+      <CtaSection />
+      <Footer />
     </>
   );
 }
