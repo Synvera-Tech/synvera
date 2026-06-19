@@ -103,17 +103,17 @@ export function HeroSection() {
         {/* Wordmark */}
         <div
           style={{
-            marginBottom: "36px",
+            marginBottom: "24px",
             animation: "slideUp 0.4s ease-out",
           }}
         >
           <span
             style={{
-              fontSize: "12px",
-              fontWeight: 700,
-              letterSpacing: "4px",
-              color: "rgba(247,248,248,0.38)",
-              textTransform: "uppercase",
+              fontSize: "24px",
+              fontWeight: 600,
+              letterSpacing: "-0.4px",
+              color: "rgba(247,248,248,0.88)",
+              textShadow: "0 0 40px rgba(94,106,210,0.22)",
             }}
           >
             Synvera
