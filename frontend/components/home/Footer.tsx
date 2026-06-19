@@ -31,22 +31,24 @@ function SocialIcon({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: "10px",
-        border: "1px solid rgba(120,148,184,0.12)",
-        background: "rgba(255,255,255,0.03)",
+        border: "1px solid rgba(120,148,184,0.14)",
+        background: "rgba(255,255,255,0.04)",
         color: "#8A8F98",
         textDecoration: "none",
-        transition: "border-color 200ms ease, color 200ms ease, box-shadow 200ms ease",
+        transition: "border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, background 200ms ease",
         flexShrink: 0,
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = hoverBorder;
         e.currentTarget.style.color = hoverColor;
         e.currentTarget.style.boxShadow = hoverGlow;
+        e.currentTarget.style.background = hoverBorder.replace("0.38)", "0.10)");
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(120,148,184,0.12)";
+        e.currentTarget.style.borderColor = "rgba(120,148,184,0.14)";
         e.currentTarget.style.color = "#8A8F98";
         e.currentTarget.style.boxShadow = "none";
+        e.currentTarget.style.background = "rgba(255,255,255,0.04)";
       }}
     >
       {children}
@@ -99,8 +101,8 @@ export function Footer() {
               <SocialIcon
                 href="#"
                 label="Instagram"
-                hoverBorder="rgba(225,48,108,0.38)"
-                hoverGlow="0 0 14px rgba(225,48,108,0.18)"
+                hoverBorder="rgba(225,48,108,0.45)"
+                hoverGlow="0 0 20px rgba(225,48,108,0.32)"
                 hoverColor="#e1306c"
               >
                 {/* Instagram */}
@@ -114,8 +116,8 @@ export function Footer() {
               <SocialIcon
                 href="#"
                 label="LinkedIn"
-                hoverBorder="rgba(10,102,194,0.38)"
-                hoverGlow="0 0 14px rgba(10,102,194,0.18)"
+                hoverBorder="rgba(10,102,194,0.45)"
+                hoverGlow="0 0 20px rgba(10,102,194,0.30)"
                 hoverColor="#4fa3e0"
               >
                 {/* LinkedIn */}
@@ -135,8 +137,8 @@ export function Footer() {
               style={{
                 padding: "8px 16px",
                 borderRadius: "12px",
-                border: "1px solid rgba(37,211,102,0.20)",
-                background: "rgba(37,211,102,0.04)",
+                border: "1px solid rgba(37,211,102,0.28)",
+                background: "rgba(37,211,102,0.05)",
                 fontSize: "12px",
                 color: "#8A8F98",
                 cursor: "default",
@@ -144,16 +146,16 @@ export function Footer() {
                 letterSpacing: "0.01em",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(37,211,102,0.38)";
-                e.currentTarget.style.color = "#b8c2d0";
-                e.currentTarget.style.boxShadow = "0 0 16px rgba(37,211,102,0.10)";
-                e.currentTarget.style.background = "rgba(37,211,102,0.06)";
+                e.currentTarget.style.borderColor = "rgba(37,211,102,0.50)";
+                e.currentTarget.style.color = "#c4cdd8";
+                e.currentTarget.style.boxShadow = "0 0 22px rgba(37,211,102,0.18)";
+                e.currentTarget.style.background = "rgba(37,211,102,0.09)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(37,211,102,0.20)";
+                e.currentTarget.style.borderColor = "rgba(37,211,102,0.28)";
                 e.currentTarget.style.color = "#8A8F98";
                 e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.background = "rgba(37,211,102,0.04)";
+                e.currentTarget.style.background = "rgba(37,211,102,0.05)";
               }}
             >
               {/* WhatsApp icon */}

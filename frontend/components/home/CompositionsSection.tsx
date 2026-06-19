@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { BookmarkCheck, Check, Plus } from "lucide-react";
 
@@ -118,10 +118,20 @@ const compositions: Composition[] = [
   },
 ];
 
+const AUTOPLAY_MS = 4000;
+
 export function CompositionsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
   const active = compositions[activeIndex];
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const id = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % compositions.length);
+    }, AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [shouldReduceMotion]);
 
   return (
     <section
