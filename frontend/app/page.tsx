@@ -289,79 +289,11 @@ export default function Home() {
 
 function UnauthenticatedHome() {
   return (
-    <>
+    <div style={{ backgroundColor: "#010102", minHeight: "100vh" }}>
       <style>{`
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(12px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(-12px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes fadeInScale {
-          from {
-            opacity: 0;
-            transform: scale(0.98);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-6px); }
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
-        }
-
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-
+        body { scroll-behavior: smooth; }
         @media (prefers-reduced-motion: reduce) {
-          @keyframes slideUp {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-          @keyframes slideInRight {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-          @keyframes fadeInScale {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-          @keyframes float {
-            0%, 100% { transform: none; }
-            50% { transform: none; }
-          }
-          @keyframes spin {
-            to { transform: none; }
-          }
-        }
-
-        body {
-          scroll-behavior: smooth;
+          body { scroll-behavior: auto; }
         }
       `}</style>
 
@@ -375,7 +307,7 @@ function UnauthenticatedHome() {
       <FaqSection />
       <CtaSection />
       <Footer />
-    </>
+    </div>
   );
 }
 
