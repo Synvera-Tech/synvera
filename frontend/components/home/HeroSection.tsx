@@ -103,21 +103,39 @@ export function HeroSection() {
         {/* Wordmark */}
         <div
           style={{
-            marginBottom: "24px",
+            marginBottom: "48px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "10px",
             animation: "slideUp 0.4s ease-out",
           }}
         >
           <span
             style={{
-              fontSize: "24px",
-              fontWeight: 600,
-              letterSpacing: "-0.4px",
-              color: "rgba(247,248,248,0.88)",
-              textShadow: "0 0 40px rgba(94,106,210,0.22)",
+              fontSize: "48px",
+              fontWeight: 800,
+              letterSpacing: "-0.05em",
+              background: "linear-gradient(180deg, #ffffff 0%, #E6ECFF 55%, #A8B5FF 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              filter: "drop-shadow(0 0 18px rgba(120,140,255,0.50)) drop-shadow(0 0 60px rgba(94,106,210,0.22))",
+              lineHeight: 1,
+              display: "inline-block",
             }}
           >
             Synvera
           </span>
+          {/* Brand accent — architectural rule */}
+          <div
+            style={{
+              width: "40px",
+              height: "1px",
+              background: "rgba(168,181,255,0.55)",
+              borderRadius: "1px",
+            }}
+          />
         </div>
 
         {/* Badge */}
