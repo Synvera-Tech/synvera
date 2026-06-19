@@ -83,7 +83,7 @@ export type CompositionDetail = {
   name: string;
   sbn_procedure_id: string;
   sbn_procedure_name: string;
-  selected_codes: Array<{ cbhpm_code: string; description: string; porte: string }>;
+  selected_codes: SelectedCodePayload[];
   access_route_type: "same" | "different";
   auxiliaries_count: number;
   requires_anesthesia: boolean;

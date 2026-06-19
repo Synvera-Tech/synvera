@@ -59,8 +59,34 @@ export function useProcedureSelection({
       try {
         const detail: ProcedureDetail = await fetch(`/api/procedures/${comp.sbn_procedure_id}`).then((r) => r.json());
         const proc: SBNProcedureOption = { id: detail.id, name: detail.name };
+
+        // buildCompositionPayload saves sbn_procedure_id = selectedProcedures[0].id only,
+        // but selected_codes contains codes from ALL selected procedures. Any code in
+        // comp.selected_codes that is not in the primary procedure's cbhpm_codes belongs to
+        // an additional procedure whose detail is not fetched. These orphan codes must be
+        // merged into the primary procedure's detail so allCbhpmCodes covers them and
+        // buildCalculatePayload never gets an empty intersection with selectedCodes.
+        const primaryCodeSet = new Set(detail.cbhpm_codes.map((c) => c.code));
+        const additionalCodes: CBHPMCode[] = comp.selected_codes
+          .filter((c) => !primaryCodeSet.has(c.cbhpm_code))
+          .map((c) => ({
+            code: c.cbhpm_code,
+            description: c.description,
+            porte: c.porte,
+            billing_mode: c.billing_mode,
+            specialty: c.specialty,
+            laterality_support: c.laterality_support,
+            // num_auxiliaries is not stored in compositions; auxiliaries_count is
+            // separately restored from comp.auxiliaries_count via onCompositionLoaded.
+            num_auxiliaries: 0,
+          }));
+        const restoredDetail: ProcedureDetail =
+          additionalCodes.length > 0
+            ? { ...detail, cbhpm_codes: [...detail.cbhpm_codes, ...additionalCodes] }
+            : detail;
+
         setSelectedProcedures([proc]);
-        setDetailsMap({ [detail.id]: detail });
+        setDetailsMap({ [detail.id]: restoredDetail });
         setSelectedCodes(new Set(comp.selected_codes.map((c) => c.cbhpm_code)));
       } finally {
         setLoadingIds(new Set());
@@ -146,7 +172,19 @@ export function useProcedureSelection({
       }
 
       for (const proc of procedures) {
-        if (prevIds.has(proc.id) || detailsMap[proc.id]) continue;
+        if (prevIds.has(proc.id)) continue;
+
+        const cachedDetail = detailsMap[proc.id];
+        if (cachedDetail) {
+          // Detail already cached — re-add its codes without refetching.
+          setSelectedCodes((prev) => {
+            const next = new Set(prev);
+            for (const c of cachedDetail.cbhpm_codes) next.add(c.code);
+            return next;
+          });
+          continue;
+        }
+
         setLoadingIds((prev) => new Set([...prev, proc.id]));
         fetch(`/api/procedures/${proc.id}`)
           .then((r) => r.json())
