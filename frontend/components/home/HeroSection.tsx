@@ -19,6 +19,8 @@ export function HeroSection() {
         justifyContent: "flex-start",
         padding: "110px 24px 60px",
         background: [
+          // Subtle indigo bloom at very top — gives navbar backdrop-filter material to blur
+          "radial-gradient(ellipse 70% 200px at 50% 0%, rgba(94,106,210,0.22) 0%, transparent 100%)",
           "radial-gradient(circle at top center, rgba(120,148,184,0.12) 0%, transparent 50%)",
           "radial-gradient(circle at bottom right, rgba(120,148,184,0.06) 0%, transparent 60%)",
           "linear-gradient(180deg, #010102 0%, #050508 100%)",

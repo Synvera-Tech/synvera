@@ -416,6 +416,26 @@ html.dark body {
     box-shadow: 0 1px 0 rgba(30,58,95,0.08);
   }
 
+  /* Dark landing page frosted-glass navbar */
+  .landing-navbar {
+    position: relative;
+  }
+
+  .landing-navbar::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 9999px;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.03) 40%,
+      rgba(255, 255, 255, 0.00) 100%
+    );
+    z-index: 1;
+  }
+
   .brand-glow {
     background: radial-gradient(circle, rgba(95,132,179,0.18) 0%, transparent 60%);
     border-radius: 50%;
