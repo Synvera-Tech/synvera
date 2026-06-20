@@ -5,16 +5,22 @@ import type { ReactNode, MouseEvent } from "react";
 function SocialIcon({
   href,
   label,
-  hoverBorder,
-  hoverGlow,
+  restColor,
+  restBorder,
   hoverColor,
+  hoverBorder,
+  hoverBg,
+  hoverGlow,
   children,
 }: {
   href: string;
   label: string;
-  hoverBorder: string;
-  hoverGlow: string;
+  restColor: string;
+  restBorder: string;
   hoverColor: string;
+  hoverBorder: string;
+  hoverBg: string;
+  hoverGlow: string;
   children: ReactNode;
 }) {
   const prevent = (e: MouseEvent<HTMLAnchorElement>) => e.preventDefault();
@@ -31,9 +37,9 @@ function SocialIcon({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: "10px",
-        border: "1px solid rgba(120,148,184,0.14)",
+        border: `1px solid ${restBorder}`,
         background: "rgba(255,255,255,0.04)",
-        color: "#8A8F98",
+        color: restColor,
         textDecoration: "none",
         transition: "border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, background 200ms ease",
         flexShrink: 0,
@@ -42,11 +48,11 @@ function SocialIcon({
         e.currentTarget.style.borderColor = hoverBorder;
         e.currentTarget.style.color = hoverColor;
         e.currentTarget.style.boxShadow = hoverGlow;
-        e.currentTarget.style.background = hoverBorder.replace("0.38)", "0.10)");
+        e.currentTarget.style.background = hoverBg;
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(120,148,184,0.14)";
-        e.currentTarget.style.color = "#8A8F98";
+        e.currentTarget.style.borderColor = restBorder;
+        e.currentTarget.style.color = restColor;
         e.currentTarget.style.boxShadow = "none";
         e.currentTarget.style.background = "rgba(255,255,255,0.04)";
       }}
@@ -101,9 +107,12 @@ export function Footer() {
               <SocialIcon
                 href="#"
                 label="Instagram"
-                hoverBorder="rgba(225,48,108,0.45)"
-                hoverGlow="0 0 20px rgba(225,48,108,0.32)"
+                restColor="rgba(225,48,108,0.62)"
+                restBorder="rgba(225,48,108,0.20)"
                 hoverColor="#e1306c"
+                hoverBorder="rgba(225,48,108,0.50)"
+                hoverBg="rgba(225,48,108,0.10)"
+                hoverGlow="0 0 20px rgba(225,48,108,0.32)"
               >
                 {/* Instagram */}
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -116,9 +125,12 @@ export function Footer() {
               <SocialIcon
                 href="#"
                 label="LinkedIn"
-                hoverBorder="rgba(10,102,194,0.45)"
-                hoverGlow="0 0 20px rgba(10,102,194,0.30)"
+                restColor="rgba(79,163,224,0.65)"
+                restBorder="rgba(79,163,224,0.20)"
                 hoverColor="#4fa3e0"
+                hoverBorder="rgba(10,102,194,0.50)"
+                hoverBg="rgba(10,102,194,0.10)"
+                hoverGlow="0 0 20px rgba(10,102,194,0.30)"
               >
                 {/* LinkedIn */}
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -137,8 +149,9 @@ export function Footer() {
               style={{
                 padding: "8px 16px",
                 borderRadius: "12px",
-                border: "1px solid rgba(37,211,102,0.28)",
+                border: "1px solid rgba(37,211,102,0.32)",
                 background: "rgba(37,211,102,0.05)",
+                boxShadow: "0 0 14px rgba(37,211,102,0.08)",
                 fontSize: "12px",
                 color: "#8A8F98",
                 cursor: "default",
@@ -146,15 +159,15 @@ export function Footer() {
                 letterSpacing: "0.01em",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(37,211,102,0.50)";
+                e.currentTarget.style.borderColor = "rgba(37,211,102,0.52)";
                 e.currentTarget.style.color = "#c4cdd8";
-                e.currentTarget.style.boxShadow = "0 0 22px rgba(37,211,102,0.18)";
+                e.currentTarget.style.boxShadow = "0 0 22px rgba(37,211,102,0.20)";
                 e.currentTarget.style.background = "rgba(37,211,102,0.09)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(37,211,102,0.28)";
+                e.currentTarget.style.borderColor = "rgba(37,211,102,0.32)";
                 e.currentTarget.style.color = "#8A8F98";
-                e.currentTarget.style.boxShadow = "none";
+                e.currentTarget.style.boxShadow = "0 0 14px rgba(37,211,102,0.08)";
                 e.currentTarget.style.background = "rgba(37,211,102,0.05)";
               }}
             >
@@ -164,7 +177,7 @@ export function Footer() {
                 height="14"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                style={{ color: "rgba(37,211,102,0.7)", flexShrink: 0 }}
+                style={{ color: "rgba(37,211,102,0.75)", flexShrink: 0 }}
               >
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
               </svg>

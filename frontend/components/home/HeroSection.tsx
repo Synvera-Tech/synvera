@@ -13,12 +13,11 @@ export function HeroSection() {
     <>
     <div
       style={{
-        minHeight: "90vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        padding: "60px 24px 80px",
+        justifyContent: "flex-start",
+        padding: "110px 24px 60px",
         background: [
           "radial-gradient(circle at top center, rgba(120,148,184,0.12) 0%, transparent 50%)",
           "radial-gradient(circle at bottom right, rgba(120,148,184,0.06) 0%, transparent 60%)",
@@ -276,7 +275,7 @@ export function HeroSection() {
         </div>
 
         {/* Sign in hint */}
-        <p style={{ margin: 0, fontSize: "13px", color: "#8a8f98", marginBottom: "60px" }}>
+        <p style={{ margin: 0, fontSize: "13px", color: "#8a8f98", marginBottom: "32px" }}>
           Já tem conta?{" "}
           <SignInButton mode="modal">
             <button

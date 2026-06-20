@@ -45,7 +45,7 @@ const connectorStyle = {
 
 export function FlowSection() {
   return (
-    <section className="py-32 px-4" id="como-funciona">
+    <section className="py-20 px-4" id="como-funciona">
       <div className="max-w-7xl mx-auto text-center">
         <motion.div
           className="mb-24"
