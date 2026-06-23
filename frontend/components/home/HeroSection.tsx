@@ -29,6 +29,27 @@ export function HeroSection() {
         overflow: "hidden",
       }}
     >
+      {/* Navbar backdrop material — gives the frosted glass blur a soft light
+          variation to reveal. Without this, the blur samples near-black
+          uniformly and the glass effect is imperceptible. Neutral cool-gray
+          gradient intentionally avoids blue so the navbar does not tint blue. */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "960px",
+          maxWidth: "100%",
+          height: "160px",
+          background: "radial-gradient(ellipse 80% 100% at 50% 0%, rgba(148,158,200,0.20) 0%, transparent 100%)",
+          filter: "blur(32px)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
       <style>{`
         @keyframes stripeShift {
           0% {

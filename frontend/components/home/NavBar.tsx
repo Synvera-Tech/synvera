@@ -26,24 +26,25 @@ export function NavBar() {
         zIndex: 50,
         maxWidth: "calc(100vw - 24px)",
 
-        // Glass pill — dark neutral translucent surface.
-        // brightness() was removed: it amplified the hero's indigo bloom
-        // and turned the navbar solid blue. Glass on dark must come from
-        // transparency + blur + highlight, not from color amplification.
+        // Glass pill — frosted dark surface.
+        // background at 0.28 (not 0.42) exposes 72% of the blurred content,
+        // making the frosted effect visible instead of hidden under the fill.
+        // brightness(1.08) is conservative — lifts the blur slightly without
+        // amplifying the hero's indigo bloom into a solid color fill.
         display: "flex",
         alignItems: "center",
         borderRadius: "9999px",
         overflow: "hidden",
         whiteSpace: "nowrap",
-        background: "rgba(8, 10, 16, 0.42)",
-        backdropFilter: "blur(24px) saturate(160%)",
-        WebkitBackdropFilter: "blur(24px) saturate(160%)",
-        border: "1px solid rgba(255,255,255,0.14)",
+        background: "rgba(10, 12, 20, 0.28)",
+        backdropFilter: "blur(28px) saturate(180%) brightness(1.08)",
+        WebkitBackdropFilter: "blur(28px) saturate(180%) brightness(1.08)",
+        border: "1px solid rgba(255,255,255,0.18)",
         boxShadow: [
-          "inset 0 1px 0 rgba(255,255,255,0.16)",
-          "inset 0 -1px 0 rgba(255,255,255,0.04)",
-          "0 18px 60px rgba(0,0,0,0.42)",
-          "0 0 30px rgba(94,106,210,0.12)",
+          "inset 0 1px 0 rgba(255,255,255,0.22)",
+          "inset 0 -1px 0 rgba(255,255,255,0.05)",
+          "0 20px 70px rgba(0,0,0,0.42)",
+          "0 0 42px rgba(94,106,210,0.14)",
         ].join(", "),
       }}
       initial={{ opacity: 0, y: -16 }}
