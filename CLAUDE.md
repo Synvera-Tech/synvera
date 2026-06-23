@@ -277,3 +277,21 @@ Agents must not assume that the database guarantees exactly one active version.
 The invariant is:
 
 > "At most one active version in the database, at least one active version required for runtime calculations."
+
+---
+
+## Plans and Subscription Rules
+
+See `docs/billing-and-plans.md` for the full billing reference.
+
+Current plan tiers: `free` · `professional` · `team` (defined in `backend/internal/billing/plans.go`).
+
+### Rules for agents
+
+- Do not implement checkout, payment gateway, or Stripe/Pagar.me integration without explicit user instruction.
+- Do not promise features that are not implemented (monthly calculation limits and history truncation are deferred — see docs).
+- Free plan limits must be enforced consistently when implemented; currently only composition count (max 4) is enforced.
+- Plan copy on the landing page must remain aligned with actual product capabilities — do not add marketing claims about repasse, glosas, or convenio approval.
+- Upgrading a physician's plan currently requires a direct database UPDATE (see docs for the exact SQL).
+- The `plan_type` and `subscription_status` columns in `physician_accounts` are the source of truth for billing tier; do not derive plan state from any other source.
+- The `PhysicianAccount` struct in `internal/models/domain.go` must always reflect the schema columns; keep them in sync after any migration.

@@ -6,10 +6,9 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { HeroSection } from "@/components/home/HeroSection";
 import { NavBar } from "@/components/home/NavBar";
-import { FlowSection } from "@/components/home/FlowSection";
-import { AuditabilitySection } from "@/components/home/AuditabilitySection";
-import { BenefitsSection } from "@/components/home/BenefitsSection";
-import { CompositionsSection } from "@/components/home/CompositionsSection";
+import { ProductPreview } from "@/components/home/ProductPreview";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { FeaturesGrid } from "@/components/home/FeaturesGrid";
 import { PricingSection } from "@/components/home/PricingSection";
 import { FaqSection } from "@/components/home/FaqSection";
 import { CtaSection } from "@/components/home/CtaSection";
@@ -299,10 +298,9 @@ function UnauthenticatedHome() {
 
       <NavBar />
       <HeroSection />
-      <FlowSection />
-      <AuditabilitySection />
-      <BenefitsSection />
-      <CompositionsSection />
+      <ProductPreview />
+      <HowItWorks />
+      <FeaturesGrid />
       <PricingSection />
       <FaqSection />
       <CtaSection />

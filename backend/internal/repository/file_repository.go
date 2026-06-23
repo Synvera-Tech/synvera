@@ -216,12 +216,14 @@ func (r *FileRepository) FindOrCreatePhysician(clerkUserID, email, name string) 
 	}
 	now := time.Now().UTC()
 	p := &models.PhysicianAccount{
-		ID:          id,
-		ClerkUserID: clerkUserID,
-		Email:       email,
-		Name:        name,
-		CreatedAt:   now,
-		UpdatedAt:   now,
+		ID:                 id,
+		ClerkUserID:        clerkUserID,
+		Email:              email,
+		Name:               name,
+		PlanType:           "free",
+		SubscriptionStatus: "inactive",
+		CreatedAt:          now,
+		UpdatedAt:          now,
 	}
 
 	r.physicianMu.Lock()
@@ -237,6 +239,19 @@ func (r *FileRepository) FindOrCreatePhysician(clerkUserID, email, name string) 
 
 	cp := *p
 	return &cp, nil
+}
+
+// CountCompositionsByPhysician returns the number of in-memory compositions owned by physicianID.
+func (r *FileRepository) CountCompositionsByPhysician(physicianID string) (int, error) {
+	r.composeMu.RLock()
+	defer r.composeMu.RUnlock()
+	count := 0
+	for _, c := range r.compositions {
+		if c.PhysicianID == physicianID {
+			count++
+		}
+	}
+	return count, nil
 }
 
 // ── Composition CRUD ──────────────────────────────────────────────────────────

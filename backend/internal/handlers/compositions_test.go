@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"synvera/backend/internal/generated"
@@ -255,5 +256,61 @@ func TestPublicCalculationsDoNotRequireAuth(t *testing.T) {
 	mux.ServeHTTP(w, httptest.NewRequest(http.MethodGet, "/api/calculations", nil))
 	if w.Code != http.StatusOK {
 		t.Errorf("expected 200 for unauthenticated GET /api/calculations, got %d", w.Code)
+	}
+}
+
+// TestFreePlanCompositionLimit verifies that a free-plan physician cannot save
+// more than 4 compositions (billing.GetLimits("free").MaxCompositions == 4).
+func TestFreePlanCompositionLimit(t *testing.T) {
+	repo := repository.NewFileRepository()
+	mux := testMux(repo, "user-free-limit")
+
+	// Save exactly 4 compositions — all must succeed.
+	for i := range 4 {
+		w := httptest.NewRecorder()
+		mux.ServeHTTP(w, httptest.NewRequest(
+			http.MethodPost, "/api/compositions",
+			bytes.NewReader(compositionPayload("Composição "+string(rune('A'+i))),
+			)))
+		if w.Code != http.StatusCreated {
+			t.Fatalf("composition %d: expected 201, got %d: %s", i+1, w.Code, w.Body)
+		}
+	}
+
+	// 5th composition must be rejected.
+	w5 := httptest.NewRecorder()
+	mux.ServeHTTP(w5, httptest.NewRequest(
+		http.MethodPost, "/api/compositions",
+		bytes.NewReader(compositionPayload("Composição E")),
+	))
+	if w5.Code != http.StatusForbidden {
+		t.Fatalf("5th composition: expected 403, got %d: %s", w5.Code, w5.Body)
+	}
+	body := w5.Body.String()
+	if !strings.Contains(body, "plan_limit_reached") {
+		t.Errorf("expected plan_limit_reached in body, got: %s", body)
+	}
+}
+
+// TestFreePlanIsolation verifies that the composition limit is per-physician:
+// a second free-plan user is not affected by the first user's count.
+func TestFreePlanIsolation(t *testing.T) {
+	repo := repository.NewFileRepository()
+	muxA := testMux(repo, "user-isolation-a")
+	muxB := testMux(repo, "user-isolation-b")
+
+	// Fill user A's limit.
+	for range 4 {
+		saveComposition(t, muxA, compositionPayload("A"))
+	}
+
+	// User B should still be able to save — their count is zero.
+	w := httptest.NewRecorder()
+	muxB.ServeHTTP(w, httptest.NewRequest(
+		http.MethodPost, "/api/compositions",
+		bytes.NewReader(compositionPayload("B first")),
+	))
+	if w.Code != http.StatusCreated {
+		t.Fatalf("user B: expected 201, got %d: %s", w.Code, w.Body)
 	}
 }

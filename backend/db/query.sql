@@ -75,3 +75,10 @@ ORDER BY porte;
 SELECT id::text, code, label, is_active, created_at
 FROM cbhpm_versions
 WHERE code = sqlc.arg(code);
+
+-- name: CountCompositionsByPhysician :one
+-- Returns the number of compositions owned by the given physician.
+-- Used by the plan-limit enforcement layer to check FREE_COMPOSITIONS_LIMIT.
+SELECT COUNT(*)::int AS composition_count
+FROM compositions
+WHERE physician_id = sqlc.arg(physician_id)::uuid;

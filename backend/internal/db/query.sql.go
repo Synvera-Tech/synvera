@@ -11,6 +11,21 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const countCompositionsByPhysician = `-- name: CountCompositionsByPhysician :one
+SELECT COUNT(*)::int AS composition_count
+FROM compositions
+WHERE physician_id = $1::uuid
+`
+
+// Returns the number of compositions owned by the given physician.
+// Used by the plan-limit enforcement layer to check FREE_COMPOSITIONS_LIMIT.
+func (q *Queries) CountCompositionsByPhysician(ctx context.Context, physicianID pgtype.UUID) (int32, error) {
+	row := q.db.QueryRow(ctx, countCompositionsByPhysician, physicianID)
+	var composition_count int32
+	err := row.Scan(&composition_count)
+	return composition_count, err
+}
+
 const getActivePorteVersion = `-- name: GetActivePorteVersion :one
 SELECT id::text, code, label, is_active, created_at
 FROM cbhpm_versions

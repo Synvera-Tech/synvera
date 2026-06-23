@@ -64,7 +64,7 @@ export function NavBar() {
           alt="Synvera"
           style={{ width: "28px", height: "28px", display: "block" }}
         />
-        <div style={{ display: "flex", flexDirection: "column", lineHeight: 1, gap: "3px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
           <span
             className="font-grotesk"
             style={{
@@ -72,7 +72,7 @@ export function NavBar() {
               fontSize: "14px",
               letterSpacing: "-0.03em",
               color: "#E6EEF7",
-              lineHeight: 1,
+              lineHeight: 1.2,
               display: "block",
             }}
           >

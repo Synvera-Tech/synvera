@@ -124,6 +124,7 @@ export function HeroSection() {
               filter: "drop-shadow(0 0 18px rgba(120,140,255,0.50)) drop-shadow(0 0 60px rgba(94,106,210,0.22))",
               lineHeight: 1,
               display: "inline-block",
+              paddingBottom: "0.15em",
             }}
           >
             Synvera

@@ -227,13 +227,16 @@ type CBHPMVersion struct {
 
 // PhysicianAccount maps a Clerk identity to a Synvera physician record.
 // The internal id is the FK used in compositions; clerk_user_id is the JWT sub.
+// PlanType and SubscriptionStatus reflect the billing tier (see internal/billing).
 type PhysicianAccount struct {
-	ID          string
-	ClerkUserID string
-	Email       string
-	Name        string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	ID                 string
+	ClerkUserID        string
+	Email              string
+	Name               string
+	PlanType           string
+	SubscriptionStatus string
+	CreatedAt          time.Time
+	UpdatedAt          time.Time
 }
 
 // CompositionModifiers holds the physician's global spine billing variable selections for a
