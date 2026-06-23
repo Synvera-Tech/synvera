@@ -295,3 +295,47 @@ Current plan tiers: `free` · `professional` · `team` (defined in `backend/inte
 - Upgrading a physician's plan currently requires a direct database UPDATE (see docs for the exact SQL).
 - The `plan_type` and `subscription_status` columns in `physician_accounts` are the source of truth for billing tier; do not derive plan state from any other source.
 - The `PhysicianAccount` struct in `internal/models/domain.go` must always reflect the schema columns; keep them in sync after any migration.
+
+---
+
+## Document Search System (RAG v0)
+
+See `docs/document-search-v0.md` for the full reference.
+
+### What it is
+
+A read-only, deterministic reference layer backed by PostgreSQL Full Text Search (portuguese dictionary) over indexed chunks of CBHPM 2022, CBHPM 2025-2026, Manual SBN Neurocirurgia 2018, and Manual Cirurgia de Coluna 3ª ed. 2025.
+
+### What it is NOT
+
+- Not a chatbot. Not an AI. Not a generative system.
+- Does not use embeddings, pgvector, OpenAI, Anthropic, or any LLM.
+- Does not modify compositions, calculations, codes, or fee values.
+- Does not suggest clinical decisions or billing justifications.
+
+### Invariants for agents
+
+- The document search system must NEVER influence fee calculations.
+- The valuation engine remains the sole numerical authority.
+- Do not add Elasticsearch, OpenSearch, or additional infrastructure.
+- The `DocumentRetriever` interface in `backend/internal/docsearch/types.go` is the RAG v1 extension point — do not bypass it.
+
+### Schema
+
+Migration 024 added `documents` and `document_chunks` tables with a `TSVECTOR GENERATED ALWAYS AS STORED` column and GIN index.
+
+### API
+
+`POST /api/document-search` — public endpoint, no auth.  
+Request: `{"query": string, "limit": int}`.  
+Response: `{"results": [{document, version, page, section, excerpt, score}]}`.
+
+### Ingestion
+
+Full PDF corpus extraction is performed manually via `data/ingest_documents.py`.  
+The migration seeds 12 representative chunks for immediate functionality.
+
+### Future RAG v1
+
+To integrate an LLM in the future, implement a new type satisfying the `DocumentRetriever` interface that wraps FTS retrieval + context building + LLM call.  
+No handler, route, or repository changes are required.

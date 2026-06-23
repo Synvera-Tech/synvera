@@ -1,6 +1,6 @@
 -- Synvera Database Schema — canonical post-migration state.
 --
--- This file represents the full schema AFTER all migrations (001–022) have been applied.
+-- This file represents the full schema AFTER all migrations (001–024) have been applied.
 -- It is the source of truth for sqlc code generation (sqlc.yaml references this file).
 --
 -- When a new migration is added, update this file to match the final state and run:
@@ -30,6 +30,8 @@
 --   020 — porte_values table (porte→value_brl scoped to a CBHPM version)
 --   021 — backfill: insert 2025-2026 version, seed porte_values, add cbhpm_version_id to calculations
 --   022 — add plan_type + subscription_status to physician_accounts (DEFAULT 'free'/'inactive')
+--   023 — reconcile production schema (clerk_user_id, updated_at, adjustments, modifiers, spine cols)
+--   024 — document search tables: documents + document_chunks with FTS (RAG v0)
 
 CREATE EXTENSION IF NOT EXISTS unaccent;
 
@@ -259,3 +261,47 @@ CREATE TABLE IF NOT EXISTS spine_procedure_metadata (
 
 CREATE INDEX IF NOT EXISTS idx_spine_metadata_sbn_procedure
     ON spine_procedure_metadata (sbn_procedure_id);
+
+-- ---------------------------------------------------------------------------
+-- documents: registry of indexed source documents (RAG v0)
+--
+-- Each row represents a document whose text has been chunked and indexed for
+-- Full Text Search. document_type constrains to known CBHPM/SBN sources.
+-- The document layer is read-only and NEVER influences fee calculations.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS documents (
+    id            UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+    name          TEXT        NOT NULL,
+    version_label TEXT        NOT NULL,
+    document_type TEXT        NOT NULL
+        CHECK (document_type IN ('cbhpm', 'sbn_manual', 'spine_manual')),
+    created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- ---------------------------------------------------------------------------
+-- document_chunks: indexed text segments with FTS vector (RAG v0)
+--
+-- search_vector is a GENERATED ALWAYS AS STORED tsvector over
+-- (section_title || chunk_text) using the 'portuguese' dictionary.
+-- GIN index enables fast full-text queries via plainto_tsquery / to_tsquery.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS document_chunks (
+    id            UUID    PRIMARY KEY DEFAULT gen_random_uuid(),
+    document_id   UUID    NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+    page_number   INT     NOT NULL,
+    section_title TEXT,
+    chunk_text    TEXT    NOT NULL,
+    search_vector TSVECTOR GENERATED ALWAYS AS (
+        to_tsvector(
+            'portuguese',
+            coalesce(section_title, '') || ' ' || chunk_text
+        )
+    ) STORED,
+    created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_document_chunks_search
+    ON document_chunks USING GIN (search_vector);
+
+CREATE INDEX IF NOT EXISTS idx_document_chunks_document_id
+    ON document_chunks (document_id);

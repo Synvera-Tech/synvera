@@ -24,6 +24,7 @@ import { TeamFeesPanel } from "@/components/procedure/TeamFeesPanel";
 import { ValuationSummary } from "@/components/procedure/ValuationSummary";
 import { ShareModal } from "@/components/procedure/ShareModal";
 import { SaveCompositionPanel } from "@/components/procedure/SaveCompositionPanel";
+import { DocumentSearchPanel } from "@/components/procedure/DocumentSearchPanel";
 
 // ─── Workflow content ─────────────────────────────────────────────────────────
 
@@ -284,6 +285,11 @@ function ProcedureContent({
             ) : null
           }
         />
+      </div>
+
+      {/* Document Search (RAG v0) — read-only reference panel, no influence on calculations */}
+      <div className="px-5 pt-1 pb-2">
+        <DocumentSearchPanel />
       </div>
 
       <footer className="relative z-[1] px-5 pb-5 text-center">

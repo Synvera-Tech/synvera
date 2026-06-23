@@ -24,4 +24,7 @@ func RegisterRoutes(mux *http.ServeMux, repo repository.Repository, auth AuthMid
 	// Calculations — legacy snapshot persistence (retained for share-report flow, no auth required).
 	mux.HandleFunc("/api/calculations", withCORS(makeCalculationsCollectionHandler(repo)))
 	mux.HandleFunc("/api/calculations/", withCORS(makeCalculationItemHandler(repo)))
+
+	// Document Search (RAG v0) — PostgreSQL FTS, no auth required.
+	mux.HandleFunc("/api/document-search", withCORS(makeDocumentSearchHandler(repo)))
 }

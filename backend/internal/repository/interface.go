@@ -4,6 +4,7 @@ package repository
 import (
 	"errors"
 
+	"synvera/backend/internal/docsearch"
 	"synvera/backend/internal/models"
 )
 
@@ -82,4 +83,11 @@ type Repository interface {
 	// DeleteCalculationByPublicID removes a calculation snapshot.
 	// Returns (true, nil) when deleted, (false, nil) when not found.
 	DeleteCalculationByPublicID(publicID string) (bool, error)
+
+	// ── Document Search (RAG v0) ──────────────────────────────────────────────
+
+	// SearchDocuments runs a Portuguese FTS query against document_chunks and
+	// returns up to limit ranked results. Returns an empty slice when no
+	// chunks match; never returns nil.
+	SearchDocuments(query string, limit int) ([]docsearch.SearchResult, error)
 }

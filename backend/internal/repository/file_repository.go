@@ -10,6 +10,7 @@ import (
 	"sync"
 	"time"
 
+	"synvera/backend/internal/docsearch"
 	"synvera/backend/internal/models"
 	"synvera/backend/internal/service"
 )
@@ -445,4 +446,11 @@ func (r *FileRepository) DeleteCalculationByPublicID(publicID string) (bool, err
 	}
 	delete(r.calculations, publicID)
 	return true, nil
+}
+
+// SearchDocuments returns an empty slice for FileRepository.
+// Document search requires the PostgreSQL FTS index; this stub satisfies the
+// interface for test/development contexts that use the in-memory repository.
+func (r *FileRepository) SearchDocuments(_ string, _ int) ([]docsearch.SearchResult, error) {
+	return []docsearch.SearchResult{}, nil
 }
