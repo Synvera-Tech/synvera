@@ -27,21 +27,33 @@ export function NavBar() {
         maxWidth: "calc(100vw - 24px)",
 
         // Glass pill — applied directly here so backdrop-filter
-        // works against the page, not inside a child stacking context
+        // works against the page, not inside a child stacking context.
+        //
+        // Glass recipe:
+        //   1. background nearly transparent with a faint white tint — gives the
+        //      surface its own luminosity separate from the near-black hero
+        //   2. brightness(1.9) amplifies whatever is blurred behind (the indigo
+        //      bloom in the hero) so the blur becomes perceptible
+        //   3. saturate(220%) deepens the blurred colors so the glass reads as
+        //      tinted rather than just dark
+        //   4. inset top highlight at 0.36 opacity — the single most important
+        //      cue the eye uses to read a surface as glass/reflective
+        //   5. outer glow reinforces brand color and adds depth against the hero
         display: "flex",
         alignItems: "center",
         borderRadius: "9999px",
         overflow: "hidden",
         whiteSpace: "nowrap",
-        background: "rgba(20, 24, 32, 0.38)",
-        backdropFilter: "blur(22px) saturate(170%)",
-        WebkitBackdropFilter: "blur(22px) saturate(170%)",
-        border: "1px solid rgba(255,255,255,0.16)",
+        background: "rgba(255, 255, 255, 0.05)",
+        backdropFilter: "blur(28px) saturate(220%) brightness(1.9)",
+        WebkitBackdropFilter: "blur(28px) saturate(220%) brightness(1.9)",
+        border: "1px solid rgba(255,255,255,0.22)",
         boxShadow: [
-          "inset 0 1px 0 rgba(255,255,255,0.18)",
-          "inset 0 -1px 0 rgba(255,255,255,0.04)",
-          "0 18px 60px rgba(0,0,0,0.42)",
-          "0 0 36px rgba(94,106,210,0.16)",
+          "inset 0 1px 0 rgba(255,255,255,0.36)",
+          "inset 0 -1px 0 rgba(255,255,255,0.06)",
+          "inset 0 0 24px rgba(255,255,255,0.03)",
+          "0 20px 64px rgba(0,0,0,0.52)",
+          "0 0 48px rgba(94,106,210,0.24)",
         ].join(", "),
       }}
       initial={{ opacity: 0, y: -16 }}
