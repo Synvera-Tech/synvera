@@ -66,12 +66,14 @@ type Composition struct {
 }
 
 type PhysicianAccount struct {
-	ID          pgtype.UUID
-	ClerkUserID string
-	Email       pgtype.Text
-	Name        pgtype.Text
-	CreatedAt   pgtype.Timestamptz
-	UpdatedAt   pgtype.Timestamptz
+	ID                 pgtype.UUID
+	ClerkUserID        string
+	Email              pgtype.Text
+	Name               pgtype.Text
+	PlanType           string
+	SubscriptionStatus string
+	CreatedAt          pgtype.Timestamptz
+	UpdatedAt          pgtype.Timestamptz
 }
 
 type Porte struct {

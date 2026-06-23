@@ -62,6 +62,7 @@ export function ProductPreview() {
 
   return (
     <section
+      id="experiencia"
       style={{
         padding: "80px 24px 100px",
         background: "linear-gradient(180deg, #0B0D10 0%, #050508 100%)",
@@ -69,6 +70,7 @@ export function ProductPreview() {
         marginTop: "-60px",
         position: "relative",
         zIndex: 10,
+        scrollMarginTop: "88px",
       }}
     >
       <style>{`

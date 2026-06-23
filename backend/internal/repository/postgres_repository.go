@@ -92,14 +92,30 @@ func (r *PostgresRepository) FindOrCreatePhysician(clerkUserID, email, name stri
 		VALUES ($1, $2, $3)
 		ON CONFLICT (clerk_user_id) DO UPDATE
 			SET updated_at = now()
-		RETURNING id::text, clerk_user_id, COALESCE(email, ''), COALESCE(name, ''), created_at, updated_at
+		RETURNING id::text, clerk_user_id, COALESCE(email, ''), COALESCE(name, ''),
+		          plan_type, subscription_status, created_at, updated_at
 	`, clerkUserID, email, name).Scan(
-		&p.ID, &p.ClerkUserID, &p.Email, &p.Name, &p.CreatedAt, &p.UpdatedAt,
+		&p.ID, &p.ClerkUserID, &p.Email, &p.Name,
+		&p.PlanType, &p.SubscriptionStatus, &p.CreatedAt, &p.UpdatedAt,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("postgres: find or create physician: %w", err)
 	}
 	return &p, nil
+}
+
+// CountCompositionsByPhysician returns the total number of compositions owned by physicianID.
+func (r *PostgresRepository) CountCompositionsByPhysician(physicianID string) (int, error) {
+	ctx := context.Background()
+	var count int
+	err := r.pool.QueryRow(ctx,
+		`SELECT COUNT(*)::int FROM compositions WHERE physician_id = $1::uuid`,
+		physicianID,
+	).Scan(&count)
+	if err != nil {
+		return 0, fmt.Errorf("postgres: count compositions: %w", err)
+	}
+	return count, nil
 }
 
 // ── Composition CRUD ──────────────────────────────────────────────────────────

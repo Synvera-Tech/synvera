@@ -15,6 +15,7 @@ import (
 	"sync"
 	"time"
 
+	"synvera/backend/internal/models"
 	"synvera/backend/internal/repository"
 )
 
@@ -25,12 +26,22 @@ type physicianCtxKey struct{}
 // physicianIDFromContext retrieves the authenticated physician's internal UUID.
 // Returns ("", false) when authentication has not been applied to the context.
 func physicianIDFromContext(ctx context.Context) (string, bool) {
-	id, ok := ctx.Value(physicianCtxKey{}).(string)
-	return id, ok && id != ""
+	p, ok := ctx.Value(physicianCtxKey{}).(*models.PhysicianAccount)
+	if !ok || p == nil {
+		return "", false
+	}
+	return p.ID, p.ID != ""
 }
 
-func withPhysicianID(ctx context.Context, id string) context.Context {
-	return context.WithValue(ctx, physicianCtxKey{}, id)
+// physicianAccountFromContext retrieves the full PhysicianAccount from context.
+// Returns (nil, false) when the auth middleware has not been applied.
+func physicianAccountFromContext(ctx context.Context) (*models.PhysicianAccount, bool) {
+	p, ok := ctx.Value(physicianCtxKey{}).(*models.PhysicianAccount)
+	return p, ok && p != nil
+}
+
+func withPhysicianAccount(ctx context.Context, p *models.PhysicianAccount) context.Context {
+	return context.WithValue(ctx, physicianCtxKey{}, p)
 }
 
 // ── Clerk configuration ───────────────────────────────────────────────────────
@@ -73,7 +84,7 @@ func MakeClerkAuthMiddleware(cfg ClerkConfig, repo repository.Repository) AuthMi
 				http.Error(w, "internal server error", http.StatusInternalServerError)
 				return
 			}
-			next.ServeHTTP(w, r.WithContext(withPhysicianID(r.Context(), physician.ID)))
+			next.ServeHTTP(w, r.WithContext(withPhysicianAccount(r.Context(), physician)))
 		})
 	}
 }
@@ -89,7 +100,7 @@ func MakeTestAuthMiddleware(repo repository.Repository, testClerkUserID string) 
 				http.Error(w, "test auth setup error", http.StatusInternalServerError)
 				return
 			}
-			next.ServeHTTP(w, r.WithContext(withPhysicianID(r.Context(), physician.ID)))
+			next.ServeHTTP(w, r.WithContext(withPhysicianAccount(r.Context(), physician)))
 		})
 	}
 }

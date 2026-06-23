@@ -97,6 +97,34 @@
   }
 }
 
+@keyframes shimmerBtn {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  20%, 100% { transform: translateX(300%) rotate(45deg); }
+}
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255,255,255,0.08) 45%,
+    rgba(255,255,255,0.18) 50%,
+    rgba(255,255,255,0.08) 55%,
+    transparent 100%
+  );
+  animation: shimmerBtn 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
 :root {
   --background: 209 43% 92%;
   --foreground: 220 18% 14%;
@@ -386,6 +414,26 @@ html.dark body {
     -webkit-backdrop-filter: blur(14px) saturate(160%);
     border-bottom: 1px solid rgba(255,255,255,0.45);
     box-shadow: 0 1px 0 rgba(30,58,95,0.08);
+  }
+
+  /* Dark landing page frosted-glass navbar */
+  .landing-navbar {
+    position: relative;
+  }
+
+  .landing-navbar::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 9999px;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.03) 40%,
+      rgba(255, 255, 255, 0.00) 100%
+    );
+    z-index: 1;
   }
 
   .brand-glow {

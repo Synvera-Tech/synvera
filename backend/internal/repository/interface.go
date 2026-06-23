@@ -31,6 +31,10 @@ type Repository interface {
 	// on creation; subsequent calls with the same clerkUserID return the existing record.
 	FindOrCreatePhysician(clerkUserID, email, name string) (*models.PhysicianAccount, error)
 
+	// CountCompositionsByPhysician returns the total number of compositions
+	// owned by physicianID. Used to enforce per-plan composition limits.
+	CountCompositionsByPhysician(physicianID string) (int, error)
+
 	// ── Compositions (primary persistence model) ──────────────────────────────
 
 	// SaveComposition persists a new composition owned by physicianID

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synvera - Valoração Médica com Precisão Documental</title>
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <style>
+    :root {
+      --bg-main: #010102;
+      --text-primary: #E6EEF7;
+      --text-secondary: #8A8F98;
+      --accent-blue: #5e6ad2;
+      --accent-purple: #7A8BFF;
+      --border-glass: rgba(120, 148, 184, 0.15);
+    }
+
+    .font-heading { font-family: 'Space Grotesk', sans-serif; }
+    .font-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .glass-pill {
+      background: rgba(15, 16, 17, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-glass);
+      box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(135deg, #f7f8f8 0%, #E6EEF7 50%, #7A8BFF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .accent-gradient-text {
+      background: linear-gradient(135deg, #5e6ad2 0%, #828fff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .mesh-bg {
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(94, 106, 210, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(122, 139, 255, 0.1) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(30, 58, 95, 0.15) 0px, transparent 50%);
+    }
+
+    .shimmer-btn {
+      position: relative;
+      overflow: hidden;
+    }
+    .shimmer-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 45%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0.1) 55%,
+        transparent 100%
+      );
+      transform: rotate(45deg);
+      transition: all 0.3s;
+      animation: shimmer 6s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      20%, 100% { transform: translateX(100%) rotate(45deg); }
+    }
+
+    .step-connector {
+      background: linear-gradient(90deg, var(--accent-blue), transparent);
+      height: 1px;
+      width: 100px;
+    }
+
+    .card-hover:hover {
+      border-color: rgba(94, 106, 210, 0.4);
+      background: rgba(15, 16, 17, 0.8);
+      transform: translateY(-4px);
+    }
+
+    details > summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body class="bg-[#010102] text-[#E6EEF7] font-body selection:bg-[#5e6ad2]/30 min-h-screen">
+
+  <!-- Floating Navigation -->
+  <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4">
+    <div class="glass-pill px-6 py-3 flex items-center justify-between rounded-full">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1E3A5F] to-[#3D7DB8] flex items-center justify-center border border-white/10 shadow-lg">
+          <i class="ti ti-activity text-white text-lg"></i>
+        </div>
+        <div class="flex flex-col leading-none">
+          <span class="font-heading font-extrabold text-xl tracking-tighter">Synvera</span>
+          <span class="text-[9px] font-bold text-[#8A8F98] tracking-widest uppercase">Neurocirurgia</span>
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-[#8A8F98]">
+        <a href="#" class="hover:text-[#E6EEF7] transition-colors">Produto</a>
+        <a href="#" class="hover:text-[#E6EEF7] transition-colors">Como Funciona</a>
+        <a href="#" class="hover:text-[#E6EEF7] transition-colors">Benefícios</a>
+        <a href="#" class="hover:text-[#E6EEF7] transition-colors">Preços</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button class="text-sm font-medium hover:text-[#E6EEF7] transition-colors hidden sm:block">Entrar</button>
+        <button class="shimmer-btn bg-gradient-to-br from-[#1E3A5F] to-[#3D7DB8] px-5 py-2.5 rounded-full text-sm font-semibold border border-white/10 shadow-lg shadow-blue-900/20 hover:scale-105 transition-transform active:scale-95">
+          Iniciar cálculo
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero & Product Showcase -->
+  <header class="relative pt-48 pb-32 px-4 flex flex-col items-center text-center overflow-hidden mesh-bg min-h-screen">
+    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#5e6ad2] shadow-[0_0_8px_#5e6ad2]"></span>
+      <span class="text-[11px] font-bold tracking-widest uppercase text-[#8A8F98]">Valoração para Neurocirurgia • Coluna</span>
+    </div>
+
+    <h1 class="font-heading text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-4xl leading-[1.1]">
+      <span class="hero-gradient-text">Valoração médica com</span><br>
+      <span class="accent-gradient-text">precisão documental</span>
+    </h1>
+
+    <p class="text-[#8A8F98] text-lg md:text-xl max-w-2xl mb-12 leading-relaxed">
+      Baseado nas regras oficiais da CBHPM e da SBN, com cálculo determinístico, composições reutilizáveis e relatórios compartilháveis.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 mb-20">
+      <button class="bg-white text-black px-8 py-4 rounded-xl font-bold text-base hover:bg-white/90 transition-all shadow-xl shadow-white/5 active:scale-95 flex items-center gap-2">
+        Iniciar cálculo agora <i class="ti ti-chevron-right"></i>
+      </button>
+      <button class="bg-white/5 border border-white/10 px-8 py-4 rounded-xl font-bold text-base hover:bg-white/10 transition-all active:scale-95 flex items-center gap-2">
+        Ver composição exemplo <i class="ti ti-layout"></i>
+      </button>
+    </div>
+
+    <!-- Interface Mockup -->
+    <div class="relative w-full max-w-5xl mx-auto px-4">
+      <div class="absolute inset-x-0 -top-24 h-48 bg-[#5e6ad2]/20 blur-[120px] rounded-full z-0"></div>
+      <div class="bg-zinc-900/40 rounded-2xl border border-white/10 p-3 shadow-2xl backdrop-blur-xl rotate-[0.5deg] translate-y-4 relative z-10">
+        <div class="bg-[#080809] rounded-xl border border-white/5 overflow-hidden flex flex-col h-[520px]">
+          <!-- Window Header -->
+          <div class="border-b border-white/5 p-4 flex items-center justify-between">
+             <div class="flex gap-2">
+               <div class="w-3 h-3 rounded-full bg-[#FF5F56] shadow-sm"></div>
+               <div class="w-3 h-3 rounded-full bg-[#FFBD2E] shadow-sm"></div>
+               <div class="w-3 h-3 rounded-full bg-[#27C93F] shadow-sm"></div>
+             </div>
+             <div class="bg-white/5 px-6 py-1.5 rounded-full text-[10px] text-zinc-500 font-mono flex items-center gap-2">
+               <i class="ti ti-lock text-[8px]"></i> app.synvera.med/calculo/novo
+             </div>
+             <div class="w-12"></div>
+          </div>
+          
+          <div class="flex flex-1 overflow-hidden">
+            <!-- Mock Sidebar -->
+            <div class="w-48 border-r border-white/5 p-4 hidden md:block space-y-6">
+              <div class="space-y-3">
+                <div class="h-2 w-12 bg-zinc-800 rounded mb-4"></div>
+                <div class="flex items-center gap-2 text-[10px] text-white/60 font-semibold">
+                  <i class="ti ti-calculator"></i> Novo Cálculo
+                </div>
+                <div class="flex items-center gap-2 text-[10px] text-zinc-600 font-medium">
+                  <i class="ti ti-history"></i> Histórico
+                </div>
+                <div class="flex items-center gap-2 text-[10px] text-zinc-600 font-medium">
+                  <i class="ti ti-bookmark"></i> Modelos
+                </div>
+              </div>
+            </div>
+
+            <!-- Mock Dashboard Content -->
+            <div class="flex-1 p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 text-left">
+              <div class="lg:col-span-2 space-y-8">
+                <div class="space-y-4">
+                  <div class="h-2 w-32 bg-zinc-800 rounded"></div>
+                  <div class="p-6 rounded-xl bg-white/5 border border-white/10 space-y-4">
+                    <div class="flex justify-between items-start">
+                      <div class="space-y-1">
+                        <div class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Procedimento Principal</div>
+                        <div class="text-lg font-bold text-white font-heading">ANEURISMA CEREBRAL GIGANTE</div>
+                      </div>
+                      <span class="px-2 py-1 rounded bg-blue-500/20 text-blue-400 text-[9px] font-bold">SBN 2024</span>
+                    </div>
+                    <div class="pt-4 border-t border-white/5 grid grid-cols-2 gap-4">
+                      <div class="space-y-1">
+                        <div class="text-[8px] text-zinc-600 font-bold uppercase">Porte</div>
+                        <div class="text-xs text-white">14C</div>
+                      </div>
+                      <div class="space-y-1">
+                        <div class="text-[8px] text-zinc-600 font-bold uppercase">Auxiliares</div>
+                        <div class="text-xs text-white">3 Assistentes</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-3">
+                  <div class="h-2 w-24 bg-zinc-800 rounded"></div>
+                  <div class="space-y-2">
+                    <div class="p-4 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <i class="ti ti-check text-green-500 text-xs"></i>
+                        <span class="text-xs text-zinc-400">Microcirurgia Vascular</span>
+                      </div>
+                      <span class="text-[10px] text-zinc-600 font-mono">100%</span>
+                    </div>
+                    <div class="p-4 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <i class="ti ti-check text-green-500 text-xs"></i>
+                        <span class="text-xs text-zinc-400">Monitorização Intraoperatória</span>
+                      </div>
+                      <span class="text-[10px] text-zinc-600 font-mono">50%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Value Card -->
+              <div class="space-y-6">
+                <div class="p-8 rounded-2xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-blue-500/30 flex flex-col items-center justify-center text-center space-y-4">
+                  <div class="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Total Estimado</div>
+                  <div class="text-4xl font-heading font-extrabold text-white">R$ 48.912</div>
+                  <div class="text-[9px] text-zinc-500 font-mono">Ref: CBHPM v.2025.1</div>
+                  <button class="w-full mt-4 bg-white text-black py-2.5 rounded-lg text-xs font-bold shadow-lg">Exportar PDF</button>
+                </div>
+                
+                <div class="p-6 rounded-2xl bg-zinc-900/50 border border-white/5 space-y-4">
+                  <div class="flex items-center justify-between text-[10px] font-bold">
+                    <span class="text-zinc-500">RASTREABILIDADE</span>
+                    <i class="ti ti-shield-lock text-zinc-700"></i>
+                  </div>
+                  <div class="space-y-3">
+                    <div class="flex gap-2">
+                      <div class="w-1 h-6 bg-blue-500 rounded-full"></div>
+                      <div class="space-y-1">
+                        <div class="text-[8px] text-zinc-600 uppercase font-bold">HASH DA REGRA</div>
+                        <div class="text-[8px] text-zinc-400 font-mono">sha256:7f8e...a1b2</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Flow Section -->
+  <section class="py-32 px-4 max-w-7xl mx-auto text-center">
+    <div class="mb-24">
+      <h2 class="font-heading text-3xl md:text-4xl font-bold mb-4">Fluxo simples e determinístico</h2>
+      <p class="text-[#8A8F98] text-lg">Processamento em tempo real baseado em regras oficiais.</p>
+    </div>
+
+    <div class="flex flex-col md:flex-row items-start justify-center gap-8 md:gap-0">
+      <div class="flex-1 flex flex-col items-center px-4 group">
+        <div class="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#5e6ad2]/50 transition-colors shadow-lg">
+          <i class="ti ti-search text-2xl text-[#5e6ad2]"></i>
+        </div>
+        <h3 class="font-heading font-bold mb-3">Pesquise</h3>
+        <p class="text-sm text-[#8A8F98] leading-relaxed">Localize o procedimento SBN na base atualizada.</p>
+      </div>
+
+      <div class="hidden md:flex items-center pt-8">
+        <div class="step-connector"></div>
+      </div>
+
+      <div class="flex-1 flex flex-col items-center px-4 group">
+        <div class="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#5e6ad2]/50 transition-colors shadow-lg">
+          <i class="ti ti-square-check text-2xl text-[#5e6ad2]"></i>
+        </div>
+        <h3 class="font-heading font-bold mb-3">Revise</h3>
+        <p class="text-sm text-[#8A8F98] leading-relaxed">Analise códigos, ajustes e multiplicadores passo a passo.</p>
+      </div>
+
+      <div class="hidden md:flex items-center pt-8">
+        <div class="step-connector"></div>
+      </div>
+
+      <div class="flex-1 flex flex-col items-center px-4 group">
+        <div class="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#5e6ad2]/50 transition-colors shadow-lg">
+          <i class="ti ti-zap text-2xl text-[#5e6ad2]"></i>
+        </div>
+        <h3 class="font-heading font-bold mb-3">Calcule</h3>
+        <p class="text-sm text-[#8A8F98] leading-relaxed">Obtenha valores imediatos para toda a equipe.</p>
+      </div>
+
+      <div class="hidden md:flex items-center pt-8">
+        <div class="step-connector"></div>
+      </div>
+
+      <div class="flex-1 flex flex-col items-center px-4 group">
+        <div class="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#5e6ad2]/50 transition-colors shadow-lg">
+          <i class="ti ti-share-2 text-2xl text-[#5e6ad2]"></i>
+        </div>
+        <h3 class="font-heading font-bold mb-3">Compartilhe</h3>
+        <p class="text-sm text-[#8A8F98] leading-relaxed">Exporte relatórios via link ou QR Code para faturamento.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auditability Section -->
+  <section class="py-32 px-4 relative overflow-hidden">
+    <div class="absolute inset-0 mesh-bg opacity-30"></div>
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+      <div class="space-y-8 text-left">
+        <div class="space-y-4">
+          <h2 class="font-heading text-4xl md:text-5xl font-bold leading-tight">Auditabilidade absoluta em cada regra aplicada</h2>
+          <p class="text-lg text-[#8A8F98] leading-relaxed">
+            Transforme catálogos de especialidades em cálculos estruturados, documentados e 100% rastreáveis.
+          </p>
+        </div>
+        
+        <div class="grid gap-6">
+          <div class="flex gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+            <div class="w-10 h-10 rounded-lg bg-[#5e6ad2]/10 flex items-center justify-center flex-shrink-0">
+              <i class="ti ti-history text-[#5e6ad2] text-xl"></i>
+            </div>
+            <div>
+              <h4 class="font-bold mb-1">Preservação do Racional</h4>
+              <p class="text-sm text-[#8A8F98]">Justificativa técnica detalhada para cada agrupamento cirúrgico.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+            <div class="w-10 h-10 rounded-lg bg-[#5e6ad2]/10 flex items-center justify-center flex-shrink-0">
+              <i class="ti ti-file-text text-[#5e6ad2] text-xl"></i>
+            </div>
+            <div>
+              <h4 class="font-bold mb-1">Rastreabilidade de Códigos</h4>
+              <p class="text-sm text-[#8A8F98]">Consulte a diretriz da CBHPM aplicada para cada multiplicador.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all">
+            <div class="w-10 h-10 rounded-lg bg-[#5e6ad2]/10 flex items-center justify-center flex-shrink-0">
+              <i class="ti ti-shield-check text-[#5e6ad2] text-xl"></i>
+            </div>
+            <div>
+              <h4 class="font-bold mb-1">Memória Imutável</h4>
+              <p class="text-sm text-[#8A8F98]">Histórico temporal consolidado para auditorias internas seguras.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Isometric Graphics -->
+      <div class="relative flex items-center justify-center h-[500px]">
+        <div class="absolute w-80 h-48 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md transform rotate-[-12deg] translate-y-[-60px] translate-x-[-40px] z-10 p-6 flex flex-col justify-between shadow-2xl text-left">
+          <div class="flex justify-between items-start">
+            <span class="text-[10px] uppercase font-bold text-zinc-500">Documento #2841</span>
+            <i class="ti ti-circle-check text-green-500 text-sm"></i>
+          </div>
+          <div class="h-2 w-3/4 bg-white/10 rounded"></div>
+          <div class="h-2 w-1/2 bg-white/5 rounded"></div>
+          <div class="flex justify-between items-end border-t border-white/10 pt-4">
+             <span class="text-lg font-heading font-bold">R$ 14.200</span>
+             <span class="text-[8px] text-zinc-500">HASH: 72x...89</span>
+          </div>
+        </div>
+
+        <div class="absolute w-80 h-48 bg-zinc-900 border border-white/10 rounded-2xl transform rotate-[2deg] translate-y-[20px] translate-x-[20px] z-0 p-6 opacity-60">
+           <div class="space-y-3">
+             <div class="h-3 w-full bg-white/5 rounded"></div>
+             <div class="h-3 w-full bg-white/5 rounded"></div>
+             <div class="h-3 w-2/3 bg-white/5 rounded"></div>
+           </div>
+        </div>
+
+        <div class="absolute w-80 h-48 bg-[#5e6ad2]/10 border border-[#5e6ad2]/20 rounded-2xl transform rotate-[15deg] translate-y-[100px] translate-x-[-20px] -z-10 p-6 flex items-center justify-center">
+           <i class="ti ti-binary text-5xl text-[#5e6ad2]/20"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="py-32 px-4 max-w-7xl mx-auto text-center">
+    <div class="mb-24">
+      <h2 class="font-heading text-4xl font-bold mb-4">Projetado para toda a equipe</h2>
+      <p class="text-[#8A8F98] text-lg">Da mesa cirúrgica ao faturamento e equipe administrativa.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+      <div class="md:col-span-2 glass-pill p-10 rounded-3xl space-y-6 card-hover transition-all cursor-default">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+          <i class="ti ti-stethoscope text-2xl text-blue-400"></i>
+        </div>
+        <h3 class="font-heading text-2xl font-bold">Cirurgiões & PAs</h3>
+        <p class="text-[#8A8F98] leading-relaxed">
+          Clareza imediata sobre enquadramento de procedimentos e vias de acesso. Elimine o "achismo" técnico e foque no paciente, com a segurança de que sua valoração segue rigorosamente a norma oficial.
+        </p>
+        <div class="flex gap-4 pt-4">
+          <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-wider">Neurocirurgia</span>
+          <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-wider">Coluna</span>
+          <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-wider">Crânio</span>
+        </div>
+      </div>
+
+      <div class="glass-pill p-10 rounded-3xl space-y-6 card-hover transition-all cursor-default flex flex-col justify-center">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center">
+          <i class="ti ti-receipt text-2xl text-purple-400"></i>
+        </div>
+        <h3 class="font-heading text-2xl font-bold">Faturamento</h3>
+        <p class="text-[#8A8F98] text-sm leading-relaxed">
+          Reduza glosas e inconsistências. Forneça relatórios estruturados prontos para subsidiar a comunicação com operadoras de saúde.
+        </p>
+      </div>
+
+      <div class="glass-pill p-10 rounded-3xl space-y-6 card-hover transition-all cursor-default">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+          <i class="ti ti-users text-2xl text-emerald-400"></i>
+        </div>
+        <h3 class="font-heading text-xl font-bold">Instrumentadores</h3>
+        <p class="text-[#8A8F98] text-sm leading-relaxed">
+          Organização imediata do mapa de sala e compartilhamento do racional de cálculo cirúrgico.
+        </p>
+      </div>
+
+      <div class="md:col-span-2 glass-pill p-10 rounded-3xl space-y-6 card-hover transition-all cursor-default flex flex-col md:flex-row items-center gap-10">
+        <div class="flex-1 space-y-4">
+          <h3 class="font-heading text-2xl font-bold">Consulta Documental</h3>
+          <p class="text-[#8A8F98] leading-relaxed">
+            Acesse fundamentos CBHPM e SBN diretamente na plataforma. O conhecimento técnico das sociedades de especialidade na palma da sua mão.
+          </p>
+        </div>
+        <div class="w-full md:w-48 h-32 bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-xl border border-white/10 flex items-center justify-center">
+           <i class="ti ti-books text-4xl text-zinc-600"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reusable Compositions -->
+  <section class="py-32 px-4 bg-zinc-950/50 text-center">
+    <div class="max-w-7xl mx-auto flex flex-col items-center">
+      <div class="max-w-2xl mb-20">
+        <h2 class="font-heading text-4xl font-bold mb-4">Sua biblioteca de táticas cirúrgicas</h2>
+        <p class="text-[#8A8F98] text-lg">Não recalcule do zero. Salve modelos base para procedimentos recorrentes.</p>
+      </div>
+
+      <div class="w-full max-w-4xl glass-pill rounded-2xl overflow-hidden border border-white/10 shadow-3xl text-left">
+        <div class="bg-zinc-900/80 p-4 border-b border-white/5 flex items-center justify-between">
+           <div class="flex items-center gap-3">
+             <i class="ti ti-folder text-blue-400"></i>
+             <span class="text-xs font-bold text-zinc-300">Minhas Composições</span>
+           </div>
+           <button class="bg-[#5e6ad2] px-3 py-1 rounded text-[10px] font-bold text-white">+ Nova</button>
+        </div>
+        <div class="flex flex-col md:flex-row h-[400px]">
+          <div class="w-full md:w-64 border-r border-white/5 p-4 space-y-2 bg-black/20">
+             <div class="p-2 bg-[#5e6ad2]/10 text-[#5e6ad2] rounded text-xs font-bold">Artrodese Cervical</div>
+             <div class="p-2 hover:bg-white/5 rounded text-xs text-zinc-500">Craniotomia Descomp.</div>
+             <div class="p-2 hover:bg-white/5 rounded text-xs text-zinc-500">Infiltração Facetária</div>
+             <div class="p-2 hover:bg-white/5 rounded text-xs text-zinc-500">Microcirurgia Vascular</div>
+          </div>
+          <div class="flex-1 p-8 space-y-6">
+             <div class="flex justify-between items-center">
+               <h4 class="font-bold">Artrodese Cervical (3 níveis)</h4>
+               <span class="text-[10px] text-zinc-500">Último uso: 2h atrás</span>
+             </div>
+             <div class="space-y-3">
+               <div class="flex items-center justify-between p-3 rounded bg-white/5 border border-white/5">
+                 <span class="text-xs">3.07.15.11-0 Artrodese anterior</span>
+                 <span class="text-[10px] font-mono text-zinc-500">R$ 4.210,00</span>
+               </div>
+               <div class="flex items-center justify-between p-3 rounded bg-white/5 border border-white/5">
+                 <span class="text-xs">3.07.15.02-1 Descompressão medular</span>
+                 <span class="text-[10px] font-mono text-zinc-500">R$ 2.150,00</span>
+               </div>
+               <div class="flex items-center justify-between p-3 rounded bg-white/5 border border-white/5">
+                 <span class="text-xs">3.07.15.18-7 Enxerto ósseo</span>
+                 <span class="text-[10px] font-mono text-zinc-500">R$ 980,00</span>
+               </div>
+             </div>
+             <button class="w-full border border-[#5e6ad2]/30 text-[#5e6ad2] py-3 rounded-lg text-sm font-bold hover:bg-[#5e6ad2]/5 transition-colors">
+               Aplicar modelo ao novo cálculo
+             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="py-32 px-4 max-w-7xl mx-auto text-center">
+    <div class="mb-20">
+      <h2 class="font-heading text-4xl font-bold mb-4">Planos projetados para sua escala</h2>
+      <p class="text-[#8A8F98] text-lg">Escolha a precisão que melhor se adapta à sua prática.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="p-8 rounded-3xl glass-pill border-white/5 flex flex-col h-full text-left">
+        <div class="mb-8">
+          <h3 class="font-heading text-xl font-bold mb-2">Essencial</h3>
+          <p class="text-zinc-500 text-sm">Para o médico autônomo.</p>
+        </div>
+        <div class="mb-8 flex items-baseline gap-1">
+          <span class="text-3xl font-heading font-bold">R$ 149</span>
+          <span class="text-zinc-500 text-sm">/mês</span>
+        </div>
+        <ul class="space-y-4 mb-10 flex-1">
+          <li class="flex items-center gap-3 text-sm text-zinc-400"><i class="ti ti-check text-[#5e6ad2]"></i> Valorações ilimitadas</li>
+          <li class="flex items-center gap-3 text-sm text-zinc-400"><i class="ti ti-check text-[#5e6ad2]"></i> Histórico de 30 dias</li>
+          <li class="flex items-center gap-3 text-sm text-zinc-400"><i class="ti ti-check text-[#5e6ad2]"></i> Exportação em PDF</li>
+        </ul>
+        <button class="w-full py-3 rounded-xl border border-white/10 font-bold hover:bg-white/5 transition-colors">Começar grátis</button>
+      </div>
+
+      <div class="p-8 rounded-3xl glass-pill border-[#5e6ad2]/30 bg-[#5e6ad2]/5 flex flex-col h-full relative overflow-hidden text-left">
+        <div class="absolute top-4 right-4 bg-[#5e6ad2] text-white text-[10px] font-bold px-2 py-1 rounded">POPULAR</div>
+        <div class="mb-8">
+          <h3 class="font-heading text-xl font-bold mb-2">Profissional</h3>
+          <p class="text-zinc-400 text-sm">Para especialistas em demanda.</p>
+        </div>
+        <div class="mb-8 flex items-baseline gap-1">
+          <span class="text-3xl font-heading font-bold">R$ 399</span>
+          <span class="text-zinc-500 text-sm">/mês</span>
+        </div>
+        <ul class="space-y-4 mb-10 flex-1">
+          <li class="flex items-center gap-3 text-sm text-[#E6EEF7]"><i class="ti ti-check text-[#5e6ad2]"></i> Tudo do Essencial</li>
+          <li class="flex items-center gap-3 text-sm text-[#E6EEF7]"><i class="ti ti-check text-[#5e6ad2]"></i> Composições Reutilizáveis</li>
+          <li class="flex items-center gap-3 text-sm text-[#E6EEF7]"><i class="ti ti-check text-[#5e6ad2]"></i> Histórico Ilimitado</li>
+          <li class="flex items-center gap-3 text-sm text-[#E6EEF7]"><i class="ti ti-check text-[#5e6ad2]"></i> Suporte Prioritário</li>
+        </ul>
+        <button class="w-full py-3 rounded-xl bg-[#5e6ad2] text-white font-bold hover:opacity-90 transition-opacity shadow-lg shadow-blue-600/20">Assinar agora</button>
+      </div>
+
+      <div class="p-8 rounded-3xl glass-pill border-white/5 flex flex-col h-full text-left">
+        <div class="mb-8">
+          <h3 class="font-heading text-xl font-bold mb-2">Equipe</h3>
+          <p class="text-zinc-500 text-sm">Para clínicas e grupos cirúrgicos.</p>
+        </div>
+        <div class="mb-8 flex items-baseline gap-1">
+          <span class="text-3xl font-heading font-bold">Sob consulta</span>
+        </div>
+        <ul class="space-y-4 mb-10 flex-1">
+          <li class="flex items-center gap-3 text-sm text-zinc-400"><i class="ti ti-check text-[#5e6ad2]"></i> Múltiplos usuários</li>
+          <li class="flex items-center gap-3 text-sm text-zinc-400"><i class="ti ti-check text-[#5e6ad2]"></i> Gestão de permissões</li>
+          <li class="flex items-center gap-3 text-sm text-zinc-400"><i class="ti ti-check text-[#5e6ad2]"></i> Integrações via API</li>
+          <li class="flex items-center gap-3 text-sm text-zinc-400"><i class="ti ti-check text-[#5e6ad2]"></i> Treinamento dedicado</li>
+        </ul>
+        <button class="w-full py-3 rounded-xl border border-white/10 font-bold hover:bg-white/5 transition-colors">Falar com vendas</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-32 px-4 max-w-3xl mx-auto text-left">
+    <h2 class="font-heading text-4xl font-bold mb-12 text-center">Perguntas Frequentes</h2>
+    <div class="space-y-4">
+      <details class="group glass-pill rounded-2xl border-white/5">
+        <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+          <span class="font-semibold">Como o Synvera se mantém atualizado com a CBHPM?</span>
+          <i class="ti ti-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="px-6 pb-6 text-sm text-zinc-400 leading-relaxed">
+          Nossa equipe de especialistas revisa periodicamente as atualizações das tabelas CBHPM e diretrizes da SBN. Novas versões do catálogo são disponibilizadas automaticamente no sistema sem custos adicionais.
+        </div>
+      </details>
+      <details class="group glass-pill rounded-2xl border-white/5">
+        <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+          <span class="font-semibold">Posso exportar os relatórios em PDF?</span>
+          <i class="ti ti-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="px-6 pb-6 text-sm text-zinc-400 leading-relaxed">
+          Sim, todos os cálculos podem ser exportados em PDF estruturado, prontos para faturamento, ou compartilhados via link/QR Code seguro.
+        </div>
+      </details>
+      <details class="group glass-pill rounded-2xl border-white/5">
+        <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+          <span class="font-semibold">O sistema realiza cobrança direta?</span>
+          <i class="ti ti-chevron-down group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="px-6 pb-6 text-sm text-zinc-400 leading-relaxed">
+          Não. O Synvera é focado exclusivamente na valoração técnica e na rastreabilidade documental dos cálculos cirúrgicos, servindo como base sólida para o seu processo de faturamento.
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="relative py-32 px-4 overflow-hidden flex items-center justify-center text-center">
+    <div class="absolute inset-0 bg-[#5e6ad2]/20 mesh-bg"></div>
+    <div class="relative z-10 max-w-3xl space-y-8">
+      <h2 class="font-heading text-4xl md:text-5xl font-bold leading-tight">Pronto para transformar sua valoração médica?</h2>
+      <p class="text-lg text-zinc-300">Valorize seus procedimentos com precisão. Sem surpresas, sem erros.</p>
+      <button class="shimmer-btn bg-white text-black px-10 py-5 rounded-2xl font-bold text-lg hover:scale-105 transition-transform active:scale-95 shadow-2xl shadow-white/10">
+        Iniciar cálculo gratuito
+      </button>
+    </div>
+    
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle, #5e6ad2 1px, transparent 1px); background-size: 32px 32px;"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-4 border-t border-white/5 text-center">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="flex items-center gap-2">
+         <div class="w-6 h-6 rounded bg-zinc-800 flex items-center justify-center">
+           <i class="ti ti-activity text-zinc-500 text-xs"></i>
+         </div>
+         <span class="font-heading font-bold text-sm text-zinc-500">Synvera</span>
+      </div>
+      <div class="text-[10px] text-zinc-600 font-medium uppercase tracking-[0.2em]">
+        © 2024 Synvera Tecnologias Médicas • Todos os direitos reservados
+      </div>
+      <div class="flex gap-6">
+        <a href="#" class="text-zinc-600 hover:text-white transition-colors"><i class="ti ti-brand-twitter"></i></a>
+        <a href="#" class="text-zinc-600 hover:text-white transition-colors"><i class="ti ti-brand-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 -- Synvera Database Schema — canonical post-migration state.
 --
--- This file represents the full schema AFTER all migrations (001–021) have been applied.
+-- This file represents the full schema AFTER all migrations (001–022) have been applied.
 -- It is the source of truth for sqlc code generation (sqlc.yaml references this file).
 --
 -- When a new migration is added, update this file to match the final state and run:
@@ -29,6 +29,7 @@
 --   019 — cbhpm_versions table (tracks CBHPM edition used for billing)
 --   020 — porte_values table (porte→value_brl scoped to a CBHPM version)
 --   021 — backfill: insert 2025-2026 version, seed porte_values, add cbhpm_version_id to calculations
+--   022 — add plan_type + subscription_status to physician_accounts (DEFAULT 'free'/'inactive')
 
 CREATE EXTENSION IF NOT EXISTS unaccent;
 
@@ -149,12 +150,14 @@ CREATE INDEX IF NOT EXISTS idx_porte_values_version_id
 -- physician_accounts: maps Clerk identities to Synvera physician records
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS physician_accounts (
-    id            UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
-    clerk_user_id TEXT        UNIQUE NOT NULL,
-    email         TEXT,
-    name          TEXT,
-    created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
-    updated_at    TIMESTAMPTZ NOT NULL DEFAULT now()
+    id                  UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+    clerk_user_id       TEXT        UNIQUE NOT NULL,
+    email               TEXT,
+    name                TEXT,
+    plan_type           TEXT        NOT NULL DEFAULT 'free',
+    subscription_status TEXT        NOT NULL DEFAULT 'inactive',
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at          TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS idx_physician_accounts_clerk_user_id

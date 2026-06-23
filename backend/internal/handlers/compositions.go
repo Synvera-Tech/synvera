@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strings"
 
+	"synvera/backend/internal/billing"
 	"synvera/backend/internal/generated"
 	"synvera/backend/internal/models"
 	"synvera/backend/internal/repository"
@@ -181,6 +182,26 @@ func makeSaveCompositionHandler(repo repository.Repository) http.HandlerFunc {
 		if !ok {
 			return
 		}
+
+		// Plan limit enforcement: check composition cap before writing.
+		if physician, ok := physicianAccountFromContext(r.Context()); ok {
+			limits := billing.GetLimits(billing.PlanType(physician.PlanType))
+			if !billing.IsUnlimited(limits.MaxCompositions) {
+				count, err := repo.CountCompositionsByPhysician(physicianID)
+				if err != nil {
+					log.Printf("count compositions for plan check: %v", err)
+					http.Error(w, "internal server error", http.StatusInternalServerError)
+					return
+				}
+				if count >= limits.MaxCompositions {
+					w.Header().Set("Content-Type", "application/json")
+					w.WriteHeader(http.StatusForbidden)
+					_, _ = w.Write([]byte(`{"error":"plan_limit_reached","message":"O plano gratuito permite até 4 composições salvas."}`))
+					return
+				}
+			}
+		}
+
 		req, ok := decodeAndValidateComposition(w, r)
 		if !ok {
 			return

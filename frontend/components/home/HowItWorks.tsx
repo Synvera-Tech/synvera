@@ -28,10 +28,12 @@ const steps = [
 export function HowItWorks() {
   return (
     <section
+      id="como-funciona"
       style={{
         padding: "80px 24px 100px",
         background: "linear-gradient(180deg, #050508 0%, #0B0D10 100%)",
         borderTop: "1px solid rgba(35,37,42,0.6)",
+        scrollMarginTop: "88px",
       }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
