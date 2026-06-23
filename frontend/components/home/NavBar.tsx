@@ -6,11 +6,11 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
 const navLinks = [
-  { label: "Produto" },
-  { label: "Como funciona" },
-  { label: "Auditabilidade" },
-  { label: "Benefícios" },
-  { label: "Preços" },
+  { label: "Experiência",    href: "#experiencia" },
+  { label: "Como funciona",  href: "#como-funciona" },
+  { label: "Recursos",       href: "#recursos" },
+  { label: "Planos",         href: "#planos" },
+  { label: "Dúvidas",        href: "#duvidas" },
 ];
 
 export function NavBar() {
@@ -99,9 +99,9 @@ export function NavBar() {
         style={{ alignItems: "center", gap: "1px", padding: "6px 14px" }}
       >
         {navLinks.map((link) => (
-          <button
+          <a
             key={link.label}
-            type="button"
+            href={link.href}
             style={{
               padding: "7px 11px",
               borderRadius: "9999px",
@@ -109,10 +109,11 @@ export function NavBar() {
               fontWeight: 500,
               color: "rgba(230,238,247,0.65)",
               background: "transparent",
-              border: "none",
-              cursor: "default",
+              textDecoration: "none",
+              cursor: "pointer",
               transition: "color 150ms ease, background 150ms ease",
               whiteSpace: "nowrap",
+              outline: "none",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "#E6EEF7";
@@ -122,9 +123,17 @@ export function NavBar() {
               e.currentTarget.style.color = "rgba(230,238,247,0.65)";
               e.currentTarget.style.background = "transparent";
             }}
+            onFocus={(e) => {
+              e.currentTarget.style.color = "#E6EEF7";
+              e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.color = "rgba(230,238,247,0.65)";
+              e.currentTarget.style.background = "transparent";
+            }}
           >
             {link.label}
-          </button>
+          </a>
         ))}
       </div>
 

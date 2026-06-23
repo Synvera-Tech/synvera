@@ -62,7 +62,7 @@ function AccordionItem({ question, answer }: { question: string; answer: string 
 
 export function FaqSection() {
   return (
-    <section className="py-32 px-4">
+    <section className="py-32 px-4" id="duvidas" style={{ scrollMarginTop: "88px" }}>
       <div className="max-w-3xl mx-auto">
         <motion.h2
           className="font-grotesk text-4xl font-bold mb-12 text-center text-[#E6EEF7]"

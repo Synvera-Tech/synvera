@@ -28,10 +28,12 @@ const features = [
 export function FeaturesGrid() {
   return (
     <section
+      id="recursos"
       style={{
         padding: "80px 24px 120px",
         background: "linear-gradient(180deg, #0B0D10 0%, #050508 100%)",
         borderTop: "1px solid rgba(35,37,42,0.6)",
+        scrollMarginTop: "88px",
       }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>

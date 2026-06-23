@@ -76,7 +76,7 @@ const cardVariant: Variants = {
 
 export function PricingSection() {
   return (
-    <section className="py-32 px-4" id="precos">
+    <section className="py-32 px-4" id="planos" style={{ scrollMarginTop: "88px" }}>
       <div className="max-w-7xl mx-auto text-center">
         <motion.div
           className="mb-20"
