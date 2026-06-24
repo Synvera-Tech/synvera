@@ -14,6 +14,9 @@ type SearchResult struct {
 // RAG v0: implemented by PostgreSQL FTS.
 // RAG v1: wrap retrieval + LLM context building behind this interface without
 // changing any handler or repository code.
+//
+// docType filters by document_type column; empty string means "all documents".
+// offset enables keyset-style pagination ("load more").
 type DocumentRetriever interface {
-	SearchDocuments(query string, limit int) ([]SearchResult, error)
+	SearchDocuments(query string, limit, offset int, docType string) ([]SearchResult, error)
 }

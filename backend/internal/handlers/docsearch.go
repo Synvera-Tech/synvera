@@ -15,8 +15,10 @@ const (
 )
 
 type documentSearchRequest struct {
-	Query string `json:"query"`
-	Limit int    `json:"limit,omitempty"`
+	Query    string `json:"query"`
+	Limit    int    `json:"limit,omitempty"`
+	Offset   int    `json:"offset,omitempty"`
+	DocType  string `json:"document_type,omitempty"`
 }
 
 type documentSearchResponse struct {
@@ -59,7 +61,19 @@ func makeDocumentSearchHandler(repo repository.Repository) http.HandlerFunc {
 			limit = maxSearchLimit
 		}
 
-		raw, err := repo.SearchDocuments(req.Query, limit)
+		offset := req.Offset
+		if offset < 0 {
+			offset = 0
+		}
+
+		// Validate docType: only known values are forwarded; unknown values are silently treated as "all".
+		docType := ""
+		switch req.DocType {
+		case "cbhpm", "sbn_manual", "spine_manual":
+			docType = req.DocType
+		}
+
+		raw, err := repo.SearchDocuments(req.Query, limit, offset, docType)
 		if err != nil {
 			http.Error(w, `{"error":"search_failed"}`, http.StatusInternalServerError)
 			return

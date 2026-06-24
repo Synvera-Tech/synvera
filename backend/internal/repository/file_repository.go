@@ -451,6 +451,6 @@ func (r *FileRepository) DeleteCalculationByPublicID(publicID string) (bool, err
 // SearchDocuments returns an empty slice for FileRepository.
 // Document search requires the PostgreSQL FTS index; this stub satisfies the
 // interface for test/development contexts that use the in-memory repository.
-func (r *FileRepository) SearchDocuments(_ string, _ int) ([]docsearch.SearchResult, error) {
+func (r *FileRepository) SearchDocuments(_ string, _, _ int, _ string) ([]docsearch.SearchResult, error) {
 	return []docsearch.SearchResult{}, nil
 }

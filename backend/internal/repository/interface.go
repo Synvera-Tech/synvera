@@ -87,7 +87,8 @@ type Repository interface {
 	// ── Document Search (RAG v0) ──────────────────────────────────────────────
 
 	// SearchDocuments runs a Portuguese FTS query against document_chunks and
-	// returns up to limit ranked results. Returns an empty slice when no
-	// chunks match; never returns nil.
-	SearchDocuments(query string, limit int) ([]docsearch.SearchResult, error)
+	// returns up to limit ranked results starting from offset.
+	// docType filters by document_type column; pass "" for all documents.
+	// Returns an empty slice when no chunks match; never returns nil.
+	SearchDocuments(query string, limit, offset int, docType string) ([]docsearch.SearchResult, error)
 }

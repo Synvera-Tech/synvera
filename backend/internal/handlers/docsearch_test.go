@@ -102,3 +102,64 @@ func TestDocumentSearch_DefaultLimitApplied(t *testing.T) {
 		t.Errorf("expected 200 with default limit, got %d", w.Code)
 	}
 }
+
+// Natural-language queries must be accepted (200) and normalised to meaningful
+// terms before reaching the repository. FileRepository always returns [] but
+// must not error or produce 400/500.
+func TestDocumentSearch_NaturalLanguageAuxiliares(t *testing.T) {
+	repo := repository.NewFileRepository()
+	w := postDocumentSearch(t, repo, map[string]any{"query": "Qual é a regra para auxiliares?"})
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200 for natural-language query, got %d: %s", w.Code, w.Body.String())
+	}
+}
+
+func TestDocumentSearch_NaturalLanguageUrgencia(t *testing.T) {
+	repo := repository.NewFileRepository()
+	w := postDocumentSearch(t, repo, map[string]any{"query": "Como funciona urgência?"})
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+}
+
+func TestDocumentSearch_NaturalLanguageViaDeAcesso(t *testing.T) {
+	repo := repository.NewFileRepository()
+	w := postDocumentSearch(t, repo, map[string]any{"query": "Qual regra para via de acesso?"})
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+}
+
+func TestDocumentSearch_NaturalLanguageMultiplosSegmentos(t *testing.T) {
+	repo := repository.NewFileRepository()
+	w := postDocumentSearch(t, repo, map[string]any{"query": "múltiplos segmentos"})
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+}
+
+func TestDocumentSearch_NaturalLanguageArtrode(t *testing.T) {
+	repo := repository.NewFileRepository()
+	w := postDocumentSearch(t, repo, map[string]any{"query": "artrodese cervical"})
+	if w.Code != http.StatusOK {
+		t.Errorf("expected 200, got %d", w.Code)
+	}
+}
+
+func TestDocumentSearch_ResultsFieldNeverNull(t *testing.T) {
+	// Even with zero results the response must have results: [] not results: null.
+	repo := repository.NewFileRepository()
+	w := postDocumentSearch(t, repo, map[string]any{"query": "Qual é a regra para auxiliares?"})
+	if w.Code != http.StatusOK {
+		t.Fatalf("expected 200, got %d", w.Code)
+	}
+	var resp struct {
+		Results []any `json:"results"`
+	}
+	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
+		t.Fatalf("decode response: %v", err)
+	}
+	if resp.Results == nil {
+		t.Error("results field must not be null for natural-language query")
+	}
+}

@@ -50,31 +50,32 @@ if not DATABASE_URL:
     sys.exit("ERROR: DATABASE_URL environment variable is not set.")
 
 DATA_DIR = Path(__file__).parent
+PDF_DIR  = DATA_DIR / "raw_pdfs"
 
 DOCUMENTS = [
     {
         "name": "CBHPM",
         "version_label": "2022",
         "document_type": "cbhpm",
-        "pdf": DATA_DIR / "pdfs" / "cbhpm_2022.pdf",
+        "pdf": PDF_DIR / "CBHPM-2022.pdf",
     },
     {
         "name": "CBHPM",
         "version_label": "2025-2026",
         "document_type": "cbhpm",
-        "pdf": DATA_DIR / "pdfs" / "cbhpm_2025_2026.pdf",
+        "pdf": PDF_DIR / "COMUNICADO-CBHPM-2025_2026.pdf",
     },
     {
         "name": "Manual SBN Neurocirurgia",
         "version_label": "2018",
         "document_type": "sbn_manual",
-        "pdf": DATA_DIR / "pdfs" / "sbn_neurocirurgia_2018.pdf",
+        "pdf": PDF_DIR / "Manual_De_Diretrizes_De_Codificacao_Dos_Procedimentos_Em_Neurocirurgia-2018.pdf",
     },
     {
         "name": "Manual Cirurgia de Coluna",
         "version_label": "3ª ed. 2025",
         "document_type": "spine_manual",
-        "pdf": DATA_DIR / "pdfs" / "coluna_3ed_2025.pdf",
+        "pdf": PDF_DIR / "Manual_De_Diretrizes_De_Codificacao_Em_Cirurgia_De_Coluna_Vertebral-3ed-2025.pdf",
     },
 ]
 
