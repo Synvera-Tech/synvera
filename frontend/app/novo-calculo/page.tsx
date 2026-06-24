@@ -1,7 +1,7 @@
 "use client";
 
 import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
-import { BookmarkCheck, Check, LogIn, Search, Trash2 } from "lucide-react";
+import { BookmarkCheck, BookOpen, Check, LogIn, Search, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
@@ -232,24 +232,44 @@ export default function NovoCalculo() {
             marginBottom: "24px",
           }}
         >
-          <Link
-            href="/"
-            style={{
-              display: "flex", alignItems: "center", gap: "9px",
-              textDecoration: "none",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/synvera-symbol.svg" alt="" aria-hidden="true" width={20} height={19} style={{ display: "block", flexShrink: 0 }} />
-            <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-              <span style={{ fontSize: "13px", fontWeight: 700, color: T.primary, letterSpacing: "-0.2px", lineHeight: 1 }}>
-                Synvera
-              </span>
-              <span style={{ fontSize: "9px", fontWeight: 500, color: "rgba(71,85,105,0.58)", letterSpacing: "0.2px", lineHeight: 1 }}>
-                Neurocirurgia · Coluna
-              </span>
-            </div>
-          </Link>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <Link
+              href="/"
+              style={{
+                display: "flex", alignItems: "center", gap: "9px",
+                textDecoration: "none",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/brand/synvera-symbol.svg" alt="" aria-hidden="true" width={20} height={19} style={{ display: "block", flexShrink: 0 }} />
+              <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
+                <span style={{ fontSize: "13px", fontWeight: 700, color: T.primary, letterSpacing: "-0.2px", lineHeight: 1 }}>
+                  Synvera
+                </span>
+                <span style={{ fontSize: "9px", fontWeight: 500, color: "rgba(71,85,105,0.58)", letterSpacing: "0.2px", lineHeight: 1 }}>
+                  Neurocirurgia · Coluna
+                </span>
+              </div>
+            </Link>
+
+            {/* Documentação — entry to the documentation module */}
+            <Link
+              href="/consulta-documental"
+              style={{
+                display: "flex", alignItems: "center", gap: "6px",
+                padding: "6px 12px", borderRadius: "8px",
+                border: "1.5px solid rgba(255,255,255,0.6)",
+                background: "rgba(255,255,255,0.55)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                fontSize: "12.5px", fontWeight: 600, fontFamily: "inherit",
+                color: T.primary, textDecoration: "none",
+              }}
+            >
+              <BookOpen size={13} aria-hidden="true" />
+              Documentação
+            </Link>
+          </div>
 
           {isLoaded && (
             isSignedIn ? (

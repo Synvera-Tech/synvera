@@ -1,6 +1,6 @@
 "use client";
 
-import { LogIn, Moon, Stethoscope, Sun } from "lucide-react";
+import { BookOpen, LogIn, Moon, Stethoscope, Sun } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -24,7 +24,7 @@ import { TeamFeesPanel } from "@/components/procedure/TeamFeesPanel";
 import { ValuationSummary } from "@/components/procedure/ValuationSummary";
 import { ShareModal } from "@/components/procedure/ShareModal";
 import { SaveCompositionPanel } from "@/components/procedure/SaveCompositionPanel";
-import { DocumentSearchPanel } from "@/components/procedure/DocumentSearchPanel";
+import { DocBridge } from "@/components/procedure/DocBridge";
 
 // ─── Workflow content ─────────────────────────────────────────────────────────
 
@@ -132,18 +132,27 @@ function ProcedureContent({
       {/* Nav */}
       <div className="relative z-10 px-5 pt-5">
         <nav className="nav-bar mx-auto flex max-w-[1080px] items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 no-underline">
-            <div className="brand-mark h-9 w-9 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} className="block dark:hidden" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/synvera-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
-            </div>
-            <div>
-              <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Synvera</span>
-              <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">Neurocirurgia · Coluna</span>
-            </div>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-2.5 no-underline">
+              <div className="brand-mark h-9 w-9 shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} className="block dark:hidden" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/brand/synvera-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
+              </div>
+              <div>
+                <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Synvera</span>
+                <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">Neurocirurgia · Coluna</span>
+              </div>
+            </Link>
+            <Link
+              href="/consulta-documental"
+              className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/60 px-3 py-1.5 text-[11.5px] font-semibold text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700/60 transition-colors no-underline"
+            >
+              <BookOpen size={12} aria-hidden="true" />
+              Documentação
+            </Link>
+          </div>
           <div className="flex items-center gap-3">
             {isLoaded && (
               isSignedIn ? (
@@ -252,6 +261,15 @@ function ProcedureContent({
               </p>
             </div>
           )}
+
+          {/* Contextual bridge to Documentation module — visible throughout the workflow */}
+          <DocBridge
+            contextQuery={
+              procedureState.selectedProcedures.length > 0
+                ? procedureState.selectedProcedures.map((p) => p.name).join(" ")
+                : undefined
+            }
+          />
         </div>
 
         {/* ── Right panel ───────────────────────────────────────────────── */}
@@ -285,11 +303,6 @@ function ProcedureContent({
             ) : null
           }
         />
-      </div>
-
-      {/* Document Search (RAG v0) — read-only reference panel, no influence on calculations */}
-      <div className="px-5 pt-1 pb-2">
-        <DocumentSearchPanel />
       </div>
 
       <footer className="relative z-[1] px-5 pb-5 text-center">
