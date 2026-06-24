@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synvera · Relatório — Arquitetura de Navegação</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #0f172a;
+      --ink-muted:  #475569;
+      --ink-faint:  #94a3b8;
+      --surface:    #ffffff;
+      --surface-2:  #f8fafc;
+      --surface-3:  #f1f5f9;
+      --border:     #e2e8f0;
+      --border-2:   #cbd5e1;
+      --primary:    #1e3a5f;
+      --primary-lt: #dbeafe;
+      --green:      #166534;
+      --green-lt:   #dcfce7;
+      --amber:      #92400e;
+      --amber-lt:   #fef3c7;
+      --red-lt:     #fee2e2;
+      --red:        #991b1b;
+      --radius:     10px;
+      --font:       'Inter', system-ui, -apple-system, sans-serif;
+      --mono:       'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    html { font-size: 15px; }
+
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--surface-2);
+      line-height: 1.65;
+      padding: 48px 24px 96px;
+    }
+
+    /* ── Document wrapper ── */
+    .doc {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(15,23,42,0.08), 0 1px 4px rgba(15,23,42,0.04);
+    }
+
+    /* ── Cover ── */
+    .cover {
+      background: linear-gradient(135deg, #0f2340 0%, #1e3a5f 60%, #2d4f7c 100%);
+      padding: 52px 48px 44px;
+      color: #fff;
+    }
+    .cover-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .cover-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 99px;
+      padding: 3px 10px;
+      color: rgba(255,255,255,0.85);
+    }
+    .cover-date {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      margin-left: auto;
+    }
+    .cover h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .cover-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      line-height: 1.5;
+    }
+    .cover-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 28px;
+    }
+    .pill {
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 99px;
+      padding: 3px 10px;
+    }
+    .pill-green  { background: var(--green-lt);  color: var(--green); }
+    .pill-amber  { background: var(--amber-lt);  color: var(--amber); }
+    .pill-blue   { background: #dbeafe; color: #1e40af; }
+    .pill-red    { background: var(--red-lt);    color: var(--red);   }
+    .pill-slate  { background: #f1f5f9; color: #475569; }
+    .pill-dark   { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.15); }
+
+    /* ── Body ── */
+    .body { padding: 48px 48px 56px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 48px; }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--border);
+    }
+    .section-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--ink);
+    }
+
+    p { margin-bottom: 12px; color: var(--ink-muted); font-size: 14px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--ink); }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    thead tr { background: var(--surface-3); }
+    th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-faint);
+      padding: 9px 12px;
+      border-bottom: 1.5px solid var(--border);
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink-muted);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    td strong { color: var(--ink); }
+
+    /* ── Code ── */
+    code {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--primary);
+    }
+    pre {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      overflow-x: auto;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    pre .c  { color: #64748b; }
+    pre .k  { color: #7dd3fc; }
+    pre .s  { color: #86efac; }
+    pre .t  { color: #fbbf24; }
+    pre .p  { color: #f472b6; }
+
+    /* ── Callout ── */
+    .callout {
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font-size: 13.5px;
+      margin-bottom: 16px;
+      border-left: 3px solid;
+    }
+    .callout-green { background: var(--green-lt); border-color: #16a34a; color: var(--green); }
+    .callout-amber { background: var(--amber-lt); border-color: #d97706; color: var(--amber); }
+    .callout-blue  { background: #eff6ff; border-color: #3b82f6; color: #1e40af; }
+    .callout-red   { background: var(--red-lt);  border-color: #ef4444; color: var(--red);   }
+
+    /* ── Mockups ── */
+    .mockup-wrap {
+      margin: 20px 0;
+    }
+    .mockup-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 6px;
+    }
+    .mockup {
+      background: #0f172a;
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.8;
+      color: #94a3b8;
+      white-space: pre;
+    }
+    .mockup .nav-active { color: #93c5fd; font-weight: 700; }
+    .mockup .nav-normal { color: #64748b; }
+    .mockup .brand      { color: #f1f5f9; font-weight: 700; }
+    .mockup .highlight  { color: #fbbf24; }
+    .mockup .dim        { color: #334155; }
+    .mockup .cta        { color: #6ee7b7; }
+    .mockup .sep        { color: #1e293b; }
+
+    /* ── Token grid ── */
+    .token-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .token-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .token-card-header {
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      background: var(--surface-3);
+      border-bottom: 1px solid var(--border);
+    }
+    .token-card-body { padding: 10px 12px; }
+    .token-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+      font-size: 12.5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .token-row:last-child { border-bottom: none; }
+    .token-key { color: var(--ink-muted); font-weight: 500; }
+    .token-val { font-family: var(--mono); font-size: 11px; color: var(--primary); }
+
+    /* ── Flow diagram ── */
+    .flow {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 2;
+      color: var(--ink-muted);
+      white-space: pre;
+    }
+
+    /* ── Risk badge ── */
+    .risk { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; border-radius: 99px; padding: 2px 8px; }
+    .risk-low    { background: var(--green-lt); color: var(--green); }
+    .risk-none   { background: #f0fdf4; color: #15803d; }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+
+    /* ── Footer ── */
+    .doc-footer {
+      background: var(--surface-3);
+      border-top: 1px solid var(--border);
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--ink-faint);
+    }
+    .doc-footer strong { color: var(--ink-muted); }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .doc { box-shadow: none; border: none; border-radius: 0; }
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 16px 0; }
+      .cover, .body { padding-left: 24px; padding-right: 24px; }
+      .token-grid { grid-template-columns: 1fr; }
+      .doc-footer { flex-direction: column; gap: 4px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- ── Cover ── -->
+  <div class="cover">
+    <div class="cover-meta">
+      <span class="cover-badge">Relatório técnico</span>
+      <span class="cover-badge">UI/UX</span>
+      <span class="cover-date">2026-06-24 &nbsp;·&nbsp; Synvera</span>
+    </div>
+    <h1>Arquitetura de Navegação<br>Documentação como Pilar do Produto</h1>
+    <p class="cover-subtitle">
+      Reposicionamento da funcionalidade de Documentação (RAG v0) de feature secundária
+      para módulo de primeira classe. Análise, decisões e implementação.
+    </p>
+    <div class="cover-pills">
+      <span class="pill pill-dark">procedure/page.tsx</span>
+      <span class="pill pill-dark">DocumentSearchPage.tsx</span>
+      <span class="pill pill-dark">DocBridge.tsx</span>
+      <span class="pill pill-dark">0 alterações no backend</span>
+      <span class="pill pill-dark">0 alterações no banco</span>
+    </div>
+  </div>
+
+  <!-- ── Body ── -->
+  <div class="body">
+
+    <!-- 1. Contexto -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Contexto e Problema</div>
+      </div>
+
+      <p>O Synvera possui dois módulos funcionalmente distintos: <strong>Procedimentos / Cálculo</strong> e <strong>Documentação oficial</strong>. A documentação — que abrange CBHPM 2022, CBHPM 2025-2026, Manual SBN Neurocirurgia 2018 e Manual de Cirurgia de Coluna 3ª ed. — estava estruturada como uma funcionalidade secundária escondida dentro da Procedure Page.</p>
+
+      <table>
+        <thead>
+          <tr><th>Sintoma</th><th>Evidência</th><th>Impacto</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Accordion colapsado por padrão</strong></td>
+            <td><code>DocumentSearchPanel</code> — requer interação para revelar</td>
+            <td>Funcionalidade invisível sem ação do usuário</td>
+          </tr>
+          <tr>
+            <td><strong>Posicionado abaixo do fold</strong></td>
+            <td><code>page.tsx:300-308</code> — fora do grid principal, após o footer</td>
+            <td>Usuário raramente chega até ele durante o fluxo normal</td>
+          </tr>
+          <tr>
+            <td><strong>Separado do contexto de uso</strong></td>
+            <td>Dúvidas surgem dentro do workspace-panel; documentação estava fora</td>
+            <td>Fricção desnecessária no momento de necessidade real</td>
+          </tr>
+          <tr>
+            <td><strong>Única via de descoberta: navbar</strong></td>
+            <td>Link "Documentação" só no topo — invisível durante o workflow</td>
+            <td>Produto não comunica que a documentação é um pilar</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-blue">
+        <strong>Objetivo:</strong> O produto deve comunicar implicitamente que existem dois grandes módulos — Procedimentos e Documentação — sem aumentar a complexidade visual ou criar elementos de navegação desnecessários.
+      </div>
+    </div>
+
+    <!-- 2. Arquitetura de Navegação -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Arquitetura de Navegação Resultante</div>
+      </div>
+
+      <div class="flow">Synvera
+
+├── <span style="color:#0f172a;font-weight:700">Procedimentos</span>  (/procedure)
+│   ├── pesquisa de procedimentos SBN
+│   ├── composição CBHPM
+│   ├── cálculo de honorários
+│   ├── compartilhamento
+│   └── reutilização de composições
+│
+└── <span style="color:#0f172a;font-weight:700">Documentação</span>  (/consulta-documental)
+    ├── CBHPM 2022            (3.774 chunks)
+    ├── CBHPM 2025-2026       (24 chunks)
+    ├── Manual SBN 2018       (2.788 chunks)
+    └── Manual Coluna 3ª ed.  (2.691 chunks)</div>
+
+      <p>A hierarquia não é exibida — é transmitida pela estrutura de navegação e pela presença de duas vias de acesso coordenadas.</p>
+    </div>
+
+    <!-- 3. Componentes Alterados -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Componentes Alterados</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Arquivo</th><th>Operação</th><th>Risco</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>components/procedure/DocBridge.tsx</code></td>
+            <td><strong>Criado</strong> — card contextual de entrada para o módulo de Documentação</td>
+            <td><span class="risk risk-low">Baixo</span></td>
+          </tr>
+          <tr>
+            <td><code>app/procedure/page.tsx</code></td>
+            <td>Import de <code>DocumentSearchPanel</code> → <code>DocBridge</code>; accordion removido abaixo do grid; DocBridge adicionado no fundo do workspace-panel</td>
+            <td><span class="risk risk-low">Baixo</span></td>
+          </tr>
+          <tr>
+            <td><code>components/docsearch/DocumentSearchPage.tsx</code></td>
+            <td>Ícone <code>ArrowLeft</code> → <code>BookOpen</code>; brand link → <code>/procedure</code>; "← Procedimentos" → "Documentação" em estado ativo com <code>aria-current="page"</code></td>
+            <td><span class="risk risk-low">Baixo</span></td>
+          </tr>
+          <tr>
+            <td>Backend, banco de dados, cálculos, RAG</td>
+            <td><strong>Não alterados</strong></td>
+            <td><span class="risk risk-none">Nenhum</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 4. Mockup — Procedure Page -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">Procedure Page — Layout Final</div>
+      </div>
+
+      <div class="mockup-wrap">
+        <div class="mockup-label">Navbar</div>
+        <div class="mockup">┌────────────────────────────────────────────────────────────────┐
+│  <span class="brand">⬡ Synvera</span>  <span class="nav-normal">[ 📖 Documentação ]</span>               <span class="nav-normal">[ Entrar ]  [●]</span>  │
+└────────────────────────────────────────────────────────────────┘
+         <span class="dim">↑ estado normal     ↑ navega p/ /consulta-documental</span></div>
+      </div>
+
+      <div class="mockup-wrap">
+        <div class="mockup-label">Workspace Panel — sem procedimento selecionado</div>
+        <div class="mockup">┌────────────────────────────────────────────────────────────────┐
+│  [ 🔍 Buscar procedimento SBN...                          ]    │
+│                                                                │
+│  ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐      │
+│     🩺  Busque e selecione um procedimento SBN          │      │
+│     para montar a composição                            │      │
+│  └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘      │
+│                                                                │
+│  ╔════════════════════════════════════════════════════╗        │
+│  ║  📖  Dúvida sobre uma regra?                       ║        │
+│  ║      CBHPM · Manual SBN · Manual de Coluna         ║        │
+│  ║                              <span class="cta">[ Abrir documentação → ]</span>  ║  │
+│  ╚════════════════════════════════════════════════════╝        │
+└────────────────────────────────────────────────────────────────┘</div>
+      </div>
+
+      <div class="mockup-wrap">
+        <div class="mockup-label">Workspace Panel — com "Artrodese Cervical" selecionada</div>
+        <div class="mockup">┌────────────────────────────────────────────────────────────────┐
+│  [ 🔍 Artrodese Cervical            ✕ ]                        │
+│                                                                │
+│  Códigos CBHPM  ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄     │
+│  Via de acesso  ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄     │
+│  Equipe         ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄     │
+│  Ajustes clínicos ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄     │
+│                                                                │
+│  ╔════════════════════════════════════════════════════╗        │
+│  ║  📖  Dúvida sobre uma regra?                       ║        │
+│  ║      CBHPM · Manual SBN · Manual de Coluna         ║        │
+│  ║                         <span class="cta">[ Artrodese Cervical → ]</span>  ║        │
+│  ╚════════════════════════════════════════════════════╝        │
+└────────────────────────────────────────────────────────────────┘
+                                                <span class="dim">↑ link: /consulta-documental?q=artrodese+cervical</span></div>
+      </div>
+    </div>
+
+    <!-- 5. Mockup — Documentação -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">Página de Documentação — Layout Final</div>
+      </div>
+
+      <div class="mockup-wrap">
+        <div class="mockup-label">Navbar — estado ativo</div>
+        <div class="mockup">┌────────────────────────────────────────────────────────────────┐
+│  <span class="brand">⬡ Synvera</span>  <span class="nav-active">[ 📖 Documentação ●]</span>              <span class="nav-normal">[ Entrar ]  [●]</span>  │
+└────────────────────────────────────────────────────────────────┘
+         <span class="dim">↑ →/procedure    ↑ estado ativo: bg sólido, borda evidente, ring primário</span></div>
+      </div>
+
+      <div class="callout callout-green">
+        <strong>Comportamento:</strong> Clicar em <strong>Synvera</strong> navega para <code>/procedure</code> (retorna ao módulo de Procedimentos). "Documentação" permanece visível com estado ativo — comunica "você está aqui" sem parecer CTA ou aba pesada.
+      </div>
+    </div>
+
+    <!-- 6. Localização e Justificativa UX -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div class="section-title">Localização da Entrada Contextual — Justificativa UX</div>
+      </div>
+
+      <p>O <code>DocBridge</code> foi posicionado <strong>dentro do workspace-panel</strong>, imediatamente após o bloco de conteúdo clínico (<code>ClinicalAdjustmentsPanel</code>) e antes do fechamento do painel:</p>
+
+      <pre><span class="c">// workspace-panel (card-plush, p-8)</span>
+<span class="t">ProcedureSearchPanel</span>      <span class="c">// entrada: qual procedimento?</span>
+<span class="t">SelectedCodesPanel</span>        <span class="c">// dúvida: quais códigos selecionar?</span>
+<span class="t">SpineVariablesPanel</span>       <span class="c">// dúvida: quantos níveis?</span>
+<span class="t">TeamFeesPanel</span>             <span class="c">// dúvida: regra de auxiliares? anestesia?</span>
+<span class="t">ClinicalAdjustmentsPanel</span>  <span class="c">// dúvida: urgência? pediatria?</span>
+<span class="p">[ empty state se sem procedimento ]</span>
+<span class="k">DocBridge</span>                 <span class="c">// ← AQUI — entrada contextual para docs</span></pre>
+
+      <p><strong>Por que aqui?</strong> As dúvidas sobre regras — auxiliares, urgência, via de acesso, pediatria, múltiplos procedimentos — surgem exatamente enquanto o médico ajusta esses campos. O DocBridge está fisicamente no mesmo espaço onde a dúvida nasce, eliminando a fricção de navegar para outra área da tela.</p>
+
+      <p><strong>Por que sempre visível?</strong> O DocBridge aparece em ambos os estados (com e sem procedimento). Quando há procedimento selecionado, o contexto é pré-preenchido na URL. Quando não há, a entrada ainda está disponível para consulta autônoma.</p>
+
+      <table>
+        <thead>
+          <tr><th>Alternativa considerada</th><th>Descartada por</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Accordion abaixo do grid (comportamento anterior)</td>
+            <td>Abaixo do fold; oculto por padrão; separado do contexto</td>
+          </tr>
+          <tr>
+            <td>Banner entre hero e grid</td>
+            <td>Competiria com hierarquia visual; visível mas não contextual</td>
+          </tr>
+          <tr>
+            <td>Link apenas na navbar</td>
+            <td>Não contextual; dependente de o usuário lembrar que existe</td>
+          </tr>
+          <tr>
+            <td>Sidebar ou menu adicional</td>
+            <td>Aumenta complexidade visual; contraria o design system</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 7. Estado Ativo — Tokens -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div class="section-title">Estado Ativo — Design Tokens</div>
+      </div>
+
+      <p>Implementado com tokens existentes do design system Synvera. Nenhum novo token foi criado.</p>
+
+      <div class="token-grid">
+        <div class="token-card">
+          <div class="token-card-header">🌞 Light Mode — Normal</div>
+          <div class="token-card-body">
+            <div class="token-row"><span class="token-key">background</span><span class="token-val">bg-white/70</span></div>
+            <div class="token-row"><span class="token-key">border</span><span class="token-val">border-slate-200</span></div>
+            <div class="token-row"><span class="token-key">text</span><span class="token-val">text-slate-600</span></div>
+            <div class="token-row"><span class="token-key">ring</span><span class="token-val">—</span></div>
+          </div>
+        </div>
+        <div class="token-card">
+          <div class="token-card-header">🌞 Light Mode — Ativo</div>
+          <div class="token-card-body">
+            <div class="token-row"><span class="token-key">background</span><span class="token-val">bg-white</span></div>
+            <div class="token-row"><span class="token-key">border</span><span class="token-val">border-slate-300</span></div>
+            <div class="token-row"><span class="token-key">text</span><span class="token-val">text-slate-800</span></div>
+            <div class="token-row"><span class="token-key">ring</span><span class="token-val">ring-1 ring-primary/10</span></div>
+          </div>
+        </div>
+        <div class="token-card">
+          <div class="token-card-header">🌑 Dark Mode — Normal</div>
+          <div class="token-card-body">
+            <div class="token-row"><span class="token-key">background</span><span class="token-val">dark:bg-slate-800/60</span></div>
+            <div class="token-row"><span class="token-key">border</span><span class="token-val">dark:border-slate-700</span></div>
+            <div class="token-row"><span class="token-key">text</span><span class="token-val">dark:text-slate-300</span></div>
+            <div class="token-row"><span class="token-key">ring</span><span class="token-val">—</span></div>
+          </div>
+        </div>
+        <div class="token-card">
+          <div class="token-card-header">🌑 Dark Mode — Ativo</div>
+          <div class="token-card-body">
+            <div class="token-row"><span class="token-key">background</span><span class="token-val">dark:bg-slate-800/90</span></div>
+            <div class="token-row"><span class="token-key">border</span><span class="token-val">dark:border-slate-500/80</span></div>
+            <div class="token-row"><span class="token-key">text</span><span class="token-val">dark:text-slate-100</span></div>
+            <div class="token-row"><span class="token-key">ring</span><span class="token-val">dark:ring-primary/20</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-amber">
+        <strong>Princípio:</strong> O estado ativo comunica apenas "você está aqui". Não usa azul saturado, não parece CTA, não parece botão primário. A elevação é sutil — fundo mais sólido, borda mais evidente, glow discreto via <code>ring-1</code>.
+      </div>
+    </div>
+
+    <!-- 8. Fluxo de Navegação -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <div class="section-title">Fluxo de Navegação entre Módulos</div>
+      </div>
+
+      <div class="flow"><span style="color:#0f172a">Landing  /</span>
+       │
+       └──▶ <span style="color:#0f172a;font-weight:700">Procedure Page</span>  /procedure
+                 │
+                 ├── <span style="color:#475569">[navbar]  "Documentação"</span>  ──────────────────────────┐
+                 │                                                            │
+                 └── <span style="color:#475569">[DocBridge]</span>  bottom of workspace-panel              │
+                          │  /consulta-documental?q={procedure-name}         │
+                          │                                                  │
+                          ▼                                                  ▼
+                 <span style="color:#0f172a;font-weight:700">Documentação</span>  /consulta-documental  ◀──────────────────────┘
+                          │
+                          │  [navbar]  "Synvera"
+                          │
+                          └──▶ <span style="color:#475569">Procedure Page</span>  /procedure</div>
+
+      <p>Duas vias de entrada para o módulo de Documentação: <strong>navbar</strong> (sempre visível) e <strong>DocBridge</strong> (contextual, dentro do workflow). Uma via de retorno: <strong>brand Synvera</strong> na página de Documentação → <code>/procedure</code>.</p>
+    </div>
+
+    <!-- 9. DocBridge — Código -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <div class="section-title">DocBridge — Implementação</div>
+      </div>
+
+      <pre><span class="c">// components/procedure/DocBridge.tsx</span>
+<span class="k">import</span> Link <span class="k">from</span> <span class="s">"next/link"</span>;
+<span class="k">import</span> { BookOpen } <span class="k">from</span> <span class="s">"lucide-react"</span>;
+
+<span class="k">interface</span> <span class="t">DocBridgeProps</span> {
+  contextQuery?: <span class="t">string</span>;
+}
+
+<span class="k">export function</span> <span class="p">DocBridge</span>({ contextQuery }: <span class="t">DocBridgeProps</span>) {
+  <span class="k">const</span> q = contextQuery?.trim();
+  <span class="k">const</span> href = q
+    ? <span class="s">`/consulta-documental?q=${encodeURIComponent(q)}`</span>
+    : <span class="s">"/consulta-documental"</span>;
+  <span class="k">const</span> ctaLabel = q
+    ? q.length &gt; 26 ? q.slice(0, 24) + <span class="s">"…"</span> : q
+    : <span class="s">"Abrir documentação"</span>;
+
+  <span class="k">return</span> (
+    &lt;div className=<span class="s">"mt-6 flex items-center justify-between gap-4
+      rounded-2xl border border-slate-100 dark:border-slate-800
+      bg-slate-50/50 dark:bg-slate-900/20 px-4 py-3.5"</span>&gt;
+      &lt;div className=<span class="s">"flex items-center gap-3"</span>&gt;
+        &lt;div className=<span class="s">"flex h-8 w-8 items-center justify-center
+          rounded-xl bg-primary/8 dark:bg-primary/15"</span>&gt;
+          &lt;BookOpen size={14} className=<span class="s">"text-primary dark:text-blue-300"</span> /&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;p&gt;<span class="s">Dúvida sobre uma regra?</span>&lt;/p&gt;
+          &lt;p&gt;<span class="s">CBHPM · Manual SBN · Manual de Coluna</span>&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;Link href={href}&gt;{ctaLabel} →&lt;/Link&gt;
+    &lt;/div&gt;
+  );
+}</pre>
+    </div>
+
+    <!-- 10. Validação -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">10</div>
+        <div class="section-title">Checklist de Validação</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Procedure Page</th><th>Documentação</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Navbar consistente</strong></td>
+            <td><span class="pill pill-green">✓ [Synvera] [Documentação]</span></td>
+            <td><span class="pill pill-green">✓ [Synvera] [Documentação ●]</span></td>
+          </tr>
+          <tr>
+            <td><strong>Entrada contextual</strong></td>
+            <td><span class="pill pill-green">✓ DocBridge no workspace-panel</span></td>
+            <td><span class="pill pill-slate">N/A</span></td>
+          </tr>
+          <tr>
+            <td><strong>Estado ativo</strong></td>
+            <td><span class="pill pill-slate">Normal (correto)</span></td>
+            <td><span class="pill pill-green">✓ ring + bg sólido</span></td>
+          </tr>
+          <tr>
+            <td><strong>Contexto pré-preenchido</strong></td>
+            <td><span class="pill pill-green">✓ ?q={procedure-name}</span></td>
+            <td><span class="pill pill-slate">N/A</span></td>
+          </tr>
+          <tr>
+            <td><strong>Light mode</strong></td>
+            <td><span class="pill pill-green">✓ tokens validados</span></td>
+            <td><span class="pill pill-green">✓ tokens validados</span></td>
+          </tr>
+          <tr>
+            <td><strong>Dark mode</strong></td>
+            <td><span class="pill pill-green">✓ tokens validados</span></td>
+            <td><span class="pill pill-green">✓ tokens validados</span></td>
+          </tr>
+          <tr>
+            <td><strong>Mobile (sm:)</strong></td>
+            <td><span class="pill pill-green">✓ DocBridge responsivo</span></td>
+            <td><span class="pill pill-green">✓ nav ativo hidden sm:flex</span></td>
+          </tr>
+          <tr>
+            <td><strong>Acessibilidade</strong></td>
+            <td><span class="pill pill-green">✓ aria-label no DocBridge</span></td>
+            <td><span class="pill pill-green">✓ aria-current="page"</span></td>
+          </tr>
+          <tr>
+            <td><strong>TypeScript</strong></td>
+            <td colspan="2"><span class="pill pill-green">✓ tsc --noEmit sem erros</span></td>
+          </tr>
+          <tr>
+            <td><strong>Backend / banco / cálculos</strong></td>
+            <td colspan="2"><span class="pill pill-green">✓ não alterados</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- ── Footer ── -->
+  <div class="doc-footer">
+    <div><strong>Synvera</strong> &nbsp;·&nbsp; Relatório técnico UI/UX</div>
+    <div>2026-06-24 &nbsp;·&nbsp; Claude Sonnet 4.6 &nbsp;·&nbsp; LabF5</div>
+  </div>
+
+</div>
+</body>
+</html>
