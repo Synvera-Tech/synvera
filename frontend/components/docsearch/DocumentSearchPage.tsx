@@ -108,13 +108,40 @@ function highlightExcerpt(excerpt: string): string {
 
 // ─── Empty / idle states ──────────────────────────────────────────────────────
 
-function EmptyState({ query }: { query: string }) {
+function EmptyState({
+  query,
+  isFiltered,
+  filterLabel,
+  onBroaden,
+}: {
+  query: string;
+  isFiltered: boolean;
+  filterLabel: string;
+  onBroaden: () => void;
+}) {
   if (!query) return null;
   return (
     <div className="mx-auto max-w-xl rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 px-6 py-10 text-center">
       <p className="text-[13.5px] font-medium text-slate-500 dark:text-slate-400">
-        Nenhuma referência encontrada para esta consulta.
+        {isFiltered ? (
+          <>
+            Nenhuma referência em{" "}
+            <span className="font-semibold text-slate-600 dark:text-slate-300">{filterLabel}</span>{" "}
+            para esta consulta. O termo pode estar em outro manual.
+          </>
+        ) : (
+          "Nenhuma referência encontrada para esta consulta."
+        )}
       </p>
+      {isFiltered && (
+        <button
+          type="button"
+          onClick={onBroaden}
+          className="mt-3.5 inline-flex items-center gap-1.5 rounded-lg border border-primary/25 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-3 py-1.5 text-[12px] font-semibold text-primary dark:text-blue-300 hover:bg-primary/15 dark:hover:bg-primary/25 transition-colors"
+        >
+          Buscar em todos os manuais
+        </button>
+      )}
     </div>
   );
 }
@@ -475,7 +502,12 @@ export function DocumentSearchPageContent() {
 
           {/* Empty */}
           {!isLoading && !error && results !== null && results.length === 0 && (
-            <EmptyState query={submittedQuery} />
+            <EmptyState
+              query={submittedQuery}
+              isFiltered={activeFilter !== "all"}
+              filterLabel={DOC_FILTERS.find((f) => f.id === activeFilter)?.label ?? ""}
+              onBroaden={() => handleFilterChange("all")}
+            />
           )}
         </section>
       )}
