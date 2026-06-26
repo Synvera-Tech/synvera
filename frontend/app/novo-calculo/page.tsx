@@ -546,7 +546,11 @@ export default function NovoCalculo() {
                     </span>
                   </div>
                 ) : (
-                  <PesquisarButton disabled={!query.trim()} loading={searching} />
+                  // Keep the button active even with an empty field — an empty
+                  // submit focuses the input (see handleSubmit). A disabled button
+                  // here renders a forbidden cursor right under the empty field,
+                  // which reads as "search is blocked" even though the input works.
+                  <PesquisarButton disabled={false} loading={searching} />
                 )}
               </form>
 
