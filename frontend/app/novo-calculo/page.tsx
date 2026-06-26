@@ -148,6 +148,26 @@ export default function NovoCalculo() {
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, []);
 
+  // ── Release the "Abrindo…" lock when returning via back/forward ─────────────
+  // selectHit/handleSubmit set `navigating` to show a brief transition before
+  // routing to /procedure, and the input is disabled while it is set. The App
+  // Router can preserve this component's state across client-side back navigation,
+  // so without an explicit reset the input would stay disabled (forbidden cursor)
+  // after the user returns to the search page. popstate covers SPA back/forward;
+  // pageshow covers bfcache restores after a full reload.
+  useEffect(() => {
+    function release() {
+      setNavigating(null);
+      setSearching(false);
+    }
+    window.addEventListener("popstate", release);
+    window.addEventListener("pageshow", release);
+    return () => {
+      window.removeEventListener("popstate", release);
+      window.removeEventListener("pageshow", release);
+    };
+  }, []);
+
   // ── Navigation ─────────────────────────────────────────────────────────────
 
   function selectHit(hit: ProcedureHit) {
