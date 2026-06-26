@@ -2280,6 +2280,15 @@
   },
   {
     "procedure_name": "CIRURGIA TRANSESFENOIDAL TRADICIONAL (ACESSO SUBLABIAL)",
+    "cbhpm_code": "3.14.01.15-5",
+    "description": "Microcirurgia para tumores intracranianos",
+    "porte": "14A",
+    "num_auxiliaries": 2,
+    "billing_mode": "PER_PROCEDURE",
+    "laterality_support": false
+  },
+  {
+    "procedure_name": "CIRURGIA TRANSESFENOIDAL TRADICIONAL (ACESSO SUBLABIAL)",
     "cbhpm_code": "3.14.01.16-3",
     "description": "Microcirurgia por via Transesfenoidal",
     "porte": "11A",
@@ -2375,6 +2384,15 @@
     "cbhpm_code": "3.14.01.15-5",
     "description": "Microcirurgia para tumores intracranianos",
     "porte": "14A",
+    "num_auxiliaries": 2,
+    "billing_mode": "PER_PROCEDURE",
+    "laterality_support": false
+  },
+  {
+    "procedure_name": "CIRURGIA TRANSESFENOIDAL ENDOSCÓPICA I",
+    "cbhpm_code": "3.14.01.16-3",
+    "description": "Microcirurgia por via Transesfenoidal",
+    "porte": "11A",
     "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "laterality_support": false
@@ -5818,6 +5836,16 @@
   },
   {
     "procedure_name": "INFILTRAÇÃO DE COLUNA (DOR AXIAL E/OU RADICULAR)",
+    "cbhpm_code": "3.16.02.16-9",
+    "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+    "porte": "3C",
+    "num_auxiliaries": 0,
+    "specialty": "Neurocirurgia, Coluna Vertebral",
+    "billing_mode": "PER_PROCEDURE",
+    "laterality_support": false
+  },
+  {
+    "procedure_name": "INFILTRAÇÃO DE COLUNA (DOR AXIAL E/OU RADICULAR)",
     "cbhpm_code": "4.08.11.02-6",
     "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
     "porte": "2B",
@@ -7037,402 +7065,6 @@
     "description": "Miorrafias",
     "porte": "3C",
     "num_auxiliaries": 1,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.01-6",
-    "procedure_name": "Trata",
-    "description": "Trata-se da fusão de um segmento",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.02-4",
-    "procedure_name": "Trata",
-    "description": "Trata-se da fusão vertebral realizada",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.36-9",
-    "procedure_name": "Trata",
-    "description": "Trata-se do tratamento da",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.18-0",
-    "procedure_name": "Trata",
-    "description": "Trata-se da discectomia para tratamento",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 1,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.39-3",
-    "procedure_name": "Trata",
-    "description": "Trata-se da discectomia específica para tratamento",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "4.08.14.09-2",
-    "procedure_name": "Trata",
-    "description": "Trata-se de procedimento",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.11-3",
-    "procedure_name": "Trata",
-    "description": "Trata-se do tratamento cirúrgico do deslizamento vertebral",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.28-8",
-    "procedure_name": "Trata",
-    "description": "Trata-se da substituição cirúrgica do corpo vertebral por material",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.16.02.15-0",
-    "procedure_name": "Trata",
-    "description": "Trata-se da aplicação de agentes neurolíticos",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.16.02.06-1",
-    "procedure_name": "Trata",
-    "description": "Trata-se do procedimento que consiste na injeção de",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.14.03.03-4",
-    "procedure_name": "Trata",
-    "description": "Trata-se de procedimento",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 1,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "4.08.14.10-6",
-    "procedure_name": "Trata",
-    "description": "Trata-se de procedimento utilizado para caracterizar a anatomopatologia/arquitetura do",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.03-2",
-    "procedure_name": "Trata",
-    "description": "Trata-se da coleta de material biológico da coluna vertebral para análise",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 1,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "2.02.02.04-0",
-    "procedure_name": "Trata",
-    "description": "Trata-se de procedimento que",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.32.02-6",
-    "procedure_name": "Trata",
-    "description": "Trata-se de material utilizado para promover a fusão de vértebras afetadas por",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.12-1",
-    "procedure_name": "Trata",
-    "description": "Trata-se do tratamento não cirúrgico de fraturas",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.09.01-6",
-    "procedure_name": "Trata",
-    "description": "Trata-se da colocação de dispositivo de imobilização cervical através",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.16.01.01-4",
-    "procedure_name": "Trata",
-    "description": "Trata-se de terapia complementar através da inserção de agulhas em pontos",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.22-9",
-    "procedure_name": "Trata",
-    "description": "Trata-se da secção cirúrgica do osso",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.38-5",
-    "procedure_name": "Trata",
-    "description": "Trata-se da ressecção cirúrgica de tumores",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.16-4",
-    "procedure_name": "Trata",
-    "description": "Trata-se do tratamento cirúrgico",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.21-0",
-    "procedure_name": "Trata",
-    "description": "Trata-se do tratamento cirúrgico de infecção óssea",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.24-5",
-    "procedure_name": "Trata",
-    "description": "Trata-se do tratamento cirúrgico da falha de",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.26-1",
-    "procedure_name": "Trata",
-    "description": "Trata-se da remoção cirúrgica de corpos",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.31-8",
-    "procedure_name": "Trata",
-    "description": "Trata-se do tratamento cirúrgico de",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.10-5",
-    "procedure_name": "Trata",
-    "description": "Trata-se do tratamento cirúrgico de",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "2.01.01.35-0",
-    "procedure_name": "Trata",
-    "description": "Trata-se da programação e ajuste de dispositivos",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.59-8",
-    "procedure_name": "Trata",
-    "description": "Trata-se da substituição do disco intervertebral por prótese",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_SEGMENT",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.06.01.02-9",
-    "procedure_name": "Trata",
-    "description": "Trata-se da ressecção cirúrgica de arcos costais, com porte para 1 arco costal e 30%",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 1,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.06.01.19-3",
-    "procedure_name": "Trata",
-    "description": "Trata-se da abertura",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.09.10.13-7",
-    "procedure_name": "Trata",
-    "description": "Trata-se do reparo cirúrgico de lesões vasculares abdominais",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 3,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.03.11.05-5",
-    "procedure_name": "Trata",
-    "description": "Trata-se da aplicação de toxina botulínica para tratamento",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.16.02.21-5",
-    "procedure_name": "Trata",
-    "description": "Trata-se da aplicação de terapia com laser de baixa potência para tratamento de",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.13.13-7",
-    "procedure_name": "Trata",
-    "description": "Trata-se da punção de articulações",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.13.14-5",
-    "procedure_name": "Trata",
-    "description": "Trata-se da punção de estruturas extra-",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.13.07.10-8",
-    "procedure_name": "Trata",
-    "description": "Trata-se da secção cirúrgica dos nervos pré-",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 1,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "2.01.03.14-0",
-    "procedure_name": "Trata",
-    "description": "Trata-se da",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_SEGMENT",
-    "laterality_support": true
-  },
-  {
-    "cbhpm_code": "3.14.03.02-6",
-    "procedure_name": "Trata",
-    "description": "Trata-se do bloqueio anestésico de nervos periféricos específicos para",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 1,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.16.02.09-6",
-    "procedure_name": "Trata",
-    "description": "Trata-se do bloqueio do gânglio estrelado",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.16.02.10-0",
-    "procedure_name": "Trata",
-    "description": "Trata-se do bloqueio do gânglio estrelado com",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.16.02.05-3",
-    "procedure_name": "Trata",
-    "description": "Trata-se do bloqueio temporário do plexo celíaco com",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.16.02.17-7",
-    "procedure_name": "Trata",
-    "description": "Trata-se do bloqueio do sistema simpático através da",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.20-2",
-    "procedure_name": "Trata",
-    "description": "Trata-se da ressecção microcirúrgica de tumores",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 0,
-    "billing_mode": "PER_PROCEDURE",
-    "laterality_support": false
-  },
-  {
-    "cbhpm_code": "3.07.15.17-2",
-    "procedure_name": "Trata",
-    "description": "Trata-se da ressecção cirúrgica de",
-    "specialty": "Neurocirurgia, Coluna Vertebral",
-    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "laterality_support": false
   }

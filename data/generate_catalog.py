@@ -117,12 +117,43 @@ def clean_procedure_name(value: str) -> str:
     return value
 
 
+# Tokens the parser recovered from malformed source punctuation. Surfaced in main()
+# so a silent drop (the historical 3.16.0216-9 bug) can never recur unnoticed.
+RECOVERED_CODES: list[tuple[str, str, str]] = []  # (raw_token, canonical_code, line)
+
+
+def canonicalize_code(token: str) -> str | None:
+    """
+    Normalise a CBHPM code token to canonical N.NN.NN.NN-N form.
+
+    The SBN manual's structured tables occasionally render codes with malformed
+    punctuation (a missing or misplaced dot), e.g. '3.16.0216-9' for
+    '3.16.02.16-9'. A canonical code carries exactly eight digits; if the token
+    does not, it is not a CBHPM code and None is returned.
+    """
+    digits = re.sub(r"\D", "", token)
+    if len(digits) != 8:
+        return None
+    return f"{digits[0]}.{digits[1:3]}.{digits[3:5]}.{digits[5:7]}-{digits[7]}"
+
+
 def split_code_line(line: str):
-    match = re.match(r"\s*(\d\.\d{2}\.\d{2}\.\d{2}-\d)\s+(.+?)\s+(\d{1,2}[A-C])\s*$", line)
+    # A CBHPM code row begins with a code-like token and ends with a porte.
+    # The leading token is matched loosely (any digits/dots/dashes, no spaces)
+    # and then canonicalised, so codes with malformed punctuation are recovered
+    # instead of being silently discarded.
+    match = re.match(r"\s*(\d[\d.\-]{6,16}\d)\s+(.+?)\s+(\d{1,2}[A-C])\s*$", line)
     if not match:
         return None
+    code = canonicalize_code(match.group(1))
+    if code is None:
+        # The line ends in a porte but the leading token is not a valid CBHPM
+        # code (wrong digit count): treat it as a non-code line, not a drop.
+        return None
+    if code != match.group(1):
+        RECOVERED_CODES.append((match.group(1), code, line.strip()))
     return {
-        "cbhpm_code": match.group(1),
+        "cbhpm_code": code,
         "description": normalize_pt_br(match.group(2)),
         "porte": match.group(3),
     }
@@ -312,6 +343,13 @@ def main() -> None:
             f"Phase 1: parsed {len(deduplicated)} unique entries "
             f"(removed {len(catalog) - len(deduplicated)} duplicates)"
         )
+        if RECOVERED_CODES:
+            print(
+                f"Phase 1: recovered {len(RECOVERED_CODES)} CBHPM code(s) with "
+                f"malformed punctuation in the source PDF:"
+            )
+            for raw, canonical, _line in RECOVERED_CODES:
+                print(f"    {raw!r} → {canonical}")
     except (subprocess.CalledProcessError, FileNotFoundError):
         print(
             "Phase 1: pdftotext not available — loading existing procedures.json "
