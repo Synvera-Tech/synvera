@@ -8,7 +8,7 @@ const faqs = [
   {
     question: "Como o Synvera se mantém atualizado com a CBHPM?",
     answer:
-      "Nossa equipe de especialistas revisa periodicamente as atualizações das tabelas CBHPM e diretrizes da SBN. Novas versões do catálogo são disponibilizadas automaticamente no sistema sem custos adicionais.",
+      "Nossa equipe de especialistas revisa periodicamente as atualizações das tabelas CBHPM e diretrizes da SBN. Novas versões do catálogo são disponibilizadas automaticamente no sistema.",
   },
   {
     question: "Posso exportar os relatórios em PDF?",

@@ -9,7 +9,6 @@ import { NavBar } from "@/components/home/NavBar";
 import { ProductPreview } from "@/components/home/ProductPreview";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { FeaturesGrid } from "@/components/home/FeaturesGrid";
-import { PricingSection } from "@/components/home/PricingSection";
 import { FaqSection } from "@/components/home/FaqSection";
 import { CtaSection } from "@/components/home/CtaSection";
 import { Footer } from "@/components/home/Footer";
@@ -301,7 +300,6 @@ function UnauthenticatedHome() {
       <ProductPreview />
       <HowItWorks />
       <FeaturesGrid />
-      <PricingSection />
       <FaqSection />
       <CtaSection />
       <Footer />

@@ -1,66 +1,6 @@
 "use client";
 
-import type { ReactNode, MouseEvent } from "react";
-
-function SocialIcon({
-  href,
-  label,
-  restColor,
-  restBorder,
-  hoverColor,
-  hoverBorder,
-  hoverBg,
-  hoverGlow,
-  children,
-}: {
-  href: string;
-  label: string;
-  restColor: string;
-  restBorder: string;
-  hoverColor: string;
-  hoverBorder: string;
-  hoverBg: string;
-  hoverGlow: string;
-  children: ReactNode;
-}) {
-  const prevent = (e: MouseEvent<HTMLAnchorElement>) => e.preventDefault();
-
-  return (
-    <a
-      href={href}
-      onClick={prevent}
-      aria-label={label}
-      style={{
-        width: "36px",
-        height: "36px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: "10px",
-        border: `1px solid ${restBorder}`,
-        background: "rgba(255,255,255,0.04)",
-        color: restColor,
-        textDecoration: "none",
-        transition: "border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, background 200ms ease",
-        flexShrink: 0,
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = hoverBorder;
-        e.currentTarget.style.color = hoverColor;
-        e.currentTarget.style.boxShadow = hoverGlow;
-        e.currentTarget.style.background = hoverBg;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = restBorder;
-        e.currentTarget.style.color = restColor;
-        e.currentTarget.style.boxShadow = "none";
-        e.currentTarget.style.background = "rgba(255,255,255,0.04)";
-      }}
-    >
-      {children}
-    </a>
-  );
-}
+import type { MouseEvent } from "react";
 
 export function Footer() {
   const preventNav = (e: MouseEvent) => e.preventDefault();
@@ -79,19 +19,12 @@ export function Footer() {
 
           {/* Brand + tagline */}
           <div className="flex flex-col items-center md:items-start gap-3">
-            <div className="flex items-center gap-2.5">
-              <img
-                src="/brand/synvera-symbol-light.svg"
-                alt="Synvera"
-                style={{ width: "26px", height: "26px" }}
-              />
-              <span
-                className="font-grotesk font-extrabold tracking-tight"
-                style={{ fontSize: "15px", color: "#E6EEF7" }}
-              >
-                Synvera
-              </span>
-            </div>
+            <span
+              className="font-grotesk font-extrabold tracking-tight"
+              style={{ fontSize: "15px", color: "#E6EEF7" }}
+            >
+              Synvera
+            </span>
             <p
               className="text-center md:text-left leading-relaxed"
               style={{ fontSize: "12px", color: "#8A8F98", maxWidth: "210px" }}
@@ -100,48 +33,8 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Social + WhatsApp */}
+          {/* WhatsApp pill */}
           <div className="flex flex-col items-center md:items-end gap-4">
-            {/* Icon row */}
-            <div className="flex items-center gap-2.5">
-              <SocialIcon
-                href="#"
-                label="Instagram"
-                restColor="rgba(225,48,108,0.62)"
-                restBorder="rgba(225,48,108,0.20)"
-                hoverColor="#e1306c"
-                hoverBorder="rgba(225,48,108,0.50)"
-                hoverBg="rgba(225,48,108,0.10)"
-                hoverGlow="0 0 20px rgba(225,48,108,0.32)"
-              >
-                {/* Instagram */}
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
-                </svg>
-              </SocialIcon>
-
-              <SocialIcon
-                href="#"
-                label="LinkedIn"
-                restColor="rgba(79,163,224,0.65)"
-                restBorder="rgba(79,163,224,0.20)"
-                hoverColor="#4fa3e0"
-                hoverBorder="rgba(10,102,194,0.50)"
-                hoverBg="rgba(10,102,194,0.10)"
-                hoverGlow="0 0 20px rgba(10,102,194,0.30)"
-              >
-                {/* LinkedIn */}
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                  <rect x="2" y="9" width="4" height="12" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </SocialIcon>
-            </div>
-
-            {/* WhatsApp pill */}
             <button
               type="button"
               onClick={preventNav}
