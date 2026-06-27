@@ -82,9 +82,9 @@ export function HeroSection() {
 
         @keyframes scrollCue {
           0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
-          25% { transform: translateY(8px) scale(1.05); opacity: 0.6; }
-          50% { transform: translateY(14px) scale(1.08); opacity: 1; }
-          75% { transform: translateY(8px) scale(1.05); opacity: 0.6; }
+          25% { transform: translateY(4px) scale(1.05); opacity: 0.6; }
+          50% { transform: translateY(7px) scale(1.08); opacity: 1; }
+          75% { transform: translateY(4px) scale(1.05); opacity: 0.6; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -118,8 +118,16 @@ export function HeroSection() {
           maxWidth: "720px",
           textAlign: "center",
           position: "relative",
-          zIndex: 1,
+          // Sit above the next section, which overlaps the hero by 60px
+          // (ProductPreview marginTop:-60px, zIndex:10) and draws the divider
+          // line on top. Keeping the hero content above z-10 ensures the
+          // scroll-cue chevron stays fully visible at the bottom of its bounce.
+          // Still below the fixed NavBar (zIndex:50).
+          zIndex: 11,
           width: "100%",
+          // Breathing room so the scroll-cue chevron keeps clear hero space
+          // beneath it and never reaches the divider line of the next section.
+          paddingBottom: "14px",
         }}
       >
         {/* Wordmark */}

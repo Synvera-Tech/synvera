@@ -66,8 +66,11 @@ export function ProductPreview() {
       style={{
         padding: "80px 24px 100px",
         background: "linear-gradient(180deg, #0B0D10 0%, #050508 100%)",
-        borderTop: "1px solid rgba(35,37,42,0.6)",
-        marginTop: "-60px",
+        borderTop: "1px solid rgba(35,37,42,0.85)",
+        // Slightly less overlap than the hero's 60px bottom padding so the
+        // divider line sits a touch lower, keeping clear of the scroll-cue
+        // chevron's animation at the bottom of the hero.
+        marginTop: "-50px",
         position: "relative",
         zIndex: 10,
         scrollMarginTop: "88px",

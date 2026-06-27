@@ -6,7 +6,8 @@
     "build": "next build",
     "build:verify": "NEXT_DIST_DIR=.next-verify next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@clerk/localizations": "^4.8.1",
