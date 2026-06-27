@@ -1,15 +1,25 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 type Theme = "light" | "dark";
 
 type ThemeContextValue = {
+  /** The user's saved/global theme. Driven by the toggle and persisted to localStorage. */
   theme: Theme;
+  /** Reflects the theme currently on screen (the page override when present, otherwise the global theme). */
   isDark: boolean;
   toggle: () => void;
   setTheme: (theme: Theme) => void;
+  /**
+   * Page-scoped theme override. When set, it drives the appearance of the page
+   * WITHOUT touching the saved global preference — used by the Procedure page so
+   * it always opens in light mode while leaving the global toggle untouched.
+   * Pass `null` to release the override and return to the user's chosen theme.
+   */
+  pageTheme: Theme | null;
+  setPageTheme: (theme: Theme | null) => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -35,26 +45,36 @@ function applyTheme(theme: Theme) {
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
+  const [pageTheme, setPageThemeState] = useState<Theme | null>(null);
+
+  // The theme actually shown on screen: a page override wins over the global preference.
+  const effective: Theme = pageTheme ?? theme;
+
+  // Single source of DOM mutation. The inline script in <head> already painted the
+  // correct initial theme (including forcing light on /procedure), so we skip the
+  // first run to avoid a flash and only react to later theme/override changes.
+  const didInit = useRef(false);
+  useEffect(() => {
+    if (!didInit.current) {
+      didInit.current = true;
+      return;
+    }
+    applyTheme(effective);
+  }, [effective]);
 
   useEffect(() => {
-    const initialTheme = getStoredTheme() ?? getSystemTheme();
-    setThemeState(initialTheme);
-    applyTheme(initialTheme);
+    setThemeState(getStoredTheme() ?? getSystemTheme());
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (e: MediaQueryListEvent) => {
       if (!getStoredTheme()) {
-        const nextTheme = e.matches ? "dark" : "light";
-        setThemeState(nextTheme);
-        applyTheme(nextTheme);
+        setThemeState(e.matches ? "dark" : "light");
       }
     };
 
     const handleStorage = (event: StorageEvent) => {
       if (event.key === "theme") {
-        const nextTheme = getStoredTheme() ?? getSystemTheme();
-        setThemeState(nextTheme);
-        applyTheme(nextTheme);
+        setThemeState(getStoredTheme() ?? getSystemTheme());
       }
     };
 
@@ -70,17 +90,22 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const setTheme = useCallback((nextTheme: Theme) => {
     setThemeState(nextTheme);
     localStorage.setItem("theme", nextTheme);
-    applyTheme(nextTheme);
+  }, []);
+
+  const setPageTheme = useCallback((nextTheme: Theme | null) => {
+    setPageThemeState(nextTheme);
   }, []);
 
   const value = useMemo<ThemeContextValue>(
     () => ({
       theme,
-      isDark: theme === "dark",
+      isDark: effective === "dark",
       setTheme,
       toggle: () => setTheme(theme === "dark" ? "light" : "dark"),
+      pageTheme,
+      setPageTheme,
     }),
-    [setTheme, theme],
+    [effective, pageTheme, setPageTheme, setTheme, theme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

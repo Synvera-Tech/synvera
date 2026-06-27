@@ -39,8 +39,20 @@ function ProcedureContent({
   initialRoute: AccessRouteType;
   initialCompositionId: string;
 }) {
-  const { isDark, toggle } = useTheme();
+  const { pageTheme, setPageTheme } = useTheme();
   const { isLoaded, isSignedIn, getToken } = useAuth();
+
+  // The Procedure page is always presented in light mode so there is no abrupt
+  // dark→light jump coming from the Search page. The user can still flip to dark
+  // *for this page only* via the toggle below — their saved global preference is
+  // left untouched and is restored automatically when they leave the page.
+  useEffect(() => {
+    setPageTheme("light");
+    return () => setPageTheme(null);
+  }, [setPageTheme]);
+
+  const isDark = pageTheme === "dark";
+  const toggle = () => setPageTheme(isDark ? "light" : "dark");
 
   // ── Cross-cutting clinical state ──────────────────────────────────────────
   const [accessRoute, setAccessRoute] = useState<AccessRouteType>(initialRoute);

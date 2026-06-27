@@ -33,9 +33,12 @@ const themeInitScript = `
 (() => {
   try {
     const stored = localStorage.getItem("theme");
-    const theme = stored === "dark" || stored === "light"
+    let theme = stored === "dark" || stored === "light"
       ? stored
       : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    // The Procedure page is always presented in light mode (see ThemeProvider
+    // page override); force it on first paint too so a hard load never flashes dark.
+    if (window.location.pathname.indexOf("/procedure") === 0) theme = "light";
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     root.classList.toggle("light", theme === "light");
