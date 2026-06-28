@@ -1,7 +1,6 @@
 "use client";
 
 import { HeartPulse } from "lucide-react";
-import { Toggle } from "@/components/ui/toggle";
 import { cn } from "@/components/ui/utils";
 
 interface TeamFeesPanelProps {
@@ -9,8 +8,6 @@ interface TeamFeesPanelProps {
   auxIsLocked: boolean;
   cbhpmMandatedAux: number;
   onAuxiliariesChange: (n: number) => void;
-  requiresAnesthesia: boolean;
-  onRequiresAnesthesiaChange: (v: boolean) => void;
 }
 
 export function TeamFeesPanel({
@@ -18,8 +15,6 @@ export function TeamFeesPanel({
   auxIsLocked,
   cbhpmMandatedAux,
   onAuxiliariesChange,
-  requiresAnesthesia,
-  onRequiresAnesthesiaChange,
 }: TeamFeesPanelProps) {
   return (
     <>
@@ -62,21 +57,19 @@ export function TeamFeesPanel({
       </div>
 
       <div className="mt-8 space-y-4">
-        <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
-          <div className="flex items-center gap-2.5">
-            <div className="clinical-icon-chip flex h-8 w-8 items-center justify-center rounded-full">
-              <HeartPulse aria-hidden="true" size={16} />
+        <div className="medical-toggle-panel flex items-center gap-2.5 rounded-2xl border px-4 py-4">
+          <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
+            <HeartPulse aria-hidden="true" size={16} />
+          </div>
+          <div>
+            <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">
+              Anestesiologista
             </div>
-            <div>
-              <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">
-                Anestesiologista
-              </div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                Incluir honorários do anestesista
-              </div>
+            <div className="text-[11px] text-slate-500 dark:text-slate-400">
+              Honorário derivado automaticamente do porte anestésico (CBHPM). Procedimentos com
+              anestesia local (AN0) não geram honorário.
             </div>
           </div>
-          <Toggle checked={requiresAnesthesia} onChange={onRequiresAnesthesiaChange} />
         </div>
       </div>
     </>

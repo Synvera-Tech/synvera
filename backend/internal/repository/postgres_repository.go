@@ -828,3 +828,32 @@ func (r *PostgresRepository) GetCodeModifiers() (map[string]models.CodeModifier,
 	}
 	return out, nil
 }
+
+// GetAnestheticPortes returns the per-code anesthetic porte (AN0–AN8), keyed by CBHPM code.
+// Codes with a NULL anesthetic_porte are omitted.
+func (r *PostgresRepository) GetAnestheticPortes() (map[string]int, error) {
+	ctx := context.Background()
+	rows, err := r.pool.Query(ctx, `
+		SELECT code, anesthetic_porte
+		FROM cbhpm_codes
+		WHERE anesthetic_porte IS NOT NULL
+	`)
+	if err != nil {
+		return nil, fmt.Errorf("postgres: get anesthetic portes: %w", err)
+	}
+	defer rows.Close()
+
+	out := make(map[string]int)
+	for rows.Next() {
+		var code string
+		var porte int
+		if err := rows.Scan(&code, &porte); err != nil {
+			return nil, fmt.Errorf("postgres: scan anesthetic porte: %w", err)
+		}
+		out[code] = porte
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("postgres: anesthetic porte rows: %w", err)
+	}
+	return out, nil
+}

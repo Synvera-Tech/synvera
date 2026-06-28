@@ -17,7 +17,7 @@ func CalculateWithPortes(
 	adjustments []string,
 	porteValues map[string]float64,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil, nil)
 }
 
 // CalculateWithPortesAndModifiers is the data-driven entry point (ADR-005, roadmap N5).
@@ -30,6 +30,9 @@ func CalculateWithPortes(
 // behaviour exactly (used by Calculate / CalculateWithPortes and all existing tests).
 // Codes that are not SPINE and have no modifier row are valued identically to before, so
 // neurosurgery calculations never change.
+// anestheticPortes (code → AN0–AN8) activates the porte-derived anesthesiologist fee
+// (CBHPM p.139–140). When nil, the legacy flat anesthesiaFee gated by requiresAnesthesia is
+// used instead, preserving all existing tests.
 func CalculateWithPortesAndModifiers(
 	codes []models.SelectedCode,
 	auxiliariesCount int,
@@ -38,8 +41,9 @@ func CalculateWithPortesAndModifiers(
 	adjustments []string,
 	porteValues map[string]float64,
 	modifiers map[string]models.CodeModifier,
+	anestheticPortes map[string]int,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes)
 }
 
 // Calculate applies validated CBHPM billing rules to a physician-assembled composition.
@@ -76,7 +80,7 @@ func Calculate(
 	accessRoute models.AccessRouteType,
 	adjustments []string,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil, nil)
 }
 
 // resolveCodeRules determines the effective billing rule for a single code.
@@ -121,6 +125,7 @@ func calculate(
 	adjustments []string,
 	porteValues map[string]float64,
 	modifiers map[string]models.CodeModifier,
+	anestheticPortes map[string]int,
 ) models.CalculationResult {
 	// ── Step 1: resolve porte values, apply spine multipliers, find principal ───
 
@@ -232,9 +237,13 @@ func calculate(
 	}
 
 	// ── Step 5: anesthesiologist ──────────────────────────────────────────────
+	// Porte-derived when anestheticPortes is provided (CBHPM p.139–140); otherwise the
+	// legacy flat fee gated by requiresAnesthesia (preserves existing tests/callers).
 
 	anesth := 0.0
-	if requiresAnesthesia {
+	if anestheticPortes != nil {
+		anesth = computeAnesthesia(codes, anestheticPortes, porteValues, accessRoute)
+	} else if requiresAnesthesia {
 		anesth = anesthesiaFee
 	}
 

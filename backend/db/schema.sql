@@ -85,6 +85,10 @@ CREATE TABLE IF NOT EXISTS cbhpm_codes (
     specialty          VARCHAR(20) NOT NULL DEFAULT 'NEUROSURGERY'
         CHECK (specialty IN ('NEUROSURGERY', 'SPINE')),
     laterality_support BOOLEAN     NOT NULL DEFAULT FALSE,
+    -- Anesthetic porte AN0–AN8 (CBHPM 2022 p.139). NULL when the code has no anesthetic
+    -- porte ("–" in the CBHPM table). Seeded by migration 029; AN→surgical-porte
+    -- equivalence lives in the engine (service.AnestheticPorteEquivalence).
+    anesthetic_porte   SMALLINT    CHECK (anesthetic_porte BETWEEN 0 AND 8),
     created_at         TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

@@ -91,25 +91,27 @@ Colunas: **Impl.?** (✅/❌) · **Diverge?** (⚠️ quando a implementação c
 
 ## 3. Comparação com a implementação atual
 
-> Implementação atual: `service` usa `anesthesiaFee = 1200.00` fixo (portes.go), somado quando
-> `requiresAnesthesia=true` e escalado pelo multiplicador de ajustes (engine.go Step 5/6). O **porte
-> anestésico AN0–8 não é capturado** em nenhum lugar (`procedures.json`/`schema.sql` não têm a coluna
-> "Porte Anest.").
+> **Atualização (2026-06-28):** o modelo derivado do porte foi implementado (migração 029 +
+> `service/anesthesia.go`). O `anesthesiaFee` fixo passou a ser o **fallback legado** (caminho
+> `anestheticPortes == nil`, usado só por testes). Em produção o handler deriva o honorário do porte
+> anestésico. Os status abaixo refletem o estado pós-implementação.
 
-### ✅ Confirmadas (implementação coincide com a norma)
-- **A15/A16** — urgência/emergência +30% e o conceito de horário especial **incidem** sobre o valor de anestesia (o multiplicador de ajustes escala `anesth`). Coincide *no percentual e na incidência*, embora aplicado sobre uma base incorreta (ver divergências).
+### ✅ Confirmadas / Implementadas (coincide com a norma)
+- **A3/A19 — Valor do anestesiologista**: porte AN0–8 → porte cirúrgico equivalente → valor versionado. Implementado (`anesthetic_porte` na coluna, equivalência em `service/anesthesia.go`). Ex.: craniotomia (AN5) → 7C → R$1.123,65.
+- **A4 — Porte 0**: AN0 ⇒ R$0 (sem anestesiologista). Implementado.
+- **A5 — Fallback PORTE 3**: atos sem porte anestésico previsto ⇒ PORTE 3 (4C). Implementado.
+- **A6/A7 — Múltiplos atos**: principal + 50% (mesma via) / 70% (vias diferentes), mapeado ao seletor de via. Implementado.
+- **A15/A16 — Urgência/horário especial +30%**: incide sobre o honorário derivado. Implementado.
+- **Captura de dado**: coluna `cbhpm_codes.anesthetic_porte` (migração 029), 190/219 códigos.
 
-### ⚠️ Divergentes (implementação difere da norma)
-1. **A3/A19 — Valor do anestesiologista.** Norma: porte AN0–8 → porte cirúrgico equivalente → valor do porte (por procedimento). Engine: **R$ 1.200 fixo**, independente do procedimento/porte. Sem base normativa (R21 da auditoria de coluna).
-2. **A4/A10 — Porte 0.** Norma: AN0 = sem anestesiologista. Engine: adiciona 1.200 sempre que `requiresAnesthesia=true`, sem considerar porte 0.
-3. **A14 — Pediatria/idoso anestésico (+30%, escopo restrito).** Engine: aplica os ajustes pediátricos **gerais** (+100/50/30%) também à anestesia; não há o +30% específico restrito aos códigos do item 14.
+### ⚠️ Divergentes / decisões aplicadas
+1. **A8 — Bilateral +70% do 1º ato (sem código específico).** Implementado de forma **aproximada** via a degressividade de via (A6/A7); a regra bilateral-específica do item 7 não tem tratamento próprio. Rever se necessário.
+2. **A14 — Pediatria/idoso anestésico (+30%, escopo restrito).** O engine aplica os ajustes pediátricos **gerais** também à anestesia; o +30% restrito aos códigos do item 14 ainda não é específico.
 
 ### ❌ Pendentes (norma existe, não implementada)
-- **A3** captura do porte anestésico (coluna "Porte Anest.") por código — **dado inexistente** no catálogo.
-- **A6/A7** múltiplos atos anestésicos (50% mesma via / 70% diferentes) — lógica inexistente.
-- **A8** bilateral +70% (sem código específico) — inexistente.
 - **A9** auxiliar de anestesia 60% (escopo do item 8) — inexistente.
-- **A5** fallback PORTE 3 para atos sem porte previsto — inexistente.
+- **A8** tratamento bilateral-específico (item 7) distinto da degressividade de via.
+- **A14** +30% pediátrico/idoso restrito aos códigos do item 14 (hoje usa o ajuste geral).
 - **A12/A18** consulta pré-anestésica e SRPA (códigos próprios) — fora de escopo do cálculo atual.
 
 ---

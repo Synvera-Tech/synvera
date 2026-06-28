@@ -101,8 +101,10 @@ func TestEndToEndCalculateAndSaveRoundTrip(t *testing.T) {
 	if calcResult.LeadSurgeonFee <= 0 {
 		t.Fatalf("expected lead_surgeon_fee > 0 from engine, got %f", calcResult.LeadSurgeonFee)
 	}
-	if calcResult.AnesthesiologistFee != 1200.0 {
-		t.Errorf("expected anesthesiologist_fee 1200.00, got %f", calcResult.AnesthesiologistFee)
+	// Anesthesia is now porte-derived (CBHPM p.139–140): 3.02.15.02-1 has anesthetic porte
+	// AN5 → equivalent surgical porte 7C → R$1123.65 (replaces the legacy flat R$1200).
+	if calcResult.AnesthesiologistFee != 1123.65 {
+		t.Errorf("expected anesthesiologist_fee 1123.65 (AN5→7C), got %f", calcResult.AnesthesiologistFee)
 	}
 
 	// Step 2: save the calculation snapshot.

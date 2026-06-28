@@ -31,6 +31,11 @@ type Repository interface {
 	// the valuation engine does not consume the result yet (no calculation change).
 	GetCodeModifiers() (map[string]models.CodeModifier, error)
 
+	// GetAnestheticPortes returns the per-code anesthetic porte (AN0–AN8, CBHPM 2022
+	// p.139), keyed by CBHPM code. Codes with no anesthetic porte ("–" in the CBHPM
+	// table) are absent from the map. Used to derive the anesthesiologist fee.
+	GetAnestheticPortes() (map[string]int, error)
+
 	// ── Physician accounts ─────────────────────────────────────────────────────
 
 	// FindOrCreatePhysician looks up the physician with the given Clerk user ID,

@@ -99,7 +99,15 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			log.Printf("calculate: get code modifiers: %v", err)
 			modifiers = nil
 		}
-		result := service.CalculateWithPortesAndModifiers(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers)
+
+		// Anesthesiologist fee is derived from per-code anesthetic portes (CBHPM p.139–140);
+		// a load failure degrades to the legacy flat fee rather than breaking the calculation.
+		anestheticPortes, err := repo.GetAnestheticPortes()
+		if err != nil {
+			log.Printf("calculate: get anesthetic portes: %v", err)
+			anestheticPortes = nil
+		}
+		result := service.CalculateWithPortesAndModifiers(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes)
 
 		breakdown := make([]generated.CodeBreakdown, 0, len(result.CodeBreakdown))
 		for _, b := range result.CodeBreakdown {

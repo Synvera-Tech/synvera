@@ -11,6 +11,7 @@ do nothing** (table empty ⇒ no modifiers). All are additive and idempotent.
 - [ ] `026_spine_procedure_source.sql` — provenance columns + backfill (if not already applied).
 - [ ] `027_cbhpm_code_modifiers.sql` — `CREATE TABLE cbhpm_code_modifiers`.
 - [ ] `028_seed_cbhpm_code_modifiers.sql` — seed (24 CONFIRMED rows).
+- [ ] `029_cbhpm_anesthetic_portes.sql` — `cbhpm_codes.anesthetic_porte` column + seed (190 codes). Required for the porte-derived anesthesiologist fee.
 
 Apply: `psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f backend/db/migrations/02X_*.sql`
 

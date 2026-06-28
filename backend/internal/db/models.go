@@ -37,6 +37,7 @@ type CbhpmCode struct {
 	BillingMode       string
 	Specialty         string
 	LateralitySupport bool
+	AnestheticPorte   pgtype.Int2
 	CreatedAt         pgtype.Timestamptz
 }
 

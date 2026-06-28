@@ -21,6 +21,9 @@ var catalogFS embed.FS
 //go:embed code_modifiers.json
 var codeModifiersFS embed.FS
 
+//go:embed anesthetic_portes.json
+var anestheticPortesFS embed.FS
+
 // flatEntry mirrors one row in the embedded procedures.json.
 type flatEntry struct {
 	ProcedureName    string `json:"procedure_name"`
@@ -67,6 +70,10 @@ type FileRepository struct {
 	// same normative data. Read-only; not consumed by the engine yet (stage N3).
 	codeModifiers map[string]models.CodeModifier
 
+	// anestheticPortes holds the per-code anesthetic porte (AN0–AN8), keyed by CBHPM
+	// code, loaded from the embedded anesthetic_portes.json (parity with Postgres).
+	anestheticPortes map[string]int
+
 	// physicianMu guards the in-memory physician account stores.
 	physicianMu       sync.RWMutex
 	physiciansByClerk map[string]*models.PhysicianAccount // keyed by clerk_user_id
@@ -96,7 +103,40 @@ func NewFileRepository() *FileRepository {
 
 	repo := buildIndex(flat)
 	repo.codeModifiers = loadCodeModifiers()
+	repo.anestheticPortes = loadAnestheticPortes()
 	return repo
+}
+
+// loadAnestheticPortes parses the embedded anesthetic_portes.json into a map keyed by
+// CBHPM code. Panics on corruption (fatal misconfiguration, like the catalog).
+func loadAnestheticPortes() map[string]int {
+	raw, err := anestheticPortesFS.ReadFile("anesthetic_portes.json")
+	if err != nil {
+		log.Fatalf("repository: read embedded anesthetic portes: %v", err)
+	}
+	var file struct {
+		Portes []struct {
+			Code            string `json:"code"`
+			AnestheticPorte int    `json:"anesthetic_porte"`
+		} `json:"portes"`
+	}
+	if err := json.Unmarshal(raw, &file); err != nil {
+		log.Fatalf("repository: decode anesthetic portes: %v", err)
+	}
+	out := make(map[string]int, len(file.Portes))
+	for _, p := range file.Portes {
+		out[p.Code] = p.AnestheticPorte
+	}
+	return out
+}
+
+// GetAnestheticPortes returns a copy of the per-code anesthetic porte map.
+func (r *FileRepository) GetAnestheticPortes() (map[string]int, error) {
+	out := make(map[string]int, len(r.anestheticPortes))
+	for k, v := range r.anestheticPortes {
+		out[k] = v
+	}
+	return out, nil
 }
 
 // loadCodeModifiers parses the embedded code_modifiers.json into a map keyed by

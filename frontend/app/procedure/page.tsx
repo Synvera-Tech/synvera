@@ -295,8 +295,6 @@ function ProcedureContent({
                 auxIsLocked={procedureState.auxIsLocked}
                 cbhpmMandatedAux={procedureState.cbhpmMandatedAux}
                 onAuxiliariesChange={setAuxiliariesCount}
-                requiresAnesthesia={requiresAnesthesia}
-                onRequiresAnesthesiaChange={setRequiresAnesthesia}
               />
 
               <ClinicalAdjustmentsPanel
