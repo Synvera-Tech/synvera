@@ -32,6 +32,7 @@ def main() -> None:
     # ── Aggregate ─────────────────────────────────────────────────────────────
     proc_order:   list[str]         = []          # insertion order of procedure names
     proc_entries: dict[str, list]   = {}          # name → [{cbhpm_code, porte}, ...]
+    proc_specialty: dict[str, str]  = {}          # name → 'NEUROSURGERY' | 'SPINE'
     cbhpm_descs:  dict[str, str]    = OrderedDict()  # code → description (first wins)
     cbhpm_aux:    dict[str, int]    = {}          # code → num_auxiliaries (first wins)
 
@@ -41,10 +42,15 @@ def main() -> None:
         desc  = row["description"]
         porte = row["porte"]
         n_aux = row.get("num_auxiliaries", 0)
+        # Procedure-level specialty. Only the canonical 'SPINE' marker (Manual de
+        # Coluna fiches) maps to SPINE; every other value defaults to NEUROSURGERY,
+        # honouring the sbn_procedures.specialty CHECK constraint.
+        spec  = "SPINE" if row.get("specialty") == "SPINE" else "NEUROSURGERY"
 
         if name not in proc_entries:
             proc_order.append(name)
             proc_entries[name] = []
+            proc_specialty[name] = spec
 
         if code not in cbhpm_descs:
             cbhpm_descs[code] = desc
@@ -88,11 +94,15 @@ def main() -> None:
     # ── 2. SBN procedures ─────────────────────────────────────────────────────
     # SBN code is the 1-based sequential index, matching FileRepository's idFromIndex.
     lines.append("-- ── SBN procedures ───────────────────────────────────────────────────────────")
-    lines.append("INSERT INTO sbn_procedures (code, name) VALUES")
+    lines.append("INSERT INTO sbn_procedures (code, name, specialty) VALUES")
     for i, name in enumerate(proc_order):
         sep = "," if i < len(proc_order) - 1 else ""
-        lines.append(f"    ('{i + 1}', '{esc(name)}'){sep}")
-    lines.append("ON CONFLICT (code) DO UPDATE SET name = EXCLUDED.name;")
+        lines.append(f"    ('{i + 1}', '{esc(name)}', '{proc_specialty[name]}'){sep}")
+    lines.append(
+        "ON CONFLICT (code) DO UPDATE SET"
+        " name = EXCLUDED.name,"
+        " specialty = EXCLUDED.specialty;"
+    )
     lines.append("")
 
     # ── 3. Mappings ───────────────────────────────────────────────────────────

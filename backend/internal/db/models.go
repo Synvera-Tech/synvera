@@ -40,6 +40,27 @@ type CbhpmCode struct {
 	CreatedAt         pgtype.Timestamptz
 }
 
+type CbhpmCodeModifier struct {
+	ID                 pgtype.UUID
+	CbhpmCode          string
+	Specialty          string
+	BillingMode        string
+	LateralityRule     string
+	ViaRule            string
+	DecrementPct       pgtype.Numeric
+	MaxQuantity        pgtype.Int4
+	SupportedModifiers []byte
+	SourceDocument     string
+	SourceVersion      string
+	SourcePage         pgtype.Int4
+	SourceExcerpt      pgtype.Text
+	Confidence         string
+	ImplementedAt      pgtype.Timestamptz
+	VerifiedBy         pgtype.Text
+	CreatedAt          pgtype.Timestamptz
+	UpdatedAt          pgtype.Timestamptz
+}
+
 type CbhpmVersion struct {
 	ID        pgtype.UUID
 	Code      string
@@ -63,6 +84,24 @@ type Composition struct {
 	Modifiers          []byte
 	CreatedAt          pgtype.Timestamptz
 	UpdatedAt          pgtype.Timestamptz
+}
+
+type Document struct {
+	ID           pgtype.UUID
+	Name         string
+	VersionLabel string
+	DocumentType string
+	CreatedAt    pgtype.Timestamptz
+}
+
+type DocumentChunk struct {
+	ID           pgtype.UUID
+	DocumentID   pgtype.UUID
+	PageNumber   int32
+	SectionTitle pgtype.Text
+	ChunkText    string
+	SearchVector interface{}
+	CreatedAt    pgtype.Timestamptz
 }
 
 type PhysicianAccount struct {
@@ -106,6 +145,8 @@ type SbnProcedure struct {
 	BillingMode       string
 	Specialty         string
 	LateralitySupport bool
+	SourceDocument    pgtype.Text
+	SourceVersion     pgtype.Text
 	CreatedAt         pgtype.Timestamptz
 }
 

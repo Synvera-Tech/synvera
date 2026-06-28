@@ -25,6 +25,12 @@ type Repository interface {
 	// GetByID returns the full procedure package (SBN metadata + suggested CBHPM codes).
 	GetByID(id string) (*models.ProcedureWithCodes, error)
 
+	// GetCodeModifiers returns the normative per-code billing modifiers (ADR-005),
+	// keyed by CBHPM code. Codes without a modifier row are absent from the map and
+	// default to PER_PROCEDURE. As of roadmap stage N3 this is a read path only;
+	// the valuation engine does not consume the result yet (no calculation change).
+	GetCodeModifiers() (map[string]models.CodeModifier, error)
+
 	// ── Physician accounts ─────────────────────────────────────────────────────
 
 	// FindOrCreatePhysician looks up the physician with the given Clerk user ID,

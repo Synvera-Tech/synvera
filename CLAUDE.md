@@ -53,6 +53,8 @@ Architectural changes must not be proposed without ADR review.
 | ADR-001 | Persist Calculation Inputs |
 | ADR-002 | JSONB Composition Model |
 | ADR-003 | Remove Dead Modifier Tables |
+| ADR-004 | CBHPM Versioning |
+| ADR-005 | Normative Modifier Table (Data-Driven Billing Rules) |
 
 Future ADRs may supersede or extend previous decisions.
 
@@ -339,3 +341,66 @@ The migration seeds 12 representative chunks for immediate functionality.
 
 To integrate an LLM in the future, implement a new type satisfying the `DocumentRetriever` interface that wraps FTS retrieval + context building + LLM call.  
 No handler, route, or repository changes are required.
+
+---
+
+## Spine Manual Structured Import
+
+See `docs/spine-manual-import.md` (pipeline) and `docs/audits/spine-manual-coverage.md` (coverage).
+
+The **Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral — 3ª ed. 2025** is an **operational source**, not just a consultable document. Its 81 structured fiches are imported into the canonical catalog so every spine procedure is searchable, selectable, calculable, savable in a composition, shareable, and auditable — exactly like SBN procedures.
+
+### Rules for agents
+
+- The procedure → CBHPM relation is **1:N**. Never assume 1:1; never truncate, slice, or dedupe codes by porte/prefix.
+- Spine fiches reuse the existing canonical tables (`sbn_procedures` with `specialty='SPINE'`, `cbhpm_codes`, `sbn_cbhpm_mappings`) — **do not create parallel spine tables**. The Procedure Page search is unified; the user need not know the source to find a procedure.
+- Provenance lives in `sbn_procedures.source_document` / `source_version` (migration 026) and is exposed via `ProcedureDetail.source` (openapi). `specialty='SPINE'` is the source discriminator.
+- The import pipeline is: `data/parse_spine_manual.py` → `data/spine_procedures.json` → `data/merge_spine_into_catalog.py` → `procedures.json` → `data/generate_seed.py` → migration 003 → migration 026. All scripts are idempotent.
+- Any change touching the spine import (parser, merge, seed) **must re-run the coverage audit**. Do not accept a coverage regression: every fiche must reach 100% or be listed as an explicit exception with reason.
+- `billing_mode` for spine fiches defaults to `PER_PROCEDURE` (multi-segment rules are prose, not auto-inferred). Porte is stored per mapping, so SBN/Coluna porte divergences for the same code are preserved, not overwritten.
+
+---
+
+## Procedure Domain Modifiers
+
+Per-code, domain-aware billing rules. See `docs/procedure-domain-modifiers.md` (overview),
+`docs/spine-variants-and-rules.md` (rules) and `ADR-005-normative-modifier-table.md`.
+
+### Selector categories
+
+- **Universal** (both domains) — urgency/emergency (+30%), pediatric (+100/50/30%), auxiliaries
+  (60/40/30/30%), anesthesiologist. Never hide these for spine; never move them to "spine".
+- **Neurosurgery (SBN)** — default `PER_PROCEDURE`, via CBHPM 4.1/4.2. No per-code modifiers exist
+  in the SBN manual.
+- **Spine** — per-code variants: segment/vertebra/structure count (×N), costectomy
+  (100% + 30%/additional), endoscopic/complementary (once per surgery), bilateral no-duplicate (R3),
+  spine via 50% incl. 360° (R12).
+
+### Contextual rendering
+
+The Procedure Page renders only the controls a procedure/code supports. A CBHPM code carries
+`modifier` (from `ProcedureDetail`) **only** when the API attached it (SPINE domain) — that presence
+is the domain signal. Do not render generic dead controls. `SpineVariablesPanel.tsx` is the component.
+
+### Backend is the source of truth
+
+The engine, not the client, decides which rule applies. `POST /api/calculate` enriches each code from
+`cbhpm_code_modifiers` (`repository.GetCodeModifiers`) and overrides `billing_mode`/via/laterality via
+`service.CalculateWithPortesAndModifiers`. The frontend sends only `quantity_selected` per code. A
+SPINE modifier applies only when `specialty == SPINE` (domain gating); neuro results never change.
+
+### Data model & rules
+
+- `cbhpm_code_modifiers` (migration 027, seeded by 028 from `code_modifiers.json`) is the normative
+  layer, keyed `UNIQUE(cbhpm_code, specialty)`, opt-in (absence ⇒ `PER_PROCEDURE`). Carries
+  provenance (`source_document/page/excerpt`, `confidence`); only `CONFIRMED` rules are seeded.
+- Single source of truth: `backend/internal/repository/code_modifiers.json` feeds **both** the
+  Postgres seed (via `data/generate_code_modifiers_seed.py`) and `FileRepository` — keep them in
+  parity; regenerate the seed, never hand-edit migration 028.
+- Pending (frozen, require explicit decision): R14 (principal = highest porte vs highest adjusted
+  value), R21 (anesthesia model), R22 (additive vs multiplicative adjustments).
+
+### LLM / RAG never computes
+
+The document-search layer is read-only and must never influence fees. Modifiers come from the manuals
+(with provenance), not from AI. The deterministic engine is the sole numerical authority.

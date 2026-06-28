@@ -12,7 +12,7 @@ import type {
   CalculationResult,
 } from "@/lib/procedure/types";
 import { money } from "@/lib/procedure/formatters";
-import { buildCodeEntry } from "@/lib/procedure/payload-builders";
+import { buildCodeEntry, parseShareQuantities, quantityFor } from "@/lib/procedure/payload-builders";
 
 // ─── Print + screen CSS ───────────────────────────────────────────────────────
 
@@ -231,7 +231,7 @@ function ShareContent() {
   const accessRoute: AccessRouteType = rawRoute === "different" ? "different" : "same";
   const adjParam = searchParams.get("adj") ?? "";
   const adjustments = adjParam ? adjParam.split(",").filter(Boolean) : [];
-  const quantitySelected = Math.max(1, Number(searchParams.get("qty") ?? "1"));
+  const qtyParam = searchParams.get("qty");
   const laterality = searchParams.get("lat") === "BILATERAL" ? "BILATERAL" : "UNILATERAL";
 
   const [procedure, setProcedure] = useState<ProcedureDetail | null>(null);
@@ -260,11 +260,12 @@ function ShareContent() {
         const procData: ProcedureDetail = await procRes.json();
         setProcedure(procData);
 
+        const codeQuantities = parseShareQuantities(qtyParam);
         const selectedCodes = parsedCodes
           .map((code) => {
             const match = procData.cbhpm_codes.find((c) => c.code === code);
             if (!match || !match.porte) return null;
-            return buildCodeEntry(match, { quantity_selected: quantitySelected, laterality });
+            return buildCodeEntry(match, { quantity_selected: quantityFor(codeQuantities, code), laterality });
           })
           .filter((c): c is NonNullable<typeof c> => c !== null);
 
@@ -292,7 +293,7 @@ function ShareContent() {
 
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute, quantitySelected, laterality]);
+  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute, qtyParam, laterality]);
 
   if (loading) {
     return (

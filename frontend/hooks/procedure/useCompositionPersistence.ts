@@ -8,13 +8,14 @@ import type {
   SpineBillingModifiers,
   CalculationResult,
 } from "@/lib/procedure/types";
-import { buildCompositionPayload } from "@/lib/procedure/payload-builders";
+import { buildCompositionPayload, type CodeQuantities } from "@/lib/procedure/payload-builders";
 
 export function useCompositionPersistence({
   selectedProcedures,
   allCbhpmCodes,
   selectedCodes,
   spineModifiers,
+  codeQuantities,
   auxiliariesCount,
   requiresAnesthesia,
   accessRoute,
@@ -32,6 +33,7 @@ export function useCompositionPersistence({
   allCbhpmCodes: CBHPMCode[];
   selectedCodes: Set<string>;
   spineModifiers: SpineBillingModifiers;
+  codeQuantities: CodeQuantities;
   auxiliariesCount: number;
   requiresAnesthesia: boolean;
   accessRoute: AccessRouteType;
@@ -70,6 +72,7 @@ export function useCompositionPersistence({
         allCbhpmCodes,
         selectedCodes,
         spineModifiers,
+        codeQuantities,
         auxiliariesCount,
         requiresAnesthesia,
         accessRoute,
@@ -106,6 +109,7 @@ export function useCompositionPersistence({
     requiresAnesthesia,
     adjustments,
     spineModifiers,
+    codeQuantities,
     getToken,
   ]);
 
@@ -123,6 +127,7 @@ export function useCompositionPersistence({
         allCbhpmCodes,
         selectedCodes,
         spineModifiers,
+        codeQuantities,
         auxiliariesCount,
         requiresAnesthesia,
         accessRoute,
@@ -157,6 +162,7 @@ export function useCompositionPersistence({
     requiresAnesthesia,
     adjustments,
     spineModifiers,
+    codeQuantities,
     getToken,
   ]);
 

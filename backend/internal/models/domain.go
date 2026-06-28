@@ -27,6 +27,11 @@ const (
 	BillingModeVertebra BillingMode = "PER_VERTEBRA"
 	// BillingModeStructure — value is multiplied by the number of structures treated
 	BillingModeStructure BillingMode = "PER_STRUCTURE"
+	// BillingModeStructureDecrement — first structure at 100%, each additional at a
+	// fixed percentage (CodeModifier.DecrementPct). Used by costectomy (Manual de
+	// Coluna p.13: "100% + 30% por arco adicional"). Defined for the normative modifier
+	// layer (ADR-005); NOT yet consumed by the engine (roadmap stage N5).
+	BillingModeStructureDecrement BillingMode = "PER_STRUCTURE_DECREMENT"
 )
 
 // Laterality indicates whether a procedure can be billed for one or both sides.
@@ -66,7 +71,36 @@ type CBHPMCode struct {
 // ProcedureWithCodes is an SBN procedure together with its associated CBHPM codes.
 type ProcedureWithCodes struct {
 	SBNProcedure
-	Codes []CBHPMCode
+	// SourceDocument and SourceVersion record which manual the procedure was
+	// imported from (SBN neurosurgery 2018 vs spine coding manual 3rd ed. 2025).
+	// Empty for legacy rows that predate provenance tracking (migration 026).
+	SourceDocument string
+	SourceVersion  string
+	Codes          []CBHPMCode
+}
+
+// CodeModifier is a normative, data-driven billing rule for a single CBHPM code
+// within a specialty (ADR-005, table cbhpm_code_modifiers). It carries the rule, its
+// parameters, the UI hints, and the verbatim manual provenance that justifies it.
+//
+// This is the read model for the normative layer. As of roadmap stage N3 it is loaded
+// by the repository but NOT consumed by the valuation engine — calculations are
+// unchanged until stage N5. Absence of a CodeModifier for a code means PER_PROCEDURE
+// with default CBHPM via/laterality behaviour.
+type CodeModifier struct {
+	CBHPMCode          string
+	Specialty          Specialty
+	BillingMode        BillingMode
+	LateralityRule     string   // NONE | NO_DUPLICATE | BILATERAL_DOUBLE | CBHPM_4_3
+	ViaRule            string   // CBHPM_DEFAULT | SPINE_50
+	DecrementPct       *float64 // for PER_STRUCTURE_DECREMENT; nil otherwise
+	MaxQuantity        *int     // UI cap; nil = unbounded
+	SupportedModifiers []string // UI hints, e.g. ["segment_count"]
+	SourceDocument     string
+	SourceVersion      string
+	SourcePage         *int
+	SourceExcerpt      string
+	Confidence         string // CONFIRMED | INFERRED | WEAK
 }
 
 // AccessRouteType encodes the CBHPM 4.1/4.2 access route classification.

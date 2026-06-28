@@ -30,7 +30,7 @@ func compositionPayloadWithModifiers(name string, qty int, lat generated.Lateral
 				CbhpmCode:         "3.06.01.01-0",
 				Description:       "Artrodese lombar",
 				Porte:             "12A",
-				BillingMode:       generated.PERSEGMENT,
+				BillingMode:       generated.BillingModePERSEGMENT,
 				Specialty:         generated.Specialty("SPINE"),
 				LateralitySupport: true,
 				Laterality:        &l,
@@ -217,7 +217,7 @@ func TestCompositionAdjustmentsPersistedWithModifiers(t *testing.T) {
 		SbnProcedureId:   &sbnID,
 		SelectedCodes: []generated.SelectedCode{
 			{CbhpmCode: "3.06.01.01-0", Description: "Artrodese", Porte: "12A",
-				BillingMode: generated.PERSEGMENT, Specialty: generated.Specialty("SPINE"),
+				BillingMode: generated.BillingModePERSEGMENT, Specialty: generated.Specialty("SPINE"),
 				LateralitySupport: true, Laterality: &lat, QuantitySelected: &qty},
 		},
 		AccessRouteType:    generated.Same,

@@ -131,20 +131,31 @@ func (q *Queries) GetPorteValuesByVersion(ctx context.Context, cbhpmVersionID pg
 }
 
 const getProcedureByID = `-- name: GetProcedureByID :one
-SELECT id::text, name
+SELECT
+    id::text,
+    name,
+    COALESCE(source_document, '') AS source_document,
+    COALESCE(source_version, '')  AS source_version
 FROM sbn_procedures
 WHERE id = $1::uuid
 `
 
 type GetProcedureByIDRow struct {
-	ID   string
-	Name string
+	ID             string
+	Name           string
+	SourceDocument string
+	SourceVersion  string
 }
 
 func (q *Queries) GetProcedureByID(ctx context.Context, id pgtype.UUID) (GetProcedureByIDRow, error) {
 	row := q.db.QueryRow(ctx, getProcedureByID, id)
 	var i GetProcedureByIDRow
-	err := row.Scan(&i.ID, &i.Name)
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.SourceDocument,
+		&i.SourceVersion,
+	)
 	return i, err
 }
 

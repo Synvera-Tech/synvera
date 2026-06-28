@@ -59,6 +59,12 @@ function ProcedureContent({
   const [auxiliariesCount, setAuxiliariesCount] = useState(1);
   const [requiresAnesthesia, setRequiresAnesthesia] = useState(true);
 
+  // Per-code quantity selections (segments/vertebrae/structures). Keyed by CBHPM code;
+  // codes absent from the map default to 1. Drives the per-code ×N billing (N5b).
+  const [codeQuantities, setCodeQuantities] = useState<Record<string, number>>({});
+  const setCodeQuantity = (code: string, qty: number) =>
+    setCodeQuantities((prev) => ({ ...prev, [code]: qty }));
+
   // Composition identity and name — owned here so they're available before compositionState is built,
   // and so onCompositionLoaded can set them synchronously in a single callback.
   const [loadedCompositionId, setLoadedCompositionId] = useState<string | null>(null);
@@ -83,6 +89,12 @@ function ProcedureContent({
       setLoadedCompositionId(comp.public_id);
       setLoadedCompositionName(comp.name);
       setCompositionName(comp.name);
+      // Restore per-code quantities saved with the composition.
+      const restored: Record<string, number> = {};
+      for (const c of comp.selected_codes ?? []) {
+        if (c.quantity_selected && c.quantity_selected > 1) restored[c.cbhpm_code] = c.quantity_selected;
+      }
+      setCodeQuantities(restored);
     },
   });
 
@@ -97,6 +109,7 @@ function ProcedureContent({
     allCbhpmCodes: procedureState.allCbhpmCodes,
     selectedCodes: procedureState.selectedCodes,
     spineModifiers: spineState.spineModifiers,
+    codeQuantities,
     auxiliariesCount,
     requiresAnesthesia,
     accessRoute,
@@ -108,6 +121,7 @@ function ProcedureContent({
     allCbhpmCodes: procedureState.allCbhpmCodes,
     selectedCodes: procedureState.selectedCodes,
     spineModifiers: spineState.spineModifiers,
+    codeQuantities,
     auxiliariesCount,
     requiresAnesthesia,
     accessRoute,
@@ -134,6 +148,7 @@ function ProcedureContent({
       accessRoute,
       adjustmentState.adjustments,
       spineState.spineModifiers,
+      codeQuantities,
     ));
   };
 
@@ -223,6 +238,32 @@ function ProcedureContent({
             initialQuery={initialQuery}
           />
 
+          {(() => {
+            const sources = Array.from(
+              new Map(
+                procedureState.selectedProcedures
+                  .map((p) => procedureState.detailsMap[p.id]?.source)
+                  .filter((s): s is NonNullable<typeof s> => !!s)
+                  .map((s) => [`${s.document} ${s.version}`, s]),
+              ).values(),
+            );
+            if (sources.length === 0) return null;
+            return (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {sources.map((s) => (
+                  <span
+                    key={`${s.document}-${s.version}`}
+                    title={`${s.document} — ${s.version}`}
+                    className="inline-flex items-start gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10.5px] font-medium leading-snug text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                  >
+                    <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary dark:bg-[#718BAE]" />
+                    <span>Fonte: {s.document} — {s.version}</span>
+                  </span>
+                ))}
+              </div>
+            );
+          })()}
+
           {procedureState.loadingDetail && (
             <div className="flex items-center justify-center gap-2 py-6 text-sm text-slate-400">
               <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
@@ -245,6 +286,8 @@ function ProcedureContent({
                 selectedCodes={procedureState.selectedCodes}
                 spineModifiers={spineState.spineModifiers}
                 onSpineModifiersChange={spineState.setSpineModifiers}
+                codeQuantities={codeQuantities}
+                onCodeQuantityChange={setCodeQuantity}
               />
 
               <TeamFeesPanel

@@ -1,0 +1,5678 @@
+[
+  {
+    "procedure_number": "1.1",
+    "name": "CONSULTA GERAL DE COLUNA VERTEBRAL",
+    "title": "CONSULTA GERAL DE COLUNA VERTEBRAL",
+    "subtitle": "",
+    "page": 16,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.01.01-2",
+        "description": "Consulta em horário normal ou preestabelecido",
+        "porte": "2B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.23-7",
+        "description": "Outras afecções da coluna - tratamento incruento",
+        "porte": "3B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.2",
+    "name": "CONSULTA: FRATURA DE COLUNA VERTEBRAL",
+    "title": "CONSULTA: FRATURA DE COLUNA VERTEBRAL",
+    "subtitle": "",
+    "page": 17,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.01.01-2",
+        "description": "Consulta em horário normal ou preestabelecido",
+        "porte": "2B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.12-1",
+        "description": "Fratura de coluna - tratamento conservador",
+        "porte": "2C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.23-7",
+        "description": "Outras afecções da coluna - tratamento incruento",
+        "porte": "3B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.3",
+    "name": "CONSULTA DE RETORNO POS-OPERATÓRIO + CURATIVO",
+    "title": "CONSULTA DE RETORNO POS-OPERATÓRIO + CURATIVO",
+    "subtitle": "",
+    "page": 18,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.01.01-2",
+        "description": "Consulta em horário normal ou preestabelecido",
+        "porte": "2B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.04.10-3",
+        "description": "Curativos em geral sem anestesia, exceto queimados",
+        "porte": "1A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.4",
+    "name": "VISITA HOSPITALAR - COLUNA I (PATOLOGIAS NÃO TRAUMÁTICAS)",
+    "title": "VISITA HOSPITALAR - COLUNA I (PATOLOGIAS NÃO TRAUMÁTICAS)",
+    "subtitle": "",
+    "page": 19,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.02.01-9",
+        "description": "Visita hospitalar a paciente internado",
+        "porte": "2B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.23-7",
+        "description": "Outras afecções da coluna - tratamento incruento",
+        "porte": "3B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.5",
+    "name": "VISITA HOSPITALAR - COLUNA II (PATOLOGIAS NÃO TRAUMÁTICAS) + INFILTRAÇÃO COLUNA",
+    "title": "VISITA HOSPITALAR - COLUNA II (PATOLOGIAS NÃO TRAUMÁTICAS) + INFILTRAÇÃO COLUNA",
+    "subtitle": "",
+    "page": 20,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.02.01-9",
+        "description": "Visita hospitalar a paciente internado",
+        "porte": "2B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.23-7",
+        "description": "Outras afecções da coluna - tratamento incruento",
+        "porte": "3B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.03.30-1",
+        "description": "Infiltração de ponto gatilho (por músculo) ou agulhamento seco (por músculo)",
+        "porte": "3A",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.04.10-3",
+        "description": "Curativos em geral sem anestesia, exceto queimados",
+        "porte": "1A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.6",
+    "name": "VISITA HOSPITALAR - COLUNA III (PATOLOGIAS TRAUMÁTICAS/TRM DA COLUNA)",
+    "title": "VISITA HOSPITALAR - COLUNA III (PATOLOGIAS TRAUMÁTICAS/TRM DA COLUNA)",
+    "subtitle": "",
+    "page": 21,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.02.01-9",
+        "description": "Visita hospitalar a paciente internado",
+        "porte": "2B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.12-1",
+        "description": "Fratura de coluna - tratamento conservador",
+        "porte": "2C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.34-2",
+        "description": "Tratamento conservador do traumatismo raquimedular (por dia)",
+        "porte": "3C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.15-6",
+        "description": "Fratura e/ou luxação de coluna vertebral - redução incruenta",
+        "porte": "5B",
+        "sort_order": 4,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.23-7",
+        "description": "Outras afecções da coluna - tratamento incruento",
+        "porte": "3B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.7",
+    "name": "RESPOSTA DE PARECER - COLUNA I (PATOLOGIAS NÃO TRAUMÁTICAS DA COLUNA)",
+    "title": "RESPOSTA DE PARECER - COLUNA I (PATOLOGIAS NÃO TRAUMÁTICAS DA COLUNA)",
+    "subtitle": "",
+    "page": 22,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.01.03-9",
+        "description": "Consulta em pronto socorro",
+        "porte": "2C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.23-7",
+        "description": "Outras afecções da coluna - tratamento incruento",
+        "porte": "3B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.8",
+    "name": "RESPOSTA DE PARECER - COLUNA II (PATOLOGIA NÃO TRAUMÁTICA) + INFILTRAÇÃO COLUNA NA EMERGÊNCIA",
+    "title": "RESPOSTA DE PARECER - COLUNA II (PATOLOGIA NÃO TRAUMÁTICA) + INFILTRAÇÃO COLUNA NA EMERGÊNCIA",
+    "subtitle": "",
+    "page": 23,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.01.03-9",
+        "description": "Consulta em pronto socorro",
+        "porte": "2C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.23-7",
+        "description": "Outras afecções da coluna - tratamento incruento",
+        "porte": "3B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.03.30-1",
+        "description": "Infiltração de ponto gatilho (por músculo) ou agulhamento seco (por músculo)",
+        "porte": "3A",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.04.10-3",
+        "description": "Curativos em geral sem anestesia, exceto queimados",
+        "porte": "1A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.9",
+    "name": "RESPOSTA DE PARECER - COLUNA III (PATOLOGIAS TRAUMÁTICAS/TRM DA COLUNA VERTEBRAL)",
+    "title": "RESPOSTA DE PARECER - COLUNA III (PATOLOGIAS TRAUMÁTICAS/TRM DA COLUNA VERTEBRAL)",
+    "subtitle": "",
+    "page": 24,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.01.03-9",
+        "description": "Consulta em pronto socorro",
+        "porte": "2C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.12-1",
+        "description": "Fratura de coluna - tratamento conservador",
+        "porte": "2C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.34-2",
+        "description": "Tratamento conservador do traumatismo raquimedular (por dia)",
+        "porte": "3C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.15-6",
+        "description": "Fratura e/ou luxação de coluna vertebral - redução incruenta",
+        "porte": "5B",
+        "sort_order": 4,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.23-7",
+        "description": "Outras afecções da coluna - tratamento incruento",
+        "porte": "3B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.10",
+    "name": "RESPOSTA DE PARECER - COLUNA IV (TRM CERVICAL) + TRAÇÃO CERVICAL",
+    "title": "RESPOSTA DE PARECER - COLUNA IV (TRM CERVICAL) + TRAÇÃO CERVICAL",
+    "subtitle": "",
+    "page": 25,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.01.03-9",
+        "description": "Consulta em pronto socorro",
+        "porte": "2C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.12-1",
+        "description": "Fratura de coluna - tratamento conservador",
+        "porte": "2C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.34-2",
+        "description": "Tratamento conservador do traumatismo raquimedular (por dia)",
+        "porte": "3C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.15-6",
+        "description": "Fratura e/ou luxação de coluna vertebral - redução incruenta",
+        "porte": "5B",
+        "sort_order": 5,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical transesquelética",
+        "porte": "8B",
+        "sort_order": 6,
+        "num_auxiliaries": 1
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "1.11",
+    "name": "PROGRAMAÇÃO DE ELETRODO PARA NEUROESTIMULAÇÃO",
+    "title": "PROGRAMAÇÃO DE ELETRODO PARA NEUROESTIMULAÇÃO",
+    "subtitle": "",
+    "page": 26,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "1.01.01.01-2",
+        "description": "Consulta em horário normal ou preestabelecido",
+        "porte": "2B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.01.35-0",
+        "description": "Programação de dispositivos neurofuncionais",
+        "porte": "4A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.1",
+    "name": "HÉRNIA DE DISCO DE COLUNA LOMBAR SEM INSTABILIDADE TRATAMENTO CIRÚRGICO (VIA ABERTA OU TUBULAR)",
+    "title": "HÉRNIA DE DISCO DE COLUNA LOMBAR SEM INSTABILIDADE TRATAMENTO CIRÚRGICO (VIA ABERTA OU TUBULAR)",
+    "subtitle": "",
+    "page": 28,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.2",
+    "name": "HÉRNIA DE DISCO DE COLUNA TORÁCICA SEM INSTABILIDADE TRATAMENTO CIRÚRGICO (VIA COSTO-TRANSVERSECTOMIA)",
+    "title": "HÉRNIA DE DISCO DE COLUNA TORÁCICA SEM INSTABILIDADE TRATAMENTO CIRÚRGICO (VIA COSTO-TRANSVERSECTOMIA)",
+    "subtitle": "",
+    "page": 30,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.3",
+    "name": "HÉRNIA DE DISCO DE COLUNA TORÁCICA SEM INSTABILIDADE TRATAMENTO CIRÚRGICO (VIA TRANSTORÁCIA OU RETRO-PLEURAL)",
+    "title": "HÉRNIA DE DISCO DE COLUNA TORÁCICA SEM INSTABILIDADE TRATAMENTO CIRÚRGICO (VIA TRANSTORÁCIA OU RETRO-PLEURAL)",
+    "subtitle": "",
+    "page": 32,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.19-3",
+        "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.22-9",
+        "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
+        "porte": "8C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.4",
+    "name": "ESTENOSE DE CANAL VERTEBRAL SEM INSTABILIDADE DESCOMPRESSÃO POSTERIOR (VIA ABERTA OU TUBULAR)",
+    "title": "ESTENOSE DE CANAL VERTEBRAL SEM INSTABILIDADE DESCOMPRESSÃO POSTERIOR (VIA ABERTA OU TUBULAR)",
+    "subtitle": "",
+    "page": 34,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.22-9",
+        "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
+        "porte": "8C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.5",
+    "name": "CISTO FACETÁRIO SEM INSTABILIDADE - TRATAMENTO CIRÚRGICO (VIA ABERTA OU TUBULAR)",
+    "title": "CISTO FACETÁRIO SEM INSTABILIDADE - TRATAMENTO CIRÚRGICO (VIA ABERTA OU TUBULAR)",
+    "subtitle": "",
+    "page": 36,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.20-2",
+        "description": "Microcirurgia para tumores extra-intradurais",
+        "porte": "12A",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.6",
+    "name": "ARTRODESE DE COLUNA TÓRACO-LOMBAR - VIA POSTERIOR",
+    "title": "ARTRODESE DE COLUNA TÓRACO-LOMBAR - VIA POSTERIOR",
+    "subtitle": "",
+    "page": 38,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.20-2",
+        "description": "Microcirurgia para tumores extra-intradurais",
+        "porte": "12A",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 10,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.7",
+    "name": "ARTRODESE DE COLUNA LOMBAR - VIA ANTERIOR OU LATERAL",
+    "title": "ARTRODESE DE COLUNA LOMBAR - VIA ANTERIOR OU LATERAL",
+    "subtitle": "",
+    "page": 40,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.09.10.13-7",
+        "description": "Lesões vasculares intra-abdominais",
+        "porte": "12A",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.8",
+    "name": "ARTRODESE DA COLUNA TORÁCICA - VIA TRANSTORÁCIA OU RETRO PLEURAL",
+    "title": "ARTRODESE DA COLUNA TORÁCICA - VIA TRANSTORÁCIA OU RETRO PLEURAL",
+    "subtitle": "",
+    "page": 42,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.19-3",
+        "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.22-9",
+        "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
+        "porte": "8C",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 9,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 10,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.9",
+    "name": "ARTROPLASTIA DA COLUNA LOMBAR - VIA ANTERIOR OU LATERAL",
+    "title": "ARTROPLASTIA DA COLUNA LOMBAR - VIA ANTERIOR OU LATERAL",
+    "subtitle": "",
+    "page": 44,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.59-8",
+        "description": "Artroplastia discal de coluna vertebral",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.09.10.13-7",
+        "description": "Lesões vasculares intra-abdominais",
+        "porte": "12A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.10",
+    "name": "ESPONDILOLISTESE LOMBAR OU LOMBOSSACRA",
+    "title": "ESPONDILOLISTESE LOMBAR OU LOMBOSSACRA",
+    "subtitle": "",
+    "page": 46,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.11-3",
+        "description": "Espondilolistese - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 9,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.09.10.13-7",
+        "description": "Lesões vasculares intra-abdominais",
+        "porte": "12A",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.11",
+    "name": "ARTRODESE CERVICAL ANTERIOR",
+    "title": "ARTRODESE CERVICAL ANTERIOR",
+    "subtitle": "",
+    "page": 48,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.12",
+    "name": "ARTROPLASTIA DE COLUNA CERVICAL",
+    "title": "ARTROPLASTIA DE COLUNA CERVICAL",
+    "subtitle": "",
+    "page": 50,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.59-8",
+        "description": "Artroplastia discal de coluna vertebral",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.13",
+    "name": "ARTRODESE CERVICAL ANTERIOR COM CORPECTOMIA",
+    "title": "ARTRODESE CERVICAL ANTERIOR COM CORPECTOMIA",
+    "subtitle": "",
+    "page": 52,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.14",
+    "name": "FORAMINOTOMIA CERVICAL POSTERIOR (VIA TUBULAR)",
+    "title": "FORAMINOTOMIA CERVICAL POSTERIOR (VIA TUBULAR)",
+    "subtitle": "",
+    "page": 54,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.20-2",
+        "description": "Microcirurgia para tumores extra-intradurais",
+        "porte": "12A",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.15",
+    "name": "DESCOMPRESSÃO CERVICAL POSTERIOR - SEM ARTRODESE (LAMINECTOMIA ou LAMINOPLASTIA)",
+    "title": "DESCOMPRESSÃO CERVICAL POSTERIOR - SEM ARTRODESE (LAMINECTOMIA ou LAMINOPLASTIA)",
+    "subtitle": "",
+    "page": 56,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.16",
+    "name": "ARTRODESE CERVICAL POSTERIOR",
+    "title": "ARTRODESE CERVICAL POSTERIOR",
+    "subtitle": "",
+    "page": 58,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "2.17",
+    "name": "ARTRODESE CERVICAL 360° (VIA ANTERIOR + VIA POSTERIOR)",
+    "title": "ARTRODESE CERVICAL 360° (VIA ANTERIOR + VIA POSTERIOR)",
+    "subtitle": "",
+    "page": 60,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 9,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia5",
+        "porte": "11B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.1",
+    "name": "FRATURA E/OU LUXAÇÃO VERTEBRAL (DORSAL/LOMBAR/SACRAL) TRATAMENTO VIA POSTERIOR (SEM CORPECTOMIA)",
+    "title": "FRATURA E/OU LUXAÇÃO VERTEBRAL (DORSAL/LOMBAR/SACRAL) TRATAMENTO VIA POSTERIOR (SEM CORPECTOMIA)",
+    "subtitle": "",
+    "page": 64,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.2",
+    "name": "FRATURA E/OU LUXAÇÃO VERTEBRAL (DORSAL/LOMBAR/SACRAL) TRAT. VIA POSTERIOR (COM CORPECTOMIA)",
+    "title": "FRATURA E/OU LUXAÇÃO VERTEBRAL (DORSAL/LOMBAR/SACRAL) TRAT. VIA POSTERIOR (COM CORPECTOMIA)",
+    "subtitle": "",
+    "page": 66,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 12,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.3",
+    "name": "FRATURA E/OU LUXAÇÃO VERTEBRAL (DORSAL/LOMBAR/SACRAL) TRATAMENTO VIA ANTERIOR + POSTERIOR 360° (COM CORPECTOMIA)",
+    "title": "FRATURA E/OU LUXAÇÃO VERTEBRAL (DORSAL/LOMBAR/SACRAL) TRATAMENTO VIA ANTERIOR + POSTERIOR 360° (COM CORPECTOMIA)",
+    "subtitle": "",
+    "page": 68,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.19-3",
+        "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
+        "porte": "9C",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 13,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.09.10.13-7",
+        "description": "Lesões vasculares intra-abdominais",
+        "porte": "12A",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 15,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 16,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.4",
+    "name": "FRATURA E/OU LUXAÇÃO DA COLUNA CERVICAL – TRATAMENTO VIA ANTERIOR (SEM CORPECTOMIA)",
+    "title": "FRATURA E/OU LUXAÇÃO DA COLUNA CERVICAL – TRATAMENTO VIA ANTERIOR (SEM CORPECTOMIA)",
+    "subtitle": "",
+    "page": 71,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical transesquelética",
+        "porte": "8B",
+        "sort_order": 10,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.15-6",
+        "description": "Fratura e/ou luxação de coluna vertebral - redução incruenta",
+        "porte": "5B",
+        "sort_order": 11,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.5",
+    "name": "FRATURA E/OU LUXAÇÃO VERTEBRAL CERVICAL – TRATAMENTO VIA ANTERIOR (COM CORPECTOMIA)",
+    "title": "FRATURA E/OU LUXAÇÃO VERTEBRAL CERVICAL – TRATAMENTO VIA ANTERIOR (COM CORPECTOMIA)",
+    "subtitle": "",
+    "page": 73,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 9,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical transesquelética",
+        "porte": "8B",
+        "sort_order": 11,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.15-6",
+        "description": "Fratura e/ou luxação de coluna vertebral - redução incruenta",
+        "porte": "5B",
+        "sort_order": 12,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.6",
+    "name": "FRATURA E/OU LUXAÇÃO VERTEBRAL (CERVICAL, CRÂNIO-CERVICAL OU CERVICO-TORÁCICA) TRATAMENTO VIA POSTERIOR",
+    "title": "FRATURA E/OU LUXAÇÃO VERTEBRAL (CERVICAL, CRÂNIO-CERVICAL OU CERVICO-TORÁCICA) TRATAMENTO VIA POSTERIOR",
+    "subtitle": "",
+    "page": 75,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano 3,",
+        "porte": "3A",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical trans-esquelética",
+        "porte": "8B",
+        "sort_order": 9,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.15-6",
+        "description": "Fratura e/ou luxação da coluna vertebral – redução incruenta",
+        "porte": "5B",
+        "sort_order": 10,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 11,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.7",
+    "name": "FRATURA E/OU LUXAÇÃO VERTEBRAL (CERVICAL, CRANIO-CERVICAL OU CERVICO-TORÁCICA) TRATAMENTO VIA ANTERIOR + POSTERIOR (360°)",
+    "title": "FRATURA E/OU LUXAÇÃO VERTEBRAL (CERVICAL, CRANIO-CERVICAL OU CERVICO-TORÁCICA) TRATAMENTO VIA ANTERIOR + POSTERIOR (360°)",
+    "subtitle": "",
+    "page": 77,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano 5,6",
+        "porte": "3A",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical trans-esquelética",
+        "porte": "8B",
+        "sort_order": 12,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.15-6",
+        "description": "Fratura e/ou luxação da coluna vertebral – redução incruenta",
+        "porte": "5B",
+        "sort_order": 13,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 14,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 15,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 16,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.8",
+    "name": "FRATURA DE ODONTÓIDE – TRATAMENTO VIA ANTERIOR",
+    "title": "FRATURA DE ODONTÓIDE – TRATAMENTO VIA ANTERIOR",
+    "subtitle": "",
+    "page": 80,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano 1,2",
+        "porte": "3A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical transesquelética",
+        "porte": "8B",
+        "sort_order": 3,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.15-6",
+        "description": "Fratura e/ou luxação de coluna vertebral - redução incruenta",
+        "porte": "5B",
+        "sort_order": 4,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "3.9",
+    "name": "FRATURA VERTEBRAL PATOLÓGICA – TRATAMENTO PERCUTÂNEO POR “CIMENTAÇÃO” OU “STENT” VERTEBRAL",
+    "title": "FRATURA VERTEBRAL PATOLÓGICA – TRATAMENTO PERCUTÂNEO POR “CIMENTAÇÃO” OU “STENT” VERTEBRAL",
+    "subtitle": "",
+    "page": 82,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.16-4",
+        "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
+        "porte": "12B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.14.09-2",
+        "description": "Osteoplastia ou discectomia percutânea (vertebroplastia e outras)",
+        "porte": "8C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.1",
+    "name": "TUMOR VERTEBRAL (CERVICAL/TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA ANTERIOR (COM CORPECTOMIA)",
+    "title": "TUMOR VERTEBRAL (CERVICAL/TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA ANTERIOR (COM CORPECTOMIA)",
+    "subtitle": "",
+    "page": 84,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.38-5",
+        "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
+        "porte": "13C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.19-3",
+        "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
+        "porte": "9C",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 12,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.09.10.13-7",
+        "description": "Lesões vasculares intra-abdominais",
+        "porte": "12A",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 15,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.2",
+    "name": "TUMOR VERTEBRAL (TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA POSTERIOR, COM ARTRODESE E CORPECTOMIA",
+    "title": "TUMOR VERTEBRAL (TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA POSTERIOR, COM ARTRODESE E CORPECTOMIA",
+    "subtitle": "",
+    "page": 86,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.38-5",
+        "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
+        "porte": "13C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 12,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.3",
+    "name": "TUMOR VERTEBRAL (CERVICAL/TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA ANTERIOR (COM CORPECTOMIA) + POSTERIOR (360°)",
+    "title": "TUMOR VERTEBRAL (CERVICAL/TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA ANTERIOR (COM CORPECTOMIA) + POSTERIOR (360°)",
+    "subtitle": "",
+    "page": 89,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.38-5",
+        "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
+        "porte": "13C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.19-3",
+        "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
+        "porte": "9C",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 15,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.09.10.13-7",
+        "description": "Lesões vasculares intra-abdominais",
+        "porte": "12A",
+        "sort_order": 16,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 17,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 18,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.4",
+    "name": "TUMOR VERTEBRAL (CERVICAL/TORÁCICO/LOMBAR) COM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA POSTERIOR, COM LAMINECTOMIA E ARTRODESE (SEM CORPECTOMIA)",
+    "title": "TUMOR VERTEBRAL (CERVICAL/TORÁCICO/LOMBAR) COM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA POSTERIOR, COM LAMINECTOMIA E ARTRODESE (SEM CORPECTOMIA)",
+    "subtitle": "",
+    "page": 93,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.38-5",
+        "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
+        "porte": "13C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 9,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.5",
+    "name": "TUMOR VERTEBRAL (CERVICAL/TORÁCICO/LOMBAR) COM COMPRESSÃO MEDULAR: TRATAMENTO POR VIA POSTERIOR, COM LAMINECTOMIA, SEM ARTRODESE",
+    "title": "TUMOR VERTEBRAL (CERVICAL/TORÁCICO/LOMBAR) COM COMPRESSÃO MEDULAR: TRATAMENTO POR VIA POSTERIOR, COM LAMINECTOMIA, SEM ARTRODESE",
+    "subtitle": "",
+    "page": 95,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.38-5",
+        "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
+        "porte": "13C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.6",
+    "name": "TUMOR VERTEBRAL DE ELEMENTOS POSTERIORES (CERVICAL/TORÁCICO/LOMBAR): RESSECÇÃO POSTERIOR COM ARTRODESE",
+    "title": "TUMOR VERTEBRAL DE ELEMENTOS POSTERIORES (CERVICAL/TORÁCICO/LOMBAR): RESSECÇÃO POSTERIOR COM ARTRODESE",
+    "subtitle": "",
+    "page": 97,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.38-5",
+        "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
+        "porte": "13C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.7",
+    "name": "TUMOR VERTEBRAL DE ELEMENTOS POSTERIORES (CERVICAL/TORÁCICO/LOMBAR): RESSECÇÃO POSTERIOR SEM ARTRODESE",
+    "title": "TUMOR VERTEBRAL DE ELEMENTOS POSTERIORES (CERVICAL/TORÁCICO/LOMBAR): RESSECÇÃO POSTERIOR SEM ARTRODESE",
+    "subtitle": "",
+    "page": 99,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.38-5",
+        "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
+        "porte": "13C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.8",
+    "name": "TUMOR VERTEBRAL (TORÁCICO/LOMBAR) INSTÁVEL SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: ARTRODESE/FIXAÇÃO POR VIA POSTERIOR PERCUTÂNEA - COM OU SEM “CIMENTAÇÃO”/ “STENT” VERTEBRAL DA LESÃO",
+    "title": "TUMOR VERTEBRAL (TORÁCICO/LOMBAR) INSTÁVEL SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: ARTRODESE/FIXAÇÃO POR VIA POSTERIOR PERCUTÂNEA - COM OU SEM “CIMENTAÇÃO”/ “STENT” VERTEBRAL DA LESÃO",
+    "subtitle": "",
+    "page": 101,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.38-5",
+        "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
+        "porte": "13C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.14.09-2",
+        "description": "Osteoplastia ou discectomia percutânea (vertebroplastia e outras)",
+        "porte": "8C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.9",
+    "name": "TUMOR DE CANAL VERTEBRAL (EXTRA OU INTRA DURAL, EXTRA OU INTRA MEDULAR) - RESSECÇÃO TURMORAL E DESCOMPRESSÃO MEDULAR/CAUDA EQUINA - (SEM ARTRODESE)",
+    "title": "TUMOR DE CANAL VERTEBRAL (EXTRA OU INTRA DURAL, EXTRA OU INTRA MEDULAR) - RESSECÇÃO TURMORAL E DESCOMPRESSÃO MEDULAR/CAUDA EQUINA - (SEM ARTRODESE)",
+    "subtitle": "",
+    "page": 103,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.35-0",
+        "description": "Tratamento microcirúrgico das lesões intramedulares (tumor, malformações arteriovenosas, siringomielia, parasitoses)",
+        "porte": "13B",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.20-2",
+        "description": "Microcirurgia para tumores extra-intradurais",
+        "porte": "12A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "4.10",
+    "name": "TUMOR DE CANAL VERTEBRAL (EXTRA OU INTRA DURAL, EXTRA OU INTRA MEDULAR) - RESSECÇÃO TURMORAL E DESCOMPRESSÃO MEDULAR/CAUDA EQUINA - (COM ARTRODESE)",
+    "title": "TUMOR DE CANAL VERTEBRAL (EXTRA OU INTRA DURAL, EXTRA OU INTRA MEDULAR) - RESSECÇÃO TURMORAL E DESCOMPRESSÃO MEDULAR/CAUDA EQUINA - (COM ARTRODESE)",
+    "subtitle": "",
+    "page": 105,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.35-0",
+        "description": "Tratamento microcirúrgico das lesões intramedulares (tumor, malformações arteriovenosas, siringomielia, parasitoses)",
+        "porte": "13B",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.20-2",
+        "description": "Microcirurgia para tumores extra-intradurais",
+        "porte": "12A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 9,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.1",
+    "name": "TRATAMENTO CIRÚRGICO DE ESCOLIOSE DE INÍCIO PRECOCE COM SISTEMA DE CRESCIMENTO",
+    "title": "TRATAMENTO CIRÚRGICO DE ESCOLIOSE DE INÍCIO PRECOCE COM SISTEMA DE CRESCIMENTO",
+    "subtitle": "",
+    "page": 108,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.10-5",
+        "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
+        "porte": "14B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical transesquelética",
+        "porte": "8B",
+        "sort_order": 5,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.09.03-2",
+        "description": "Tração transesquelética (por membro)",
+        "porte": "4A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.2",
+    "name": "CIRURGIA PARA ALONGAMENTO DE HASTE DE CRESCIMENTO",
+    "title": "CIRURGIA PARA ALONGAMENTO DE HASTE DE CRESCIMENTO",
+    "subtitle": "",
+    "page": 110,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.10-5",
+        "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
+        "porte": "14B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.3",
+    "name": "TRATAMENTO CIRÚRGICO DA ESCOLIOSE DO ADOLESCENTE COM ARTRODESE POR VIA POSTERIOR",
+    "title": "TRATAMENTO CIRÚRGICO DA ESCOLIOSE DO ADOLESCENTE COM ARTRODESE POR VIA POSTERIOR",
+    "subtitle": "",
+    "page": 111,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.10-5",
+        "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
+        "porte": "14B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero-lateral",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.22-9",
+        "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
+        "porte": "8C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.27-0",
+        "description": "Retirada de material de síntese - tratamento cirúrgico",
+        "porte": "8A",
+        "sort_order": 9,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 10,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical transesquelética",
+        "porte": "8B",
+        "sort_order": 12,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.09.03-2",
+        "description": "Tração transesquelética (por membro)",
+        "porte": "4A",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 15,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.4",
+    "name": "TRATAMENTO CIRÚRGICO DA CIFOSE PATOLÓGICA COM ARTRODESE POR VIA POSTERIOR",
+    "title": "TRATAMENTO CIRÚRGICO DA CIFOSE PATOLÓGICA COM ARTRODESE POR VIA POSTERIOR",
+    "subtitle": "",
+    "page": 114,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.10-5",
+        "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
+        "porte": "14B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.22-9",
+        "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
+        "porte": "8C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.29-6",
+        "description": "Tração cervical transesquelética",
+        "porte": "8B",
+        "sort_order": 7,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.09.03-2",
+        "description": "Tração transesquelética (por membro)",
+        "porte": "4A",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.5",
+    "name": "TRATAMENTO CIRÚRGICO DA CIFO-ESCOLIOSE / ESCOLIOSE CONGÊNITA COM RESSECÇÃO DE HEMIVERTEBRA E ARTRODESE POR VIA POSTERIOR",
+    "title": "TRATAMENTO CIRÚRGICO DA CIFO-ESCOLIOSE / ESCOLIOSE CONGÊNITA COM RESSECÇÃO DE HEMIVERTEBRA E ARTRODESE POR VIA POSTERIOR",
+    "subtitle": "",
+    "page": 116,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.10-5",
+        "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
+        "porte": "14B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.17-2",
+        "description": "Hemivértebra - ressecção via anterior ou posterior - tratamento cirúrgico",
+        "porte": "11C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.6",
+    "name": "TRATAMENTO CIRÚRGICO DA DEFORMIDADE (TORACO-LOMBAR, LOMBAR OU LOMBOSSACRA) DO ADULTO COM ARTRODESE 360° - POR VIA POSTERIOR OU VIA COMBINADA (ANTERIOR + POSTERIOR)",
+    "title": "TRATAMENTO CIRÚRGICO DA DEFORMIDADE (TORACO-LOMBAR, LOMBAR OU LOMBOSSACRA) DO ADULTO COM ARTRODESE 360° - POR VIA POSTERIOR OU VIA COMBINADA (ANTERIOR + POSTERIOR)",
+    "subtitle": "",
+    "page": 118,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.10-5",
+        "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
+        "porte": "14B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.22-9",
+        "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
+        "porte": "8C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.19-3",
+        "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
+        "porte": "9C",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.24-5",
+        "description": "Pseudartrose de coluna - tratamento cirúrgico",
+        "porte": "9C",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.27-0",
+        "description": "Retirada de material de síntese - tratamento cirúrgico",
+        "porte": "8A",
+        "sort_order": 14,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 15,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 16,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 17,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.7",
+    "name": "TRATAMENTO CIRÚRGICO DA DEFORMIDADE (CRÂNIO CERVICAIS, CERVICAIS OU CERVICO-TORÁCICAS) DO ADULTO COM ARTRODESE POR VIA ANTERIOR (ISOLADA), VIA POSTERIOR (ISOLADA) OU VIA COMBINADA (ANTERIOR + POSTERIOR - 360°)",
+    "title": "TRATAMENTO CIRÚRGICO DA DEFORMIDADE (CRÂNIO CERVICAIS, CERVICAIS OU CERVICO-TORÁCICAS) DO ADULTO COM ARTRODESE POR VIA ANTERIOR (ISOLADA), VIA POSTERIOR (ISOLADA) OU VIA COMBINADA (ANTERIOR + POSTERIOR - 360°)",
+    "subtitle": "",
+    "page": 121,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.10-5",
+        "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
+        "porte": "14B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.22-9",
+        "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
+        "porte": "8C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.24-5",
+        "description": "Pseudartrose de coluna - tratamento cirúrgico",
+        "porte": "9C",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.27-0",
+        "description": "Retirada de material de síntese - tratamento cirúrgico",
+        "porte": "8A",
+        "sort_order": 12,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 13,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 15,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 16,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.8",
+    "name": "MALFORMAÇÕES CRANIOVERTEBRAIS - CIRURGIA DESCOMPRESSIVA",
+    "title": "MALFORMAÇÕES CRANIOVERTEBRAIS - CIRURGIA DESCOMPRESSIVA",
+    "subtitle": "",
+    "page": 124,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.32-6",
+        "description": "Tratamento cirúrgico das malformações craniovertebrais",
+        "porte": "11B",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.35-0",
+        "description": "Tratamento microcirúrgico das lesões intramedulares (tumor, malformações arteriovenosas, siringomielia, parasitoses)",
+        "porte": "13B",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.02.15.02-1",
+        "description": "Craniotomia descompressiva",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.01.01.68-9",
+        "description": "Reconstrução com retalhos de gálea aponeurótica",
+        "porte": "8C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "5.9",
+    "name": "MALFORMAÇÕES CRANIOVERTEBRAIS - CIRURGIA DESCOMPRESSIVA COM FIXAÇÃO OCCIPTO-CERVICAL",
+    "title": "MALFORMAÇÕES CRANIOVERTEBRAIS - CIRURGIA DESCOMPRESSIVA COM FIXAÇÃO OCCIPTO-CERVICAL",
+    "subtitle": "",
+    "page": 126,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.32-6",
+        "description": "Tratamento cirúrgico das malformações craniovertebrais",
+        "porte": "11B",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.35-0",
+        "description": "Tratamento microcirúrgico das lesões intramedulares (tumor, malformações arteriovenosas, siringomielia, parasitoses)",
+        "porte": "13B",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.02.15.02-1",
+        "description": "Craniotomia descompressiva",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.01.01.68-9",
+        "description": "Reconstrução com retalhos de gálea aponeurótica",
+        "porte": "8C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "6.1",
+    "name": "ESPONDILODISCITE/ABSCESSO EPIDURAL (CERVICAL/TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO COM ARTRODESE POR VIA ANTERIOR (ISOLADA), VIA POSTERIOR (ISOLADA) OU VIA COMBINADA (ANTERIOR + POSTERIOR - 360°)",
+    "title": "ESPONDILODISCITE/ABSCESSO EPIDURAL (CERVICAL/TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO COM ARTRODESE POR VIA ANTERIOR (ISOLADA), VIA POSTERIOR (ISOLADA) OU VIA COMBINADA (ANTERIOR + POSTERIOR - 360°)",
+    "subtitle": "",
+    "page": 129,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.21-0",
+        "description": "Osteomielite de coluna - tratamento cirúrgico",
+        "porte": "8B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.28-8",
+        "description": "Substituição de corpo vertebral",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.02-9",
+        "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
+        "porte": "8B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.06.01.19-3",
+        "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
+        "porte": "9C",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 15,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 16,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 17,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "6.2",
+    "name": "ESPONDILODISCITE/ABSCESSO EPIDURAL (TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA POSTERIOR SEM ARTRODESE",
+    "title": "ESPONDILODISCITE/ABSCESSO EPIDURAL (TORÁCICO/LOMBAR) COM OU SEM COMPRESSÃO MEDULAR/CAUDA EQUINA: TRATAMENTO POR VIA POSTERIOR SEM ARTRODESE",
+    "subtitle": "",
+    "page": 133,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.21-0",
+        "description": "Osteomielite de coluna - tratamento cirúrgico",
+        "porte": "8B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "6.3",
+    "name": "TRATAMENTO CIRÚRGICO DE INFECÇÃO PÓS OPERATÓRIA COM OU SEM INSTRUMENTAÇÃO PRÉVIA",
+    "title": "TRATAMENTO CIRÚRGICO DE INFECÇÃO PÓS OPERATÓRIA COM OU SEM INSTRUMENTAÇÃO PRÉVIA",
+    "subtitle": "",
+    "page": 135,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.21-0",
+        "description": "Osteomielite de coluna - tratamento cirúrgico",
+        "porte": "8B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.01.01.28-0",
+        "description": "Desbridamento cirúrgico - por unidade topográfica (UT)",
+        "porte": "3C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.01.01.62-0",
+        "description": "Incisão e drenagem de abscesso, hematoma ou panarício",
+        "porte": "2B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.01.01.23-9",
+        "description": "Curativo especial sob anestesia – por unidade topográfica (UT)",
+        "porte": "2C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.24-5",
+        "description": "Pseudartrose de coluna - tratamento cirúrgico",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.27-0",
+        "description": "Retirada de material de síntese - tratamento cirúrgico",
+        "porte": "8A",
+        "sort_order": 8,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento/",
+        "porte": "12C",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico/",
+        "porte": "12C",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 13,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 15,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "6.4",
+    "name": "RETIRADA DE CORPO ESTRANHO EM COLUNA VERTEBRAL",
+    "title": "RETIRADA DE CORPO ESTRANHO EM COLUNA VERTEBRAL",
+    "subtitle": "",
+    "page": 137,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.31-8",
+        "description": "Tratamento cirúrgico da lesão traumática raquimedular",
+        "porte": "14B",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.26-1",
+        "description": "Retirada de corpo estranho - tratamento cirúrgico",
+        "porte": "8B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "6.5",
+    "name": "RETIRADA DE IMPLANTES/PSEUDOARTROSE DE COLUNA VERTEBRAL",
+    "title": "RETIRADA DE IMPLANTES/PSEUDOARTROSE DE COLUNA VERTEBRAL",
+    "subtitle": "",
+    "page": 139,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.24-5",
+        "description": "Pseudartrose de coluna - tratamento cirúrgico",
+        "porte": "9C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.27-0",
+        "description": "Retirada de material de síntese - tratamento cirúrgico",
+        "porte": "8A",
+        "sort_order": 2,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.32.02-6",
+        "description": "Enxerto ósseo - retirada de enxerto autólogo",
+        "porte": "9B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 11,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.09.01-6",
+        "description": "Instalação de halo craniano",
+        "porte": "3A",
+        "sort_order": 12,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.04-0",
+        "description": "Monitorização neurofisiológica intra-operatória em Neurocirurgia",
+        "porte": "12A",
+        "sort_order": 13,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 14,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 15,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "6.6",
+    "name": "LESÃO VERTEBRAL - BIÓPSIA DE COLUNA",
+    "title": "LESÃO VERTEBRAL - BIÓPSIA DE COLUNA",
+    "subtitle": "",
+    "page": 142,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "6.7",
+    "name": "TRATAMENTO CIRÚRGICO DE FÍSTULA LIQUÓRICA (ABERTA)",
+    "title": "TRATAMENTO CIRÚRGICO DE FÍSTULA LIQUÓRICA (ABERTA)",
+    "subtitle": "",
+    "page": 143,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.01.01.62-0",
+        "description": "Incisão e drenagem de abscesso, hematoma ou panarício",
+        "porte": "2B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "7.1",
+    "name": "CIRURGIA ENDOSCÓPICA PARA CISTO SINOVIAL",
+    "title": "CIRURGIA ENDOSCÓPICA PARA CISTO SINOVIAL",
+    "subtitle": "",
+    "page": 145,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.05-9",
+        "description": "Cirurgia de coluna por via endoscópica",
+        "porte": "11A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.20-2",
+        "description": "Microcirurgia para tumores extra-intradurais",
+        "porte": "12B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 3,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.16.02.16-9",
+        "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+        "porte": "3C",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "7.2",
+    "name": "CIRURGIA ENDOSCÓPICA PARA HÉRNIA DISCAL",
+    "title": "CIRURGIA ENDOSCÓPICA PARA HÉRNIA DISCAL",
+    "subtitle": "",
+    "page": 147,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.05-9",
+        "description": "Cirurgia de coluna por via endoscópica",
+        "porte": "11A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.16.02.16-9",
+        "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+        "porte": "3C",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.04-0",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "7.3",
+    "name": "CIRURGIA ENDOSCÓPICA PARA ESTENOSE DA COLUNA VERTEBRAL",
+    "title": "CIRURGIA ENDOSCÓPICA PARA ESTENOSE DA COLUNA VERTEBRAL",
+    "subtitle": "",
+    "page": 149,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.05-9",
+        "description": "Cirurgia de coluna por via endoscópica",
+        "porte": "11A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.16.02.16-9",
+        "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+        "porte": "3C",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 8,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "7.4",
+    "name": "CIRURGIA ENDOSCÓPICA PARA DISCITE INFECCIOSA",
+    "title": "CIRURGIA ENDOSCÓPICA PARA DISCITE INFECCIOSA",
+    "subtitle": "",
+    "page": 151,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.05-9",
+        "description": "Cirurgia de coluna por via endoscópica",
+        "porte": "11A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.21-0",
+        "description": "Osteomielite de coluna - tratamento cirúrgico",
+        "porte": "8B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 6,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 7,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.03-2",
+        "description": "Biópsia da coluna",
+        "porte": "7C",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 9,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "7.5",
+    "name": "CIRURGIA ENDOSCÓPICA DA COLUNA VERTEBRAL COM ARTRODESE",
+    "title": "CIRURGIA ENDOSCÓPICA DA COLUNA VERTEBRAL COM ARTRODESE",
+    "subtitle": "",
+    "page": 153,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.05-9",
+        "description": "Cirurgia de coluna por via endoscópica",
+        "porte": "11A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.36-9",
+        "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
+        "porte": "10B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.09-1",
+        "description": "Descompressão medular e/ou cauda equina",
+        "porte": "9C",
+        "sort_order": 4,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 5,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.01-6",
+        "description": "Artrodese da coluna com instrumentação por segmento",
+        "porte": "12C",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.02-4",
+        "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.16-9",
+        "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+        "porte": "3C",
+        "sort_order": 8,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.01.26-0",
+        "description": "Tratamento cirúrgico da fístula liquórica",
+        "porte": "10C",
+        "sort_order": 9,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "2.02.02.09-1",
+        "description": "Monitorização neurofisiológica intra-operatória em cirurgia espinhais e ortopedia",
+        "porte": "11B",
+        "sort_order": 10,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico (por hora ou fração)",
+        "porte": "2B",
+        "sort_order": 11,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.1",
+    "name": "INFILTRAÇÃO/BLOQUEIO DE COLUNA (DOR AXIAL E/OU RADICULAR)",
+    "title": "INFILTRAÇÃO/BLOQUEIO DE COLUNA (DOR AXIAL E/OU RADICULAR)",
+    "subtitle": "",
+    "page": 156,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "4.08.13.36-3",
+        "description": "Coluna vertebral: infiltração foraminal ou facetária ou articular",
+        "porte": "5A",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.14.03.03-4",
+        "description": "Denervação percutânea de faceta articular – por segmento",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.16-9",
+        "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+        "porte": "3C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.12-6",
+        "description": "Bloqueio facetário para-espinhoso",
+        "porte": "4C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.03.30-1",
+        "description": "Infiltração de ponto gatilho ou agulhamento seco (por músculo)",
+        "porte": "3A",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.2",
+    "name": "CRIODENERVAÇÃO FACETÁRIA POR SEGMENTO",
+    "title": "CRIODENERVAÇÃO FACETÁRIA POR SEGMENTO",
+    "subtitle": "",
+    "page": 157,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.03.03-4",
+        "description": "Denervação percutânea de faceta articular – por segmento",
+        "porte": "9C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.3",
+    "name": "DENERVAÇÃO DE FACETAS POR MÉTODO QUÍMICO",
+    "title": "DENERVAÇÃO DE FACETAS POR MÉTODO QUÍMICO",
+    "subtitle": "",
+    "page": 158,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.03.03-4",
+        "description": "Denervação percutânea de faceta articular – por segmento",
+        "porte": "9C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.4",
+    "name": "RIZOTOMIA DE FACETAS POR RADIOFREQUÊNCIA",
+    "title": "RIZOTOMIA DE FACETAS POR RADIOFREQUÊNCIA",
+    "subtitle": "",
+    "page": 159,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.03.33-6",
+        "description": "Rizotomia percutâneo por segmento – qualquer método",
+        "porte": "10C",
+        "sort_order": 1,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.5",
+    "name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU DE NERVO PERIFÉRICO I (Técnica percutânea – Fase Teste)",
+    "title": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU DE NERVO PERIFÉRICO I (Técnica percutânea – Fase Teste)",
+    "subtitle": "",
+    "page": 160,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.01.10-4",
+        "description": "Implante de eletrodos medular ou cerebral",
+        "porte": "10A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.16.02.22-3",
+        "description": "Passagem de Cateter peridural ou Subaracnoídeo c/ bloqueio de prova",
+        "porte": "3C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.6",
+    "name": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU NERVO PERIFÉRICO II (Técnica percutânea – Fase do Implante)",
+    "title": "ESTIMULAÇÃO ELÉTRICA MEDULAR E/OU NERVO PERIFÉRICO II (Técnica percutânea – Fase do Implante)",
+    "subtitle": "",
+    "page": 161,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.01.10-4",
+        "description": "Implante de eletrodos medular ou cerebral1",
+        "porte": "10A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.03.14-0",
+        "description": "Implante de gerador para neuroestimulação",
+        "porte": "8A",
+        "sort_order": 2,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "4.01.03.43-9",
+        "description": "Impedanciometria",
+        "porte": "2B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.22-3",
+        "description": "Passagem de Cateter peridural ou Subaracnoídeo c/ bloqueio de prova1",
+        "porte": "3C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.7",
+    "name": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia – Fase Teste)",
+    "title": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia – Fase Teste)",
+    "subtitle": "",
+    "page": 162,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.01.10-4",
+        "description": "Implante de eletrodos medular ou cerebral",
+        "porte": "10A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.8",
+    "name": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia – Fase do Implante)",
+    "title": "ESTIMULAÇÃO ELÉTRICA MEDULAR (Técnica por Laminectomia – Fase do Implante)",
+    "subtitle": "",
+    "page": 163,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.01.10-4",
+        "description": "Implante de eletrodos medular ou cerebral",
+        "porte": "10A",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 2,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.03.14-0",
+        "description": "Implante de gerador para neuroestimulação",
+        "porte": "8A",
+        "sort_order": 3,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "4.01.03.43-9",
+        "description": "Impedanciometria",
+        "porte": "2B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.9",
+    "name": "REVISÃO DE SISTEMA DE NEUROESTIMULAÇÃO",
+    "title": "REVISÃO DE SISTEMA DE NEUROESTIMULAÇÃO",
+    "subtitle": "",
+    "page": 164,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.14.01.22-8",
+        "description": "Revisão de sistema de neuroestimulação",
+        "porte": "3C",
+        "sort_order": 1,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.10",
+    "name": "RIZOTOMIA SELETIVA OU SUPERSELETIVA PARA ESPASTICIDADE",
+    "title": "RIZOTOMIA SELETIVA OU SUPERSELETIVA PARA ESPASTICIDADE",
+    "subtitle": "",
+    "page": 165,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.19-9",
+        "description": "Laminectomia ou laminotomia",
+        "porte": "9C",
+        "sort_order": 1,
+        "num_auxiliaries": 2
+      },
+      {
+        "code": "3.14.03.12-3",
+        "description": "Exploração cirúrgica de nervos (Neurólise externa)",
+        "porte": "5B",
+        "sort_order": 2,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "3.14.03.21-2",
+        "description": "Microneurólise intraneural ou intrafascicular de dois ou mais nervos",
+        "porte": "8B",
+        "sort_order": 3,
+        "num_auxiliaries": 1
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.11",
+    "name": "DISCECTOMIA PERCUTÂNEA",
+    "title": "DISCECTOMIA PERCUTÂNEA",
+    "subtitle": "",
+    "page": 166,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "4.08.14.09-2",
+        "description": "Osteoplastia ou Discectomia Percutânea",
+        "porte": "9A",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.16-9",
+        "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+        "porte": "3C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.12-6",
+        "description": "Bloqueio facetário para-espinhoso",
+        "porte": "4C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.03.30-1",
+        "description": "Infiltração de ponto gatilho ou agulhamento seco (por músculo)",
+        "porte": "3A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.12",
+    "name": "DISCOGRAFIA LOMBAR",
+    "title": "DISCOGRAFIA LOMBAR",
+    "subtitle": "",
+    "page": 167,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "4.08.14.10-6",
+        "description": "Discografia",
+        "porte": "4A",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.16-9",
+        "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+        "porte": "3C",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.12-6",
+        "description": "Bloqueio facetário para-espinhoso",
+        "porte": "4C",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.03.30-1",
+        "description": "Infiltração de ponto gatilho ou agulhamento seco (por músculo)",
+        "porte": "3A",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  },
+  {
+    "procedure_number": "8.13",
+    "name": "OZONIOTERAPIA PARA CONTROLE DE DOR OSTEOMUSCULAR DE COLUNA VERTEBRAL",
+    "title": "OZONIOTERAPIA PARA CONTROLE DE DOR OSTEOMUSCULAR DE COLUNA VERTEBRAL",
+    "subtitle": "",
+    "page": 168,
+    "source_document": "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral",
+    "source_version": "3ª ed. 2025",
+    "cbhpm_codes": [
+      {
+        "code": "3.07.15.39-3",
+        "description": "Hérnia de disco cervical - tratamento cirúrgico",
+        "porte": "12C",
+        "sort_order": 1,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.07.15.18-0",
+        "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
+        "porte": "10A",
+        "sort_order": 2,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.13.36-3",
+        "description": "Coluna vertebral: infiltração foraminal ou facetária ou articular",
+        "porte": "5A",
+        "sort_order": 3,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.16-9",
+        "description": "Bloqueio peridural ou subaracnóideo com corticóide",
+        "porte": "3C",
+        "sort_order": 4,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "3.16.02.12-6",
+        "description": "Bloqueio facetário para-espinhoso",
+        "porte": "4C",
+        "sort_order": 5,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "2.01.03.30-1",
+        "description": "Infiltração de ponto gatilho ou agulhamento seco (por músculo)",
+        "porte": "3A",
+        "sort_order": 6,
+        "num_auxiliaries": 0
+      },
+      {
+        "code": "4.08.11.02-6",
+        "description": "Radioscopia para acompanhamento de procedimento cirúrgico",
+        "porte": "2B",
+        "sort_order": 7,
+        "num_auxiliaries": 0
+      }
+    ],
+    "anomalies": []
+  }
+]

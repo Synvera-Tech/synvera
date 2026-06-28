@@ -16,3 +16,18 @@ func discountRateFor(route models.AccessRouteType, codeCount int) float64 {
 	}
 	return 0.50
 }
+
+// discountRateForCode returns the additional-procedure rate for a single code, honouring the
+// code's normative via rule. Spine codes (viaRule = SPINE_50) are always valued at 50% when
+// additional, even across combined anterior/posterior (360°) approaches — Manual de Coluna
+// p.42/62 (R12), which overrides the general CBHPM 4.2 (70%). Codes without a spine via rule
+// fall back to the standard CBHPM 4.1/4.2 behaviour, so neurosurgery results are unchanged.
+func discountRateForCode(viaRule string, route models.AccessRouteType, codeCount int) float64 {
+	if codeCount <= 1 {
+		return 1.0
+	}
+	if viaRule == viaRuleSpine50 {
+		return 0.50
+	}
+	return discountRateFor(route, codeCount)
+}

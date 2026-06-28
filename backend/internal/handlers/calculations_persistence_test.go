@@ -26,7 +26,7 @@ func buildSpineCode(qty int, lat generated.Laterality) generated.SelectedCode {
 		CbhpmCode:         "3.06.01.01-0",
 		Description:       "Artrodese lombar por segmento",
 		Porte:             "12A",
-		BillingMode:       generated.PERSEGMENT,
+		BillingMode:       generated.BillingModePERSEGMENT,
 		Specialty:         generated.Specialty("SPINE"),
 		LateralitySupport: true,
 		Laterality:        &l,

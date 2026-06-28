@@ -90,7 +90,7 @@ func TestEndToEndCalculateAndSaveRoundTrip(t *testing.T) {
 	calcReq := generated.CalculateRequest{
 		SelectedCodes: []generated.SelectedCode{
 			{CbhpmCode: "3.02.15.02-1", Description: "Craniotomia descompressiva", Porte: "9C",
-				BillingMode: generated.PERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
+				BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
 		},
 		AccessRouteType:    generated.Same,
 		AuxiliariesCount:   1,
@@ -156,7 +156,7 @@ func TestEndToEndCalculateWithAdjustmentsAndSave(t *testing.T) {
 	calcReq := generated.CalculateRequest{
 		SelectedCodes: []generated.SelectedCode{
 			{CbhpmCode: "3.01.01.11-5", Description: "Craniectomia", Porte: "10A",
-				BillingMode: generated.PERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
+				BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
 		},
 		AccessRouteType:    generated.Same,
 		AuxiliariesCount:   0,
@@ -213,7 +213,7 @@ func TestCompositionSelectedCodesSurviveFullRoundTrip(t *testing.T) {
 				CbhpmCode:         "3.06.01.01-0",
 				Description:       "Artrodese lombar por segmento",
 				Porte:             "12A",
-				BillingMode:       generated.PERSEGMENT,
+				BillingMode:       generated.BillingModePERSEGMENT,
 				Specialty:         generated.Specialty("SPINE"),
 				LateralitySupport: true,
 				Laterality:        &lat,
@@ -223,7 +223,7 @@ func TestCompositionSelectedCodesSurviveFullRoundTrip(t *testing.T) {
 				CbhpmCode:         "3.02.15.02-1",
 				Description:       "Craniotomia descompressiva",
 				Porte:             "9C",
-				BillingMode:       generated.PERPROCEDURE,
+				BillingMode:       generated.BillingModePERPROCEDURE,
 				Specialty:         generated.Specialty("NEUROSURGERY"),
 				LateralitySupport: false,
 			},
@@ -244,7 +244,7 @@ func TestCompositionSelectedCodesSurviveFullRoundTrip(t *testing.T) {
 	if spine.CbhpmCode != "3.06.01.01-0" {
 		t.Errorf("code[0] cbhpm_code: got %q", spine.CbhpmCode)
 	}
-	if spine.BillingMode != generated.PERSEGMENT {
+	if spine.BillingMode != generated.BillingModePERSEGMENT {
 		t.Errorf("code[0] billing_mode: got %q, want PER_SEGMENT", spine.BillingMode)
 	}
 	if spine.Specialty != generated.Specialty("SPINE") {
@@ -264,7 +264,7 @@ func TestCompositionSelectedCodesSurviveFullRoundTrip(t *testing.T) {
 	if neuro.CbhpmCode != "3.02.15.02-1" {
 		t.Errorf("code[1] cbhpm_code: got %q", neuro.CbhpmCode)
 	}
-	if neuro.BillingMode != generated.PERPROCEDURE {
+	if neuro.BillingMode != generated.BillingModePERPROCEDURE {
 		t.Errorf("code[1] billing_mode: got %q, want PER_PROCEDURE", neuro.BillingMode)
 	}
 	if neuro.LateralitySupport {
@@ -290,7 +290,7 @@ func TestCompositionMetadataSurvivesUpdate(t *testing.T) {
 		SbnProcedureId:   &sbnID,
 		SelectedCodes: []generated.SelectedCode{
 			{CbhpmCode: "3.06.01.01-0", Description: "Artrodese", Porte: "12A",
-				BillingMode: generated.PERSEGMENT, Specialty: generated.Specialty("SPINE"),
+				BillingMode: generated.BillingModePERSEGMENT, Specialty: generated.Specialty("SPINE"),
 				LateralitySupport: true, Laterality: &lat, QuantitySelected: &qty},
 		},
 		AccessRouteType:    generated.Different,
@@ -374,7 +374,7 @@ func TestClinicalAdjustmentsUrgentyAndPediatricThroughCompositionCycle(t *testin
 		SbnProcedureId:   &sbnID,
 		SelectedCodes: []generated.SelectedCode{
 			{CbhpmCode: "3.01.01.11-5", Description: "Craniectomia", Porte: "10A",
-				BillingMode: generated.PERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
+				BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
 		},
 		AccessRouteType:    generated.Same,
 		AuxiliariesCount:   1,
@@ -431,7 +431,7 @@ func TestClinicalAdjustmentsAllFourTypes(t *testing.T) {
 		SbnProcedureId:   &sbnID,
 		SelectedCodes: []generated.SelectedCode{
 			{CbhpmCode: "3.01.01.11-5", Description: "Craniectomia", Porte: "10A",
-				BillingMode: generated.PERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
+				BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
 		},
 		AccessRouteType:    generated.Same,
 		AuxiliariesCount:   0,

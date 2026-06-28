@@ -11,6 +11,7 @@ import (
 	"synvera/backend/internal/models"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -585,8 +586,10 @@ func (r *PostgresRepository) GetByID(id string) (*models.ProcedureWithCodes, err
 
 	var p models.ProcedureWithCodes
 	err := r.pool.QueryRow(ctx, `
-		SELECT id::text, name FROM sbn_procedures WHERE id = $1
-	`, id).Scan(&p.ID, &p.Name)
+		SELECT id::text, name,
+		       COALESCE(source_document, ''), COALESCE(source_version, '')
+		FROM sbn_procedures WHERE id = $1
+	`, id).Scan(&p.ID, &p.Name, &p.SourceDocument, &p.SourceVersion)
 	if err != nil {
 		// pgx returns pgx.ErrNoRows; treat as not-found (nil, nil).
 		return nil, nil //nolint:nilerr
@@ -754,4 +757,74 @@ func scanDocumentRows(rows pgx.Rows) ([]docsearch.SearchResult, error) {
 		return nil, fmt.Errorf("postgres: document search rows: %w", err)
 	}
 	return results, nil
+}
+
+// GetCodeModifiers returns the normative per-code billing modifiers (ADR-005),
+// keyed by CBHPM code. Read path only — the valuation engine does not consume the
+// result yet (roadmap stage N3), so calculations are unchanged.
+func (r *PostgresRepository) GetCodeModifiers() (map[string]models.CodeModifier, error) {
+	ctx := context.Background()
+	rows, err := r.pool.Query(ctx, `
+		SELECT cbhpm_code, specialty, billing_mode, laterality_rule, via_rule,
+		       decrement_pct::float8, max_quantity, supported_modifiers,
+		       source_document, source_version, source_page, source_excerpt, confidence
+		FROM cbhpm_code_modifiers
+		ORDER BY cbhpm_code
+	`)
+	if err != nil {
+		return nil, fmt.Errorf("postgres: get code modifiers: %w", err)
+	}
+	defer rows.Close()
+
+	out := make(map[string]models.CodeModifier)
+	for rows.Next() {
+		var (
+			code, specialty, billingMode, latRule, viaRule string
+			sourceDoc, sourceVer, excerpt, confidence      string
+			decrement                                      pgtype.Float8
+			maxQty, page                                   pgtype.Int4
+			supportedRaw                                   []byte
+		)
+		if err := rows.Scan(
+			&code, &specialty, &billingMode, &latRule, &viaRule,
+			&decrement, &maxQty, &supportedRaw,
+			&sourceDoc, &sourceVer, &page, &excerpt, &confidence,
+		); err != nil {
+			return nil, fmt.Errorf("postgres: scan code modifier: %w", err)
+		}
+
+		m := models.CodeModifier{
+			CBHPMCode:      code,
+			Specialty:      models.Specialty(specialty),
+			BillingMode:    models.BillingMode(billingMode),
+			LateralityRule: latRule,
+			ViaRule:        viaRule,
+			SourceDocument: sourceDoc,
+			SourceVersion:  sourceVer,
+			SourceExcerpt:  excerpt,
+			Confidence:     confidence,
+		}
+		if decrement.Valid {
+			v := decrement.Float64
+			m.DecrementPct = &v
+		}
+		if maxQty.Valid {
+			v := int(maxQty.Int32)
+			m.MaxQuantity = &v
+		}
+		if page.Valid {
+			v := int(page.Int32)
+			m.SourcePage = &v
+		}
+		if len(supportedRaw) > 0 {
+			if err := json.Unmarshal(supportedRaw, &m.SupportedModifiers); err != nil {
+				return nil, fmt.Errorf("postgres: decode supported_modifiers for %s: %w", code, err)
+			}
+		}
+		out[code] = m
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("postgres: code modifier rows: %w", err)
+	}
+	return out, nil
 }

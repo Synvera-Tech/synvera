@@ -32,7 +32,11 @@ ORDER BY relevance, name
 LIMIT 20;
 
 -- name: GetProcedureByID :one
-SELECT id::text, name
+SELECT
+    id::text,
+    name,
+    COALESCE(source_document, '') AS source_document,
+    COALESCE(source_version, '')  AS source_version
 FROM sbn_procedures
 WHERE id = sqlc.arg(id)::uuid;
 

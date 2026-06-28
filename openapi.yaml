@@ -286,6 +286,58 @@ components:
         - NEUROSURGERY: General neurosurgery (default).
         - SPINE: Spine-specific procedures with billing variables.
 
+    NormativeBillingMode:
+      type: string
+      enum: [PER_PROCEDURE, PER_SEGMENT, PER_VERTEBRA, PER_STRUCTURE, PER_STRUCTURE_DECREMENT]
+      description: >
+        Billing mode declared by the normative modifier layer (ADR-005). Superset of
+        BillingMode adding PER_STRUCTURE_DECREMENT (first structure 100%, each additional
+        at a fixed percentage — e.g. costectomy). Informational metadata only; the
+        valuation engine does not consume it yet (separately-approved activation step).
+
+    CodeModifierInfo:
+      type: object
+      description: >
+        Normative per-code billing modifier sourced from the spine coding manual
+        (ADR-005, table cbhpm_code_modifiers). READ-ONLY metadata. As of this release it
+        is informational and does NOT affect fee calculations — the engine still bills by
+        the catalog billing_mode. Present only for codes that have a normative rule.
+      required: [billing_mode, laterality_rule, via_rule, supported_modifiers, confidence]
+      properties:
+        billing_mode:
+          $ref: '#/components/schemas/NormativeBillingMode'
+        laterality_rule:
+          type: string
+          enum: [NONE, NO_DUPLICATE, BILATERAL_DOUBLE, CBHPM_4_3]
+          description: How laterality affects billing for this code.
+        via_rule:
+          type: string
+          enum: [CBHPM_DEFAULT, SPINE_50]
+          description: Access-route regime when this code is an additional procedure.
+        decrement_pct:
+          type: number
+          description: For PER_STRUCTURE_DECREMENT — percentage charged per additional structure.
+        max_quantity:
+          type: integer
+          description: UI cap for the quantity selector; omitted when unbounded.
+        supported_modifiers:
+          type: array
+          items:
+            type: string
+          description: UI hints, e.g. ["segment_count", "endoscopic_access"].
+        source_document:
+          type: string
+        source_version:
+          type: string
+        source_page:
+          type: integer
+        source_excerpt:
+          type: string
+          description: Verbatim manual excerpt justifying the rule.
+        confidence:
+          type: string
+          enum: [CONFIRMED, INFERRED, WEAK]
+
     Laterality:
       type: string
       enum: [UNILATERAL, BILATERAL]
@@ -318,6 +370,8 @@ components:
         laterality_support:
           type: boolean
           description: Whether bilateral billing is explicitly supported for this procedure.
+        modifier:
+          $ref: '#/components/schemas/CodeModifierInfo'
 
     ProcedureDetail:
       type: object
@@ -327,10 +381,26 @@ components:
           type: string
         name:
           type: string
+        domain:
+          $ref: '#/components/schemas/Specialty'
+        source:
+          $ref: '#/components/schemas/ProcedureSource'
         cbhpm_codes:
           type: array
           items:
             $ref: '#/components/schemas/CBHPMCodeEntry'
+
+    ProcedureSource:
+      type: object
+      description: Provenance of the procedure ficha (which manual it was imported from).
+      required: [document, version]
+      properties:
+        document:
+          type: string
+          description: Source manual title (spine coding manual or SBN neurosurgery manual).
+        version:
+          type: string
+          description: Source manual edition/year (e.g. "3ª ed. 2025", "2018").
 
     AccessRouteType:
       type: string

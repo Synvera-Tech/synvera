@@ -29,22 +29,22 @@ func (e AccessRouteType) Valid() bool {
 
 // Defines values for BillingMode.
 const (
-	PERPROCEDURE BillingMode = "PER_PROCEDURE"
-	PERSEGMENT   BillingMode = "PER_SEGMENT"
-	PERSTRUCTURE BillingMode = "PER_STRUCTURE"
-	PERVERTEBRA  BillingMode = "PER_VERTEBRA"
+	BillingModePERPROCEDURE BillingMode = "PER_PROCEDURE"
+	BillingModePERSEGMENT   BillingMode = "PER_SEGMENT"
+	BillingModePERSTRUCTURE BillingMode = "PER_STRUCTURE"
+	BillingModePERVERTEBRA  BillingMode = "PER_VERTEBRA"
 )
 
 // Valid indicates whether the value is a known member of the BillingMode enum.
 func (e BillingMode) Valid() bool {
 	switch e {
-	case PERPROCEDURE:
+	case BillingModePERPROCEDURE:
 		return true
-	case PERSEGMENT:
+	case BillingModePERSEGMENT:
 		return true
-	case PERSTRUCTURE:
+	case BillingModePERSTRUCTURE:
 		return true
-	case PERVERTEBRA:
+	case BillingModePERVERTEBRA:
 		return true
 	default:
 		return false
@@ -180,6 +180,69 @@ func (e BillingModifiersVertebralRegion) Valid() bool {
 	}
 }
 
+// Defines values for CodeModifierInfoConfidence.
+const (
+	CONFIRMED CodeModifierInfoConfidence = "CONFIRMED"
+	INFERRED  CodeModifierInfoConfidence = "INFERRED"
+	WEAK      CodeModifierInfoConfidence = "WEAK"
+)
+
+// Valid indicates whether the value is a known member of the CodeModifierInfoConfidence enum.
+func (e CodeModifierInfoConfidence) Valid() bool {
+	switch e {
+	case CONFIRMED:
+		return true
+	case INFERRED:
+		return true
+	case WEAK:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CodeModifierInfoLateralityRule.
+const (
+	BILATERALDOUBLE CodeModifierInfoLateralityRule = "BILATERAL_DOUBLE"
+	CBHPM43         CodeModifierInfoLateralityRule = "CBHPM_4_3"
+	NODUPLICATE     CodeModifierInfoLateralityRule = "NO_DUPLICATE"
+	NONE            CodeModifierInfoLateralityRule = "NONE"
+)
+
+// Valid indicates whether the value is a known member of the CodeModifierInfoLateralityRule enum.
+func (e CodeModifierInfoLateralityRule) Valid() bool {
+	switch e {
+	case BILATERALDOUBLE:
+		return true
+	case CBHPM43:
+		return true
+	case NODUPLICATE:
+		return true
+	case NONE:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for CodeModifierInfoViaRule.
+const (
+	CBHPMDEFAULT CodeModifierInfoViaRule = "CBHPM_DEFAULT"
+	SPINE50      CodeModifierInfoViaRule = "SPINE_50"
+)
+
+// Valid indicates whether the value is a known member of the CodeModifierInfoViaRule enum.
+func (e CodeModifierInfoViaRule) Valid() bool {
+	switch e {
+	case CBHPMDEFAULT:
+		return true
+	case SPINE50:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for Laterality.
 const (
 	BILATERAL  Laterality = "BILATERAL"
@@ -192,6 +255,33 @@ func (e Laterality) Valid() bool {
 	case BILATERAL:
 		return true
 	case UNILATERAL:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for NormativeBillingMode.
+const (
+	NormativeBillingModePERPROCEDURE          NormativeBillingMode = "PER_PROCEDURE"
+	NormativeBillingModePERSEGMENT            NormativeBillingMode = "PER_SEGMENT"
+	NormativeBillingModePERSTRUCTURE          NormativeBillingMode = "PER_STRUCTURE"
+	NormativeBillingModePERSTRUCTUREDECREMENT NormativeBillingMode = "PER_STRUCTURE_DECREMENT"
+	NormativeBillingModePERVERTEBRA           NormativeBillingMode = "PER_VERTEBRA"
+)
+
+// Valid indicates whether the value is a known member of the NormativeBillingMode enum.
+func (e NormativeBillingMode) Valid() bool {
+	switch e {
+	case NormativeBillingModePERPROCEDURE:
+		return true
+	case NormativeBillingModePERSEGMENT:
+		return true
+	case NormativeBillingModePERSTRUCTURE:
+		return true
+	case NormativeBillingModePERSTRUCTUREDECREMENT:
+		return true
+	case NormativeBillingModePERVERTEBRA:
 		return true
 	default:
 		return false
@@ -305,6 +395,9 @@ type CBHPMCodeEntry struct {
 	// LateralitySupport Whether bilateral billing is explicitly supported for this procedure.
 	LateralitySupport bool `json:"laterality_support"`
 
+	// Modifier Normative per-code billing modifier sourced from the spine coding manual (ADR-005, table cbhpm_code_modifiers). READ-ONLY metadata. As of this release it is informational and does NOT affect fee calculations — the engine still bills by the catalog billing_mode. Present only for codes that have a normative rule.
+	Modifier *CodeModifierInfo `json:"modifier,omitempty"`
+
 	// NumAuxiliaries Maximum number of auxiliary surgeons allowed per CBHPM (0–4).
 	NumAuxiliaries int `json:"num_auxiliaries"`
 
@@ -415,15 +508,52 @@ type CodeBreakdown struct {
 	QuantitySelected int `json:"quantity_selected"`
 }
 
+// CodeModifierInfo Normative per-code billing modifier sourced from the spine coding manual (ADR-005, table cbhpm_code_modifiers). READ-ONLY metadata. As of this release it is informational and does NOT affect fee calculations — the engine still bills by the catalog billing_mode. Present only for codes that have a normative rule.
+type CodeModifierInfo struct {
+	// BillingMode Billing mode declared by the normative modifier layer (ADR-005). Superset of BillingMode adding PER_STRUCTURE_DECREMENT (first structure 100%, each additional at a fixed percentage — e.g. costectomy). Informational metadata only; the valuation engine does not consume it yet (separately-approved activation step).
+	BillingMode NormativeBillingMode       `json:"billing_mode"`
+	Confidence  CodeModifierInfoConfidence `json:"confidence"`
+
+	// DecrementPct For PER_STRUCTURE_DECREMENT — percentage charged per additional structure.
+	DecrementPct *float32 `json:"decrement_pct,omitempty"`
+
+	// LateralityRule How laterality affects billing for this code.
+	LateralityRule CodeModifierInfoLateralityRule `json:"laterality_rule"`
+
+	// MaxQuantity UI cap for the quantity selector; omitted when unbounded.
+	MaxQuantity    *int    `json:"max_quantity,omitempty"`
+	SourceDocument *string `json:"source_document,omitempty"`
+
+	// SourceExcerpt Verbatim manual excerpt justifying the rule.
+	SourceExcerpt *string `json:"source_excerpt,omitempty"`
+	SourcePage    *int    `json:"source_page,omitempty"`
+	SourceVersion *string `json:"source_version,omitempty"`
+
+	// SupportedModifiers UI hints, e.g. ["segment_count", "endoscopic_access"].
+	SupportedModifiers []string `json:"supported_modifiers"`
+
+	// ViaRule Access-route regime when this code is an additional procedure.
+	ViaRule CodeModifierInfoViaRule `json:"via_rule"`
+}
+
+// CodeModifierInfoConfidence defines model for CodeModifierInfo.Confidence.
+type CodeModifierInfoConfidence string
+
+// CodeModifierInfoLateralityRule How laterality affects billing for this code.
+type CodeModifierInfoLateralityRule string
+
+// CodeModifierInfoViaRule Access-route regime when this code is an additional procedure.
+type CodeModifierInfoViaRule string
+
 // CompositionDetail Full composition including selected CBHPM codes and spine-specific modifiers.
 type CompositionDetail struct {
 	// AccessRouteType Whether all selected procedures were performed via the same access route (CBHPM 4.1 – 50% discount on secondary procedures) or different access routes (CBHPM 4.2 – 70% discount on secondary procedures).
-	AccessRouteType  AccessRouteType `json:"access_route_type"`
-	AuxiliariesCount int             `json:"auxiliaries_count"`
-	CreatedAt        time.Time       `json:"created_at"`
+	AccessRouteType AccessRouteType `json:"access_route_type"`
 
 	// Adjustments Array of CBHPM adjustment codes active in this composition.
-	Adjustments []string `json:"adjustments"`
+	Adjustments      []string  `json:"adjustments"`
+	AuxiliariesCount int       `json:"auxiliaries_count"`
+	CreatedAt        time.Time `json:"created_at"`
 
 	// Modifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 	Modifiers          *BillingModifiers  `json:"modifiers,omitempty"`
@@ -457,11 +587,29 @@ type HealthResponse struct {
 // Laterality Whether procedure is billed for one side or both. - UNILATERAL: One side (multiplier = 1). - BILATERAL: Both sides (multiplier = 2, if applicable).
 type Laterality string
 
+// NormativeBillingMode Billing mode declared by the normative modifier layer (ADR-005). Superset of BillingMode adding PER_STRUCTURE_DECREMENT (first structure 100%, each additional at a fixed percentage — e.g. costectomy). Informational metadata only; the valuation engine does not consume it yet (separately-approved activation step).
+type NormativeBillingMode string
+
 // ProcedureDetail defines model for ProcedureDetail.
 type ProcedureDetail struct {
 	CbhpmCodes []CBHPMCodeEntry `json:"cbhpm_codes"`
-	Id         string           `json:"id"`
-	Name       string           `json:"name"`
+
+	// Domain Medical domain classification. - NEUROSURGERY: General neurosurgery (default). - SPINE: Spine-specific procedures with billing variables.
+	Domain *Specialty `json:"domain,omitempty"`
+	Id     string     `json:"id"`
+	Name   string     `json:"name"`
+
+	// Source Provenance of the procedure ficha (which manual it was imported from).
+	Source *ProcedureSource `json:"source,omitempty"`
+}
+
+// ProcedureSource Provenance of the procedure ficha (which manual it was imported from).
+type ProcedureSource struct {
+	// Document Source manual title (spine coding manual or SBN neurosurgery manual).
+	Document string `json:"document"`
+
+	// Version Source manual edition/year (e.g. "3ª ed. 2025", "2018").
+	Version string `json:"version"`
 }
 
 // SBNProcedureResult defines model for SBNProcedureResult.
@@ -492,7 +640,7 @@ type SaveCalculationRequest struct {
 	SelectedCodes      []SelectedCode `json:"selected_codes"`
 }
 
-// SaveCalculationResponse Only the public_id is returned. Use it to construct the shareable URL: https://afere.app/calc/{public_id}
+// SaveCalculationResponse Only the public_id is returned. Use it to construct the shareable URL: https://synvera.app/calc/{public_id}
 type SaveCalculationResponse struct {
 	CreatedAt time.Time `json:"created_at"`
 
@@ -503,11 +651,11 @@ type SaveCalculationResponse struct {
 // SaveCompositionRequest defines model for SaveCompositionRequest.
 type SaveCompositionRequest struct {
 	// AccessRouteType Whether all selected procedures were performed via the same access route (CBHPM 4.1 – 50% discount on secondary procedures) or different access routes (CBHPM 4.2 – 70% discount on secondary procedures).
-	AccessRouteType  AccessRouteType `json:"access_route_type"`
-	AuxiliariesCount int             `json:"auxiliaries_count"`
+	AccessRouteType AccessRouteType `json:"access_route_type"`
 
-	// Adjustments Array of CBHPM adjustment codes to persist in the composition.
-	Adjustments *[]string `json:"adjustments,omitempty"`
+	// Adjustments Array of CBHPM adjustment codes to persist in the composition. Valid codes: emergency_special_hours, pediatric_low_weight_or_premature, pediatric_neonate_or_infant, pediatric_child_under_12.
+	Adjustments      *[]string `json:"adjustments,omitempty"`
+	AuxiliariesCount int       `json:"auxiliaries_count"`
 
 	// Modifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 	Modifiers *BillingModifiers `json:"modifiers,omitempty"`

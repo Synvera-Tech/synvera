@@ -1,6 +1,12 @@
 package service
 
-// anesthesiaFee is the fixed anesthesiologist reference fee in BRL, per CBHPM.
+// anesthesiaFee is a fixed anesthesiologist reference fee in BRL.
+//
+// NOTE (audit R21, see docs/audits/spine-rules-traceability.md): this flat value has
+// NO direct normative basis. CBHPM prices anesthesia via the anesthetic porte scale
+// (AN1–AN8) tied to each procedure (CBHPM 2022 Instruções Gerais, item 1.3), not a
+// single fixed amount. This is a deliberate simplification, frozen pending the R21
+// decision (normative-engine-roadmap.md §6). Do not treat as a manual-derived rule.
 const anesthesiaFee = 1200.00
 
 // PorteValues maps each porte code to its monetary value in BRL (CBHPM 2025/2026, Faixa Original,

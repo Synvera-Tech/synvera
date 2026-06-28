@@ -1,6 +1,28 @@
 // Shared domain types for the procedure calculation workflow.
 // Single source of truth — imported by procedure/page.tsx, share/page.tsx, and all hooks.
 
+// Normative per-code billing modifier (ADR-005). READ-ONLY metadata exposed by the
+// API for the future contextual UI. It does NOT affect fee calculations yet — the
+// engine still bills by billing_mode. Present only for codes with a normative rule.
+export type CodeModifierInfo = {
+  billing_mode:
+    | "PER_PROCEDURE"
+    | "PER_SEGMENT"
+    | "PER_VERTEBRA"
+    | "PER_STRUCTURE"
+    | "PER_STRUCTURE_DECREMENT";
+  laterality_rule: "NONE" | "NO_DUPLICATE" | "BILATERAL_DOUBLE" | "CBHPM_4_3";
+  via_rule: "CBHPM_DEFAULT" | "SPINE_50";
+  decrement_pct?: number;
+  max_quantity?: number;
+  supported_modifiers: string[];
+  source_document?: string;
+  source_version?: string;
+  source_page?: number;
+  source_excerpt?: string;
+  confidence: "CONFIRMED" | "INFERRED" | "WEAK";
+};
+
 export type CBHPMCode = {
   code: string;
   description: string;
@@ -9,11 +31,21 @@ export type CBHPMCode = {
   billing_mode?: string;
   specialty?: string;
   laterality_support?: boolean;
+  // Normative modifier metadata (ADR-005). Informational only for now.
+  modifier?: CodeModifierInfo;
+};
+
+export type ProcedureSource = {
+  document: string;
+  version: string;
 };
 
 export type ProcedureDetail = {
   id: string;
   name: string;
+  // Operational domain derived from provenance (SPINE vs NEUROSURGERY).
+  domain?: "NEUROSURGERY" | "SPINE";
+  source?: ProcedureSource;
   cbhpm_codes: CBHPMCode[];
 };
 

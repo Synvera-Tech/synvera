@@ -17,7 +17,29 @@ func CalculateWithPortes(
 	adjustments []string,
 	porteValues map[string]float64,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil)
+}
+
+// CalculateWithPortesAndModifiers is the data-driven entry point (ADR-005, roadmap N5).
+// It resolves each code's normative billing rule from the modifiers map before valuing:
+//   - per-code billing_mode (×N segment/vertebra/structure, or PER_STRUCTURE_DECREMENT);
+//   - spine via rule (additional codes at 50%, R12) by code specialty;
+//   - spine laterality rule (bilateral same segment not duplicated, R3).
+//
+// Passing a nil modifiers map disables all normative enrichment, reproducing the legacy
+// behaviour exactly (used by Calculate / CalculateWithPortes and all existing tests).
+// Codes that are not SPINE and have no modifier row are valued identically to before, so
+// neurosurgery calculations never change.
+func CalculateWithPortesAndModifiers(
+	codes []models.SelectedCode,
+	auxiliariesCount int,
+	requiresAnesthesia bool,
+	accessRoute models.AccessRouteType,
+	adjustments []string,
+	porteValues map[string]float64,
+	modifiers map[string]models.CodeModifier,
+) models.CalculationResult {
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers)
 }
 
 // Calculate applies validated CBHPM billing rules to a physician-assembled composition.
@@ -54,10 +76,43 @@ func Calculate(
 	accessRoute models.AccessRouteType,
 	adjustments []string,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil)
 }
 
-// calculate is the shared implementation behind Calculate and CalculateWithPortes.
+// resolveCodeRules determines the effective billing rule for a single code.
+//
+// When modifiers is nil, no enrichment occurs and the code's own fields are used verbatim
+// (legacy path). Otherwise:
+//   - SPINE codes get the domain-wide rules SPINE_50 (R12) and NO_DUPLICATE (R3);
+//   - a matching modifier row overrides the billing mode (×N / decrement) and, if present,
+//     the via/laterality rules.
+func resolveCodeRules(
+	c models.SelectedCode,
+	modifiers map[string]models.CodeModifier,
+) (billingMode models.BillingMode, viaRule, lateralityRule string, decrementPct *float64) {
+	billingMode = c.BillingMode
+	if modifiers == nil {
+		return billingMode, "", "", nil
+	}
+	if c.Specialty == models.SpecialtySpine {
+		viaRule = viaRuleSpine50
+		lateralityRule = lateralityRuleNoDuplicate
+	}
+	if m, ok := modifiers[c.CBHPMCode]; ok && m.Specialty == c.Specialty {
+		billingMode = m.BillingMode
+		decrementPct = m.DecrementPct
+		if m.ViaRule != "" {
+			viaRule = m.ViaRule
+		}
+		if m.LateralityRule != "" {
+			lateralityRule = m.LateralityRule
+		}
+	}
+	return billingMode, viaRule, lateralityRule, decrementPct
+}
+
+// calculate is the shared implementation behind Calculate, CalculateWithPortes, and
+// CalculateWithPortesAndModifiers. A nil modifiers map disables normative enrichment.
 func calculate(
 	codes []models.SelectedCode,
 	auxiliariesCount int,
@@ -65,12 +120,15 @@ func calculate(
 	accessRoute models.AccessRouteType,
 	adjustments []string,
 	porteValues map[string]float64,
+	modifiers map[string]models.CodeModifier,
 ) models.CalculationResult {
 	// ── Step 1: resolve porte values, apply spine multipliers, find principal ───
 
 	type entry struct {
 		code                 models.SelectedCode
 		baseValue            float64
+		billingMode          models.BillingMode // effective (post-enrichment) mode
+		viaRule              string             // effective via rule for access-route discounting
 		quantityMultiplier   float64
 		lateralityMultiplier float64
 		adjustedValue        float64 // baseValue × quantity × laterality
@@ -82,14 +140,17 @@ func calculate(
 	principalAdjustedValue := 0.0
 
 	for i, c := range codes {
+		billingMode, viaRule, lateralityRule, decrementPct := resolveCodeRules(c, modifiers)
 		baseVal := porteValues[c.Porte]
-		qtyMult := calculateQuantityMultiplier(c.BillingMode, c.QuantitySelected)
-		latMult := calculateLateralityMultiplier(c.Laterality, c.LateralitySupport)
+		qtyMult := calculateQuantityMultiplier(billingMode, c.QuantitySelected, decrementPct)
+		latMult := calculateLateralityMultiplier(c.Laterality, c.LateralitySupport, lateralityRule)
 		adjVal := baseVal * qtyMult * latMult
 
 		entries[i] = entry{
 			code:                 c,
 			baseValue:            baseVal,
+			billingMode:          billingMode,
+			viaRule:              viaRule,
 			quantityMultiplier:   qtyMult,
 			lateralityMultiplier: latMult,
 			adjustedValue:        adjVal,
@@ -103,21 +164,29 @@ func calculate(
 		totalBase += baseVal
 	}
 
-	// ── Step 2: surgeon fee per CBHPM 4.1 / 4.2 ─────────────────────────────
-	// Principal = highest adjusted value. Discount applies to adjusted values.
+	// ── Step 2: surgeon fee per CBHPM 4.1 / 4.2 (and spine R12) ─────────────────
+	// Principal = highest adjusted value. Each additional code is discounted by its own
+	// via rule (spine → 50%; otherwise CBHPM 4.1/4.2), so mixed compositions are correct.
 
 	principalAdjValue := entries[principalIdx].adjustedValue
 
 	additionalGross := 0.0
+	additionalDiscounted := 0.0
 	for i, e := range entries {
-		if i != principalIdx {
-			additionalGross += e.adjustedValue
+		if i == principalIdx {
+			continue
 		}
+		additionalGross += e.adjustedValue
+		additionalDiscounted += e.adjustedValue * discountRateForCode(e.viaRule, accessRoute, len(codes))
 	}
-
-	discountRate := discountRateFor(accessRoute, len(codes))
-	additionalDiscounted := additionalGross * discountRate
 	surgeonTotal := principalAdjValue + additionalDiscounted
+
+	// Effective (blended) discount rate for transparency. Equals the nominal CBHPM rate
+	// when all additional codes share one rate (e.g. neurosurgery-only compositions).
+	discountRate := discountRateFor(accessRoute, len(codes))
+	if additionalGross > 0 {
+		discountRate = additionalDiscounted / additionalGross
+	}
 
 	surgeonBreakdown := models.SurgeonBreakdown{
 		PrincipalValue:       principalAdjValue,
@@ -137,7 +206,7 @@ func calculate(
 			Porte:                e.code.Porte,
 			BaseValue:            e.baseValue,
 			IsPrincipal:          i == principalIdx,
-			BillingMode:          e.code.BillingMode,
+			BillingMode:          e.billingMode,
 			QuantitySelected:     e.code.QuantitySelected,
 			QuantityMultiplier:   e.quantityMultiplier,
 			Laterality:           e.code.Laterality,

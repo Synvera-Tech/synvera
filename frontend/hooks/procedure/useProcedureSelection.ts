@@ -128,7 +128,13 @@ export function useProcedureSelection({
       for (const c of detail.cbhpm_codes) {
         if (!seen.has(c.code)) {
           seen.add(c.code);
-          codes.push(c);
+          // Stamp the procedure domain onto each code's specialty. The catalog stores an
+          // inconsistent per-code specialty (some spine-procedure codes are tagged
+          // "Neurocirurgia, Coluna Vertebral"), but a code's billing domain is a property of
+          // the PROCEDURE, not the shared code. Using detail.domain makes the access-route
+          // gating and the backend's normative-modifier resolution (which key on SPINE)
+          // correct and consistent. Falls back to the code's own specialty when domain is absent.
+          codes.push(detail.domain ? { ...c, specialty: detail.domain } : c);
         }
       }
     }

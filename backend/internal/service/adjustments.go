@@ -27,16 +27,16 @@ var AdjustmentCatalog = map[string]adjMeta{
 	AdjCodePediatricLowWeightOrPremature: {
 		label:      "Criança < 2.500 g ou prematura < 37 semanas",
 		percentage: 100.0,
-		source:     "CBHPM 2022, Instruções Gerais, item 3",
+		source:     "CBHPM 2022, Instruções Gerais, item 4.6",
 	},
 	AdjCodePediatricNeonateOrInfant: {
 		label:      "Neonato/lactante — 0 a 24 meses",
 		percentage: 50.0,
-		source:     "CBHPM 2022, Instruções Gerais, item 3",
+		source:     "CBHPM 2022, Instruções Gerais, item 4.7",
 	},
 	AdjCodePediatricChildUnder12: {
 		label:      "Pediátrico — 24 meses completos a 12 anos incompletos",
 		percentage: 30.0,
-		source:     "CBHPM 2022, Instruções Gerais, item 3",
+		source:     "CBHPM 2022, Instruções Gerais, item 4.8",
 	},
 }

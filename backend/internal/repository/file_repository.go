@@ -18,6 +18,9 @@ import (
 //go:embed procedures.json
 var catalogFS embed.FS
 
+//go:embed code_modifiers.json
+var codeModifiersFS embed.FS
+
 // flatEntry mirrors one row in the embedded procedures.json.
 type flatEntry struct {
 	ProcedureName    string `json:"procedure_name"`
@@ -30,6 +33,26 @@ type flatEntry struct {
 	LateralitySupport bool   `json:"laterality_support"`
 }
 
+// codeModifierFile mirrors the embedded code_modifiers.json (ADR-005 source of truth).
+// source_document/source_version are file-level and applied to every row.
+type codeModifierFile struct {
+	SourceDocument string `json:"source_document"`
+	SourceVersion  string `json:"source_version"`
+	Modifiers      []struct {
+		CBHPMCode          string   `json:"cbhpm_code"`
+		Specialty          string   `json:"specialty"`
+		BillingMode        string   `json:"billing_mode"`
+		LateralityRule     string   `json:"laterality_rule"`
+		ViaRule            string   `json:"via_rule"`
+		DecrementPct       *float64 `json:"decrement_pct"`
+		MaxQuantity        *int     `json:"max_quantity"`
+		SupportedModifiers []string `json:"supported_modifiers"`
+		SourcePage         *int     `json:"source_page"`
+		SourceExcerpt      string   `json:"source_excerpt"`
+		Confidence         string   `json:"confidence"`
+	} `json:"modifiers"`
+}
+
 // FileRepository is a Repository backed by the embedded procedures.json
 // and in-memory stores for physicians, compositions, and calculations (development/testing).
 type FileRepository struct {
@@ -37,6 +60,12 @@ type FileRepository struct {
 	procedures []models.ProcedureWithCodes
 	// byID is a fast O(1) lookup from string ID → index.
 	byID map[string]int
+
+	// codeModifiers holds the normative per-code billing modifiers (ADR-005),
+	// keyed by CBHPM code. Loaded from the embedded code_modifiers.json so that
+	// FileRepository (dev/tests) and PostgresRepository (production) report the
+	// same normative data. Read-only; not consumed by the engine yet (stage N3).
+	codeModifiers map[string]models.CodeModifier
 
 	// physicianMu guards the in-memory physician account stores.
 	physicianMu       sync.RWMutex
@@ -65,7 +94,52 @@ func NewFileRepository() *FileRepository {
 		log.Fatalf("repository: decode catalog: %v", err)
 	}
 
-	return buildIndex(flat)
+	repo := buildIndex(flat)
+	repo.codeModifiers = loadCodeModifiers()
+	return repo
+}
+
+// loadCodeModifiers parses the embedded code_modifiers.json into a map keyed by
+// CBHPM code. It panics on corruption because a malformed normative file is a fatal
+// misconfiguration, not a runtime error (mirrors the catalog loading contract).
+func loadCodeModifiers() map[string]models.CodeModifier {
+	raw, err := codeModifiersFS.ReadFile("code_modifiers.json")
+	if err != nil {
+		log.Fatalf("repository: read embedded code modifiers: %v", err)
+	}
+	var file codeModifierFile
+	if err := json.Unmarshal(raw, &file); err != nil {
+		log.Fatalf("repository: decode code modifiers: %v", err)
+	}
+
+	out := make(map[string]models.CodeModifier, len(file.Modifiers))
+	for _, m := range file.Modifiers {
+		out[m.CBHPMCode] = models.CodeModifier{
+			CBHPMCode:          m.CBHPMCode,
+			Specialty:          models.Specialty(m.Specialty),
+			BillingMode:        models.BillingMode(m.BillingMode),
+			LateralityRule:     m.LateralityRule,
+			ViaRule:            m.ViaRule,
+			DecrementPct:       m.DecrementPct,
+			MaxQuantity:        m.MaxQuantity,
+			SupportedModifiers: m.SupportedModifiers,
+			SourceDocument:     file.SourceDocument,
+			SourceVersion:      file.SourceVersion,
+			SourcePage:         m.SourcePage,
+			SourceExcerpt:      m.SourceExcerpt,
+			Confidence:         m.Confidence,
+		}
+	}
+	return out
+}
+
+// GetCodeModifiers returns a copy of the normative per-code modifier map.
+func (r *FileRepository) GetCodeModifiers() (map[string]models.CodeModifier, error) {
+	out := make(map[string]models.CodeModifier, len(r.codeModifiers))
+	for k, v := range r.codeModifiers {
+		out[k] = v
+	}
+	return out, nil
 }
 
 // buildIndex groups the flat entries by procedure_name, deduplicates CBHPM codes
@@ -75,6 +149,9 @@ func buildIndex(flat []flatEntry) *FileRepository {
 	nameOrder := make([]string, 0)
 	// codesByName holds deduplicated CBHPM code lists keyed by procedure name.
 	codesByName := make(map[string][]models.CBHPMCode)
+	// specialtyByName records the procedure-level specialty (first entry wins),
+	// used to derive provenance (mirrors migration 026's backfill-by-specialty).
+	specialtyByName := make(map[string]string)
 	// seenCodes deduplicates (name, cbhpm_code) pairs.
 	seenCodes := make(map[string]map[string]struct{})
 
@@ -82,6 +159,7 @@ func buildIndex(flat []flatEntry) *FileRepository {
 		if _, exists := codesByName[e.ProcedureName]; !exists {
 			nameOrder = append(nameOrder, e.ProcedureName)
 			codesByName[e.ProcedureName] = nil
+			specialtyByName[e.ProcedureName] = e.Specialty
 			seenCodes[e.ProcedureName] = make(map[string]struct{})
 		}
 		if _, dup := seenCodes[e.ProcedureName][e.CBHPMCode]; dup {
@@ -104,9 +182,12 @@ func buildIndex(flat []flatEntry) *FileRepository {
 
 	for i, name := range nameOrder {
 		id := idFromIndex(i)
+		srcDoc, srcVer := provenanceForSpecialty(specialtyByName[name])
 		procedures = append(procedures, models.ProcedureWithCodes{
-			SBNProcedure: models.SBNProcedure{ID: id, Name: name},
-			Codes:        codesByName[name],
+			SBNProcedure:   models.SBNProcedure{ID: id, Name: name},
+			SourceDocument: srcDoc,
+			SourceVersion:  srcVer,
+			Codes:          codesByName[name],
 		})
 		byID[id] = i
 	}
@@ -180,6 +261,24 @@ func normalizeQuery(value string) string {
 		"ç", "c", "Ç", "c",
 	)
 	return strings.TrimSpace(strings.ToLower(replacer.Replace(value)))
+}
+
+// Provenance strings mirror migration 026's backfill so FileRepository (dev/tests)
+// and PostgresRepository (production) report identical source metadata.
+const (
+	sourceSpineDocument = "Manual de Diretrizes de Codificação em Cirurgia de Coluna Vertebral"
+	sourceSpineVersion  = "3ª ed. 2025"
+	sourceSBNDocument   = "Manual de Diretrizes de Codificação dos Procedimentos em Neurocirurgia"
+	sourceSBNVersion    = "2018"
+)
+
+// provenanceForSpecialty derives (source_document, source_version) from the
+// procedure-level specialty, matching the database backfill in migration 026.
+func provenanceForSpecialty(specialty string) (string, string) {
+	if specialty == string(models.SpecialtySpine) {
+		return sourceSpineDocument, sourceSpineVersion
+	}
+	return sourceSBNDocument, sourceSBNVersion
 }
 
 // idFromIndex converts a zero-based slice index to the stable string ID used in URLs.

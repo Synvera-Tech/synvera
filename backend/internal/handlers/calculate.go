@@ -90,7 +90,16 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 		if req.Adjustments != nil {
 			adjustments = *req.Adjustments
 		}
-		result := service.CalculateWithPortes(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues)
+
+		// Resolve normative per-code billing rules (ADR-005, roadmap N5). The engine is the
+		// numerical authority: rules come from the database, not the client. A load failure
+		// degrades to legacy behaviour (nil map) rather than breaking the calculation.
+		modifiers, err := repo.GetCodeModifiers()
+		if err != nil {
+			log.Printf("calculate: get code modifiers: %v", err)
+			modifiers = nil
+		}
+		result := service.CalculateWithPortesAndModifiers(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers)
 
 		breakdown := make([]generated.CodeBreakdown, 0, len(result.CodeBreakdown))
 		for _, b := range result.CodeBreakdown {

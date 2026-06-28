@@ -32,6 +32,8 @@
 --   022 — add plan_type + subscription_status to physician_accounts (DEFAULT 'free'/'inactive')
 --   023 — reconcile production schema (clerk_user_id, updated_at, adjustments, modifiers, spine cols)
 --   024 — document search tables: documents + document_chunks with FTS (RAG v0)
+--   025 — restore 3 SBN→CBHPM mappings dropped at parse time (malformed source codes)
+--   026 — spine manual structured import: source_document/source_version on sbn_procedures
 
 CREATE EXTENSION IF NOT EXISTS unaccent;
 
@@ -56,6 +58,10 @@ CREATE TABLE IF NOT EXISTS sbn_procedures (
     specialty          VARCHAR(20) NOT NULL DEFAULT 'NEUROSURGERY'
         CHECK (specialty IN ('NEUROSURGERY', 'SPINE')),
     laterality_support BOOLEAN     NOT NULL DEFAULT FALSE,
+    -- Provenance of the procedure ficha (migration 026). NEUROSURGERY procedures
+    -- originate from the SBN manual; SPINE procedures from the spine coding manual.
+    source_document    TEXT,
+    source_version     VARCHAR(40),
     created_at         TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -305,3 +311,48 @@ CREATE INDEX IF NOT EXISTS idx_document_chunks_search
 
 CREATE INDEX IF NOT EXISTS idx_document_chunks_document_id
     ON document_chunks (document_id);
+
+-- ---------------------------------------------------------------------------
+-- cbhpm_code_modifiers: normative, data-driven billing rules per CBHPM code
+--
+-- One row per (cbhpm_code, specialty). Carries the billing rule, its parameters,
+-- and the verbatim manual source that justifies it (provenance/replay fields).
+-- Opt-in: absence of a row ⇒ PER_PROCEDURE default with CBHPM via/laterality rules.
+-- See ADR-005-normative-modifier-table.md. Introduced empty in migration 027;
+-- seed/read/engine consumption follow in roadmap stages N2/N3/N5 (no calc change yet).
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS cbhpm_code_modifiers (
+    id                  UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+    cbhpm_code          VARCHAR(20) NOT NULL,
+    specialty           VARCHAR(20) NOT NULL
+        CHECK (specialty IN ('NEUROSURGERY', 'SPINE')),
+    billing_mode        VARCHAR(30) NOT NULL
+        CHECK (billing_mode IN ('PER_PROCEDURE', 'PER_SEGMENT', 'PER_VERTEBRA',
+                                'PER_STRUCTURE', 'PER_STRUCTURE_DECREMENT')),
+    laterality_rule     VARCHAR(20) NOT NULL DEFAULT 'NONE'
+        CHECK (laterality_rule IN ('NONE', 'NO_DUPLICATE', 'BILATERAL_DOUBLE', 'CBHPM_4_3')),
+    via_rule            VARCHAR(20) NOT NULL DEFAULT 'CBHPM_DEFAULT'
+        CHECK (via_rule IN ('CBHPM_DEFAULT', 'SPINE_50')),
+    decrement_pct       NUMERIC(5, 2),
+    max_quantity        INT,
+    supported_modifiers JSONB       NOT NULL DEFAULT '[]'::jsonb,
+
+    source_document     TEXT        NOT NULL,
+    source_version      VARCHAR(40) NOT NULL,
+    source_page         INT,
+    source_excerpt      TEXT,
+    confidence          VARCHAR(20) NOT NULL
+        CHECK (confidence IN ('CONFIRMED', 'INFERRED', 'WEAK')),
+    implemented_at      TIMESTAMPTZ,
+    verified_by         TEXT,
+
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at          TIMESTAMPTZ NOT NULL DEFAULT now(),
+
+    UNIQUE (cbhpm_code, specialty)
+);
+
+CREATE INDEX IF NOT EXISTS idx_cbhpm_code_modifiers_code
+    ON cbhpm_code_modifiers (cbhpm_code);
+CREATE INDEX IF NOT EXISTS idx_cbhpm_code_modifiers_specialty
+    ON cbhpm_code_modifiers (specialty);
