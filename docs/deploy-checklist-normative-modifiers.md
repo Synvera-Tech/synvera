@@ -57,7 +57,8 @@ Apply: `psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f backend/db/migrations/02X_*.s
 
 ## 8. Known-frozen (do NOT ship without separate decision)
 
-- R14 (principal = highest porte vs highest adjusted value), R21 (anesthesia model), R22 (additive vs
-  multiplicative adjustments). See [architecture/normative-engine-roadmap.md](architecture/normative-engine-roadmap.md) §6.
+- ~~R14~~ (resolved: principal = highest porte) and ~~R21~~ (resolved: porte-derived anesthesia, migration 029).
+  Still frozen: R22 (additive vs multiplicative adjustments) and anesthesia refinements A8/A9/A14.
+  See [architecture/normative-engine-roadmap.md](architecture/normative-engine-roadmap.md) §6.
 - Anesthesiology: audit only — see [audits/anesthesiology-rules-traceability.md](audits/anesthesiology-rules-traceability.md).
   Nothing in the engine yet; `anesthesiaFee` remains the flat reference value (R21).

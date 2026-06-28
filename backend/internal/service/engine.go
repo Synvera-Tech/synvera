@@ -141,8 +141,12 @@ func calculate(
 
 	entries := make([]entry, len(codes))
 	totalBase := 0.0
+	// Principal = highest CBHPM porte (R14, CBHPM 4.1/4.2: "procedimento de maior porte"),
+	// NOT the highest adjusted value after quantity/laterality. Tie-break is stable: the first
+	// code in payload order with the top porte wins (strict >), so a re-ordered payload never
+	// silently changes the principal.
 	principalIdx := 0
-	principalAdjustedValue := 0.0
+	bestPorteRank := -1
 
 	for i, c := range codes {
 		billingMode, viaRule, lateralityRule, decrementPct := resolveCodeRules(c, modifiers)
@@ -161,17 +165,18 @@ func calculate(
 			adjustedValue:        adjVal,
 		}
 
-		if adjVal > principalAdjustedValue {
+		if r := porteRank(c.Porte); r > bestPorteRank {
 			principalIdx = i
-			principalAdjustedValue = adjVal
+			bestPorteRank = r
 		}
 
 		totalBase += baseVal
 	}
 
 	// ── Step 2: surgeon fee per CBHPM 4.1 / 4.2 (and spine R12) ─────────────────
-	// Principal = highest adjusted value. Each additional code is discounted by its own
-	// via rule (spine → 50%; otherwise CBHPM 4.1/4.2), so mixed compositions are correct.
+	// Principal = highest porte (Step 1). It is paid at 100% of its adjusted value; each
+	// additional code is discounted by its own via rule (spine → 50%; otherwise CBHPM 4.1/4.2),
+	// so mixed compositions are correct.
 
 	principalAdjValue := entries[principalIdx].adjustedValue
 

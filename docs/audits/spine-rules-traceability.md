@@ -60,7 +60,7 @@ Coluna "Implementada?": ✅ implementada e coincide · ⚠️ implementada mas d
 | R11 | **Vias diferentes (geral CBHPM)**: principal + **70%** dos demais | 🟢 | CBHPM | 23 | "4.2. Quando ocorrer mais de uma intervenção por diferentes vias de acesso … o equivalente a 70% do porte de cada um dos demais atos praticados." | ✅ | `discountRateFor` → 0.70. **Válido para SBN/neuro.** |
 | R12 | **Coluna 360° (vias combinadas ant/post)**: 100% principal + **50%** dos demais | 🟢 | COLUNA | 42, 62 | "Em caso de uma cirurgia com vias de acesso combinadas anterior/posterior (360°), a codificação do primeiro tempo cirúrgico remunera 100% código principal e 50% dos demais códigos (Diretrizes CBHPM)." | ⚠️ | **Diverge p/ SPINE.** Engine aplica 70% em `different`; COLUNA manda **50%** mesmo em 360°. |
 | R13 | Cirurgias bilaterais (CBHPM geral): incisões diferentes 70%, mesma incisão 50% | 🟢 | CBHPM | 23 | "4.3. Obedecem às normas acima as cirurgias bilaterais, realizadas por diferentes incisões (70%), ou pela mesma incisão (50%)." | ⚠️ | Engine modela bilateral como ×2 (não 50/70%). Relevante p/ neuro; p/ coluna vale R3. |
-| R14 | Principal = **procedimento de maior porte** | 🟢 | CBHPM | 23 | "4.1. … ao procedimento de maior porte, acrescido de 50%…" | ⚠️ | Engine escolhe principal = maior **valor ajustado** (base×qtd×lat), não maior porte (engine.go:98-101). Com ×N um porte menor pode "virar" principal. |
+| R14 | Principal = **procedimento de maior porte** | 🟢 | CBHPM | 23 | "4.1. … ao procedimento de maior porte, acrescido de 50%…" | ✅ | **Decidido e implementado** (2026-06-28): `service.porteRank` seleciona o principal pelo maior porte (não pelo valor ajustado); desempate estável (1ª ocorrência no payload). |
 | R15 | **Urgência/emergência: +30%** sobre os portes | 🟢 | CBHPM | 22 | "2.1. Os atos médicos praticados em caráter de urgência ou emergência terão um acréscimo de trinta por cento (30%) em seus portes…" | ✅ | `AdjustmentCatalog["emergency_special_hours"]` = 30% (adjustments.go:22-26). |
 | R15a | **Horário especial** é o *gatilho* da urgência (19h–7h; sáb/dom/feriado), não um acréscimo separado | 🟢 | CBHPM | 22 | "2.1.1. No período compreendido entre 19h e 7h…; 2.1.2. … sábados, domingos e feriados; 2.1.3. … mais da metade do procedimento … no horário de urgência/emergência." | 🟡✅ | Implementação une "urgência+horário especial" em um único +30%. Coerente com a norma. **Não existe** surcharge de horário sem urgência. |
 | R15b | COLUNA confirma +30% urgência/emergência | 🟢 | COLUNA | 182 | "…praticados em caráter de urgência ou emergência terão acréscimo de 30% no valor final (Item 2…)." | ✅ | — |
@@ -105,7 +105,7 @@ uma vez) e regras de lateralidade — definidos pelas listas da **p.9 do Manual 
 ### ⚠️ Divergentes (implementação difere da norma)
 1. **R12 — Coluna 360°/vias diferentes.** Engine usa **70%**; COLUNA (pp.42,62) manda **50%** para coluna. **Decisão registrada: seguir o Manual (50% p/ SPINE).**
 2. **R3 / R13 — Lateralidade.** Engine faz BILATERAL = **×2**. COLUNA (p.9) diz **não duplica** no mesmo segmento; CBHPM (4.3) diz **50%/70%**, nunca ×2.
-3. **R14 — Principal.** Engine = maior **valor ajustado**; CBHPM 4.1 = maior **porte**.
+3. **R14 — Principal.** ✅ Resolvido: principal = maior **porte** (CBHPM 4.1), via `service.porteRank`; desempate estável.
 4. **R7 — Costectomia.** Hipótese ×N é errada; norma = **100% + 30%/arco adicional** (não há modo p/ isso).
 5. **R16/17/18 — Citação.** `source` diz "item 3"; correto é **item 4.6/4.7/4.8**.
 6. **R21 — Anestesia.** Valor fixo R$1.200 **sem base normativa**.
@@ -136,8 +136,8 @@ Somente regras **🟢 Confirmadas**. Cada estágio é behavior-preserving e term
 | **E4 — Costectomia (R7)** | Novo modo "porte com decremento" (100%+30%/adicional). | **Financeiro** | E1 |
 | **E5 — Revisão de R14 (principal = maior porte)** | Decidir se principal segue porte ou valor ajustado; afeta multi-código com ×N. | **Financeiro** | testes |
 
-> R14, R21 e o modelo aditivo (R22) **não devem ser alterados** sem decisão explícita adicional — a norma é
-> silente (R22) ou a mudança é financeiramente sensível (R14, R21).
+> **R14 decidido (2026-06-28):** principal = maior porte (não maior valor ajustado). R21 e o modelo
+> aditivo (R22) permanecem congelados — a norma é silente (R22) ou aguarda decisão (R21).
 
 ---
 

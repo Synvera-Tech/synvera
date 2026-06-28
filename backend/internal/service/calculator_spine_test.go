@@ -273,25 +273,24 @@ func Test_ExistingCBHPMAdjustmentsStillWork(t *testing.T) {
 	}
 }
 
-// Test_PrincipalIsSelectedByAdjustedValue verifies that the principal procedure
-// is selected based on the adjusted value (after quantity and laterality).
-func Test_PrincipalIsSelectedByAdjustedValue(t *testing.T) {
-	// Code 1: Base 500, quantity 2, laterality 1 → adjusted 1000
-	// Code 2: Base 600, quantity 1, laterality 1 → adjusted 600
-	// Expected principal: Code 1 (higher adjusted value)
+// Test_PrincipalIsSelectedByPorte verifies R14: the principal is the highest-porte procedure,
+// NOT the highest adjusted value after quantity. The per-segment code has a much higher adjusted
+// value (660.57 × 2 = 1321.14) but a LOWER porte (6A) than the 7A code (858.03) — so the 7A code
+// is the principal.
+func Test_PrincipalIsSelectedByPorte(t *testing.T) {
 	codes := []models.SelectedCode{
 		{
 			CBHPMCode:         "4.08.13.36-3",
-			Porte:             "6A", // 660.57
+			Porte:             "6A", // 660.57, but ×2 segments = 1321.14 adjusted
 			BillingMode:       models.BillingModeSegment,
 			Specialty:         models.SpecialtySpine,
 			LateralitySupport: false,
-			QuantitySelected:  2, // 660.57 × 2 = 1321.14
+			QuantitySelected:  2,
 			Laterality:        models.LateralityUnilateral,
 		},
 		{
 			CBHPMCode:         "3.14.01.26-0",
-			Porte:             "7A", // 858.03
+			Porte:             "7A", // 858.03 — higher porte than 6A
 			BillingMode:       models.BillingModeProcedure,
 			Specialty:         models.SpecialtyNeurosurgery,
 			LateralitySupport: false,
@@ -302,19 +301,18 @@ func Test_PrincipalIsSelectedByAdjustedValue(t *testing.T) {
 
 	result := Calculate(codes, 0, false, models.AccessRouteSame, []string{})
 
-	// First code (4.08.13.36-3) should be principal (adjusted 1321.14 > 858.03)
-	if !result.CodeBreakdown[0].IsPrincipal {
-		t.Errorf("Expected first code to be principal (higher adjusted value)")
+	// R14: the 7A code (index 1) is principal despite the 6A code's higher adjusted value.
+	if result.CodeBreakdown[0].IsPrincipal {
+		t.Errorf("R14: lower-porte 6A code must NOT be principal even with higher adjusted value")
+	}
+	if !result.CodeBreakdown[1].IsPrincipal {
+		t.Errorf("R14: highest-porte 7A code must be the principal")
 	}
 
-	if result.CodeBreakdown[1].IsPrincipal {
-		t.Errorf("Expected second code to not be principal")
-	}
-
-	// Verify surgeon breakdown reflects adjusted values
-	expectedPrincipalValue := 660.57 * 2.0 // First code adjusted
+	// Principal value is the 7A code's adjusted value (858.03 × 1), not the 6A×2 code.
+	expectedPrincipalValue := PorteValues["7A"]
 	if result.SurgeonBreakdown.PrincipalValue != expectedPrincipalValue {
-		t.Errorf("Expected principal value %v, got %v", expectedPrincipalValue, result.SurgeonBreakdown.PrincipalValue)
+		t.Errorf("Expected principal value %v (7A), got %v", expectedPrincipalValue, result.SurgeonBreakdown.PrincipalValue)
 	}
 }
 

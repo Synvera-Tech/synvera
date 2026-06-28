@@ -604,7 +604,7 @@ function ShareContent() {
             ) : (
               <>
                 <p>
-                  O procedimento de maior valor —{" "}
+                  O procedimento de maior porte —{" "}
                   <strong className="text-slate-700">{principalCode?.description}</strong>{" "}
                   (porte {principalCode?.porte}, {money.format(calculation.surgeon_breakdown.principal_value)}) — é
                   remunerado integralmente.

@@ -397,8 +397,11 @@ SPINE modifier applies only when `specialty == SPINE` (domain gating); neuro res
 - Single source of truth: `backend/internal/repository/code_modifiers.json` feeds **both** the
   Postgres seed (via `data/generate_code_modifiers_seed.py`) and `FileRepository` — keep them in
   parity; regenerate the seed, never hand-edit migration 028.
-- Pending (frozen, require explicit decision): R14 (principal = highest porte vs highest adjusted
-  value), R21 (anesthesia model), R22 (additive vs multiplicative adjustments).
+- Resolved: R14 — the principal is the **highest porte** (CBHPM 4.1), via `service.porteRank`, not the
+  highest adjusted value (stable tie-break: first code in payload order). R21 — anesthesia is
+  porte-derived (AN0–AN8 → equivalent porte → value; `service/anesthesia.go`, migration 029).
+- Pending (frozen, require explicit decision): R22 (additive vs multiplicative adjustments); anesthesia
+  refinements A8 (bilateral-specific), A9 (anesthesia assistant 60%), A14 (restricted pediatric/elderly +30%).
 
 ### LLM / RAG never computes
 

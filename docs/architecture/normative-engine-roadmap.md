@@ -157,15 +157,15 @@ Cada etapa é behavior-preserving e termina com `go test ./...` + `npm run build
 
 ## 6. Tarefa 5 — Pendências (documentar, não implementar)
 
-### R14 — Principal: maior porte (norma) × maior valor ajustado (engine)
+### R14 — Principal: maior porte ✅ DECIDIDO E IMPLEMENTADO (2026-06-28)
 - **Norma:** CBHPM 4.1 (p.23) — principal = "procedimento de **maior porte**".
-- **Engine:** escolhe principal = maior **valor ajustado** (base × qtd × lat) — engine.go:98-101.
+- **Implementado:** `service.porteRank` ordena por porte (tier × 3 + subletra A/B/C); o engine escolhe o
+  principal pelo maior porte, não pelo valor ajustado. Desempate estável: 1ª ocorrência no payload.
 - **Cenário concreto** (valores ilustrativos):
   - Código A: porte 9C, base 1.000, `PER_PROCEDURE` (×1) → ajustado 1.000.
   - Código B: porte 7C, base 600, `PER_VERTEBRA` ×3 → ajustado 1.800.
-  - **Norma:** principal = A (maior porte). Cirurgião = 1.000 + 50%×1.800 = **1.900**.
-  - **Engine:** principal = B (maior ajustado). Cirurgião = 1.800 + 50%×1.000 = **2.300**.
-  - **Δ = R$ 400** no mesmo caso. Decisão sensível; **não alterar** sem aval.
+  - **Agora:** principal = A (maior porte). Cirurgião = 1.000 + 50%×1.800 = **1.900** (correto).
+  - Antes (valor ajustado): principal = B → 1.800 + 50%×1.000 = 2.300.
 
 ### R21 — Modelo de anestesia
 - **Atual:** `anesthesiaFee = 1200.00` fixo (portes.go:4). **Sem base normativa** — CBHPM usa porte anestésico AN1-AN8 vinculado ao procedimento (p.22, item 1.3).

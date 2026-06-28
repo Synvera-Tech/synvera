@@ -55,8 +55,8 @@ Cada código de coluna pode declarar:
   anterior/posterior (360°), o código principal a 100% e os demais a **50%** — sobrepõe a regra
   geral CBHPM 4.2 (70%). Para SPINE, códigos adicionais sempre a 50%, inclusive 360°.
 - **Auxiliares e principal.** Auxiliares pelo código de maior porte (CBHPM 5.2). O código principal
-  é o de maior **valor ajustado** (após ×N) — divergência potencial com "maior porte" da CBHPM 4.1
-  está registrada como pendência **R14** (não alterada).
+  é o de **maior porte** (CBHPM 4.1), selecionado por `service.porteRank` — **não** pelo maior valor
+  ajustado após ×N (R14, decidido em 2026-06-28; desempate estável pela 1ª ocorrência no payload).
 
 ## Aplicação no motor
 
@@ -67,7 +67,7 @@ são enriquecidos (resultado idêntico ao CBHPM 4.x).
 
 ## Pendências (não implementadas)
 
-- **R14** — principal = maior porte vs maior valor ajustado.
+- ~~**R14** — principal = maior porte vs maior valor ajustado~~ → **decidido**: maior porte (implementado).
 - **R21** — modelo de anestesia (valor fixo sem base normativa).
 - **R22** — composição de múltiplos ajustes (aditivo vs multiplicativo).
 
