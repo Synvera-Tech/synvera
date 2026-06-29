@@ -21,6 +21,27 @@ var anestheticPorteEquivalence = map[int]string{
 // no anesthetic porte foreseen in the CBHPM (item 4: equivalent to PORTE 3, code 3.16.02.34-7).
 const anesthesiaFallbackPorte = 3
 
+// anesthesiaPrincipalPorte returns the highest anesthetic porte among the selected codes that
+// have one (the principal anesthetic act). Returns 0 when no code has an anesthetic porte
+// (the PORTE 3 fallback is a value rule, not an AN7/AN8 trigger). Used to gate the anesthesia
+// assistant (A9), which is only allowed for AN7/AN8.
+func anesthesiaPrincipalPorte(codes []models.SelectedCode, anestheticPortes map[string]int) int {
+	best := 0
+	found := false
+	for _, c := range codes {
+		if p, ok := anestheticPortes[c.CBHPMCode]; ok {
+			found = true
+			if p > best {
+				best = p
+			}
+		}
+	}
+	if !found {
+		return 0
+	}
+	return best
+}
+
 // computeAnesthesia derives the anesthesiologist fee from the selected codes' anesthetic portes
 // (CBHPM 2022 p.139–140), using the versioned porte values.
 //

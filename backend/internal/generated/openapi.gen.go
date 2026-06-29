@@ -341,6 +341,9 @@ type BillingMode string
 
 // BillingModifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 type BillingModifiers struct {
+	// AnesthesiaAssistant Whether a second anesthesiologist (60%, CBHPM p.140 item 8) was requested. Persisted so a saved composition reproduces the same anesthesia fee on reload. Applied only for AN7/AN8.
+	AnesthesiaAssistant *bool `json:"anesthesia_assistant,omitempty"`
+
 	// ClinicalContext Clinical diagnosis context (informational metadata, no billing effect).
 	ClinicalContext *BillingModifiersClinicalContext `json:"clinical_context,omitempty"`
 
@@ -416,13 +419,16 @@ type CalculateRequest struct {
 	// Adjustments Array of CBHPM adjustment codes to apply to the calculation. Valid codes: emergency_special_hours, pediatric_low_weight_or_premature, pediatric_neonate_or_infant, pediatric_child_under_12. Percentages are additive (e.g., two 30% adjustments = 60%, not 69%).
 	Adjustments *[]string `json:"adjustments,omitempty"`
 
+	// AnesthesiaAssistant Request a second anesthesiologist (CBHPM p.140 item 8): 60% of the anesthesiologist fee. Applied only for AN7/AN8 procedures (other triggers — CEC, >6h — are out of scope).
+	AnesthesiaAssistant *bool `json:"anesthesia_assistant,omitempty"`
+
 	// AuxiliariesCount Number of auxiliary surgeons (0–4).
 	AuxiliariesCount int `json:"auxiliaries_count"`
 
 	// Modifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 	Modifiers *BillingModifiers `json:"modifiers,omitempty"`
 
-	// RequiresAnesthesia Whether an anesthesiologist is required.
+	// RequiresAnesthesia Legacy flag; ignored when the server derives the anesthesiologist fee from the per-code anesthetic porte (the production path). Retained for backward compatibility.
 	RequiresAnesthesia bool `json:"requires_anesthesia"`
 
 	// SelectedCodes Physician-selected CBHPM codes.
@@ -440,7 +446,13 @@ type CalculateResponse struct {
 	// AdjustmentValue Absolute monetary value of all combined adjustments.
 	AdjustmentValue float32 `json:"adjustment_value"`
 
-	// AnesthesiologistFee Fixed anesthesiologist fee (if applicable).
+	// AnesthesiaAssistantFee Second-anesthesiologist fee (60%), when requested and applicable (A9). 0 otherwise.
+	AnesthesiaAssistantFee *float32 `json:"anesthesia_assistant_fee,omitempty"`
+
+	// AnesthesiaPorte Principal anesthetic porte used (AN0–AN8; 0 when none). Lets the client offer the anesthesia assistant only when applicable (AN7/AN8).
+	AnesthesiaPorte *int `json:"anesthesia_porte,omitempty"`
+
+	// AnesthesiologistFee Anesthesiologist fee, derived from the principal anesthetic porte (CBHPM p.139–140).
 	AnesthesiologistFee float32 `json:"anesthesiologist_fee"`
 
 	// AuxiliariesFee Sum of all individual auxiliary fees.

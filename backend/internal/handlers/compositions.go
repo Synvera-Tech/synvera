@@ -104,6 +104,9 @@ func reqToComposition(req generated.SaveCompositionRequest) models.Composition {
 		if req.Modifiers.ClinicalContext != nil {
 			m.ClinicalContext = string(*req.Modifiers.ClinicalContext)
 		}
+		if req.Modifiers.AnesthesiaAssistant != nil {
+			m.AnesthesiaAssistant = *req.Modifiers.AnesthesiaAssistant
+		}
 		modifiers = m
 	}
 
@@ -156,6 +159,10 @@ func modifiersToGenerated(m *models.CompositionModifiers) *generated.BillingModi
 	if m.ClinicalContext != "" {
 		cc := generated.BillingModifiersClinicalContext(m.ClinicalContext)
 		g.ClinicalContext = &cc
+	}
+	if m.AnesthesiaAssistant {
+		aa := true
+		g.AnesthesiaAssistant = &aa
 	}
 	return g
 }

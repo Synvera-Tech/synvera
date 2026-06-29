@@ -99,6 +99,8 @@ export type CalculationResult = {
   individual_auxiliary_fees: AuxiliaryFee[];
   auxiliaries_fee: number;
   anesthesiologist_fee: number;
+  anesthesia_porte?: number;
+  anesthesia_assistant_fee?: number;
   final_total: number;
   total_base: number;
   base_surgeon_value: number;
@@ -120,6 +122,7 @@ export type CompositionDetail = {
   auxiliaries_count: number;
   requires_anesthesia: boolean;
   adjustments: string[];
+  modifiers?: { anesthesia_assistant?: boolean };
   created_at: string;
   updated_at: string;
 };

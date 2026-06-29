@@ -199,7 +199,15 @@ type CalculationResult struct {
 	IndividualAuxFees   []AuxiliaryFee
 	AuxiliariesFee      float64
 	AnesthesiologistFee float64
-	FinalTotal          float64
+
+	// Anesthesia assistant (CBHPM p.140 item 8, A9): 60% of the anesthesiologist fee, only for
+	// AN7/AN8 (the auto-detectable triggers). AnesthesiaPorte is the principal anesthetic porte
+	// used (0 when none), exposed so the UI can offer the assistant only when applicable.
+	AnesthesiaPorte             int
+	BaseAnesthesiaAssistantValue float64
+	AnesthesiaAssistantFee      float64
+
+	FinalTotal float64
 }
 
 // Calculation is a persisted valuation record.
@@ -279,6 +287,9 @@ type PhysicianAccount struct {
 type CompositionModifiers struct {
 	QuantitySelected  int        `json:"quantity_selected,omitempty"`
 	Laterality        Laterality `json:"laterality,omitempty"`
+	// AnesthesiaAssistant persists the A9 second-anesthesiologist (60%) selection so a saved
+	// composition reproduces the same anesthesia fee on reload.
+	AnesthesiaAssistant bool     `json:"anesthesia_assistant,omitempty"`
 	VertebralRegion   string     `json:"vertebral_region,omitempty"`
 	SurgicalApproach  string     `json:"surgical_approach,omitempty"`
 	FusionStatus      string     `json:"fusion_status,omitempty"`

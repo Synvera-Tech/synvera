@@ -54,3 +54,32 @@ func TestComposition_PerCodeQuantitiesSurviveRoundTrip(t *testing.T) {
 		t.Errorf("descompressão quantity = %d, want 2", got["3.07.15.09-1"])
 	}
 }
+
+// A9 persistence: the anesthesia-assistant flag survives a composition save→reload.
+func TestComposition_AnesthesiaAssistantSurvivesRoundTrip(t *testing.T) {
+	repo := repository.NewFileRepository()
+	mux := testMux(repo, "user-anesthesia-assistant-rt")
+
+	assistant := true
+	sbnID := "spine-sbn"
+	req := generated.SaveCompositionRequest{
+		Name:             "Artrodese AN8 com auxiliar de anestesia",
+		SbnProcedureName: "ARTRODESE",
+		SbnProcedureId:   &sbnID,
+		SelectedCodes: []generated.SelectedCode{{
+			CbhpmCode: "3.07.15.01-6", Description: "Artrodese", Porte: "12C",
+			BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.SPINE,
+		}},
+		AccessRouteType:    generated.Same,
+		AuxiliariesCount:   0,
+		RequiresAnesthesia: true,
+		Modifiers:          &generated.BillingModifiers{AnesthesiaAssistant: &assistant},
+	}
+	b, _ := json.Marshal(req)
+	id := saveComposition(t, mux, b)
+	detail := getCompositionDetail(t, mux, id)
+
+	if detail.Modifiers == nil || detail.Modifiers.AnesthesiaAssistant == nil || !*detail.Modifiers.AnesthesiaAssistant {
+		t.Fatalf("anesthesia_assistant flag did not survive round-trip: %+v", detail.Modifiers)
+	}
+}

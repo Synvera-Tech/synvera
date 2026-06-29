@@ -66,9 +66,43 @@ func TestAnesthesia_UnknownCodeExcludedWhenKnownExists(t *testing.T) {
 // Legacy path: nil anestheticPortes preserves the flat reference fee gated by requiresAnesthesia.
 func TestAnesthesia_LegacyFlatFeePreserved(t *testing.T) {
 	codes := []models.SelectedCode{{CBHPMCode: "A", Porte: "7C"}}
-	got := CalculateWithPortesAndModifiers(codes, 0, true, models.AccessRouteSame, nil, anPortes, nil, nil)
+	got := CalculateWithPortesAndModifiers(codes, 0, true, models.AccessRouteSame, nil, anPortes, nil, nil, false)
 	if got.AnesthesiologistFee != anesthesiaFee {
 		t.Errorf("legacy anesthesia = %v, want %v (flat)", got.AnesthesiologistFee, anesthesiaFee)
+	}
+}
+
+// A9: anesthesia assistant = 60% of the anesthesiologist fee, only for AN7/AN8.
+func TestAnesthesia_AssistantForAN8(t *testing.T) {
+	codes := []models.SelectedCode{code("A")}
+	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 8}, true)
+	// AN8 → 12A = 1200; assistant = 60% = 720; porte = 8.
+	if got.AnesthesiologistFee != 1200 {
+		t.Errorf("anesthesia = %v, want 1200 (AN8→12A)", got.AnesthesiologistFee)
+	}
+	if got.AnesthesiaAssistantFee != 720 {
+		t.Errorf("assistant = %v, want 720 (60%%)", got.AnesthesiaAssistantFee)
+	}
+	if got.AnesthesiaPorte != 8 {
+		t.Errorf("anesthesia porte = %v, want 8", got.AnesthesiaPorte)
+	}
+	if got.FinalTotal != 1920 {
+		t.Errorf("final = %v, want 1920 (1200+720)", got.FinalTotal)
+	}
+}
+
+func TestAnesthesia_AssistantNotAppliedBelowAN7(t *testing.T) {
+	// AN5 requested but not eligible — no assistant fee.
+	got := CalculateWithPortesAndModifiers([]models.SelectedCode{code("A")}, 0, false, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 5}, true)
+	if got.AnesthesiaAssistantFee != 0 {
+		t.Errorf("assistant for AN5 = %v, want 0 (only AN7/AN8)", got.AnesthesiaAssistantFee)
+	}
+}
+
+func TestAnesthesia_AssistantFlagOff(t *testing.T) {
+	got := CalculateWithPortesAndModifiers([]models.SelectedCode{code("A")}, 0, false, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 8}, false)
+	if got.AnesthesiaAssistantFee != 0 {
+		t.Errorf("assistant with flag off = %v, want 0", got.AnesthesiaAssistantFee)
 	}
 }
 
@@ -76,7 +110,7 @@ func TestAnesthesia_LegacyFlatFeePreserved(t *testing.T) {
 func TestAnesthesia_UrgencyAppliesToDerivedFee(t *testing.T) {
 	codes := []models.SelectedCode{{CBHPMCode: "A", Porte: "7C"}}
 	got := CalculateWithPortesAndModifiers(codes, 0, true, models.AccessRouteSame,
-		[]string{AdjCodeEmergencySpecialHours}, anPortes, nil, map[string]int{"A": 5})
+		[]string{AdjCodeEmergencySpecialHours}, anPortes, nil, map[string]int{"A": 5}, false)
 	// base anesthesia = 700 (AN5→7C); +30% → 910.
 	if got.AnesthesiologistFee != 910 {
 		t.Errorf("urgency on derived anesthesia = %v, want 910 (700×1.30)", got.AnesthesiologistFee)

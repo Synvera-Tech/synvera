@@ -107,7 +107,8 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			log.Printf("calculate: get anesthetic portes: %v", err)
 			anestheticPortes = nil
 		}
-		result := service.CalculateWithPortesAndModifiers(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes)
+		anesthesiaAssistant := req.AnesthesiaAssistant != nil && *req.AnesthesiaAssistant
+		result := service.CalculateWithPortesAndModifiers(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant)
 
 		breakdown := make([]generated.CodeBreakdown, 0, len(result.CodeBreakdown))
 		for _, b := range result.CodeBreakdown {
@@ -145,6 +146,8 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			})
 		}
 
+		assistantFee := float32(result.AnesthesiaAssistantFee)
+		anesthPorte := result.AnesthesiaPorte
 		respondJSON(w, http.StatusOK, generated.CalculateResponse{
 			CodeBreakdown:             breakdown,
 			AccessRouteType:           generated.AccessRouteType(result.AccessRouteType),
@@ -160,6 +163,8 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			IndividualAuxiliaryFees:   auxFees,
 			AuxiliariesFee:            float32(result.AuxiliariesFee),
 			AnesthesiologistFee:       float32(result.AnesthesiologistFee),
+			AnesthesiaPorte:           &anesthPorte,
+			AnesthesiaAssistantFee:    &assistantFee,
 			FinalTotal:                float32(result.FinalTotal),
 			SelectedAdjustments:       appliedAdj,
 			TotalAdjustmentPercentage: float32(result.TotalAdjustmentPercentage),

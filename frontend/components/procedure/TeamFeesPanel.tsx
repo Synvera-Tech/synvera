@@ -1,6 +1,7 @@
 "use client";
 
 import { HeartPulse } from "lucide-react";
+import { Toggle } from "@/components/ui/toggle";
 import { cn } from "@/components/ui/utils";
 
 interface TeamFeesPanelProps {
@@ -8,6 +9,9 @@ interface TeamFeesPanelProps {
   auxIsLocked: boolean;
   cbhpmMandatedAux: number;
   onAuxiliariesChange: (n: number) => void;
+  anesthesiaPorte?: number;
+  anesthesiaAssistant: boolean;
+  onAnesthesiaAssistantChange: (v: boolean) => void;
 }
 
 export function TeamFeesPanel({
@@ -15,7 +19,12 @@ export function TeamFeesPanel({
   auxIsLocked,
   cbhpmMandatedAux,
   onAuxiliariesChange,
+  anesthesiaPorte,
+  anesthesiaAssistant,
+  onAnesthesiaAssistantChange,
 }: TeamFeesPanelProps) {
+  // Item 8 (A9): the second anesthesiologist (60%) is only allowed for AN7/AN8.
+  const assistantEligible = anesthesiaPorte === 7 || anesthesiaPorte === 8;
   return (
     <>
       <div className="mb-4 grid gap-3 sm:grid-cols-2">
@@ -71,6 +80,25 @@ export function TeamFeesPanel({
             </div>
           </div>
         </div>
+
+        {assistantEligible && (
+          <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
+            <div className="flex items-center gap-2.5">
+              <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
+                <HeartPulse aria-hidden="true" size={16} />
+              </div>
+              <div>
+                <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">
+                  Auxiliar de anestesia (60%)
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                  Permitido em AN7/AN8 (CBHPM item 8). Adiciona um 2º anestesiologista a 60%.
+                </div>
+              </div>
+            </div>
+            <Toggle checked={anesthesiaAssistant} onChange={onAnesthesiaAssistantChange} />
+          </div>
+        )}
       </div>
     </>
   );

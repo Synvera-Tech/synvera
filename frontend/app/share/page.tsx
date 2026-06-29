@@ -233,6 +233,7 @@ function ShareContent() {
   const adjustments = adjParam ? adjParam.split(",").filter(Boolean) : [];
   const qtyParam = searchParams.get("qty");
   const laterality = searchParams.get("lat") === "BILATERAL" ? "BILATERAL" : "UNILATERAL";
+  const anesthesiaAssistant = searchParams.get("aa") === "1";
 
   const [procedure, setProcedure] = useState<ProcedureDetail | null>(null);
   const [calculation, setCalculation] = useState<CalculationResult | null>(null);
@@ -278,6 +279,7 @@ function ShareContent() {
             selected_codes: selectedCodes,
             auxiliaries_count: auxiliariesCount,
             requires_anesthesia: requiresAnesthesia,
+            anesthesia_assistant: anesthesiaAssistant,
             access_route_type: accessRoute,
             adjustments,
           }),
@@ -293,7 +295,7 @@ function ShareContent() {
 
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute, qtyParam, laterality]);
+  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute, qtyParam, laterality, anesthesiaAssistant]);
 
   if (loading) {
     return (

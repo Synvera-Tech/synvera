@@ -457,6 +457,11 @@ components:
           $ref: '#/components/schemas/Laterality'
           default: UNILATERAL
           description: Whether procedure is billed unilaterally or bilaterally (only if supported).
+        anesthesia_assistant:
+          type: boolean
+          description: >
+            Whether a second anesthesiologist (60%, CBHPM p.140 item 8) was requested. Persisted so a
+            saved composition reproduces the same anesthesia fee on reload. Applied only for AN7/AN8.
         vertebral_region:
           type: string
           enum: [cervical, thoracic, lumbar, lumbosacral, sacral]
@@ -498,7 +503,14 @@ components:
           description: Number of auxiliary surgeons (0–4).
         requires_anesthesia:
           type: boolean
-          description: Whether an anesthesiologist is required.
+          description: >
+            Legacy flag; ignored when the server derives the anesthesiologist fee from the
+            per-code anesthetic porte (the production path). Retained for backward compatibility.
+        anesthesia_assistant:
+          type: boolean
+          description: >
+            Request a second anesthesiologist (CBHPM p.140 item 8): 60% of the anesthesiologist
+            fee. Applied only for AN7/AN8 procedures (other triggers — CEC, >6h — are out of scope).
         access_route_type:
           $ref: '#/components/schemas/AccessRouteType'
         urgency_emergency:
@@ -659,7 +671,16 @@ components:
         anesthesiologist_fee:
           type: number
           format: float
-          description: Fixed anesthesiologist fee (if applicable).
+          description: Anesthesiologist fee, derived from the principal anesthetic porte (CBHPM p.139–140).
+        anesthesia_porte:
+          type: integer
+          description: >
+            Principal anesthetic porte used (AN0–AN8; 0 when none). Lets the client offer the
+            anesthesia assistant only when applicable (AN7/AN8).
+        anesthesia_assistant_fee:
+          type: number
+          format: float
+          description: Second-anesthesiologist fee (60%), when requested and applicable (A9). 0 otherwise.
         final_total:
           type: number
           format: float

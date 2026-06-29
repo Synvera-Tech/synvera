@@ -51,6 +51,7 @@ export type CalculatePayload = {
   selected_codes: SelectedCodePayload[];
   auxiliaries_count: number;
   requires_anesthesia: boolean;
+  anesthesia_assistant: boolean;
   access_route_type: AccessRouteType;
   adjustments: string[];
   modifiers: SpineBillingModifiers;
@@ -63,6 +64,7 @@ export function buildCalculatePayload(
   codeQuantities: CodeQuantities,
   auxiliariesCount: number,
   requiresAnesthesia: boolean,
+  anesthesiaAssistant: boolean,
   accessRoute: AccessRouteType,
   adjustments: string[],
 ): CalculatePayload | null {
@@ -74,6 +76,7 @@ export function buildCalculatePayload(
     ),
     auxiliaries_count: auxiliariesCount,
     requires_anesthesia: requiresAnesthesia,
+    anesthesia_assistant: anesthesiaAssistant,
     access_route_type: accessRoute,
     adjustments,
     modifiers: spineModifiers,
@@ -91,7 +94,7 @@ export type CompositionPayload = {
   auxiliaries_count: number;
   requires_anesthesia: boolean;
   adjustments: string[];
-  modifiers: SpineBillingModifiers;
+  modifiers: SpineBillingModifiers & { anesthesia_assistant?: boolean };
 };
 
 export function buildCompositionPayload(
@@ -103,6 +106,7 @@ export function buildCompositionPayload(
   codeQuantities: CodeQuantities,
   auxiliariesCount: number,
   requiresAnesthesia: boolean,
+  anesthesiaAssistant: boolean,
   accessRoute: AccessRouteType,
   adjustments: string[],
 ): CompositionPayload {
@@ -118,7 +122,7 @@ export function buildCompositionPayload(
     auxiliaries_count: auxiliariesCount,
     requires_anesthesia: requiresAnesthesia,
     adjustments,
-    modifiers: spineModifiers,
+    modifiers: { ...spineModifiers, anesthesia_assistant: anesthesiaAssistant },
   };
 }
 
@@ -160,6 +164,7 @@ export function buildShareUrl(
   adjustments: string[],
   spineModifiers: SpineBillingModifiers,
   codeQuantities: CodeQuantities,
+  anesthesiaAssistant: boolean,
 ): string {
   const url = new URL("/share", window.location.origin);
   url.searchParams.set("sbn", selectedProcedures.map((p) => p.id).join(","));
@@ -173,5 +178,6 @@ export function buildShareUrl(
   if (qtyParam) url.searchParams.set("qty", qtyParam);
   if (spineModifiers.laterality !== "UNILATERAL")
     url.searchParams.set("lat", spineModifiers.laterality);
+  if (anesthesiaAssistant) url.searchParams.set("aa", "1");
   return url.toString();
 }

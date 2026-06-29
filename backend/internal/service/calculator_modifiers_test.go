@@ -32,7 +32,7 @@ func TestModifiers_PerVertebraMultiplies(t *testing.T) {
 	}}
 	mods := map[string]models.CodeModifier{"VERT": spineMod("VERT", "PER_VERTEBRA", nil)}
 
-	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, mods, nil)
+	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, mods, nil, false)
 
 	if got.CodeBreakdown[0].QuantityMultiplier != 3 {
 		t.Errorf("quantity multiplier = %v, want 3", got.CodeBreakdown[0].QuantityMultiplier)
@@ -55,7 +55,7 @@ func TestModifiers_StructureDecrement(t *testing.T) {
 	}}
 	mods := map[string]models.CodeModifier{"RIB": spineMod("RIB", "PER_STRUCTURE_DECREMENT", &dec)}
 
-	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, mods, nil)
+	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, mods, nil, false)
 
 	if got.CodeBreakdown[0].QuantityMultiplier != 1.6 {
 		t.Errorf("decrement multiplier = %v, want 1.6", got.CodeBreakdown[0].QuantityMultiplier)
@@ -74,13 +74,13 @@ func TestModifiers_BilateralNoDuplicate(t *testing.T) {
 	}}
 	mods := map[string]models.CodeModifier{"LAT": spineMod("LAT", "PER_PROCEDURE", nil)}
 
-	withMods := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, mods, nil)
+	withMods := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, mods, nil, false)
 	if withMods.FinalTotal != 1000 {
 		t.Errorf("spine bilateral with R3: final = %v, want 1000 (no duplication)", withMods.FinalTotal)
 	}
 
 	// Legacy path (nil modifiers) still doubles — proves the primitive is unchanged.
-	legacy := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, nil, nil)
+	legacy := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, nil, nil, false)
 	if legacy.FinalTotal != 2000 {
 		t.Errorf("legacy bilateral: final = %v, want 2000", legacy.FinalTotal)
 	}
@@ -98,13 +98,13 @@ func TestModifiers_SpineVia50EvenWhenDifferent(t *testing.T) {
 		"A": spineMod("A", "PER_PROCEDURE", nil),
 	}
 
-	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteDifferent, nil, modTestPortes, mods, nil)
+	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteDifferent, nil, modTestPortes, mods, nil, false)
 	if got.SurgeonBreakdown.SurgeonTotal != 1300 {
 		t.Errorf("spine R12 different route: surgeon = %v, want 1300", got.SurgeonBreakdown.SurgeonTotal)
 	}
 
 	// Legacy "different" route would be 1000 + 600×0.7 = 1420.
-	legacy := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteDifferent, nil, modTestPortes, nil, nil)
+	legacy := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteDifferent, nil, modTestPortes, nil, nil, false)
 	if legacy.SurgeonBreakdown.SurgeonTotal != 1420 {
 		t.Errorf("legacy different route: surgeon = %v, want 1420", legacy.SurgeonBreakdown.SurgeonTotal)
 	}
@@ -119,8 +119,8 @@ func TestModifiers_NeurosurgeryUnchanged(t *testing.T) {
 	}
 	mods := map[string]models.CodeModifier{} // present but empty
 
-	withMods := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteDifferent, nil, modTestPortes, mods, nil)
-	legacy := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteDifferent, nil, modTestPortes, nil, nil)
+	withMods := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteDifferent, nil, modTestPortes, mods, nil, false)
+	legacy := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteDifferent, nil, modTestPortes, nil, nil, false)
 	if withMods.SurgeonBreakdown.SurgeonTotal != legacy.SurgeonBreakdown.SurgeonTotal {
 		t.Errorf("neuro changed: with=%v legacy=%v", withMods.SurgeonBreakdown.SurgeonTotal, legacy.SurgeonBreakdown.SurgeonTotal)
 	}
@@ -136,7 +136,7 @@ func TestModifiers_PerProcedureIgnoresQuantity(t *testing.T) {
 	}}
 	mods := map[string]models.CodeModifier{"ENDO": spineMod("ENDO", "PER_PROCEDURE", nil)}
 
-	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, mods, nil)
+	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, modTestPortes, mods, nil, false)
 	if got.CodeBreakdown[0].QuantityMultiplier != 1 || got.FinalTotal != 1000 {
 		t.Errorf("endoscopic ×1: multiplier=%v final=%v, want 1 and 1000",
 			got.CodeBreakdown[0].QuantityMultiplier, got.FinalTotal)

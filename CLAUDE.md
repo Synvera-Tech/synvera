@@ -400,8 +400,10 @@ SPINE modifier applies only when `specialty == SPINE` (domain gating); neuro res
 - Resolved: R14 — the principal is the **highest porte** (CBHPM 4.1), via `service.porteRank`, not the
   highest adjusted value (stable tie-break: first code in payload order). R21 — anesthesia is
   porte-derived (AN0–AN8 → equivalent porte → value; `service/anesthesia.go`, migration 029).
+- A9 (anesthesia assistant 60%) implemented for the auto-detectable AN7/AN8 triggers (request flag
+  `anesthesia_assistant`; engine in `service/anesthesia.go`). Other item-8 triggers (CEC, >6h, …) deferred.
 - Pending (frozen, require explicit decision): R22 (additive vs multiplicative adjustments); anesthesia
-  refinements A8 (bilateral-specific), A9 (anesthesia assistant 60%), A14 (restricted pediatric/elderly +30%).
+  refinements A8 (bilateral-specific), A14 (restricted pediatric/elderly +30%), and the deferred A9 triggers.
 
 ### LLM / RAG never computes
 

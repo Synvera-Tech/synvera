@@ -18,6 +18,7 @@ export function useCompositionPersistence({
   codeQuantities,
   auxiliariesCount,
   requiresAnesthesia,
+  anesthesiaAssistant,
   accessRoute,
   adjustments,
   calculation,
@@ -36,6 +37,7 @@ export function useCompositionPersistence({
   codeQuantities: CodeQuantities;
   auxiliariesCount: number;
   requiresAnesthesia: boolean;
+  anesthesiaAssistant: boolean;
   accessRoute: AccessRouteType;
   adjustments: string[];
   calculation: CalculationResult | null;
@@ -75,6 +77,7 @@ export function useCompositionPersistence({
         codeQuantities,
         auxiliariesCount,
         requiresAnesthesia,
+        anesthesiaAssistant,
         accessRoute,
         adjustments,
       );
@@ -107,6 +110,7 @@ export function useCompositionPersistence({
     accessRoute,
     auxiliariesCount,
     requiresAnesthesia,
+    anesthesiaAssistant,
     adjustments,
     spineModifiers,
     codeQuantities,
@@ -130,6 +134,7 @@ export function useCompositionPersistence({
         codeQuantities,
         auxiliariesCount,
         requiresAnesthesia,
+        anesthesiaAssistant,
         accessRoute,
         adjustments,
       );
@@ -160,6 +165,7 @@ export function useCompositionPersistence({
     accessRoute,
     auxiliariesCount,
     requiresAnesthesia,
+    anesthesiaAssistant,
     adjustments,
     spineModifiers,
     codeQuantities,

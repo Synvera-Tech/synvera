@@ -17,7 +17,7 @@ func CalculateWithPortes(
 	adjustments []string,
 	porteValues map[string]float64,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil, nil)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil, nil, false)
 }
 
 // CalculateWithPortesAndModifiers is the data-driven entry point (ADR-005, roadmap N5).
@@ -42,8 +42,9 @@ func CalculateWithPortesAndModifiers(
 	porteValues map[string]float64,
 	modifiers map[string]models.CodeModifier,
 	anestheticPortes map[string]int,
+	anesthesiaAssistant bool,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant)
 }
 
 // Calculate applies validated CBHPM billing rules to a physician-assembled composition.
@@ -80,7 +81,7 @@ func Calculate(
 	accessRoute models.AccessRouteType,
 	adjustments []string,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil, nil)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil, nil, false)
 }
 
 // resolveCodeRules determines the effective billing rule for a single code.
@@ -126,6 +127,7 @@ func calculate(
 	porteValues map[string]float64,
 	modifiers map[string]models.CodeModifier,
 	anestheticPortes map[string]int,
+	anesthesiaAssistant bool,
 ) models.CalculationResult {
 	// ── Step 1: resolve porte values, apply spine multipliers, find principal ───
 
@@ -246,8 +248,16 @@ func calculate(
 	// legacy flat fee gated by requiresAnesthesia (preserves existing tests/callers).
 
 	anesth := 0.0
+	anesthPorte := 0
+	anesthAssistant := 0.0
 	if anestheticPortes != nil {
 		anesth = computeAnesthesia(codes, anestheticPortes, porteValues, accessRoute)
+		anesthPorte = anesthesiaPrincipalPorte(codes, anestheticPortes)
+		// A9 (CBHPM p.140 item 8): a second anesthesiologist may be requested at 60%, only for
+		// the auto-detectable triggers AN7/AN8 (CEC, >6h, neonate, gastroplasty are out of scope).
+		if anesthesiaAssistant && (anesthPorte == 7 || anesthPorte == 8) {
+			anesthAssistant = anesth * 0.60
+		}
 	} else if requiresAnesthesia {
 		anesth = anesthesiaFee
 	}
@@ -277,7 +287,8 @@ func calculate(
 	baseSurgeon := surgeonTotal
 	baseAux := auxTotal
 	baseAnesth := anesth
-	baseTeam := baseSurgeon + baseAux + baseAnesth
+	baseAnesthAssistant := anesthAssistant
+	baseTeam := baseSurgeon + baseAux + baseAnesth + baseAnesthAssistant
 	adjValue := baseTeam * (totalAdjPct / 100.0)
 
 	finalAuxFees := individualAuxFees
@@ -296,6 +307,7 @@ func calculate(
 	finalSurgeon := baseSurgeon * multiplier
 	finalAux := baseAux * multiplier
 	finalAnesth := baseAnesth * multiplier
+	finalAnesthAssistant := baseAnesthAssistant * multiplier
 
 	return models.CalculationResult{
 		CodeBreakdown:             breakdown,
@@ -313,6 +325,9 @@ func calculate(
 		IndividualAuxFees:         finalAuxFees,
 		AuxiliariesFee:            finalAux,
 		AnesthesiologistFee:       finalAnesth,
-		FinalTotal:                finalSurgeon + finalAux + finalAnesth,
+		AnesthesiaPorte:              anesthPorte,
+		BaseAnesthesiaAssistantValue: baseAnesthAssistant,
+		AnesthesiaAssistantFee:      finalAnesthAssistant,
+		FinalTotal:                finalSurgeon + finalAux + finalAnesth + finalAnesthAssistant,
 	}
 }

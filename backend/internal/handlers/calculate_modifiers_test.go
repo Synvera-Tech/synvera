@@ -69,3 +69,40 @@ func TestCalculateEndpoint_AppliesNormativeModifiers(t *testing.T) {
 		t.Errorf("neuro adjusted = %v, want base = %v", neuro.AdjustedValue, neuro.BaseValue)
 	}
 }
+
+// A9 (endpoint): a second anesthesiologist (60%) is added for an AN8 procedure when requested.
+func TestCalculateEndpoint_AnesthesiaAssistantForAN8(t *testing.T) {
+	repo := repository.NewFileRepository()
+	mux := testMux(repo, "user-anesthesia-assistant")
+
+	assistant := true
+	req := generated.CalculateRequest{
+		SelectedCodes: []generated.SelectedCode{{
+			CbhpmCode: "3.07.15.01-6", // anesthetic porte AN8
+			Description: "Artrodese", Porte: "12C",
+			BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.SPINE,
+			LateralitySupport: false,
+		}},
+		AccessRouteType:     generated.Same,
+		AuxiliariesCount:    0,
+		AnesthesiaAssistant: &assistant,
+	}
+	w := postCalculateRequest(t, mux, req)
+	if w.Code != http.StatusOK {
+		t.Fatalf("status %d: %s", w.Code, w.Body.String())
+	}
+	var resp generated.CalculateResponse
+	if err := json.Unmarshal(w.Body.Bytes(), &resp); err != nil {
+		t.Fatalf("decode: %v", err)
+	}
+	if resp.AnesthesiaPorte == nil || *resp.AnesthesiaPorte != 8 {
+		t.Fatalf("anesthesia_porte = %v, want 8", resp.AnesthesiaPorte)
+	}
+	if resp.AnesthesiaAssistantFee == nil {
+		t.Fatal("anesthesia_assistant_fee missing")
+	}
+	want := resp.AnesthesiologistFee * 0.60
+	if diff := *resp.AnesthesiaAssistantFee - want; diff > 0.01 || diff < -0.01 {
+		t.Errorf("assistant fee = %v, want %v (60%% of anesthesiologist)", *resp.AnesthesiaAssistantFee, want)
+	}
+}

@@ -58,6 +58,8 @@ function ProcedureContent({
   const [accessRoute, setAccessRoute] = useState<AccessRouteType>(initialRoute);
   const [auxiliariesCount, setAuxiliariesCount] = useState(1);
   const [requiresAnesthesia, setRequiresAnesthesia] = useState(true);
+  // Anesthesia assistant (CBHPM item 8, A9): 60% second anesthesiologist, only offered for AN7/AN8.
+  const [anesthesiaAssistant, setAnesthesiaAssistant] = useState(false);
 
   // Per-code quantity selections (segments/vertebrae/structures). Keyed by CBHPM code;
   // codes absent from the map default to 1. Drives the per-code ×N billing (N5b).
@@ -95,6 +97,7 @@ function ProcedureContent({
         if (c.quantity_selected && c.quantity_selected > 1) restored[c.cbhpm_code] = c.quantity_selected;
       }
       setCodeQuantities(restored);
+      setAnesthesiaAssistant(comp.modifiers?.anesthesia_assistant ?? false);
     },
   });
 
@@ -112,6 +115,7 @@ function ProcedureContent({
     codeQuantities,
     auxiliariesCount,
     requiresAnesthesia,
+    anesthesiaAssistant,
     accessRoute,
     adjustments: adjustmentState.adjustments,
   });
@@ -124,6 +128,7 @@ function ProcedureContent({
     codeQuantities,
     auxiliariesCount,
     requiresAnesthesia,
+    anesthesiaAssistant,
     accessRoute,
     adjustments: adjustmentState.adjustments,
     calculation,
@@ -149,6 +154,7 @@ function ProcedureContent({
       adjustmentState.adjustments,
       spineState.spineModifiers,
       codeQuantities,
+      anesthesiaAssistant,
     ));
   };
 
@@ -295,6 +301,9 @@ function ProcedureContent({
                 auxIsLocked={procedureState.auxIsLocked}
                 cbhpmMandatedAux={procedureState.cbhpmMandatedAux}
                 onAuxiliariesChange={setAuxiliariesCount}
+                anesthesiaPorte={calculation?.anesthesia_porte}
+                anesthesiaAssistant={anesthesiaAssistant}
+                onAnesthesiaAssistantChange={setAnesthesiaAssistant}
               />
 
               <ClinicalAdjustmentsPanel

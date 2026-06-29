@@ -159,6 +159,9 @@ export function ValuationSummary({
               {calculation.anesthesiologist_fee > 0 && (
                 <ResultRow label="Anestesiologista" value={calculation.anesthesiologist_fee} />
               )}
+              {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
+                <ResultRow label="Auxiliar de anestesia (60%)" value={calculation.anesthesia_assistant_fee!} />
+              )}
             </dl>
           </section>
 
@@ -182,6 +185,12 @@ export function ValuationSummary({
                 <>
                   <span>Anestesiologista</span>
                   <span className="text-right font-semibold">{money.format(calculation.anesthesiologist_fee)}</span>
+                </>
+              )}
+              {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
+                <>
+                  <span>Auxiliar de anestesia</span>
+                  <span className="text-right font-semibold">{money.format(calculation.anesthesia_assistant_fee!)}</span>
                 </>
               )}
               {(calculation.selected_adjustments ?? []).length > 0 && (
