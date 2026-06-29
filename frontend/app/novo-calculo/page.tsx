@@ -33,7 +33,8 @@ const EXAMPLES = [
   "Hematoma intracraniano",
   "Tumores gerais",
   "Infiltração de coluna (dor axial e/ou radicular)",
-  "Rizotomia de facetas por radiofrequência",
+  "HÉRNIA DE DISCO DE COLUNA LOMBAR",
+  "Artrodese cervical",
 ];
 
 // ─── Types ────────────────────────────────────────────────────────────────────
