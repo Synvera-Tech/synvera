@@ -33,7 +33,7 @@ const EXAMPLES = [
   "Hematoma intracraniano",
   "Tumores gerais",
   "Infiltração de coluna (dor axial e/ou radicular)",
-  "HÉRNIA DE DISCO DE COLUNA LOMBAR",
+  "Hérnia de disco de coluna lombar",
   "Artrodese cervical",
 ];
 
