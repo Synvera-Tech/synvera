@@ -56,7 +56,7 @@ export function CtaSection() {
             href="/novo-calculo"
             className="shimmer-btn inline-block bg-white text-black px-10 py-5 rounded-2xl font-bold text-lg hover:scale-105 transition-transform active:scale-95 shadow-2xl shadow-white/10"
           >
-            Iniciar cálculo
+            Iniciar cálculo gratuito
           </Link>
         </motion.div>
       </div>
