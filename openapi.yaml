@@ -460,8 +460,15 @@ components:
         anesthesia_assistant:
           type: boolean
           description: >
-            Whether a second anesthesiologist (60%, CBHPM p.140 item 8) was requested. Persisted so a
-            saved composition reproduces the same anesthesia fee on reload. Applied only for AN7/AN8.
+            Whether a second anesthesiologist (60%, CBHPM p.140 item 8) was requested for AN7/AN8.
+            Persisted so a saved composition reproduces the same anesthesia fee on reload.
+        anesthesia_auxiliary_justification:
+          $ref: '#/components/schemas/AnesthesiaAuxiliaryJustification'
+        anesthesia_bilateral:
+          type: boolean
+          description: >
+            Whether the bilateral anesthetic act +70% (CBHPM p.140 item 7) was selected. Persisted so
+            a saved composition reproduces the same anesthesia fee on reload.
         vertebral_region:
           type: string
           enum: [cervical, thoracic, lumbar, lumbosacral, sacral]

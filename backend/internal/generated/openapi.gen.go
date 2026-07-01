@@ -356,8 +356,14 @@ type BillingMode string
 
 // BillingModifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 type BillingModifiers struct {
-	// AnesthesiaAssistant Whether a second anesthesiologist (60%, CBHPM p.140 item 8) was requested. Persisted so a saved composition reproduces the same anesthesia fee on reload. Applied only for AN7/AN8.
+	// AnesthesiaAssistant Whether a second anesthesiologist (60%, CBHPM p.140 item 8) was requested for AN7/AN8. Persisted so a saved composition reproduces the same anesthesia fee on reload.
 	AnesthesiaAssistant *bool `json:"anesthesia_assistant,omitempty"`
+
+	// AnesthesiaAuxiliaryJustification USER_SELECTABLE non-derivable clinical facts (informed by the surgeon) that authorise a second anesthesiologist (+60% of the principal anesthetic porte), per CBHPM 2022 p.140 item 8, beyond the auto-detectable AN7/AN8 triggers. All fields default to false.
+	AnesthesiaAuxiliaryJustification *AnesthesiaAuxiliaryJustification `json:"anesthesia_auxiliary_justification,omitempty"`
+
+	// AnesthesiaBilateral Whether the bilateral anesthetic act +70% (CBHPM p.140 item 7) was selected. Persisted so a saved composition reproduces the same anesthesia fee on reload.
+	AnesthesiaBilateral *bool `json:"anesthesia_bilateral,omitempty"`
 
 	// ClinicalContext Clinical diagnosis context (informational metadata, no billing effect).
 	ClinicalContext *BillingModifiersClinicalContext `json:"clinical_context,omitempty"`

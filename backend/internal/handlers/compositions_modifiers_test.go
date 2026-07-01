@@ -99,6 +99,56 @@ func TestCompositionCreateSavesModifiers(t *testing.T) {
 	}
 }
 
+// TestCompositionSavesAnesthesiaTriggers (P1/P2) — the USER_SELECTABLE anesthesia triggers
+// (assistant justification + bilateral) must round-trip through save → reload so a saved
+// composition reproduces the same anesthesia fees.
+func TestCompositionSavesAnesthesiaTriggers(t *testing.T) {
+	repo := repository.NewFileRepository()
+	mux := testMux(repo, "user-anesthesia-triggers")
+
+	tru := true
+	q := 1
+	sbnID := "spine-sbn-id"
+	req := generated.SaveCompositionRequest{
+		Name:             "Composição bilateral + CEC",
+		SbnProcedureName: "ARTRODESE LOMBAR POR SEGMENTO",
+		SbnProcedureId:   &sbnID,
+		SelectedCodes: []generated.SelectedCode{{
+			CbhpmCode: "3.06.01.01-0", Description: "Artrodese lombar", Porte: "12A",
+			BillingMode: generated.BillingModePERSEGMENT, Specialty: generated.Specialty("SPINE"),
+			LateralitySupport: true, QuantitySelected: &q,
+		}},
+		AccessRouteType: generated.Same, AuxiliariesCount: 0, RequiresAnesthesia: true,
+		Modifiers: &generated.BillingModifiers{
+			AnesthesiaAssistant: &tru,
+			AnesthesiaBilateral: &tru,
+			AnesthesiaAuxiliaryJustification: &generated.AnesthesiaAuxiliaryJustification{
+				Cec: &tru, DurationOver6h: &tru,
+			},
+		},
+	}
+	b, _ := json.Marshal(req)
+	id := saveComposition(t, mux, b)
+	detail := getCompositionDetail(t, mux, id)
+
+	if detail.Modifiers == nil {
+		t.Fatal("modifiers nil after save")
+	}
+	if detail.Modifiers.AnesthesiaBilateral == nil || !*detail.Modifiers.AnesthesiaBilateral {
+		t.Errorf("anesthesia_bilateral not persisted: %v", detail.Modifiers.AnesthesiaBilateral)
+	}
+	if detail.Modifiers.AnesthesiaAssistant == nil || !*detail.Modifiers.AnesthesiaAssistant {
+		t.Errorf("anesthesia_assistant not persisted")
+	}
+	j := detail.Modifiers.AnesthesiaAuxiliaryJustification
+	if j == nil || j.Cec == nil || !*j.Cec || j.DurationOver6h == nil || !*j.DurationOver6h {
+		t.Errorf("justification not persisted: %+v", j)
+	}
+	if j != nil && j.BariatricGastroplasty != nil && *j.BariatricGastroplasty {
+		t.Errorf("bariatric should be false (not selected)")
+	}
+}
+
 // TestCompositionUpdateSavesModifiers — modifiers sent on PUT must overwrite the stored
 // modifiers and be returned in the subsequent GET response.
 func TestCompositionUpdateSavesModifiers(t *testing.T) {

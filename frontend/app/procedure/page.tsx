@@ -109,6 +109,8 @@ function ProcedureContent({
       }
       setCodeQuantities(restored);
       setAnesthesiaAssistant(comp.modifiers?.anesthesia_assistant ?? false);
+      setAssistantJustification(comp.modifiers?.anesthesia_auxiliary_justification ?? EMPTY_ANESTHESIA_JUSTIFICATION);
+      setAnesthesiaBilateral(comp.modifiers?.anesthesia_bilateral ?? false);
     },
   });
 
@@ -142,6 +144,8 @@ function ProcedureContent({
     auxiliariesCount,
     requiresAnesthesia,
     anesthesiaAssistant,
+    assistantJustification,
+    anesthesiaBilateral,
     accessRoute,
     adjustments: adjustmentState.adjustments,
     calculation,

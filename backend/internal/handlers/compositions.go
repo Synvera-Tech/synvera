@@ -107,6 +107,17 @@ func reqToComposition(req generated.SaveCompositionRequest) models.Composition {
 		if req.Modifiers.AnesthesiaAssistant != nil {
 			m.AnesthesiaAssistant = *req.Modifiers.AnesthesiaAssistant
 		}
+		if req.Modifiers.AnesthesiaBilateral != nil {
+			m.AnesthesiaBilateral = *req.Modifiers.AnesthesiaBilateral
+		}
+		if j := req.Modifiers.AnesthesiaAuxiliaryJustification; j != nil {
+			m.AnesthesiaAuxiliaryJustification = &models.AnesthesiaAssistantJustification{
+				CEC:                   j.Cec != nil && *j.Cec,
+				DurationOver6h:        j.DurationOver6h != nil && *j.DurationOver6h,
+				SurgicalNeonatology:   j.SurgicalNeonatology != nil && *j.SurgicalNeonatology,
+				BariatricGastroplasty: j.BariatricGastroplasty != nil && *j.BariatricGastroplasty,
+			}
+		}
 		modifiers = m
 	}
 
@@ -163,6 +174,16 @@ func modifiersToGenerated(m *models.CompositionModifiers) *generated.BillingModi
 	if m.AnesthesiaAssistant {
 		aa := true
 		g.AnesthesiaAssistant = &aa
+	}
+	if m.AnesthesiaBilateral {
+		ab := true
+		g.AnesthesiaBilateral = &ab
+	}
+	if j := m.AnesthesiaAuxiliaryJustification; j != nil {
+		cec, d6, sn, bg := j.CEC, j.DurationOver6h, j.SurgicalNeonatology, j.BariatricGastroplasty
+		g.AnesthesiaAuxiliaryJustification = &generated.AnesthesiaAuxiliaryJustification{
+			Cec: &cec, DurationOver6h: &d6, SurgicalNeonatology: &sn, BariatricGastroplasty: &bg,
+		}
 	}
 	return g
 }

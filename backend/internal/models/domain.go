@@ -321,6 +321,10 @@ type CompositionModifiers struct {
 	// AnesthesiaAssistant persists the A9 second-anesthesiologist (60%) selection so a saved
 	// composition reproduces the same anesthesia fee on reload.
 	AnesthesiaAssistant bool     `json:"anesthesia_assistant,omitempty"`
+	// AnesthesiaAuxiliaryJustification (P1) and AnesthesiaBilateral (P2) persist the
+	// USER_SELECTABLE anesthesia triggers so a saved composition reproduces the same fees.
+	AnesthesiaAuxiliaryJustification *AnesthesiaAssistantJustification `json:"anesthesia_auxiliary_justification,omitempty"`
+	AnesthesiaBilateral              bool                              `json:"anesthesia_bilateral,omitempty"`
 	VertebralRegion   string     `json:"vertebral_region,omitempty"`
 	SurgicalApproach  string     `json:"surgical_approach,omitempty"`
 	FusionStatus      string     `json:"fusion_status,omitempty"`

@@ -56,6 +56,9 @@ test("anesthesia-assistant justification renders and applies the 60% fee", async
   // The assistant is exactly 60% of the principal anesthesiologist fee.
   expect(data.anesthesia_assistant_fee!).toBeCloseTo((data.anesthesiologist_fee ?? 0) * 0.6, 1);
 
-  // The valuation reflects the applied assistant line.
-  await expect(page.getByText("Auxiliar de anestesia (60%)").first()).toBeVisible();
+  // The valuation reflects the applied assistant line, annotated with the reason (P1 UI). Scope to
+  // the <dt> result row so we don't match the AN7/AN8 toggle panel title (same label text).
+  const assistantRow = page.locator("dt", { hasText: "Auxiliar de anestesia (60%)" }).first();
+  await expect(assistantRow).toBeVisible();
+  await expect(assistantRow).toContainText("CEC");
 });

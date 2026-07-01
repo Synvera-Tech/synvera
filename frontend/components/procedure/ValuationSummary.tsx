@@ -6,6 +6,21 @@ import type { CalculationResult, AccessRouteType } from "@/lib/procedure/types";
 import { money, pct } from "@/lib/procedure/formatters";
 import { cn } from "@/components/ui/utils";
 
+// Friendly PT-BR labels for the anesthesia-assistant reasons (P1, CBHPM p.140 item 8).
+const ASSISTANT_REASON_LABELS: Record<string, string> = {
+  AN7: "AN7",
+  AN8: "AN8",
+  cec: "CEC",
+  duration_over_6h: ">6h",
+  surgical_neonatology: "neonatologia",
+  bariatric_gastroplasty: "gastroplastia",
+};
+
+function formatAssistantReasons(reasons?: string[]): string | undefined {
+  if (!reasons || reasons.length === 0) return undefined;
+  return reasons.map((r) => ASSISTANT_REASON_LABELS[r] ?? r).join(" · ");
+}
+
 interface ValuationSummaryProps {
   calculation: CalculationResult | null;
   accessRoute: AccessRouteType;
@@ -157,10 +172,18 @@ export function ValuationSummary({
                 />
               ))}
               {calculation.anesthesiologist_fee > 0 && (
-                <ResultRow label="Anestesiologista" value={calculation.anesthesiologist_fee} />
+                <ResultRow
+                  label="Anestesiologista"
+                  note={calculation.anesthesia_bilateral_applied ? "+70% bilateral (item 7)" : undefined}
+                  value={calculation.anesthesiologist_fee}
+                />
               )}
               {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
-                <ResultRow label="Auxiliar de anestesia (60%)" value={calculation.anesthesia_assistant_fee!} />
+                <ResultRow
+                  label="Auxiliar de anestesia (60%)"
+                  note={formatAssistantReasons(calculation.anesthesia_assistant_reasons)}
+                  value={calculation.anesthesia_assistant_fee!}
+                />
               )}
             </dl>
           </section>

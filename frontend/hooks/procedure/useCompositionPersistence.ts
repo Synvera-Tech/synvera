@@ -8,7 +8,7 @@ import type {
   SpineBillingModifiers,
   CalculationResult,
 } from "@/lib/procedure/types";
-import { buildCompositionPayload, type CodeQuantities } from "@/lib/procedure/payload-builders";
+import { buildCompositionPayload, type CodeQuantities, type AnesthesiaAuxiliaryJustification } from "@/lib/procedure/payload-builders";
 
 export function useCompositionPersistence({
   selectedProcedures,
@@ -19,6 +19,8 @@ export function useCompositionPersistence({
   auxiliariesCount,
   requiresAnesthesia,
   anesthesiaAssistant,
+  assistantJustification,
+  anesthesiaBilateral,
   accessRoute,
   adjustments,
   calculation,
@@ -38,6 +40,8 @@ export function useCompositionPersistence({
   auxiliariesCount: number;
   requiresAnesthesia: boolean;
   anesthesiaAssistant: boolean;
+  assistantJustification: AnesthesiaAuxiliaryJustification;
+  anesthesiaBilateral: boolean;
   accessRoute: AccessRouteType;
   adjustments: string[];
   calculation: CalculationResult | null;
@@ -80,6 +84,8 @@ export function useCompositionPersistence({
         anesthesiaAssistant,
         accessRoute,
         adjustments,
+        assistantJustification,
+        anesthesiaBilateral,
       );
       const res = await fetch("/api/compositions", {
         method: "POST",
@@ -111,6 +117,8 @@ export function useCompositionPersistence({
     auxiliariesCount,
     requiresAnesthesia,
     anesthesiaAssistant,
+    assistantJustification,
+    anesthesiaBilateral,
     adjustments,
     spineModifiers,
     codeQuantities,
@@ -137,6 +145,8 @@ export function useCompositionPersistence({
         anesthesiaAssistant,
         accessRoute,
         adjustments,
+        assistantJustification,
+        anesthesiaBilateral,
       );
       const res = await fetch(`/api/compositions/${loadedCompositionId}`, {
         method: "PUT",
@@ -166,6 +176,8 @@ export function useCompositionPersistence({
     auxiliariesCount,
     requiresAnesthesia,
     anesthesiaAssistant,
+    assistantJustification,
+    anesthesiaBilateral,
     adjustments,
     spineModifiers,
     codeQuantities,

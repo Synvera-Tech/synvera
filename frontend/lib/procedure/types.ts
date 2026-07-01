@@ -1,6 +1,8 @@
 // Shared domain types for the procedure calculation workflow.
 // Single source of truth — imported by procedure/page.tsx, share/page.tsx, and all hooks.
 
+import type { AnesthesiaAuxiliaryJustification } from "./payload-builders";
+
 // Normative per-code billing modifier (ADR-005). READ-ONLY metadata exposed by the
 // API for the future contextual UI. It does NOT affect fee calculations yet — the
 // engine still bills by billing_mode. Present only for codes with a normative rule.
@@ -101,6 +103,9 @@ export type CalculationResult = {
   anesthesiologist_fee: number;
   anesthesia_porte?: number;
   anesthesia_assistant_fee?: number;
+  anesthesia_assistant_applied?: boolean;
+  anesthesia_assistant_reasons?: string[];
+  anesthesia_bilateral_applied?: boolean;
   final_total: number;
   total_base: number;
   base_surgeon_value: number;
@@ -122,7 +127,11 @@ export type CompositionDetail = {
   auxiliaries_count: number;
   requires_anesthesia: boolean;
   adjustments: string[];
-  modifiers?: { anesthesia_assistant?: boolean };
+  modifiers?: {
+    anesthesia_assistant?: boolean;
+    anesthesia_auxiliary_justification?: AnesthesiaAuxiliaryJustification;
+    anesthesia_bilateral?: boolean;
+  };
   created_at: string;
   updated_at: string;
 };

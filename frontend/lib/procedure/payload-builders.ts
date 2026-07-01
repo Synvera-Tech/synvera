@@ -118,7 +118,11 @@ export type CompositionPayload = {
   auxiliaries_count: number;
   requires_anesthesia: boolean;
   adjustments: string[];
-  modifiers: SpineBillingModifiers & { anesthesia_assistant?: boolean };
+  modifiers: SpineBillingModifiers & {
+    anesthesia_assistant?: boolean;
+    anesthesia_auxiliary_justification?: AnesthesiaAuxiliaryJustification;
+    anesthesia_bilateral?: boolean;
+  };
 };
 
 export function buildCompositionPayload(
@@ -133,6 +137,8 @@ export function buildCompositionPayload(
   anesthesiaAssistant: boolean,
   accessRoute: AccessRouteType,
   adjustments: string[],
+  assistantJustification: AnesthesiaAuxiliaryJustification = EMPTY_ANESTHESIA_JUSTIFICATION,
+  anesthesiaBilateral = false,
 ): CompositionPayload {
   const checkedCodes = allCbhpmCodes.filter((c) => selectedCodes.has(c.code));
   return {
@@ -146,7 +152,12 @@ export function buildCompositionPayload(
     auxiliaries_count: auxiliariesCount,
     requires_anesthesia: requiresAnesthesia,
     adjustments,
-    modifiers: { ...spineModifiers, anesthesia_assistant: anesthesiaAssistant },
+    modifiers: {
+      ...spineModifiers,
+      anesthesia_assistant: anesthesiaAssistant,
+      anesthesia_auxiliary_justification: assistantJustification,
+      anesthesia_bilateral: anesthesiaBilateral,
+    },
   };
 }
 
