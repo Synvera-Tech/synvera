@@ -180,7 +180,7 @@ function ProcedureContent({
   const canShare = !!calculation && procedureState.selectedProcedures.length > 0;
 
   return (
-    <main className="hex-bg relative min-h-screen" style={{ backgroundColor: "hsl(var(--background))" }}>
+    <main className="procedure-bg relative min-h-screen" style={{ backgroundColor: "hsl(var(--background))" }}>
       {/* Nav */}
       <div className="relative z-10 px-5 pt-5">
         <nav className="nav-bar mx-auto flex max-w-[1080px] items-center justify-between">
