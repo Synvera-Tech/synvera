@@ -157,11 +157,14 @@ export function ValuationSummary({
                 />
               ))}
               {calculation.anesthesiologist_fee > 0 && (
-                <ResultRow
-                  label="Anestesiologista"
-                  note={calculation.anesthesia_bilateral_applied ? "+70% bilateral (item 7)" : undefined}
-                  value={calculation.anesthesiologist_fee}
-                />
+                <>
+                  <ResultRow label="Anestesiologista" value={calculation.anesthesiologist_fee} />
+                  {calculation.anesthesia_bilateral_applied && (
+                    <div className="-mt-1 pl-1 text-[11px] font-medium text-primary/80 dark:text-[#718BAE]">
+                      Justificativa: Ato anestésico bilateral (+70%, item 7)
+                    </div>
+                  )}
+                </>
               )}
               {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
                 <>
