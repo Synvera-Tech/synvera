@@ -108,14 +108,15 @@ Colunas: **Impl.?** (✅/❌) · **Diverge?** (⚠️ quando a implementação c
 1. **A8 — Bilateral +70% do 1º ato (sem código específico).** Implementado de forma **aproximada** via a degressividade de via (A6/A7); a regra bilateral-específica do item 7 não tem tratamento próprio. Rever se necessário.
 2. **A14 — Pediatria/idoso anestésico (+30%, escopo restrito).** O engine aplica os ajustes pediátricos **gerais** também à anestesia; o +30% restrito aos códigos do item 14 ainda não é específico.
 
-### ✅ Implementado (parcial)
-- **A9 — auxiliar de anestesia 60%**: implementado para os gatilhos **auto-detectáveis AN7/AN8**
-  (toggle "Auxiliar de anestesia"; `service` aplica 60% sobre o honorário do anestesiologista;
-  `anesthesia_assistant` no request, `anesthesia_porte`/`anesthesia_assistant_fee` no response).
+### ✅ Implementado
+- **A9 — auxiliar de anestesia 60%**: **completo** (P1, 2026-07-01). Gatilhos auto-detectáveis
+  **AN7/AN8** (toggle) **+** gatilhos **USER_SELECTABLE não deriváveis** — CEC, >6h, neonatologia
+  cirúrgica, gastroplastia — via **checkboxes** na Procedure Page (`anesthesia_auxiliary_justification`
+  no request). O motor aplica 60% **uma única vez** (AN7/AN8 **ou** qualquer gatilho, por OU) e registra
+  `anesthesia_assistant_applied` / `anesthesia_assistant_reasons` / fonte no breakdown/snapshot.
+  Ver [matriz-rastreabilidade-pendencias-P1-P4.md](matriz-rastreabilidade-pendencias-P1-P4.md).
 
 ### ❌ Pendentes (norma existe, não implementada)
-- **A9** — demais gatilhos do item 8 (CEC, >6h, neonato, gastroplastia) em portes < AN7: precisam de
-  declaração clínica do usuário (fora de escopo nesta etapa).
 - **A8** tratamento bilateral-específico (item 7) distinto da degressividade de via.
 - **A14** +30% pediátrico/idoso restrito aos códigos do item 14 (hoje usa o ajuste geral).
 - **A12/A18** consulta pré-anestésica e SRPA (códigos próprios) — fora de escopo do cálculo atual.

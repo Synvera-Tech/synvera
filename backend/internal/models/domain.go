@@ -207,7 +207,31 @@ type CalculationResult struct {
 	BaseAnesthesiaAssistantValue float64
 	AnesthesiaAssistantFee      float64
 
+	// AnesthesiaAssistantApplied / Reasons / Source record whether the 60% second
+	// anesthesiologist was applied and why — any of AN7, AN8, cec, duration_over_6h,
+	// surgical_neonatology, bariatric_gastroplasty — with its normative source (CBHPM p.140
+	// item 8), so the stored breakdown/snapshot explains the fee (ADR-001).
+	AnesthesiaAssistantApplied bool
+	AnesthesiaAssistantReasons []string
+	AnesthesiaAssistantSource  string
+
 	FinalTotal float64
+}
+
+// AnesthesiaAssistantJustification carries the USER_SELECTABLE, non-derivable clinical facts
+// (informed by the surgeon) that authorise a second anesthesiologist (+60% of the principal
+// anesthetic porte) beyond the auto-detectable AN7/AN8 triggers — CBHPM 2022 p.140 item 8.
+// These are inputs, never DERIVED nor ENGINE_ONLY.
+type AnesthesiaAssistantJustification struct {
+	CEC                   bool `json:"cec,omitempty"`
+	DurationOver6h        bool `json:"duration_over_6h,omitempty"`
+	SurgicalNeonatology   bool `json:"surgical_neonatology,omitempty"`
+	BariatricGastroplasty bool `json:"bariatric_gastroplasty,omitempty"`
+}
+
+// Any reports whether any non-derivable justification trigger is set.
+func (j AnesthesiaAssistantJustification) Any() bool {
+	return j.CEC || j.DurationOver6h || j.SurgicalNeonatology || j.BariatricGastroplasty
 }
 
 // Calculation is a persisted valuation record.

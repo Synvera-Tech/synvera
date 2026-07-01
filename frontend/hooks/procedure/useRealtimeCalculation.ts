@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { CBHPMCode, CalculationResult, AccessRouteType, SpineBillingModifiers } from "@/lib/procedure/types";
-import { buildCalculatePayload, type CodeQuantities } from "@/lib/procedure/payload-builders";
+import { buildCalculatePayload, type CodeQuantities, type AnesthesiaAuxiliaryJustification } from "@/lib/procedure/payload-builders";
 
 // Fires a debounced POST /api/calculate whenever any input changes.
 // Debounce of 150 ms prevents request storms during rapid interaction.
@@ -14,6 +14,7 @@ export function useRealtimeCalculation({
   auxiliariesCount,
   requiresAnesthesia,
   anesthesiaAssistant,
+  assistantJustification,
   accessRoute,
   adjustments,
 }: {
@@ -24,6 +25,7 @@ export function useRealtimeCalculation({
   auxiliariesCount: number;
   requiresAnesthesia: boolean;
   anesthesiaAssistant: boolean;
+  assistantJustification: AnesthesiaAuxiliaryJustification;
   accessRoute: AccessRouteType;
   adjustments: string[];
 }) {
@@ -42,6 +44,7 @@ export function useRealtimeCalculation({
       anesthesiaAssistant,
       accessRoute,
       adjustments,
+      assistantJustification,
     );
     if (!payload) { setCalculation(null); return; }
 
@@ -55,7 +58,7 @@ export function useRealtimeCalculation({
     }, 150);
 
     return () => { if (calcTimer.current) clearTimeout(calcTimer.current); };
-  }, [allCbhpmCodes, selectedCodes, spineModifiers, codeQuantities, auxiliariesCount, requiresAnesthesia, anesthesiaAssistant, accessRoute, adjustments]);
+  }, [allCbhpmCodes, selectedCodes, spineModifiers, codeQuantities, auxiliariesCount, requiresAnesthesia, anesthesiaAssistant, assistantJustification, accessRoute, adjustments]);
 
   return { calculation, setCalculation };
 }

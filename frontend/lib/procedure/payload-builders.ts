@@ -47,11 +47,29 @@ export function buildCodeEntry(
 
 // ── Calculate payload ────────────────────────────────────────────────────────
 
+// P1 (CBHPM p.140 item 8): USER_SELECTABLE, non-derivable clinical facts that justify a second
+// anesthesiologist (+60%) beyond the auto-detectable AN7/AN8. The frontend only collects these;
+// the backend decides whether the fee applies.
+export type AnesthesiaAuxiliaryJustification = {
+  cec: boolean;
+  duration_over_6h: boolean;
+  surgical_neonatology: boolean;
+  bariatric_gastroplasty: boolean;
+};
+
+export const EMPTY_ANESTHESIA_JUSTIFICATION: AnesthesiaAuxiliaryJustification = {
+  cec: false,
+  duration_over_6h: false,
+  surgical_neonatology: false,
+  bariatric_gastroplasty: false,
+};
+
 export type CalculatePayload = {
   selected_codes: SelectedCodePayload[];
   auxiliaries_count: number;
   requires_anesthesia: boolean;
   anesthesia_assistant: boolean;
+  anesthesia_auxiliary_justification: AnesthesiaAuxiliaryJustification;
   access_route_type: AccessRouteType;
   adjustments: string[];
   modifiers: SpineBillingModifiers;
@@ -67,6 +85,7 @@ export function buildCalculatePayload(
   anesthesiaAssistant: boolean,
   accessRoute: AccessRouteType,
   adjustments: string[],
+  assistantJustification: AnesthesiaAuxiliaryJustification = EMPTY_ANESTHESIA_JUSTIFICATION,
 ): CalculatePayload | null {
   const checked = allCbhpmCodes.filter((c) => selectedCodes.has(c.code));
   if (checked.length === 0) return null;
@@ -77,6 +96,7 @@ export function buildCalculatePayload(
     auxiliaries_count: auxiliariesCount,
     requires_anesthesia: requiresAnesthesia,
     anesthesia_assistant: anesthesiaAssistant,
+    anesthesia_auxiliary_justification: assistantJustification,
     access_route_type: accessRoute,
     adjustments,
     modifiers: spineModifiers,

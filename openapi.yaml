@@ -531,6 +531,28 @@ components:
             Valid codes: emergency_special_hours, pediatric_low_weight_or_premature,
             pediatric_neonate_or_infant, pediatric_child_under_12.
             Percentages are additive (e.g., two 30% adjustments = 60%, not 69%).
+        anesthesia_auxiliary_justification:
+          $ref: '#/components/schemas/AnesthesiaAuxiliaryJustification'
+
+    AnesthesiaAuxiliaryJustification:
+      type: object
+      description: >
+        USER_SELECTABLE non-derivable clinical facts (informed by the surgeon) that authorise a
+        second anesthesiologist (+60% of the principal anesthetic porte), per CBHPM 2022 p.140
+        item 8, beyond the auto-detectable AN7/AN8 triggers. All fields default to false.
+      properties:
+        cec:
+          type: boolean
+          description: Cardiopulmonary bypass (circulação extracorpórea).
+        duration_over_6h:
+          type: boolean
+          description: Surgery lasting more than 6 hours.
+        surgical_neonatology:
+          type: boolean
+          description: Surgical neonatology (neonatologia cirúrgica).
+        bariatric_gastroplasty:
+          type: boolean
+          description: Gastroplasty for morbid obesity (gastroplastia para obesidade mórbida).
 
     CodeBreakdown:
       type: object
@@ -681,6 +703,16 @@ components:
           type: number
           format: float
           description: Second-anesthesiologist fee (60%), when requested and applicable (A9). 0 otherwise.
+        anesthesia_assistant_applied:
+          type: boolean
+          description: Whether the second-anesthesiologist (60%) fee was applied.
+        anesthesia_assistant_reasons:
+          type: array
+          items:
+            type: string
+          description: >
+            Reasons the assistant was applied — any of: AN7, AN8, cec, duration_over_6h,
+            surgical_neonatology, bariatric_gastroplasty. Empty when not applied (CBHPM p.140 item 8).
         final_total:
           type: number
           format: float

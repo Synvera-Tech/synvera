@@ -3,6 +3,7 @@
 import { HeartPulse } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { cn } from "@/components/ui/utils";
+import type { AnesthesiaAuxiliaryJustification } from "@/lib/procedure/payload-builders";
 
 interface TeamFeesPanelProps {
   auxiliariesCount: number;
@@ -12,7 +13,18 @@ interface TeamFeesPanelProps {
   anesthesiaPorte?: number;
   anesthesiaAssistant: boolean;
   onAnesthesiaAssistantChange: (v: boolean) => void;
+  assistantJustification: AnesthesiaAuxiliaryJustification;
+  onAssistantJustificationChange: (key: keyof AnesthesiaAuxiliaryJustification, value: boolean) => void;
 }
+
+// P1 (CBHPM p.140 item 8): non-derivable clinical facts that only the surgeon knows. Order and
+// labels are user-facing (PT-BR); keys match the canonical payload.
+const JUSTIFICATION_OPTIONS: { key: keyof AnesthesiaAuxiliaryJustification; label: string }[] = [
+  { key: "cec", label: "Circulação extracorpórea (CEC)" },
+  { key: "duration_over_6h", label: "Cirurgia com duração acima de 6 horas" },
+  { key: "surgical_neonatology", label: "Neonatologia cirúrgica" },
+  { key: "bariatric_gastroplasty", label: "Gastroplastia para obesidade mórbida" },
+];
 
 export function TeamFeesPanel({
   auxiliariesCount,
@@ -22,6 +34,8 @@ export function TeamFeesPanel({
   anesthesiaPorte,
   anesthesiaAssistant,
   onAnesthesiaAssistantChange,
+  assistantJustification,
+  onAssistantJustificationChange,
 }: TeamFeesPanelProps) {
   // Item 8 (A9): the second anesthesiologist (60%) is only allowed for AN7/AN8.
   const assistantEligible = anesthesiaPorte === 7 || anesthesiaPorte === 8;
@@ -99,6 +113,41 @@ export function TeamFeesPanel({
             <Toggle checked={anesthesiaAssistant} onChange={onAnesthesiaAssistantChange} />
           </div>
         )}
+
+        {/* P1 (CBHPM p.140 item 8): non-derivable triggers that justify a second anesthesiologist
+            beyond AN7/AN8. USER_SELECTABLE — the surgeon declares them; the backend decides. */}
+        <div className="medical-toggle-panel rounded-2xl border px-4 py-4">
+          <div className="flex items-center gap-2.5">
+            <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
+              <HeartPulse aria-hidden="true" size={16} />
+            </div>
+            <div>
+              <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">
+                Auxiliar de anestesia
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                Quando selecionado, habilita auxiliar de anestesia com 60% do porte anestésico
+                principal, conforme CBHPM.
+              </div>
+            </div>
+          </div>
+          <div className="mt-3 space-y-2 pl-[42px]">
+            {JUSTIFICATION_OPTIONS.map((opt) => (
+              <label
+                key={opt.key}
+                className="flex cursor-pointer items-center gap-2.5 text-[12.5px] text-slate-700 dark:text-slate-300"
+              >
+                <input
+                  type="checkbox"
+                  checked={assistantJustification[opt.key]}
+                  onChange={(e) => onAssistantJustificationChange(opt.key, e.target.checked)}
+                  className="h-4 w-4 shrink-0 rounded border-slate-300 accent-[#5D7EA7] focus:ring-2 focus:ring-primary/40 dark:border-slate-600"
+                />
+                {opt.label}
+              </label>
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );

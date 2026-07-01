@@ -8,7 +8,7 @@ import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
 import { useTheme } from "@/components/theme-provider";
 
 import type { AccessRouteType } from "@/lib/procedure/types";
-import { buildShareUrl } from "@/lib/procedure/payload-builders";
+import { buildShareUrl, EMPTY_ANESTHESIA_JUSTIFICATION, type AnesthesiaAuxiliaryJustification } from "@/lib/procedure/payload-builders";
 
 import { useProcedureSelection } from "@/hooks/procedure/useProcedureSelection";
 import { useClinicalAdjustments } from "@/hooks/procedure/useClinicalAdjustments";
@@ -60,6 +60,14 @@ function ProcedureContent({
   const [requiresAnesthesia, setRequiresAnesthesia] = useState(true);
   // Anesthesia assistant (CBHPM item 8, A9): 60% second anesthesiologist, only offered for AN7/AN8.
   const [anesthesiaAssistant, setAnesthesiaAssistant] = useState(false);
+  // P1 (CBHPM p.140 item 8): USER_SELECTABLE, non-derivable triggers (CEC, >6h, neonatology,
+  // gastroplasty) that justify the assistant beyond AN7/AN8. Collected here; the backend decides.
+  const [assistantJustification, setAssistantJustification] =
+    useState<AnesthesiaAuxiliaryJustification>(EMPTY_ANESTHESIA_JUSTIFICATION);
+  const handleAssistantJustificationChange = (
+    key: keyof AnesthesiaAuxiliaryJustification,
+    value: boolean,
+  ) => setAssistantJustification((prev) => ({ ...prev, [key]: value }));
 
   // Per-code quantity selections (segments/vertebrae/structures). Keyed by CBHPM code;
   // codes absent from the map default to 1. Drives the per-code ×N billing (N5b).
@@ -116,6 +124,7 @@ function ProcedureContent({
     auxiliariesCount,
     requiresAnesthesia,
     anesthesiaAssistant,
+    assistantJustification,
     accessRoute,
     adjustments: adjustmentState.adjustments,
   });
@@ -304,6 +313,8 @@ function ProcedureContent({
                 anesthesiaPorte={calculation?.anesthesia_porte}
                 anesthesiaAssistant={anesthesiaAssistant}
                 onAnesthesiaAssistantChange={setAnesthesiaAssistant}
+                assistantJustification={assistantJustification}
+                onAssistantJustificationChange={handleAssistantJustificationChange}
               />
 
               <ClinicalAdjustmentsPanel

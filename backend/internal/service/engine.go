@@ -17,7 +17,7 @@ func CalculateWithPortes(
 	adjustments []string,
 	porteValues map[string]float64,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil, nil, false)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil, nil, false, models.AnesthesiaAssistantJustification{})
 }
 
 // CalculateWithPortesAndModifiers is the data-driven entry point (ADR-005, roadmap N5).
@@ -44,7 +44,28 @@ func CalculateWithPortesAndModifiers(
 	anestheticPortes map[string]int,
 	anesthesiaAssistant bool,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, models.AnesthesiaAssistantJustification{})
+}
+
+// CalculateWithPortesModifiersAndAnesthesia is the production entry point for P1 (CBHPM p.140
+// item 8): it adds the USER_SELECTABLE, non-derivable anesthesia-assistant justification triggers
+// (CEC, >6h, surgical neonatology, bariatric gastroplasty) on top of CalculateWithPortesAndModifiers.
+// The 60% assistant applies when AN7/AN8 (with anesthesiaAssistant set) OR any justification trigger
+// is present; it is never duplicated. Backend is the numerical authority — the frontend only supplies
+// the booleans.
+func CalculateWithPortesModifiersAndAnesthesia(
+	codes []models.SelectedCode,
+	auxiliariesCount int,
+	requiresAnesthesia bool,
+	accessRoute models.AccessRouteType,
+	adjustments []string,
+	porteValues map[string]float64,
+	modifiers map[string]models.CodeModifier,
+	anestheticPortes map[string]int,
+	anesthesiaAssistant bool,
+	justification models.AnesthesiaAssistantJustification,
+) models.CalculationResult {
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification)
 }
 
 // Calculate applies validated CBHPM billing rules to a physician-assembled composition.
@@ -81,7 +102,7 @@ func Calculate(
 	accessRoute models.AccessRouteType,
 	adjustments []string,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil, nil, false)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil, nil, false, models.AnesthesiaAssistantJustification{})
 }
 
 // resolveCodeRules determines the effective billing rule for a single code.
@@ -128,6 +149,7 @@ func calculate(
 	modifiers map[string]models.CodeModifier,
 	anestheticPortes map[string]int,
 	anesthesiaAssistant bool,
+	justification models.AnesthesiaAssistantJustification,
 ) models.CalculationResult {
 	// ── Step 1: resolve porte values, apply spine multipliers, find principal ───
 
@@ -250,13 +272,42 @@ func calculate(
 	anesth := 0.0
 	anesthPorte := 0
 	anesthAssistant := 0.0
+	var anesthAssistantReasons []string
+	anesthAssistantSource := ""
 	if anestheticPortes != nil {
 		anesth = computeAnesthesia(codes, anestheticPortes, porteValues, accessRoute)
 		anesthPorte = anesthesiaPrincipalPorte(codes, anestheticPortes)
-		// A9 (CBHPM p.140 item 8): a second anesthesiologist may be requested at 60%, only for
-		// the auto-detectable triggers AN7/AN8 (CEC, >6h, neonate, gastroplasty are out of scope).
-		if anesthesiaAssistant && (anesthPorte == 7 || anesthPorte == 8) {
+		// A9 / P1 (CBHPM p.140 item 8): a second anesthesiologist at 60% of the principal
+		// anesthetic porte. Two trigger sources combined with OR:
+		//   - auto-detectable AN7/AN8 (existing behaviour, gated by the anesthesiaAssistant toggle);
+		//   - USER_SELECTABLE non-derivable facts (CEC, >6h, surgical neonatology, bariatric
+		//     gastroplasty) that only the surgeon knows — supplied by the client, never derived.
+		// The 60% is applied ONCE regardless of how many triggers fire; every firing trigger is
+		// recorded as a reason for auditability.
+		if anesthesiaAssistant && anesthPorte == 7 {
+			anesthAssistantReasons = append(anesthAssistantReasons, "AN7")
+		}
+		if anesthesiaAssistant && anesthPorte == 8 {
+			anesthAssistantReasons = append(anesthAssistantReasons, "AN8")
+		}
+		if justification.CEC {
+			anesthAssistantReasons = append(anesthAssistantReasons, "cec")
+		}
+		if justification.DurationOver6h {
+			anesthAssistantReasons = append(anesthAssistantReasons, "duration_over_6h")
+		}
+		if justification.SurgicalNeonatology {
+			anesthAssistantReasons = append(anesthAssistantReasons, "surgical_neonatology")
+		}
+		if justification.BariatricGastroplasty {
+			anesthAssistantReasons = append(anesthAssistantReasons, "bariatric_gastroplasty")
+		}
+		// Apply only when there is an actual anesthesiologist fee to base the 60% on.
+		if len(anesthAssistantReasons) > 0 && anesth > 0 {
 			anesthAssistant = anesth * 0.60
+			anesthAssistantSource = "CBHPM 2022 p.140 item 8"
+		} else {
+			anesthAssistantReasons = nil
 		}
 	} else if requiresAnesthesia {
 		anesth = anesthesiaFee
@@ -328,6 +379,9 @@ func calculate(
 		AnesthesiaPorte:              anesthPorte,
 		BaseAnesthesiaAssistantValue: baseAnesthAssistant,
 		AnesthesiaAssistantFee:      finalAnesthAssistant,
+		AnesthesiaAssistantApplied:  anesthAssistant > 0,
+		AnesthesiaAssistantReasons:  anesthAssistantReasons,
+		AnesthesiaAssistantSource:   anesthAssistantSource,
 		FinalTotal:                finalSurgeon + finalAux + finalAnesth + finalAnesthAssistant,
 	}
 }

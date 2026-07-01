@@ -309,6 +309,21 @@ func (e Specialty) Valid() bool {
 // AccessRouteType Whether all selected procedures were performed via the same access route (CBHPM 4.1 – 50% discount on secondary procedures) or different access routes (CBHPM 4.2 – 70% discount on secondary procedures).
 type AccessRouteType string
 
+// AnesthesiaAuxiliaryJustification USER_SELECTABLE non-derivable clinical facts (informed by the surgeon) that authorise a second anesthesiologist (+60% of the principal anesthetic porte), per CBHPM 2022 p.140 item 8, beyond the auto-detectable AN7/AN8 triggers. All fields default to false.
+type AnesthesiaAuxiliaryJustification struct {
+	// BariatricGastroplasty Gastroplasty for morbid obesity (gastroplastia para obesidade mórbida).
+	BariatricGastroplasty *bool `json:"bariatric_gastroplasty,omitempty"`
+
+	// Cec Cardiopulmonary bypass (circulação extracorpórea).
+	Cec *bool `json:"cec,omitempty"`
+
+	// DurationOver6h Surgery lasting more than 6 hours.
+	DurationOver6h *bool `json:"duration_over_6h,omitempty"`
+
+	// SurgicalNeonatology Surgical neonatology (neonatologia cirúrgica).
+	SurgicalNeonatology *bool `json:"surgical_neonatology,omitempty"`
+}
+
 // AppliedAdjustment defines model for AppliedAdjustment.
 type AppliedAdjustment struct {
 	// Code Adjustment code identifier.
@@ -422,6 +437,9 @@ type CalculateRequest struct {
 	// AnesthesiaAssistant Request a second anesthesiologist (CBHPM p.140 item 8): 60% of the anesthesiologist fee. Applied only for AN7/AN8 procedures (other triggers — CEC, >6h — are out of scope).
 	AnesthesiaAssistant *bool `json:"anesthesia_assistant,omitempty"`
 
+	// AnesthesiaAuxiliaryJustification USER_SELECTABLE non-derivable clinical facts (informed by the surgeon) that authorise a second anesthesiologist (+60% of the principal anesthetic porte), per CBHPM 2022 p.140 item 8, beyond the auto-detectable AN7/AN8 triggers. All fields default to false.
+	AnesthesiaAuxiliaryJustification *AnesthesiaAuxiliaryJustification `json:"anesthesia_auxiliary_justification,omitempty"`
+
 	// AuxiliariesCount Number of auxiliary surgeons (0–4).
 	AuxiliariesCount int `json:"auxiliaries_count"`
 
@@ -446,8 +464,14 @@ type CalculateResponse struct {
 	// AdjustmentValue Absolute monetary value of all combined adjustments.
 	AdjustmentValue float32 `json:"adjustment_value"`
 
+	// AnesthesiaAssistantApplied Whether the second-anesthesiologist (60%) fee was applied.
+	AnesthesiaAssistantApplied *bool `json:"anesthesia_assistant_applied,omitempty"`
+
 	// AnesthesiaAssistantFee Second-anesthesiologist fee (60%), when requested and applicable (A9). 0 otherwise.
 	AnesthesiaAssistantFee *float32 `json:"anesthesia_assistant_fee,omitempty"`
+
+	// AnesthesiaAssistantReasons Reasons the assistant was applied — any of: AN7, AN8, cec, duration_over_6h, surgical_neonatology, bariatric_gastroplasty. Empty when not applied (CBHPM p.140 item 8).
+	AnesthesiaAssistantReasons *[]string `json:"anesthesia_assistant_reasons,omitempty"`
 
 	// AnesthesiaPorte Principal anesthetic porte used (AN0–AN8; 0 when none). Lets the client offer the anesthesia assistant only when applicable (AN7/AN8).
 	AnesthesiaPorte *int `json:"anesthesia_porte,omitempty"`

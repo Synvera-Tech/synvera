@@ -108,7 +108,20 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			anestheticPortes = nil
 		}
 		anesthesiaAssistant := req.AnesthesiaAssistant != nil && *req.AnesthesiaAssistant
-		result := service.CalculateWithPortesAndModifiers(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant)
+
+		// P1 (CBHPM p.140 item 8): USER_SELECTABLE, non-derivable anesthesia-assistant triggers.
+		// The frontend only collects these booleans; the engine decides whether 60% applies.
+		var justification models.AnesthesiaAssistantJustification
+		if j := req.AnesthesiaAuxiliaryJustification; j != nil {
+			justification = models.AnesthesiaAssistantJustification{
+				CEC:                   j.Cec != nil && *j.Cec,
+				DurationOver6h:        j.DurationOver6h != nil && *j.DurationOver6h,
+				SurgicalNeonatology:   j.SurgicalNeonatology != nil && *j.SurgicalNeonatology,
+				BariatricGastroplasty: j.BariatricGastroplasty != nil && *j.BariatricGastroplasty,
+			}
+		}
+
+		result := service.CalculateWithPortesModifiersAndAnesthesia(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification)
 
 		breakdown := make([]generated.CodeBreakdown, 0, len(result.CodeBreakdown))
 		for _, b := range result.CodeBreakdown {
@@ -148,6 +161,11 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 
 		assistantFee := float32(result.AnesthesiaAssistantFee)
 		anesthPorte := result.AnesthesiaPorte
+		assistantApplied := result.AnesthesiaAssistantApplied
+		assistantReasons := result.AnesthesiaAssistantReasons
+		if assistantReasons == nil {
+			assistantReasons = []string{}
+		}
 		respondJSON(w, http.StatusOK, generated.CalculateResponse{
 			CodeBreakdown:             breakdown,
 			AccessRouteType:           generated.AccessRouteType(result.AccessRouteType),
@@ -163,8 +181,10 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			IndividualAuxiliaryFees:   auxFees,
 			AuxiliariesFee:            float32(result.AuxiliariesFee),
 			AnesthesiologistFee:       float32(result.AnesthesiologistFee),
-			AnesthesiaPorte:           &anesthPorte,
-			AnesthesiaAssistantFee:    &assistantFee,
+			AnesthesiaPorte:            &anesthPorte,
+			AnesthesiaAssistantFee:     &assistantFee,
+			AnesthesiaAssistantApplied: &assistantApplied,
+			AnesthesiaAssistantReasons: &assistantReasons,
 			FinalTotal:                float32(result.FinalTotal),
 			SelectedAdjustments:       appliedAdj,
 			TotalAdjustmentPercentage: float32(result.TotalAdjustmentPercentage),
