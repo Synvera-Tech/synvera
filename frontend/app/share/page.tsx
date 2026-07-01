@@ -11,8 +11,8 @@ import type {
   ProcedureDetail,
   CalculationResult,
 } from "@/lib/procedure/types";
-import { money } from "@/lib/procedure/formatters";
-import { buildCodeEntry, parseShareQuantities, quantityFor } from "@/lib/procedure/payload-builders";
+import { money, formatAssistantReasons } from "@/lib/procedure/formatters";
+import { buildCodeEntry, parseShareQuantities, parseShareJustification, quantityFor } from "@/lib/procedure/payload-builders";
 
 // ─── Print + screen CSS ───────────────────────────────────────────────────────
 
@@ -234,6 +234,9 @@ function ShareContent() {
   const qtyParam = searchParams.get("qty");
   const laterality = searchParams.get("lat") === "BILATERAL" ? "BILATERAL" : "UNILATERAL";
   const anesthesiaAssistant = searchParams.get("aa") === "1";
+  const anesthesiaBilateral = searchParams.get("bl") === "1";
+  const ajParam = searchParams.get("aj");
+  const assistantJustification = parseShareJustification(ajParam);
 
   const [procedure, setProcedure] = useState<ProcedureDetail | null>(null);
   const [calculation, setCalculation] = useState<CalculationResult | null>(null);
@@ -280,6 +283,8 @@ function ShareContent() {
             auxiliaries_count: auxiliariesCount,
             requires_anesthesia: requiresAnesthesia,
             anesthesia_assistant: anesthesiaAssistant,
+            anesthesia_auxiliary_justification: assistantJustification,
+            anesthesia_bilateral: anesthesiaBilateral,
             access_route_type: accessRoute,
             adjustments,
           }),
@@ -295,7 +300,7 @@ function ShareContent() {
 
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute, qtyParam, laterality, anesthesiaAssistant]);
+  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute, qtyParam, laterality, anesthesiaAssistant, anesthesiaBilateral, ajParam]);
 
   if (loading) {
     return (
@@ -491,7 +496,18 @@ function ShareContent() {
               />
             ))}
             {calculation.anesthesiologist_fee > 0 && (
-              <TeamCard role="Anestesiologista" value={calculation.anesthesiologist_fee} />
+              <TeamCard
+                role="Anestesiologista"
+                note={calculation.anesthesia_bilateral_applied ? "+70% bilateral" : undefined}
+                value={calculation.anesthesiologist_fee}
+              />
+            )}
+            {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
+              <TeamCard
+                role="Auxiliar de anestesia (60%)"
+                note={formatAssistantReasons(calculation.anesthesia_assistant_reasons)}
+                value={calculation.anesthesia_assistant_fee!}
+              />
             )}
           </div>
           {hasAdjustments && (
@@ -537,6 +553,9 @@ function ShareContent() {
           {calculation.anesthesiologist_fee > 0 && (
             <SummaryPill label="Anestesiologista" value={money.format(calculation.anesthesiologist_fee)} />
           )}
+          {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
+            <SummaryPill label="Auxiliar de anestesia" value={money.format(calculation.anesthesia_assistant_fee!)} />
+          )}
           {hasAdjustments && (
             <SummaryPill
               label={`Acréscimos +${calculation.total_adjustment_percentage.toFixed(0)}%`}
@@ -568,7 +587,13 @@ function ShareContent() {
             <MetaField label="Auxiliares" value={money.format(calculation.auxiliaries_fee)} />
           )}
           {calculation.anesthesiologist_fee > 0 && (
-            <MetaField label="Anestesiologista" value={money.format(calculation.anesthesiologist_fee)} />
+            <MetaField
+              label={calculation.anesthesia_bilateral_applied ? "Anestesiologista (+70% bilateral)" : "Anestesiologista"}
+              value={money.format(calculation.anesthesiologist_fee)}
+            />
+          )}
+          {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
+            <MetaField label="Auxiliar de anestesia" value={money.format(calculation.anesthesia_assistant_fee!)} />
           )}
           {hasAdjustments && (
             <MetaField
@@ -596,7 +621,7 @@ function ShareContent() {
                 O procedimento <strong className="text-slate-700">{principalCode?.description}</strong>{" "}
                 (porte {principalCode?.porte}) é remunerado integralmente pelo seu porte CBHPM.{" "}
                 Base do cirurgião:{" "}
-                <strong className="text-slate-700">{money.format(calculation.base_surgeon_value)}</strong>.
+                <strong className="text-slate-700">{money.format(calculation.surgeon_breakdown.surgeon_total)}</strong>.
                 {hasAdjustments && (
                   <>
                     {" "}Após acréscimos de +{calculation.total_adjustment_percentage.toFixed(0)}%: <strong className="text-slate-700">{money.format(calculation.lead_surgeon_fee)}</strong>.
@@ -623,7 +648,7 @@ function ShareContent() {
                 </p>
                 <p>
                   Base CBHPM cirurgião:{" "}
-                  <strong className="text-slate-700">{money.format(calculation.base_surgeon_value)}</strong>.
+                  <strong className="text-slate-700">{money.format(calculation.surgeon_breakdown.surgeon_total)}</strong>.
                   {hasAdjustments && (
                     <>
                       {" "}Após acréscimos de +{calculation.total_adjustment_percentage.toFixed(0)}%: <strong className="text-slate-700">{money.format(calculation.lead_surgeon_fee)}</strong>.

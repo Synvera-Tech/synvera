@@ -200,6 +200,8 @@ export function buildShareUrl(
   spineModifiers: SpineBillingModifiers,
   codeQuantities: CodeQuantities,
   anesthesiaAssistant: boolean,
+  assistantJustification: AnesthesiaAuxiliaryJustification = EMPTY_ANESTHESIA_JUSTIFICATION,
+  anesthesiaBilateral = false,
 ): string {
   const url = new URL("/share", window.location.origin);
   url.searchParams.set("sbn", selectedProcedures.map((p) => p.id).join(","));
@@ -214,5 +216,21 @@ export function buildShareUrl(
   if (spineModifiers.laterality !== "UNILATERAL")
     url.searchParams.set("lat", spineModifiers.laterality);
   if (anesthesiaAssistant) url.searchParams.set("aa", "1");
+  // P1/P2 triggers: compact encoding — active justification keys as a comma list, bilateral as a flag.
+  const activeJust = (Object.keys(assistantJustification) as (keyof AnesthesiaAuxiliaryJustification)[])
+    .filter((k) => assistantJustification[k]);
+  if (activeJust.length > 0) url.searchParams.set("aj", activeJust.join(","));
+  if (anesthesiaBilateral) url.searchParams.set("bl", "1");
   return url.toString();
+}
+
+// parseShareJustification reconstructs the P1 justification object from the "aj" share param.
+export function parseShareJustification(param: string | null): AnesthesiaAuxiliaryJustification {
+  const keys = new Set((param ?? "").split(",").filter(Boolean));
+  return {
+    cec: keys.has("cec"),
+    duration_over_6h: keys.has("duration_over_6h"),
+    surgical_neonatology: keys.has("surgical_neonatology"),
+    bariatric_gastroplasty: keys.has("bariatric_gastroplasty"),
+  };
 }

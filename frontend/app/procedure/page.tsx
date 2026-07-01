@@ -172,6 +172,8 @@ function ProcedureContent({
       spineState.spineModifiers,
       codeQuantities,
       anesthesiaAssistant,
+      assistantJustification,
+      anesthesiaBilateral,
     ));
   };
 
