@@ -547,11 +547,10 @@ export default function NovoCalculo() {
                     </span>
                   </div>
                 ) : (
-                  // Keep the button active even with an empty field — an empty
-                  // submit focuses the input (see handleSubmit). A disabled button
-                  // here renders a forbidden cursor right under the empty field,
-                  // which reads as "search is blocked" even though the input works.
-                  <PesquisarButton disabled={false} loading={searching} />
+                  // Truly disabled (outline, inverted colors) until there are at
+                  // least 2 characters to search — matches the live-search minimum
+                  // and prevents an empty submit.
+                  <PesquisarButton disabled={query.trim().length < 2} loading={searching} />
                 )}
               </form>
 
@@ -1006,8 +1005,8 @@ function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: bo
       style={{
         width: "100%", height: inactive ? "44px" : "46px",
         backgroundColor: bgColor,
-        color: inactive ? "rgba(100,116,139,0.50)" : "#FFFFFF",
-        border: inactive ? "1px solid rgba(100,116,139,0.20)" : "none",
+        color: inactive ? "#2C4F78" : "#FFFFFF",
+        border: inactive ? "1.5px solid rgba(44, 79, 120, 0.55)" : "none",
         borderRadius: "10px",
         fontSize: "14px", fontWeight: 600, letterSpacing: "0.1px",
         fontFamily: "inherit", cursor: inactive ? "not-allowed" : "pointer",
@@ -1021,7 +1020,7 @@ function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: bo
           aria-hidden="true"
           style={{
             width: "14px", height: "14px",
-            border: "2px solid rgba(100,116,139,0.3)", borderTopColor: "rgba(100,116,139,0.55)",
+            border: "2px solid rgba(44, 79, 120, 0.30)", borderTopColor: "#2C4F78",
             borderRadius: "50%", display: "inline-block",
             animation: "spin 0.7s linear infinite",
           }}
