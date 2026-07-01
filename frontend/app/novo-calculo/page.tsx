@@ -10,19 +10,19 @@ import Link from "next/link";
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
 const T = {
-  bg:          "#E2EBF3",
+  bg:          "#F2EDE3",
   surface:     "#FFFFFF",
-  cardBorder:  "#E2E8F0",
-  primary:     "#0F172A",
-  secondary:   "#475569",
-  muted:       "#64748B",
-  inputBorder: "#CBD5E1",
-  inputFocus:  "#5D7EA7",
-  btnBg:       "#5D7EA7",
-  btnHover:    "#2C4F78",
-  btnDisabled: "#CBD5E1",
+  cardBorder:  "#EFEBE3",
+  primary:     "#201E1B",
+  secondary:   "#665D4A",
+  muted:       "#8B7E64",
+  inputBorder: "#D8CEBE",
+  inputFocus:  "#A18C63",
+  btnBg:       "#A18C63",
+  btnHover:    "#725D32",
+  btnDisabled: "#D8CEBE",
   dropHover:   "#F8FAFC",
-  sapphire:        "#232D3B",
+  sapphire:        "#393225",
 } as const;
 
 const EXAMPLES = [
@@ -224,9 +224,9 @@ export default function NovoCalculo() {
       style={{
         minHeight: "100vh",
         background: [
-          "radial-gradient(circle at top center, rgba(53,92,138,0.18) 0%, transparent 45%)",
-          "radial-gradient(circle at 15% 88%, rgba(30,58,95,0.08) 0%, transparent 40%)",
-          "linear-gradient(180deg, #E2EBF3 0%, #D6E1EB 100%)",
+          "radial-gradient(circle at top center, rgba(79, 61, 25,0.18) 0%, transparent 45%)",
+          "radial-gradient(circle at 15% 88%, rgba(41, 32, 13,0.08) 0%, transparent 40%)",
+          "linear-gradient(180deg, #F2EDE3 0%, #E9E3D8 100%)",
         ].join(", "),
         display: "flex",
         alignItems: "center",
@@ -243,12 +243,12 @@ export default function NovoCalculo() {
             justifyContent: "space-between",
             alignItems: "center",
             position: "sticky", top: 0, zIndex: 40,
-            background: "rgba(243,246,249,0.72)",
+            background: "rgba(249, 247, 243,0.72)",
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
             border: "1px solid rgba(255,255,255,0.45)",
             borderRadius: "24px",
-            boxShadow: "0 12px 30px rgba(15,23,42,0.08)",
+            boxShadow: "0 12px 30px rgba(40, 30, 20,0.08)",
             padding: "10px 20px",
             marginBottom: "24px",
           }}
@@ -267,7 +267,7 @@ export default function NovoCalculo() {
                 <span style={{ fontSize: "13px", fontWeight: 700, color: T.primary, letterSpacing: "-0.2px", lineHeight: 1 }}>
                   Synvera
                 </span>
-                <span style={{ fontSize: "9px", fontWeight: 500, color: "rgba(71,85,105,0.58)", letterSpacing: "0.2px", lineHeight: 1 }}>
+                <span style={{ fontSize: "9px", fontWeight: 500, color: "rgba(70, 62, 52,0.58)", letterSpacing: "0.2px", lineHeight: 1 }}>
                   Neurocirurgia · Coluna
                 </span>
               </div>
@@ -329,8 +329,8 @@ export default function NovoCalculo() {
             padding: "4px",
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
-            border: "1px solid rgba(148,163,184,0.22)",
-            boxShadow: "0 1px 4px rgba(15,23,42,0.07)",
+            border: "1px solid rgba(150, 140, 120,0.22)",
+            boxShadow: "0 1px 4px rgba(40, 30, 20,0.07)",
           }}
         >
           <TabBtn active={activeTab === "search"} onClick={() => setActiveTab("search")}>
@@ -346,7 +346,7 @@ export default function NovoCalculo() {
                   display: "inline-flex", alignItems: "center", justifyContent: "center",
                   minWidth: "18px", height: "18px", padding: "0 5px",
                   borderRadius: "100px", fontSize: "10px", fontWeight: 700,
-                  backgroundColor: "#5D7EA7", color: "#fff", lineHeight: 1,
+                  backgroundColor: "#A18C63", color: "#fff", lineHeight: 1,
                 }}
               >
                 {compositions.length > 9 ? "9+" : compositions.length}
@@ -358,13 +358,13 @@ export default function NovoCalculo() {
         {/* ── Card ── */}
         <div
           style={{
-            background: "#F3F6F9",
+            background: "#FBF8F1",
             backdropFilter: "blur(20px) saturate(160%)",
             WebkitBackdropFilter: "blur(20px) saturate(160%)",
             borderRadius: "16px",
-            border: "1px solid rgba(53,92,138,0.10)",
+            border: "1px solid rgba(79, 61, 25,0.10)",
             padding: "44px 40px 36px",
-            boxShadow: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.08), 0 24px 70px rgba(15,23,42,0.14)",
+            boxShadow: "0 1px 2px rgba(40, 30, 20,0.04), 0 8px 24px rgba(40, 30, 20,0.08), 0 24px 70px rgba(40, 30, 20,0.14)",
           }}
         >
 
@@ -433,11 +433,11 @@ export default function NovoCalculo() {
                       width: "100%", height: "48px", paddingLeft: "38px", paddingRight: navigating ? "40px" : "14px",
                       fontSize: "14.5px", fontFamily: "inherit", color: T.primary,
                       backgroundColor: T.surface,
-                      border: `1.5px solid ${focused || navigating ? "#5D7EA7" : "#B8C5D6"}`,
+                      border: `1.5px solid ${focused || navigating ? "#A18C63" : "#D4CBBA"}`,
                       borderRadius: showDropdown ? "10px 10px 0 0" : "10px",
                       outline: "none", boxSizing: "border-box",
                       transition: "border-color 150ms ease, border-radius 80ms ease",
-                      boxShadow: focused || navigating ? "0 0 0 4px rgba(53,92,138,0.14)" : "none",
+                      boxShadow: focused || navigating ? "0 0 0 4px rgba(79, 61, 25,0.14)" : "none",
                     }}
                   />
 
@@ -447,7 +447,7 @@ export default function NovoCalculo() {
                       aria-hidden="true"
                       style={{
                         position: "absolute", right: "14px", top: "50%", transform: "translateY(-50%)",
-                        color: "#5D7EA7", zIndex: 1,
+                        color: "#A18C63", zIndex: 1,
                       }}
                     />
                   )}
@@ -460,9 +460,9 @@ export default function NovoCalculo() {
                         position: "absolute", top: "47px", left: 0, right: 0,
                         backgroundColor: T.surface,
                         border: `1.5px solid ${T.inputFocus}`,
-                        borderTop: "1px solid #EEF1F5",
+                        borderTop: "1px solid #F4F2EF",
                         borderRadius: "0 0 10px 10px",
-                        boxShadow: "0 8px 24px rgba(15,23,42,0.09)",
+                        boxShadow: "0 8px 24px rgba(40, 30, 20,0.09)",
                         maxHeight: "240px", overflowY: "auto",
                         listStyle: "none", margin: 0, padding: "4px 0", zIndex: 50,
                       }}
@@ -481,7 +481,7 @@ export default function NovoCalculo() {
                           style={{
                             display: "flex", alignItems: "center", gap: "10px",
                             padding: "9px 14px", cursor: navigating ? "default" : "pointer",
-                            backgroundColor: isChosen ? "#5D7EA7" : i === activeIdx ? T.dropHover : "transparent",
+                            backgroundColor: isChosen ? "#A18C63" : i === activeIdx ? T.dropHover : "transparent",
                             opacity: isDimmed ? 0.45 : 1,
                             transition: "background-color 120ms ease, opacity 120ms ease",
                           }}
@@ -527,8 +527,8 @@ export default function NovoCalculo() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "9px",
                       width: "100%", minHeight: "46px", padding: "0 16px",
-                      backgroundColor: "rgba(53,92,138,0.08)",
-                      border: "1px solid rgba(53,92,138,0.20)",
+                      backgroundColor: "rgba(79, 61, 25,0.08)",
+                      border: "1px solid rgba(79, 61, 25,0.20)",
                       borderRadius: "10px",
                       fontSize: "13.5px", fontWeight: 600, color: T.inputFocus,
                     }}
@@ -537,7 +537,7 @@ export default function NovoCalculo() {
                       aria-hidden="true"
                       style={{
                         width: "14px", height: "14px", flexShrink: 0,
-                        border: "2px solid rgba(53,92,138,0.30)", borderTopColor: "#5D7EA7",
+                        border: "2px solid rgba(79, 61, 25,0.30)", borderTopColor: "#A18C63",
                         borderRadius: "50%", display: "inline-block",
                         animation: "spin 0.7s linear infinite",
                       }}
@@ -547,11 +547,10 @@ export default function NovoCalculo() {
                     </span>
                   </div>
                 ) : (
-                  // Keep the button active even with an empty field — an empty
-                  // submit focuses the input (see handleSubmit). A disabled button
-                  // here renders a forbidden cursor right under the empty field,
-                  // which reads as "search is blocked" even though the input works.
-                  <PesquisarButton disabled={false} loading={searching} />
+                  // Truly disabled (outline, inverted colors) until there are at
+                  // least 2 characters to search — matches the live-search minimum
+                  // and prevents an empty submit.
+                  <PesquisarButton disabled={query.trim().length < 2} loading={searching} />
                 )}
               </form>
 
@@ -578,7 +577,7 @@ export default function NovoCalculo() {
                 <div
                   style={{
                     width: "20px", height: "20px", margin: "0 auto",
-                    border: "2px solid #CBD5E1", borderTopColor: T.primary,
+                    border: "2px solid #D8CEBE", borderTopColor: T.primary,
                     borderRadius: "50%", animation: "spin 0.7s linear infinite",
                   }}
                 />
@@ -611,7 +610,7 @@ function SignInGate() {
       <div
         style={{
           width: "48px", height: "48px", margin: "0 auto 18px",
-          borderRadius: "50%", backgroundColor: "#F1F5F9",
+          borderRadius: "50%", backgroundColor: "#F8F6F2",
           display: "flex", alignItems: "center", justifyContent: "center",
         }}
       >
@@ -655,8 +654,8 @@ function TabBtn({ active, onClick, children }: { active: boolean; onClick: () =>
         fontSize: "13px", fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
         transition: "background-color 140ms ease, color 140ms ease, box-shadow 140ms ease",
         backgroundColor: active ? "#FFFFFF" : "transparent",
-        color: active ? T.primary : "#64748B",
-        boxShadow: active ? "0 8px 24px rgba(15,23,42,0.08), 0 1px 3px rgba(15,23,42,0.08)" : "none",
+        color: active ? T.primary : "#8B7E64",
+        boxShadow: active ? "0 8px 24px rgba(40, 30, 20,0.08), 0 1px 3px rgba(40, 30, 20,0.08)" : "none",
       }}
     >
       {children}
@@ -706,7 +705,7 @@ function CompositionList({
         <div
           style={{
             width: "20px", height: "20px", margin: "0 auto 12px",
-            border: "2px solid #CBD5E1", borderTopColor: T.primary,
+            border: "2px solid #D8CEBE", borderTopColor: T.primary,
             borderRadius: "50%", animation: "spin 0.7s linear infinite",
           }}
         />
@@ -815,12 +814,12 @@ function CompositionRow({
           <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "6px" }}>
             <span style={{ fontSize: "11px", color: T.muted }}>{date}</span>
             {comp.auxiliaries_count > 0 && (
-              <span style={{ fontSize: "10.5px", fontWeight: 600, color: "#232D3B", background: "rgba(53,92,138,0.12)", borderRadius: "4px", padding: "1px 6px" }}>
+              <span style={{ fontSize: "10.5px", fontWeight: 600, color: "#393225", background: "rgba(79, 61, 25,0.12)", borderRadius: "4px", padding: "1px 6px" }}>
                 {comp.auxiliaries_count} aux.
               </span>
             )}
             {comp.requires_anesthesia && (
-              <span style={{ fontSize: "10.5px", fontWeight: 600, color: "#6D28D9", background: "#EDE9FE", borderRadius: "4px", padding: "1px 6px" }}>
+              <span style={{ fontSize: "10.5px", fontWeight: 600, color: "#C2963F", background: "#F9F5EE", borderRadius: "4px", padding: "1px 6px" }}>
                 Anest.
               </span>
             )}
@@ -887,7 +886,7 @@ function ConfirmDeleteDialog({
         position: "fixed", inset: 0, zIndex: 999,
         display: "flex", alignItems: "center", justifyContent: "center",
         padding: "20px",
-        backgroundColor: "rgba(15,23,42,0.42)",
+        backgroundColor: "rgba(40, 30, 20,0.42)",
         backdropFilter: "blur(6px)",
         WebkitBackdropFilter: "blur(6px)",
         animation: "fadeIn 120ms ease",
@@ -899,10 +898,10 @@ function ConfirmDeleteDialog({
           width: "100%", maxWidth: "380px",
           backgroundColor: "#FFFFFF",
           borderRadius: "18px",
-          border: "1px solid rgba(226,232,240,0.9)",
+          border: "1px solid rgba(239, 235, 227,0.9)",
           padding: "28px 28px 24px",
           boxShadow:
-            "0 4px 6px rgba(15,23,42,0.06), 0 12px 32px rgba(15,23,42,0.14), 0 32px 56px -8px rgba(15,23,42,0.10)",
+            "0 4px 6px rgba(40, 30, 20,0.06), 0 12px 32px rgba(40, 30, 20,0.14), 0 32px 56px -8px rgba(40, 30, 20,0.10)",
           animation: "slideUp 160ms cubic-bezier(0.16,1,0.3,1)",
         }}
       >
@@ -942,7 +941,7 @@ function ConfirmDeleteDialog({
             onMouseLeave={() => setCancelHovered(false)}
             style={{
               flex: 1, height: "40px", borderRadius: "10px",
-              border: `1.5px solid ${cancelHovered ? "#CBD5E1" : "#E2E8F0"}`,
+              border: `1.5px solid ${cancelHovered ? "#D8CEBE" : "#EFEBE3"}`,
               backgroundColor: cancelHovered ? "#F8FAFC" : "transparent",
               color: T.secondary, fontSize: "13.5px", fontWeight: 600,
               fontFamily: "inherit", cursor: deleting ? "default" : "pointer",
@@ -989,10 +988,10 @@ function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: bo
   const bgColor = inactive
     ? "transparent"
     : pressed
-    ? "#232D3B"
+    ? "#393225"
     : hovered
-    ? "#2C4F78"
-    : "#5D7EA7";
+    ? "#725D32"
+    : "#A18C63";
 
   return (
     <button
@@ -1006,12 +1005,12 @@ function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: bo
       style={{
         width: "100%", height: inactive ? "44px" : "46px",
         backgroundColor: bgColor,
-        color: inactive ? "rgba(100,116,139,0.50)" : "#FFFFFF",
-        border: inactive ? "1px solid rgba(100,116,139,0.20)" : "none",
+        color: inactive ? "#8A6A34" : "#FFFFFF",
+        border: inactive ? "1.5px solid rgba(138, 106, 52, 0.55)" : "none",
         borderRadius: "10px",
         fontSize: "14px", fontWeight: 600, letterSpacing: "0.1px",
         fontFamily: "inherit", cursor: inactive ? "not-allowed" : "pointer",
-        boxShadow: inactive ? "none" : "0 10px 24px rgba(30,58,95,0.18)",
+        boxShadow: inactive ? "none" : "0 10px 24px rgba(41, 32, 13,0.18)",
         transition: "background 150ms ease, box-shadow 150ms ease",
         display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
       }}
@@ -1021,7 +1020,7 @@ function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: bo
           aria-hidden="true"
           style={{
             width: "14px", height: "14px",
-            border: "2px solid rgba(100,116,139,0.3)", borderTopColor: "rgba(100,116,139,0.55)",
+            border: "2px solid rgba(138, 106, 52, 0.30)", borderTopColor: "#8A6A34",
             borderRadius: "50%", display: "inline-block",
             animation: "spin 0.7s linear infinite",
           }}
@@ -1043,10 +1042,10 @@ function ExampleChip({ label, onClick }: { label: string; onClick: () => void })
       onMouseLeave={() => setHovered(false)}
       style={{
         padding: "5px 12px",
-        backgroundColor: hovered ? "rgba(53,92,138,0.06)" : "#FFFFFF",
-        border: `1px solid ${hovered ? "#5D7EA7" : "#CBD5E1"}`,
+        backgroundColor: hovered ? "rgba(79, 61, 25,0.06)" : "#FFFFFF",
+        border: `1px solid ${hovered ? "#A18C63" : "#D8CEBE"}`,
         borderRadius: "100px", fontSize: "12px", fontWeight: 500,
-        fontFamily: "inherit", color: hovered ? "#232D3B" : "#475569",
+        fontFamily: "inherit", color: hovered ? "#393225" : "#665D4A",
         cursor: "pointer",
         transition: "background-color 120ms ease, border-color 120ms ease, color 120ms ease",
       }}

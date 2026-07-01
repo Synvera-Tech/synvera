@@ -45,7 +45,7 @@ export function SaveCompositionPanel({
       <SignInButton mode="modal">
         <button
           type="button"
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 active:scale-[0.98]"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm font-semibold text-stone-600 dark:text-stone-300 transition-all hover:bg-stone-50 dark:hover:bg-stone-800/50 active:scale-[0.98]"
         >
           <LogIn size={16} /> Entrar para salvar composição
         </button>
@@ -68,7 +68,7 @@ export function SaveCompositionPanel({
         <button
           onClick={onUpdateComposition}
           disabled={savingComposition}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 active:scale-[0.98] disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm font-semibold text-stone-600 dark:text-stone-300 transition-all hover:bg-stone-50 dark:hover:bg-stone-800/50 active:scale-[0.98] disabled:opacity-50"
           type="button"
         >
           {savingComposition
@@ -100,8 +100,8 @@ export function SaveCompositionPanel({
 
   if (showSaveForm) {
     return (
-      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-4 flex flex-col gap-3">
-        <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400">
+      <div className="rounded-2xl border border-stone-200 dark:border-stone-700 p-4 flex flex-col gap-3">
+        <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-stone-500 dark:text-stone-400">
           Nome da composição
         </label>
         <input
@@ -115,13 +115,13 @@ export function SaveCompositionPanel({
           }}
           placeholder="Ex: Craniotomia + DVP"
           maxLength={120}
-          className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:border-primary dark:focus:border-[#5D7EA7] focus:outline-none transition-colors"
+          className="w-full rounded-xl border border-stone-200 dark:border-stone-700 bg-transparent px-3 py-2.5 text-sm font-medium text-stone-900 dark:text-stone-100 placeholder:text-stone-400 focus:border-primary dark:focus:border-[#A18C63] focus:outline-none transition-colors"
         />
         <div className="flex gap-2">
           <button
             onClick={onSaveComposition}
             disabled={savingComposition || !compositionName.trim()}
-            className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-[#5D7EA7]/20 dark:text-[#718BAE] dark:hover:bg-[#5D7EA7]/10"
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-4 py-2.5 text-sm font-semibold text-primary transition-all hover:bg-primary/10 active:scale-[0.98] disabled:opacity-50 dark:border-[#A18C63]/20 dark:text-[#A99876] dark:hover:bg-[#A18C63]/10"
             type="button"
           >
             {savingComposition
@@ -130,7 +130,7 @@ export function SaveCompositionPanel({
           </button>
           <button
             onClick={onHideSaveForm}
-            className="rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+            className="rounded-xl border border-stone-200 dark:border-stone-700 px-4 py-2.5 text-sm font-semibold text-stone-500 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors"
             type="button"
           >
             Cancelar
@@ -149,7 +149,7 @@ export function SaveCompositionPanel({
   return (
     <button
       onClick={onShowSaveForm}
-      className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3 text-sm font-semibold text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-50 dark:hover:bg-slate-800/50 active:scale-[0.98]"
+      className="flex w-full items-center justify-center gap-2 rounded-2xl border border-stone-200 dark:border-stone-700 px-4 py-3 text-sm font-semibold text-stone-600 dark:text-stone-300 transition-all hover:bg-stone-50 dark:hover:bg-stone-800/50 active:scale-[0.98]"
       type="button"
     >
       <BookmarkCheck size={16} /> Salvar composição

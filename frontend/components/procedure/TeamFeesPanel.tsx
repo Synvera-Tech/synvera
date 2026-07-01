@@ -30,11 +30,11 @@ export function TeamFeesPanel({
       <div className="mb-4 grid gap-3 sm:grid-cols-2">
         <div>
           <div className="mb-6 flex items-center gap-2">
-            <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400">
+            <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-stone-500 dark:text-stone-400">
               Número de Auxiliares
             </label>
             {auxIsLocked && (
-              <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#5D7EA7]/10 dark:text-[#718BAE]">
+              <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#A18C63]/10 dark:text-[#A99876]">
                 Definido pelo CBHPM
               </span>
             )}
@@ -51,11 +51,11 @@ export function TeamFeesPanel({
                   "h-9 w-9 rounded-xl border text-sm font-semibold transition-colors",
                   auxIsLocked
                     ? auxiliariesCount === n
-                      ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7] cursor-default"
-                      : "border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed"
+                      ? "border-primary bg-primary text-white dark:border-[#A18C63] dark:bg-[#A18C63] cursor-default"
+                      : "border-stone-100 dark:border-stone-800 text-stone-300 dark:text-stone-600 cursor-not-allowed"
                     : auxiliariesCount === n
-                      ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
-                      : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-primary/40",
+                      ? "border-primary bg-primary text-white dark:border-[#A18C63] dark:bg-[#A18C63]"
+                      : "border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-primary/40",
                 )}
               >
                 {n}
@@ -71,10 +71,10 @@ export function TeamFeesPanel({
             <HeartPulse aria-hidden="true" size={16} />
           </div>
           <div>
-            <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">
+            <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
               Anestesiologista
             </div>
-            <div className="text-[11px] text-slate-500 dark:text-slate-400">
+            <div className="text-[11px] text-stone-500 dark:text-stone-400">
               Honorário derivado automaticamente do porte anestésico (CBHPM). Procedimentos com
               anestesia local (AN0) não geram honorário.
             </div>
@@ -88,10 +88,10 @@ export function TeamFeesPanel({
                 <HeartPulse aria-hidden="true" size={16} />
               </div>
               <div>
-                <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">
+                <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
                   Auxiliar de anestesia (60%)
                 </div>
-                <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                <div className="text-[11px] text-stone-500 dark:text-stone-400">
                   Permitido em AN7/AN8 (CBHPM item 8). Adiciona um 2º anestesiologista a 60%.
                 </div>
               </div>

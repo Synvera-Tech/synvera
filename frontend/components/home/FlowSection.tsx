@@ -39,7 +39,7 @@ const stepVariant: Variants = {
 };
 
 const connectorStyle = {
-  background: "linear-gradient(90deg, #5e6ad2, transparent)",
+  background: "linear-gradient(90deg, #C9A867, transparent)",
   transformOrigin: "left" as const,
 };
 
@@ -54,10 +54,10 @@ export function FlowSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="font-grotesk text-3xl md:text-4xl font-bold mb-4 text-[#E6EEF7]">
+          <h2 className="font-grotesk text-3xl md:text-4xl font-bold mb-4 text-[#F6F1E7]">
             Fluxo simples e determinístico
           </h2>
-          <p className="text-[#8A8F98] text-lg">
+          <p className="text-[#9B9387] text-lg">
             Processamento em tempo real baseado em regras oficiais.
           </p>
         </motion.div>
@@ -77,11 +77,11 @@ export function FlowSection() {
                   variants={stepVariant}
                   className="flex-1 flex flex-col items-center px-6 group"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#5e6ad2]/50 transition-colors duration-200 shadow-lg">
-                    <Icon className="w-6 h-6 text-[#5e6ad2]" />
+                  <div className="w-16 h-16 rounded-2xl bg-stone-900 border border-white/10 flex items-center justify-center mb-6 group-hover:border-[#C9A867]/50 transition-colors duration-200 shadow-lg">
+                    <Icon className="w-6 h-6 text-[#C9A867]" />
                   </div>
-                  <h3 className="font-grotesk font-bold mb-3 text-[#E6EEF7]">{step.title}</h3>
-                  <p className="text-sm text-[#8A8F98] leading-relaxed max-w-[180px]">{step.desc}</p>
+                  <h3 className="font-grotesk font-bold mb-3 text-[#F6F1E7]">{step.title}</h3>
+                  <p className="text-sm text-[#9B9387] leading-relaxed max-w-[180px]">{step.desc}</p>
                 </motion.div>
 
                 {i < steps.length - 1 && (

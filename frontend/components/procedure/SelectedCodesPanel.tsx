@@ -23,9 +23,9 @@ export function SelectedCodesPanel({
 
   return (
     <>
-      <div className="mb-4 flex items-center gap-2 border-t border-slate-100 dark:border-slate-800 pt-5">
+      <div className="mb-4 flex items-center gap-2 border-t border-stone-100 dark:border-stone-800 pt-5">
         <Calculator aria-hidden="true" className="text-primary" size={15} />
-        <span className="text-[13px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <span className="text-[13px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
           Composição CBHPM
         </span>
       </div>
@@ -40,7 +40,7 @@ export function SelectedCodesPanel({
                 "flex items-start gap-3 rounded-2xl border p-3 transition-colors",
                 checked
                   ? "selected-cbhpm-card"
-                  : "border-slate-100 dark:border-slate-800 opacity-60",
+                  : "border-stone-100 dark:border-stone-800 opacity-60",
               )}
             >
               <button
@@ -50,8 +50,8 @@ export function SelectedCodesPanel({
                 className={cn(
                   "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all duration-200",
                   checked
-                    ? "border-primary bg-primary text-white dark:border-[#9DB3D0] dark:bg-[#6F8FB8] checkbox-glow"
-                    : "border-slate-300 dark:border-slate-600",
+                    ? "border-primary bg-primary text-white dark:border-[#CCBEA1] dark:bg-[#B39E74] checkbox-glow"
+                    : "border-stone-300 dark:border-stone-600",
                 )}
               >
                 {checked && <Check size={12} strokeWidth={3} />}
@@ -59,19 +59,19 @@ export function SelectedCodesPanel({
 
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="font-mono text-[11px] font-semibold text-slate-400 dark:text-slate-500">
+                  <span className="font-mono text-[11px] font-semibold text-stone-400 dark:text-stone-500">
                     {c.code}
                   </span>
                   <span className={cn(
                     "rounded-lg border px-2 py-0.5 text-[11px] font-semibold",
                     checked
-                      ? "border-primary/30 text-primary dark:border-[#5D7EA7]/30 dark:text-[#718BAE]"
-                      : "border-slate-200 dark:border-slate-700 text-slate-400",
+                      ? "border-primary/30 text-primary dark:border-[#A18C63]/30 dark:text-[#A99876]"
+                      : "border-stone-200 dark:border-stone-700 text-stone-400",
                   )}>
                     {c.porte}
                   </span>
                 </div>
-                <p className="mt-0.5 text-[12px] leading-snug text-slate-600 dark:text-slate-300">
+                <p className="mt-0.5 text-[12px] leading-snug text-stone-600 dark:text-stone-300">
                   {c.description}
                 </p>
               </div>
@@ -81,7 +81,7 @@ export function SelectedCodesPanel({
                   type="button"
                   onClick={() => onToggleCode(c.code)}
                   aria-label={`Remover ${c.code}`}
-                  className="mt-0.5 shrink-0 text-slate-300 hover:text-red-400 dark:text-slate-600"
+                  className="mt-0.5 shrink-0 text-stone-300 hover:text-red-400 dark:text-stone-600"
                 >
                   <X size={14} />
                 </button>
@@ -92,10 +92,10 @@ export function SelectedCodesPanel({
       </div>
 
       {showAccessRoute && (
-        <div className="mb-5 rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
+        <div className="mb-5 rounded-2xl border border-stone-100 dark:border-stone-800 p-4">
           <div className="mb-3 flex items-center gap-2">
             <Route aria-hidden="true" className="text-primary" size={15} />
-            <span className="text-[13px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+            <span className="text-[13px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
               Via de Acesso
             </span>
           </div>
@@ -110,26 +110,26 @@ export function SelectedCodesPanel({
                   className={cn(
                     "flex w-full items-start gap-3 rounded-xl border p-3 text-left transition-colors",
                     isSelected
-                      ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
-                      : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
+                      ? "border-primary/30 bg-[#F5F2EB] dark:border-[#A18C63]/20 dark:bg-[#332D21]/50"
+                      : "border-stone-100 dark:border-stone-800 hover:border-stone-200 dark:hover:border-stone-700",
                   )}
                 >
                   <span className={cn(
                     "mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                     isSelected
-                      ? "border-primary bg-primary dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
-                      : "border-slate-300 dark:border-slate-600",
+                      ? "border-primary bg-primary dark:border-[#A18C63] dark:bg-[#A18C63]"
+                      : "border-stone-300 dark:border-stone-600",
                   )}>
                     {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
                   </span>
                   <div>
                     <div className={cn(
                       "text-[13px] font-semibold",
-                      isSelected ? "text-primary dark:text-[#718BAE]" : "text-slate-700 dark:text-slate-300",
+                      isSelected ? "text-primary dark:text-[#A99876]" : "text-stone-700 dark:text-stone-300",
                     )}>
                       {route === "same" ? "Mesma via de acesso" : "Vias de acesso diferentes"}
                     </div>
-                    <div className="text-[11px] text-slate-400 dark:text-slate-500">
+                    <div className="text-[11px] text-stone-400 dark:text-stone-500">
                       {route === "same"
                         ? "CBHPM 4.1 — procedimento adicional valorado a 50%"
                         : "CBHPM 4.2 — procedimento adicional valorado a 70%"}

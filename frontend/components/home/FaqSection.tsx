@@ -26,19 +26,19 @@ function AccordionItem({ question, answer }: { question: string; answer: string 
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[rgba(15,16,17,0.4)] overflow-hidden">
+    <div className="rounded-2xl border border-white/10 bg-[rgba(17, 16, 15,0.4)] overflow-hidden">
       <button
         className="w-full flex items-center justify-between p-6 text-left cursor-pointer"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
-        <span className="font-semibold text-[#E6EEF7] pr-4 text-[15px]">{question}</span>
+        <span className="font-semibold text-[#F6F1E7] pr-4 text-[15px]">{question}</span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.22, ease: "easeInOut" }}
           className="flex-shrink-0"
         >
-          <ChevronDown className="w-5 h-5 text-zinc-500" />
+          <ChevronDown className="w-5 h-5 text-stone-500" />
         </motion.span>
       </button>
 
@@ -52,7 +52,7 @@ function AccordionItem({ question, answer }: { question: string; answer: string 
             transition={{ duration: 0.24, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="px-6 pb-6 text-sm text-zinc-400 leading-relaxed">{answer}</p>
+            <p className="px-6 pb-6 text-sm text-stone-400 leading-relaxed">{answer}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -65,7 +65,7 @@ export function FaqSection() {
     <section className="py-32 px-4" id="duvidas" style={{ scrollMarginTop: "88px" }}>
       <div className="max-w-3xl mx-auto">
         <motion.h2
-          className="font-grotesk text-4xl font-bold mb-12 text-center text-[#E6EEF7]"
+          className="font-grotesk text-4xl font-bold mb-12 text-center text-[#F6F1E7]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}

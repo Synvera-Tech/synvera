@@ -23,9 +23,9 @@ const features = [
 
 const meshStyle = {
   backgroundImage: [
-    "radial-gradient(at 0% 0%, rgba(94,106,210,0.15) 0px, transparent 50%)",
-    "radial-gradient(at 100% 0%, rgba(122,139,255,0.1) 0px, transparent 50%)",
-    "radial-gradient(at 50% 100%, rgba(30,58,95,0.15) 0px, transparent 50%)",
+    "radial-gradient(at 0% 0%, rgba(201, 168, 103,0.15) 0px, transparent 50%)",
+    "radial-gradient(at 100% 0%, rgba(223, 200, 154,0.1) 0px, transparent 50%)",
+    "radial-gradient(at 50% 100%, rgba(90, 72, 35,0.15) 0px, transparent 50%)",
   ].join(", "),
 };
 
@@ -44,10 +44,10 @@ export function AuditabilitySection() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="font-grotesk text-4xl md:text-5xl font-bold leading-tight text-[#E6EEF7]">
+            <h2 className="font-grotesk text-4xl md:text-5xl font-bold leading-tight text-[#F6F1E7]">
               Auditabilidade absoluta em cada regra aplicada
             </h2>
-            <p className="text-lg text-[#8A8F98] leading-relaxed">
+            <p className="text-lg text-[#9B9387] leading-relaxed">
               Transforme regras CBHPM e SBN em uma memória de cálculo clara, estruturada e compartilhável.
             </p>
           </motion.div>
@@ -64,12 +64,12 @@ export function AuditabilitySection() {
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
                 >
-                  <div className="w-10 h-10 rounded-lg bg-[#5e6ad2]/10 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-[#5e6ad2]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#C9A867]/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5 h-5 text-[#C9A867]" />
                   </div>
                   <div>
-                    <h4 className="font-bold mb-1 text-[#E6EEF7]">{feat.title}</h4>
-                    <p className="text-sm text-[#8A8F98]">{feat.desc}</p>
+                    <h4 className="font-bold mb-1 text-[#F6F1E7]">{feat.title}</h4>
+                    <p className="text-sm text-[#9B9387]">{feat.desc}</p>
                   </div>
                 </motion.div>
               );
@@ -81,7 +81,7 @@ export function AuditabilitySection() {
         <div className="relative flex items-center justify-center h-[480px]">
           {/* Front card */}
           <motion.div
-            className="absolute w-72 h-44 bg-[rgba(12,13,15,0.85)] border border-[rgba(120,148,184,0.18)] rounded-2xl backdrop-blur-md p-5 flex flex-col justify-between shadow-2xl text-left z-10"
+            className="absolute w-72 h-44 bg-[rgba(15, 14, 12,0.85)] border border-[rgba(179, 161, 125,0.18)] rounded-2xl backdrop-blur-md p-5 flex flex-col justify-between shadow-2xl text-left z-10"
             style={{ rotate: "-12deg", y: -60, x: -40 }}
             animate={{ y: ["-60px", "-68px", "-60px"] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
@@ -90,24 +90,24 @@ export function AuditabilitySection() {
             viewport={{ once: true }}
           >
             <div className="flex justify-between items-start">
-              <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider">CBHPM 2025</span>
-              <ShieldCheck className="w-4 h-4 text-[#5e6ad2]" />
+              <span className="text-[9px] font-mono text-stone-500 uppercase tracking-wider">CBHPM 2025</span>
+              <ShieldCheck className="w-4 h-4 text-[#C9A867]" />
             </div>
             <div>
-              <p className="text-[10px] text-zinc-500 mb-1">Procedimento Principal</p>
-              <p className="text-[11px] font-semibold text-[#E6EEF7] leading-tight">
+              <p className="text-[10px] text-stone-500 mb-1">Procedimento Principal</p>
+              <p className="text-[11px] font-semibold text-[#F6F1E7] leading-tight">
                 Artrodese Cervical — 3 níveis
               </p>
             </div>
             <div className="flex justify-between items-end border-t border-white/5 pt-3">
-              <span className="text-lg font-grotesk font-bold text-[#E6EEF7]">R$ 7.340,00</span>
-              <span className="text-[9px] text-[#5e6ad2] font-medium">Porte 14C · SBN</span>
+              <span className="text-lg font-grotesk font-bold text-[#F6F1E7]">R$ 7.340,00</span>
+              <span className="text-[9px] text-[#C9A867] font-medium">Porte 14C · SBN</span>
             </div>
           </motion.div>
 
           {/* Mid card */}
           <motion.div
-            className="absolute w-72 h-44 bg-zinc-900 border border-white/10 rounded-2xl p-6"
+            className="absolute w-72 h-44 bg-stone-900 border border-white/10 rounded-2xl p-6"
             style={{ rotate: "2deg", y: 20, x: 20 }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 0.55 }}
@@ -123,14 +123,14 @@ export function AuditabilitySection() {
 
           {/* Back card */}
           <motion.div
-            className="absolute w-72 h-44 bg-[#5e6ad2]/10 border border-[#5e6ad2]/20 rounded-2xl p-6 flex items-center justify-center"
+            className="absolute w-72 h-44 bg-[#C9A867]/10 border border-[#C9A867]/20 rounded-2xl p-6 flex items-center justify-center"
             style={{ rotate: "15deg", y: 100, x: -20, zIndex: -1 }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.25 }}
           >
-            <History className="w-12 h-12 text-[#5e6ad2]/20" />
+            <History className="w-12 h-12 text-[#C9A867]/20" />
           </motion.div>
         </div>
       </div>

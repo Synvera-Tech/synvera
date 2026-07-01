@@ -57,20 +57,20 @@ function ResultCard({ result, index }: { result: SearchResult; index: number }) 
 
   return (
     <article
-      className="group rounded-2xl border border-slate-200 dark:border-slate-700/80 bg-white dark:bg-slate-900/60 p-5 transition-shadow hover:shadow-md dark:hover:shadow-slate-900/60"
+      className="group rounded-2xl border border-stone-200 dark:border-stone-700/80 bg-white dark:bg-stone-900/60 p-5 transition-shadow hover:shadow-md dark:hover:shadow-stone-900/60"
       style={{ animationDelay: `${index * 60}ms`, animation: "slideUp 0.28s ease both" }}
     >
       {/* Source row */}
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/8 dark:bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary dark:text-blue-300 leading-none">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/8 dark:bg-primary/15 px-2.5 py-1 text-[11px] font-semibold text-primary dark:text-amber-300 leading-none">
           <FileText size={10} aria-hidden="true" />
           {docLabel}
         </span>
-        <span className="text-[11.5px] text-slate-400 dark:text-slate-500">
+        <span className="text-[11.5px] text-stone-400 dark:text-stone-500">
           p.&nbsp;{result.page}
         </span>
         {result.section && (
-          <span className="max-w-[280px] truncate rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-2 py-0.5 text-[10.5px] text-slate-500 dark:text-slate-400 leading-none">
+          <span className="max-w-[280px] truncate rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 px-2 py-0.5 text-[10.5px] text-stone-500 dark:text-stone-400 leading-none">
             {result.section}
           </span>
         )}
@@ -78,17 +78,17 @@ function ResultCard({ result, index }: { result: SearchResult; index: number }) 
 
       {/* Section title */}
       {result.section && (
-        <p className="mb-2 text-[13.5px] font-bold text-slate-800 dark:text-slate-100 leading-snug">
+        <p className="mb-2 text-[13.5px] font-bold text-stone-800 dark:text-stone-100 leading-snug">
           {result.section}
         </p>
       )}
 
       {/* Divider */}
-      <div className="mb-3 h-px bg-slate-100 dark:bg-slate-700/60" />
+      <div className="mb-3 h-px bg-stone-100 dark:bg-stone-700/60" />
 
       {/* Excerpt with «» highlight */}
       <p
-        className="text-[13px] leading-relaxed text-slate-600 dark:text-slate-300"
+        className="text-[13px] leading-relaxed text-stone-600 dark:text-stone-300"
         dangerouslySetInnerHTML={{ __html: highlightExcerpt(result.excerpt) }}
       />
     </article>
@@ -101,7 +101,7 @@ function highlightExcerpt(excerpt: string): string {
     .replace(/>/g, "&gt;")
     .replace(
       /«/g,
-      '<mark class="bg-primary/12 text-primary dark:bg-primary/25 dark:text-blue-300 rounded px-0.5 not-italic font-semibold">'
+      '<mark class="bg-primary/12 text-primary dark:bg-primary/25 dark:text-amber-300 rounded px-0.5 not-italic font-semibold">'
     )
     .replace(/»/g, "</mark>");
 }
@@ -121,12 +121,12 @@ function EmptyState({
 }) {
   if (!query) return null;
   return (
-    <div className="mx-auto max-w-xl rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/40 px-6 py-10 text-center">
-      <p className="text-[13.5px] font-medium text-slate-500 dark:text-slate-400">
+    <div className="mx-auto max-w-xl rounded-2xl border border-stone-100 dark:border-stone-800 bg-stone-50/60 dark:bg-stone-900/40 px-6 py-10 text-center">
+      <p className="text-[13.5px] font-medium text-stone-500 dark:text-stone-400">
         {isFiltered ? (
           <>
             Nenhuma referência em{" "}
-            <span className="font-semibold text-slate-600 dark:text-slate-300">{filterLabel}</span>{" "}
+            <span className="font-semibold text-stone-600 dark:text-stone-300">{filterLabel}</span>{" "}
             para esta consulta. O termo pode estar em outro manual.
           </>
         ) : (
@@ -137,7 +137,7 @@ function EmptyState({
         <button
           type="button"
           onClick={onBroaden}
-          className="mt-3.5 inline-flex items-center gap-1.5 rounded-lg border border-primary/25 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-3 py-1.5 text-[12px] font-semibold text-primary dark:text-blue-300 hover:bg-primary/15 dark:hover:bg-primary/25 transition-colors"
+          className="mt-3.5 inline-flex items-center gap-1.5 rounded-lg border border-primary/25 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-3 py-1.5 text-[12px] font-semibold text-primary dark:text-amber-300 hover:bg-primary/15 dark:hover:bg-primary/25 transition-colors"
         >
           Buscar em todos os manuais
         </button>
@@ -164,8 +164,8 @@ function PageNav() {
               <img src="/brand/synvera-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
             </div>
             <div>
-              <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Synvera</span>
-              <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">Neurocirurgia · Coluna</span>
+              <span className="block text-base font-extrabold tracking-tight text-stone-950 dark:text-stone-50">Synvera</span>
+              <span className="block text-[10px] font-medium tracking-[0.3px] text-stone-500 dark:text-stone-400 leading-none">Neurocirurgia · Coluna</span>
             </div>
           </Link>
 
@@ -173,7 +173,7 @@ function PageNav() {
           <Link
             href="/consulta-documental"
             aria-current="page"
-            className="flex items-center gap-1.5 rounded-lg border border-slate-300 dark:border-slate-500/80 bg-white dark:bg-slate-800/90 px-3 py-1.5 text-[11.5px] font-semibold text-slate-800 dark:text-slate-100 shadow-sm ring-1 ring-primary/10 dark:ring-primary/20 transition-colors no-underline"
+            className="flex items-center gap-1.5 rounded-lg border border-stone-300 dark:border-stone-500/80 bg-white dark:bg-stone-800/90 px-3 py-1.5 text-[11.5px] font-semibold text-stone-800 dark:text-stone-100 shadow-sm ring-1 ring-primary/10 dark:ring-primary/20 transition-colors no-underline"
           >
             <BookOpen size={12} aria-hidden="true" />
             Documentação
@@ -188,7 +188,7 @@ function PageNav() {
               <SignInButton mode="modal">
                 <button
                   type="button"
-                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/60 transition-colors"
+                  className="flex items-center gap-1.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 px-3 py-1.5 text-xs font-semibold text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700/60 transition-colors"
                 >
                   <LogIn size={13} aria-hidden="true" />
                   Entrar
@@ -205,7 +205,7 @@ function PageNav() {
             type="button"
           >
             <Sun aria-hidden="true" size={13} className="absolute left-2 text-amber-500 transition-opacity dark:opacity-35" />
-            <Moon aria-hidden="true" size={13} className="absolute right-2 text-slate-500 opacity-45 transition-opacity dark:text-[#94A3B8] dark:opacity-100" />
+            <Moon aria-hidden="true" size={13} className="absolute right-2 text-stone-500 opacity-45 transition-opacity dark:text-[#B5AB97] dark:opacity-100" />
             <span
               aria-hidden="true"
               className={`theme-switch-thumb absolute top-1 h-6 w-6 rounded-full transition-transform duration-200 ${isDark ? "translate-x-7" : "translate-x-1"}`}
@@ -335,17 +335,17 @@ export function DocumentSearchPageContent() {
       <section className="relative z-[1] mx-auto max-w-[960px] px-5 pb-8 pt-12 text-center">
         {/* Source badge */}
         <div className="mb-5 flex justify-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-primary dark:text-blue-300 leading-none">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-primary dark:text-amber-300 leading-none">
             <FileText size={11} aria-hidden="true" />
             CBHPM · Manual SBN · Manual Coluna
           </span>
         </div>
 
         {/* Title */}
-        <h1 className="m-0 mb-3 text-[34px] font-extrabold tracking-tight text-slate-950 dark:text-slate-50 leading-tight sm:text-[40px]">
+        <h1 className="m-0 mb-3 text-[34px] font-extrabold tracking-tight text-stone-950 dark:text-stone-50 leading-tight sm:text-[40px]">
           Consulte a documentação oficial
         </h1>
-        <p className="mx-auto m-0 mb-8 max-w-xl text-[15px] text-slate-500 dark:text-slate-400 leading-relaxed">
+        <p className="mx-auto m-0 mb-8 max-w-xl text-[15px] text-stone-500 dark:text-stone-400 leading-relaxed">
           Pesquise regras, diretrizes e fundamentos diretamente na CBHPM&nbsp;2025-2026,
           Manual SBN Neurocirurgia&nbsp;2018 e Manual de Cirurgia de Coluna&nbsp;3ª&nbsp;ed.
         </p>
@@ -356,10 +356,10 @@ export function DocumentSearchPageContent() {
           className="relative mx-auto max-w-2xl"
           role="search"
         >
-          <div className="relative flex items-center rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/70 shadow-sm dark:shadow-none focus-within:border-primary/50 dark:focus-within:border-primary/40 transition-colors">
+          <div className="relative flex items-center rounded-2xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900/70 shadow-sm dark:shadow-none focus-within:border-primary/50 dark:focus-within:border-primary/40 transition-colors">
             <Search
               size={18}
-              className="absolute left-5 text-slate-400 dark:text-slate-500 pointer-events-none flex-shrink-0"
+              className="absolute left-5 text-stone-400 dark:text-stone-500 pointer-events-none flex-shrink-0"
               aria-hidden="true"
             />
             <input
@@ -371,7 +371,7 @@ export function DocumentSearchPageContent() {
               aria-label="Consulta documental"
               minLength={3}
               maxLength={300}
-              className="w-full rounded-2xl bg-transparent py-4 pl-13 pr-32 text-[15px] text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 outline-none"
+              className="w-full rounded-2xl bg-transparent py-4 pl-13 pr-32 text-[15px] text-stone-800 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-600 outline-none"
               style={{ paddingLeft: "3.25rem" }}
             />
             <button
@@ -401,7 +401,7 @@ export function DocumentSearchPageContent() {
                 key={ex}
                 type="button"
                 onClick={() => handleExample(ex)}
-                className="cursor-pointer rounded-full border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/60 px-3 py-1.5 text-[12px] font-medium text-slate-600 dark:text-slate-400 hover:border-primary/40 hover:text-primary dark:hover:text-primary transition-colors"
+                className="cursor-pointer rounded-full border border-stone-200 dark:border-stone-700 bg-white/80 dark:bg-stone-800/60 px-3 py-1.5 text-[12px] font-medium text-stone-600 dark:text-stone-400 hover:border-primary/40 hover:text-primary dark:hover:text-primary transition-colors"
               >
                 {ex}
               </button>
@@ -420,7 +420,7 @@ export function DocumentSearchPageContent() {
           {/* Filter pills + count bar */}
           <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
             {/* Result count */}
-            <p className="text-[12px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <p className="text-[12px] font-semibold uppercase tracking-wider text-stone-400 dark:text-stone-500">
               {isLoading
                 ? "Buscando…"
                 : hasResults
@@ -438,8 +438,8 @@ export function DocumentSearchPageContent() {
                   className={cn(
                     "cursor-pointer rounded-full border px-3 py-1 text-[11.5px] font-medium transition-colors",
                     activeFilter === f.id
-                      ? "border-primary/30 bg-primary/10 dark:bg-primary/20 text-primary dark:text-blue-300"
-                      : "border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 hover:border-primary/30 hover:text-primary dark:hover:text-primary"
+                      ? "border-primary/30 bg-primary/10 dark:bg-primary/20 text-primary dark:text-amber-300"
+                      : "border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/50 text-stone-500 dark:text-stone-400 hover:border-primary/30 hover:text-primary dark:hover:text-primary"
                   )}
                 >
                   {f.label}
@@ -459,7 +459,7 @@ export function DocumentSearchPageContent() {
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="h-32 animate-pulse rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-800/40"
+                  className="h-32 animate-pulse rounded-2xl border border-stone-100 dark:border-stone-800 bg-stone-100/60 dark:bg-stone-800/40"
                 />
               ))}
             </div>
@@ -482,8 +482,8 @@ export function DocumentSearchPageContent() {
                 onClick={handleLoadMore}
                 disabled={isLoadingMore}
                 className={cn(
-                  "rounded-xl border border-slate-200 dark:border-slate-700 px-6 py-2.5 text-[13px] font-semibold transition-colors",
-                  "bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-300",
+                  "rounded-xl border border-stone-200 dark:border-stone-700 px-6 py-2.5 text-[13px] font-semibold transition-colors",
+                  "bg-white dark:bg-stone-900/60 text-stone-600 dark:text-stone-300",
                   "hover:enabled:border-primary/40 hover:enabled:text-primary dark:hover:enabled:text-primary",
                   "disabled:opacity-50 disabled:cursor-not-allowed"
                 )}
@@ -514,8 +514,8 @@ export function DocumentSearchPageContent() {
 
       <footer className="relative z-[1] px-5 pb-6 text-center">
         <div className="footer-divider mb-3.5 h-px" />
-        <p className="m-0 text-xs font-medium text-slate-400 dark:text-slate-500">
-          2026 &nbsp;·&nbsp; <span className="font-bold text-slate-500">LabF5</span> &nbsp;·&nbsp; Todos os direitos reservados
+        <p className="m-0 text-xs font-medium text-stone-400 dark:text-stone-500">
+          2026 &nbsp;·&nbsp; <span className="font-bold text-stone-500">LabF5</span> &nbsp;·&nbsp; Todos os direitos reservados
         </p>
       </footer>
     </main>

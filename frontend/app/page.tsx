@@ -16,17 +16,17 @@ import { Footer } from "@/components/home/Footer";
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
 const T = {
-  bg:          "#E2EBF3",
+  bg:          "#F2EDE3",
   surface:     "#FFFFFF",
-  cardBorder:  "rgba(53,92,138,0.12)",
-  primary:     "#0F172A",
-  secondary:   "#475569",
-  muted:       "#64748B",
-  inputBorder: "#CBD5E1",
-  inputFocus:  "#94A3B8",
-  btnBg:       "#1E293B",
-  btnHover:    "#334155",
-  sapphire:        "#232D3B",
+  cardBorder:  "rgba(79, 61, 25,0.12)",
+  primary:     "#201E1B",
+  secondary:   "#665D4A",
+  muted:       "#8B7E64",
+  inputBorder: "#D8CEBE",
+  inputFocus:  "#B5AB97",
+  btnBg:       "#393120",
+  btnHover:    "#524936",
+  sapphire:        "#393225",
 } as const;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -102,10 +102,10 @@ export default function Home() {
       style={{
         minHeight: "100vh",
         background: [
-          "radial-gradient(circle at top center, rgba(53,92,138,0.18) 0%, transparent 45%)",
-          "radial-gradient(circle at 15% 88%, rgba(30,58,95,0.08) 0%, transparent 40%)",
-          "radial-gradient(ellipse 700px 500px at 80% 20%, rgba(30,58,95,0.06) 0%, transparent 60%)",
-          "linear-gradient(180deg, #E2EBF3 0%, #D6E1EB 100%)",
+          "radial-gradient(circle at top center, rgba(79, 61, 25,0.18) 0%, transparent 45%)",
+          "radial-gradient(circle at 15% 88%, rgba(41, 32, 13,0.08) 0%, transparent 40%)",
+          "radial-gradient(ellipse 700px 500px at 80% 20%, rgba(41, 32, 13,0.06) 0%, transparent 60%)",
+          "linear-gradient(180deg, #F2EDE3 0%, #E9E3D8 100%)",
         ].join(", "),
       }}
     >
@@ -113,11 +113,11 @@ export default function Home() {
       <nav
         style={{
           position: "sticky", top: 0, zIndex: 50,
-          backgroundColor: "rgba(243,246,249,0.72)",
+          backgroundColor: "rgba(249, 247, 243,0.72)",
           backdropFilter: "blur(12px) saturate(160%)",
           WebkitBackdropFilter: "blur(12px) saturate(160%)",
           borderBottom: "1px solid rgba(255,255,255,0.45)",
-          boxShadow: "0 12px 30px rgba(15,23,42,0.08)",
+          boxShadow: "0 12px 30px rgba(40, 30, 20,0.08)",
         }}
       >
         <div
@@ -133,9 +133,9 @@ export default function Home() {
               style={{
                 width: "34px", height: "34px", flexShrink: 0,
                 display: "flex", alignItems: "center", justifyContent: "center",
-                background: "linear-gradient(145deg, #E6EEF5, #D8E5EE)",
+                background: "linear-gradient(145deg, #F4F0E7, #ECE6DA)",
                 borderRadius: "9px",
-                border: "1px solid rgba(53,92,138,0.12)",
+                border: "1px solid rgba(79, 61, 25,0.12)",
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -180,14 +180,14 @@ export default function Home() {
             style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               padding: "11px 24px",
-              backgroundColor: "#5D7EA7",
+              backgroundColor: "#A18C63",
               color: "#fff",
               borderRadius: "10px",
               fontSize: "14px", fontWeight: 600,
               textDecoration: "none",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#2C4F78")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#5D7EA7")}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#725D32")}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#A18C63")}
           >
             <Plus size={15} aria-hidden="true" />
             Novo cálculo
@@ -287,7 +287,7 @@ export default function Home() {
 
 function UnauthenticatedHome() {
   return (
-    <div style={{ backgroundColor: "#010102", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#171310", minHeight: "100vh" }}>
       <style>{`
         body { scroll-behavior: smooth; }
         @media (prefers-reduced-motion: reduce) {
@@ -351,7 +351,7 @@ function NavLink({ href, children, active, disabled, label }: NavLinkProps) {
         borderRadius: "6px",
         transition: "background-color 150ms ease",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(15,23,42,0.04)")}
+      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(40, 30, 20,0.04)")}
       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
     >
       {text}
@@ -402,8 +402,8 @@ function CompositionCard({ comp }: CompositionCardProps) {
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.backgroundColor = "#F8FAFC";
-        e.currentTarget.style.borderColor = "rgba(53,92,138,0.24)";
-        e.currentTarget.style.boxShadow = "0 4px 12px rgba(15,23,42,0.08)";
+        e.currentTarget.style.borderColor = "rgba(79, 61, 25,0.24)";
+        e.currentTarget.style.boxShadow = "0 4px 12px rgba(40, 30, 20,0.08)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.backgroundColor = "#fff";
@@ -478,7 +478,7 @@ function ToolCard({ icon, title, description, href, disabled, signIn }: ToolCard
       style={baseStyle}
       onMouseEnter={(e) => {
         e.currentTarget.style.backgroundColor = "#F8FAFC";
-        e.currentTarget.style.borderColor = "rgba(53,92,138,0.24)";
+        e.currentTarget.style.borderColor = "rgba(79, 61, 25,0.24)";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.backgroundColor = "#fff";

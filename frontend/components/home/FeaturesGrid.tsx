@@ -31,8 +31,8 @@ export function FeaturesGrid() {
       id="recursos"
       style={{
         padding: "80px 24px 120px",
-        background: "linear-gradient(180deg, #0B0D10 0%, #050508 100%)",
-        borderTop: "1px solid rgba(35,37,42,0.6)",
+        background: "linear-gradient(180deg, #100E0B 0%, #050508 100%)",
+        borderTop: "1px solid rgba(42, 39, 35,0.6)",
         scrollMarginTop: "88px",
       }}
     >
@@ -55,7 +55,7 @@ export function FeaturesGrid() {
             style={{
               margin: "0",
               fontSize: "16px",
-              color: "#d0d6e0",
+              color: "#DFDAD1",
               maxWidth: "500px",
               marginLeft: "auto",
               marginRight: "auto",
@@ -81,8 +81,8 @@ export function FeaturesGrid() {
                 key={index}
                 style={{
                   padding: "28px 24px",
-                  background: "#0f1011",
-                  border: "1px solid rgba(35,37,42,0.8)",
+                  background: "#11100F",
+                  border: "1px solid rgba(42, 39, 35,0.8)",
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -91,13 +91,13 @@ export function FeaturesGrid() {
                   animation: `fadeInScale 0.6s ease-out ${0.2 + index * 0.1}s both`,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#141516";
-                  e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
+                  e.currentTarget.style.background = "#171513";
+                  e.currentTarget.style.borderColor = "rgba(179, 161, 125,0.24)";
                   e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.2)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#0f1011";
-                  e.currentTarget.style.borderColor = "rgba(35,37,42,0.8)";
+                  e.currentTarget.style.background = "#11100F";
+                  e.currentTarget.style.borderColor = "rgba(42, 39, 35,0.8)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
@@ -106,19 +106,19 @@ export function FeaturesGrid() {
                     width: "44px",
                     height: "44px",
                     borderRadius: "8px",
-                    background: "linear-gradient(135deg, rgba(94,106,210,0.20), rgba(94,106,210,0.10))",
+                    background: "linear-gradient(135deg, rgba(201, 168, 103,0.20), rgba(201, 168, 103,0.10))",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#5e6ad2",
+                    color: "#C9A867",
                     transition: "all 300ms ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(94,106,210,0.30), rgba(94,106,210,0.20))";
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(201, 168, 103,0.30), rgba(201, 168, 103,0.20))";
                     e.currentTarget.style.transform = "scale(1.1) rotate(5deg)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(94,106,210,0.20), rgba(94,106,210,0.10))";
+                    e.currentTarget.style.background = "linear-gradient(135deg, rgba(201, 168, 103,0.20), rgba(201, 168, 103,0.10))";
                     e.currentTarget.style.transform = "scale(1) rotate(0deg)";
                   }}
                 >
@@ -139,7 +139,7 @@ export function FeaturesGrid() {
                     style={{
                       margin: "0",
                       fontSize: "13px",
-                      color: "#8a8f98",
+                      color: "#9B9387",
                       lineHeight: 1.6,
                     }}
                   >

@@ -52,9 +52,9 @@ function ReportSection({
   className?: string;
 }) {
   return (
-    <section className={cn("report-section border-b border-slate-100 px-8 py-12 sm:px-12 sm:py-14", className)}>
+    <section className={cn("report-section border-b border-stone-100 px-8 py-12 sm:px-12 sm:py-14", className)}>
       {label && (
-        <p className="mb-7 text-[9px] font-bold uppercase tracking-[0.26em] text-slate-400">{label}</p>
+        <p className="mb-7 text-[9px] font-bold uppercase tracking-[0.26em] text-stone-400">{label}</p>
       )}
       {children}
     </section>
@@ -64,8 +64,8 @@ function ReportSection({
 function MetaField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">{label}</span>
-      <span className="mt-1 block text-[13.5px] font-semibold text-slate-800">{value}</span>
+      <span className="block text-[9px] font-bold uppercase tracking-[0.2em] text-stone-400">{label}</span>
+      <span className="mt-1 block text-[13.5px] font-semibold text-stone-800">{value}</span>
     </div>
   );
 }
@@ -86,7 +86,7 @@ function BreakdownLine({
       <span
         className={cn(
           "text-[12px]",
-          strong ? "font-semibold text-slate-700" : muted ? "text-slate-400" : "text-slate-500",
+          strong ? "font-semibold text-stone-700" : muted ? "text-stone-400" : "text-stone-500",
         )}
       >
         {label}
@@ -94,7 +94,7 @@ function BreakdownLine({
       <span
         className={cn(
           "font-grotesk text-[12px] font-semibold tabular-nums",
-          strong ? "text-slate-900" : muted ? "text-slate-400" : "text-slate-600",
+          strong ? "text-stone-900" : muted ? "text-stone-400" : "text-stone-600",
         )}
       >
         {value}
@@ -105,12 +105,12 @@ function BreakdownLine({
 
 function TeamCard({ role, note, value }: { role: string; note?: string; value: number }) {
   return (
-    <div className="report-section rounded-xl bg-white p-5 ring-1 ring-slate-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
-      <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">
+    <div className="report-section rounded-xl bg-white p-5 ring-1 ring-stone-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.05)]">
+      <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-stone-400">
         {role}
-        {note && <span className="ml-2 text-[#355C8A]">{note}</span>}
+        {note && <span className="ml-2 text-[#4F3D19]">{note}</span>}
       </p>
-      <p className="mt-3 font-grotesk text-[22px] font-bold leading-none tracking-tight text-slate-900">
+      <p className="mt-3 font-grotesk text-[22px] font-bold leading-none tracking-tight text-stone-900">
         {money.format(value)}
       </p>
     </div>
@@ -119,9 +119,9 @@ function TeamCard({ role, note, value }: { role: string; note?: string; value: n
 
 function SummaryPill({ label, value }: { label: string; value: string }) {
   return (
-    <span className="text-[11px] text-slate-400">
+    <span className="text-[11px] text-stone-400">
       {label}{" "}
-      <span className="font-grotesk font-semibold tabular-nums text-slate-200">{value}</span>
+      <span className="font-grotesk font-semibold tabular-nums text-stone-200">{value}</span>
     </span>
   );
 }
@@ -130,10 +130,10 @@ function SummaryPill({ label, value }: { label: string; value: string }) {
 function ExplainBlock({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex gap-4">
-      <div className="w-0.5 shrink-0 rounded-full bg-[#355C8A]/25 self-stretch" />
+      <div className="w-0.5 shrink-0 rounded-full bg-[#4F3D19]/25 self-stretch" />
       <div>
-        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">{title}</p>
-        <div className="space-y-1 text-[13px] leading-relaxed text-slate-500">{children}</div>
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">{title}</p>
+        <div className="space-y-1 text-[13px] leading-relaxed text-stone-500">{children}</div>
       </div>
     </div>
   );
@@ -156,17 +156,17 @@ function ActionButtons() {
       <button
         type="button"
         onClick={copyLink}
-        className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-[11px] font-semibold text-slate-600 shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition-colors hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98]"
+        className="flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-2 text-[11px] font-semibold text-stone-600 shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition-colors hover:border-stone-300 hover:bg-stone-50 active:scale-[0.98]"
       >
         {copied
-          ? <Check size={12} className="text-[#355C8A]" aria-hidden="true" />
+          ? <Check size={12} className="text-[#4F3D19]" aria-hidden="true" />
           : <Copy size={12} aria-hidden="true" />}
         <span>{copied ? "Copiado!" : "Copiar link"}</span>
       </button>
       <button
         type="button"
         onClick={() => window.print()}
-        className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-[11px] font-semibold text-slate-600 shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition-colors hover:border-slate-300 hover:bg-slate-50 active:scale-[0.98]"
+        className="flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-2 text-[11px] font-semibold text-stone-600 shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition-colors hover:border-stone-300 hover:bg-stone-50 active:scale-[0.98]"
       >
         <Printer size={12} aria-hidden="true" />
         <span className="hidden sm:inline">Imprimir relatório</span>
@@ -190,28 +190,28 @@ function ShareQRSection() {
   if (!url) return null;
 
   return (
-    <section className="report-section border-t border-slate-100 px-8 py-10 sm:px-12">
+    <section className="report-section border-t border-stone-100 px-8 py-10 sm:px-12">
       <div className="flex flex-col items-center gap-5 text-center sm:flex-row sm:justify-center sm:text-left">
-        <div className="shrink-0 rounded-2xl border border-slate-200 bg-white p-3.5">
+        <div className="shrink-0 rounded-2xl border border-stone-200 bg-white p-3.5">
           <QRCodeSVG
             value={url}
             size={132}
             level="M"
             marginSize={0}
             bgColor="#FFFFFF"
-            fgColor="#0F172A"
+            fgColor="#201E1B"
             title="QR Code para abrir o relatório no celular"
             className="h-[132px] w-[132px]"
           />
         </div>
         <div className="max-w-[280px]">
-          <p className="flex items-center justify-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 sm:justify-start">
+          <p className="flex items-center justify-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-stone-400 sm:justify-start">
             <Smartphone size={11} aria-hidden="true" /> Abrir no celular
           </p>
-          <p className="mt-2.5 text-[12px] leading-relaxed text-slate-500">
+          <p className="mt-2.5 text-[12px] leading-relaxed text-stone-500">
             Escaneie o QR Code para abrir este relatório no smartphone.
           </p>
-          <p className="mt-2.5 break-all text-[10px] font-medium text-slate-400">{url}</p>
+          <p className="mt-2.5 break-all text-[10px] font-medium text-stone-400">{url}</p>
         </div>
       </div>
     </section>
@@ -300,8 +300,8 @@ function ShareContent() {
   if (loading) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-200 border-t-slate-600" />
-        <p className="text-[12px] tracking-wide text-slate-400">Preparando relatório…</p>
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-stone-200 border-t-stone-600" />
+        <p className="text-[12px] tracking-wide text-stone-400">Preparando relatório…</p>
       </div>
     );
   }
@@ -310,10 +310,10 @@ function ShareContent() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 px-8 text-center">
         <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-red-400">Erro</p>
-        <p className="text-[14px] text-slate-600">{error}</p>
+        <p className="text-[14px] text-stone-600">{error}</p>
         <Link
           href="/"
-          className="mt-2 text-[12px] font-semibold text-[#1E3A5F] underline-offset-2 hover:underline"
+          className="mt-2 text-[12px] font-semibold text-[#725C30] underline-offset-2 hover:underline"
         >
           Voltar ao início
         </Link>
@@ -347,7 +347,7 @@ function ShareContent() {
     <article>
       {/* ── 1. Procedimento ───────────────────────────────────── */}
       <ReportSection label="Procedimento">
-        <h1 className="m-0 text-[22px] font-extrabold leading-tight tracking-tight text-slate-900 sm:text-[26px]">
+        <h1 className="m-0 text-[22px] font-extrabold leading-tight tracking-tight text-stone-900 sm:text-[26px]">
           {procedure?.name ?? "—"}
         </h1>
         <div className="mt-8 grid grid-cols-3 gap-x-6 gap-y-5">
@@ -368,7 +368,7 @@ function ShareContent() {
         {/* Acréscimos CBHPM aplicados */}
         {hasAdjustments && (
           <div className="mt-6 space-y-2">
-            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">Acréscimos CBHPM</p>
+            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-stone-400">Acréscimos CBHPM</p>
             <div className="inline-block rounded-lg bg-amber-50 px-4 py-3 ring-1 ring-amber-200/80 space-y-1.5">
               {calculation.selected_adjustments.map((a) => (
                 <div key={a.code} className="flex items-center gap-3">
@@ -391,12 +391,12 @@ function ShareContent() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-slate-100">
+              <tr className="border-b border-stone-100">
                 {(["Código", "Descrição", "Porte", "Valor base"] as const).map((h, i) => (
                   <th
                     key={h}
                     className={cn(
-                      "pb-4 text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400",
+                      "pb-4 text-[9px] font-bold uppercase tracking-[0.2em] text-stone-400",
                       i >= 2 && "text-right",
                     )}
                   >
@@ -407,18 +407,18 @@ function ShareContent() {
             </thead>
             <tbody>
               {calculation.code_breakdown.map((b, idx) => (
-                <tr key={b.cbhpm_code} className={cn("border-b border-slate-50 last:border-0", idx % 2 === 1 && "bg-slate-50/40")}>
+                <tr key={b.cbhpm_code} className={cn("border-b border-stone-50 last:border-0", idx % 2 === 1 && "bg-stone-50/40")}>
                   <td className="py-5 pr-5">
-                    <span className="font-mono text-[11px] text-slate-500">{b.cbhpm_code}</span>
+                    <span className="font-mono text-[11px] text-stone-500">{b.cbhpm_code}</span>
                     {b.is_principal && (
-                      <span className="ml-2 rounded-sm bg-[#1E3A5F]/[0.06] px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-[#1E3A5F] ring-1 ring-[#355C8A]/20">
+                      <span className="ml-2 rounded-sm bg-[#725C30]/[0.06] px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-[#725C30] ring-1 ring-[#4F3D19]/20">
                         principal
                       </span>
                     )}
                   </td>
-                  <td className="py-5 pr-6 text-[12px] leading-snug text-slate-600">{b.description}</td>
-                  <td className="py-5 text-right text-[12px] font-semibold text-slate-600">{b.porte}</td>
-                  <td className="py-5 pl-5 text-right font-grotesk text-[13px] font-semibold tabular-nums text-slate-900">
+                  <td className="py-5 pr-6 text-[12px] leading-snug text-stone-600">{b.description}</td>
+                  <td className="py-5 text-right text-[12px] font-semibold text-stone-600">{b.porte}</td>
+                  <td className="py-5 pl-5 text-right font-grotesk text-[13px] font-semibold tabular-nums text-stone-900">
                     {money.format(b.base_value)}
                   </td>
                 </tr>
@@ -428,9 +428,9 @@ function ShareContent() {
         </div>
 
         {hasMultiProcedure && (
-          <div className="mt-10 overflow-hidden rounded-xl border border-slate-100">
-            <div className="border-b border-slate-100 bg-slate-50/70 px-5 py-3.5">
-              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400">
+          <div className="mt-10 overflow-hidden rounded-xl border border-stone-100">
+            <div className="border-b border-stone-100 bg-stone-50/70 px-5 py-3.5">
+              <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-stone-400">
                 Detalhamento — cirurgião principal
               </p>
             </div>
@@ -449,7 +449,7 @@ function ShareContent() {
                 value={money.format(calculation.surgeon_breakdown.additional_discounted)}
                 muted
               />
-              <div className="border-t border-slate-100 pt-2">
+              <div className="border-t border-stone-100 pt-2">
                 <BreakdownLine
                   label="Base CBHPM cirurgião"
                   value={money.format(calculation.surgeon_breakdown.surgeon_total)}
@@ -463,7 +463,7 @@ function ShareContent() {
                     value={`+${money.format(calculation.adjustment_value)}`}
                     muted
                   />
-                  <div className="border-t border-slate-100 pt-2">
+                  <div className="border-t border-stone-100 pt-2">
                     <BreakdownLine
                       label="Total cirurgião (com acréscimos)"
                       value={money.format(calculation.lead_surgeon_fee)}
@@ -495,7 +495,7 @@ function ShareContent() {
             )}
           </div>
           {hasAdjustments && (
-            <p className="mt-4 text-[10px] text-slate-400">
+            <p className="mt-4 text-[10px] text-stone-400">
               Valores já incluem o acréscimo de +{calculation.total_adjustment_percentage.toFixed(0)}% (
               {calculation.selected_adjustments.map((a) => a.label).join("; ")}).
             </p>
@@ -505,10 +505,10 @@ function ShareContent() {
 
       {/* ── 4. Total da equipe — tela (dark) ────────────────── */}
       <section
-        className="total-screen report-section border-b border-slate-800/20 px-8 py-14 sm:px-12 sm:py-16"
-        style={{ background: "#0F172A" }}
+        className="total-screen report-section border-b border-stone-800/20 px-8 py-14 sm:px-12 sm:py-16"
+        style={{ background: "#201E1B" }}
       >
-        <p className="text-[9px] font-bold uppercase tracking-[0.26em] text-slate-400">
+        <p className="text-[9px] font-bold uppercase tracking-[0.26em] text-stone-400">
           Total da Equipe
         </p>
         {hasAdjustments && (
@@ -545,21 +545,21 @@ function ShareContent() {
           )}
         </div>
         {hasAdjustments && (
-          <p className="mt-4 text-[10px] leading-relaxed text-slate-500">
+          <p className="mt-4 text-[10px] leading-relaxed text-stone-500">
             Base: {money.format(calculation.base_team_total_value)} · Acréscimos CBHPM: +{money.format(calculation.adjustment_value)}
           </p>
         )}
-        <p className="mt-7 text-[10px] leading-relaxed tracking-wide text-slate-500">
+        <p className="mt-7 text-[10px] leading-relaxed tracking-wide text-stone-500">
           {accessRuleLabel}
         </p>
       </section>
 
       {/* ── 4. Total da equipe — impressão (light) ───────────── */}
-      <section className="total-print report-section border-b border-slate-200 px-8 py-10 sm:px-12">
-        <p className="text-[9px] font-bold uppercase tracking-[0.26em] text-slate-400">
+      <section className="total-print report-section border-b border-stone-200 px-8 py-10 sm:px-12">
+        <p className="text-[9px] font-bold uppercase tracking-[0.26em] text-stone-400">
           Total da Equipe
         </p>
-        <p className="mt-3 font-grotesk text-[38px] font-bold leading-none tracking-tight text-slate-900">
+        <p className="mt-3 font-grotesk text-[38px] font-bold leading-none tracking-tight text-stone-900">
           {money.format(calculation.final_total)}
         </p>
         <div className="mt-4 flex flex-wrap gap-x-8 gap-y-2">
@@ -583,23 +583,23 @@ function ShareContent() {
             {" "}· CBHPM 2022, Instruções Gerais
           </p>
         )}
-        <p className="mt-5 text-[10px] text-slate-400">{accessRuleLabel}</p>
+        <p className="mt-5 text-[10px] text-stone-400">{accessRuleLabel}</p>
       </section>
 
       {/* ── 5. Como foi calculado ────────────────────────────── */}
-      <ReportSection label="Como foi calculado" className="border-b-0 bg-slate-50/50">
+      <ReportSection label="Como foi calculado" className="border-b-0 bg-stone-50/50">
         <div className="space-y-8">
           {/* Valor do cirurgião */}
           <ExplainBlock title="Valor do cirurgião">
             {!hasMultiProcedure ? (
               <p>
-                O procedimento <strong className="text-slate-700">{principalCode?.description}</strong>{" "}
+                O procedimento <strong className="text-stone-700">{principalCode?.description}</strong>{" "}
                 (porte {principalCode?.porte}) é remunerado integralmente pelo seu porte CBHPM.{" "}
                 Base do cirurgião:{" "}
-                <strong className="text-slate-700">{money.format(calculation.base_surgeon_value)}</strong>.
+                <strong className="text-stone-700">{money.format(calculation.base_surgeon_value)}</strong>.
                 {hasAdjustments && (
                   <>
-                    {" "}Após acréscimos de +{calculation.total_adjustment_percentage.toFixed(0)}%: <strong className="text-slate-700">{money.format(calculation.lead_surgeon_fee)}</strong>.
+                    {" "}Após acréscimos de +{calculation.total_adjustment_percentage.toFixed(0)}%: <strong className="text-stone-700">{money.format(calculation.lead_surgeon_fee)}</strong>.
                   </>
                 )}
               </p>
@@ -607,15 +607,15 @@ function ShareContent() {
               <>
                 <p>
                   O procedimento de maior porte —{" "}
-                  <strong className="text-slate-700">{principalCode?.description}</strong>{" "}
+                  <strong className="text-stone-700">{principalCode?.description}</strong>{" "}
                   (porte {principalCode?.porte}, {money.format(calculation.surgeon_breakdown.principal_value)}) — é
                   remunerado integralmente.
                 </p>
                 <p>
                   Os {additionalCodes.length} procedimento{additionalCodes.length > 1 ? "s" : ""} adiciona{additionalCodes.length > 1 ? "is são valorados" : "l é valorado"} a{" "}
-                  <strong className="text-slate-700">{discountPct}</strong> do respectivo porte,
+                  <strong className="text-stone-700">{discountPct}</strong> do respectivo porte,
                   conforme a regra de{" "}
-                  <strong className="text-slate-700">
+                  <strong className="text-stone-700">
                     {accessRoute === "same" ? "mesma via de acesso (CBHPM item 4.1)" : "vias de acesso diferentes (CBHPM item 4.2)"}
                   </strong>
                   . Subtotal adicional:{" "}
@@ -623,10 +623,10 @@ function ShareContent() {
                 </p>
                 <p>
                   Base CBHPM cirurgião:{" "}
-                  <strong className="text-slate-700">{money.format(calculation.base_surgeon_value)}</strong>.
+                  <strong className="text-stone-700">{money.format(calculation.base_surgeon_value)}</strong>.
                   {hasAdjustments && (
                     <>
-                      {" "}Após acréscimos de +{calculation.total_adjustment_percentage.toFixed(0)}%: <strong className="text-slate-700">{money.format(calculation.lead_surgeon_fee)}</strong>.
+                      {" "}Após acréscimos de +{calculation.total_adjustment_percentage.toFixed(0)}%: <strong className="text-stone-700">{money.format(calculation.lead_surgeon_fee)}</strong>.
                     </>
                   )}
                 </p>
@@ -642,21 +642,21 @@ function ShareContent() {
               <>
                 <p>
                   Honorários calculados sobre o valor total do cirurgião (
-                  <strong className="text-slate-700">{money.format(calculation.lead_surgeon_fee)}</strong>),
+                  <strong className="text-stone-700">{money.format(calculation.lead_surgeon_fee)}</strong>),
                   conforme CBHPM item 5.2:
                 </p>
                 <ul className="mt-1 space-y-0.5 pl-1">
                   {calculation.individual_auxiliary_fees.map((af) => (
                     <li key={af.position} className="text-[12.5px]">
-                      <span className="text-slate-600">{af.position}º auxiliar:</span>{" "}
-                      <strong className="text-slate-700">{af.percentage}%</strong> ={" "}
-                      <strong className="font-grotesk text-slate-700">{money.format(af.fee)}</strong>
+                      <span className="text-stone-600">{af.position}º auxiliar:</span>{" "}
+                      <strong className="text-stone-700">{af.percentage}%</strong> ={" "}
+                      <strong className="font-grotesk text-stone-700">{money.format(af.fee)}</strong>
                     </li>
                   ))}
                 </ul>
                 <p className="mt-1">
                   Total dos auxiliares:{" "}
-                  <strong className="text-slate-700">{money.format(calculation.auxiliaries_fee)}</strong>.
+                  <strong className="text-stone-700">{money.format(calculation.auxiliaries_fee)}</strong>.
                 </p>
               </>
             )}
@@ -666,9 +666,9 @@ function ShareContent() {
           <ExplainBlock title="Anestesiologista">
             {calculation.anesthesiologist_fee > 0 ? (
               <p>
-                Honorários de anestesiologista <strong className="text-slate-700">incluídos</strong>.
+                Honorários de anestesiologista <strong className="text-stone-700">incluídos</strong>.
                 Valor fixo de referência:{" "}
-                <strong className="font-grotesk text-slate-700">{money.format(calculation.anesthesiologist_fee)}</strong>.
+                <strong className="font-grotesk text-stone-700">{money.format(calculation.anesthesiologist_fee)}</strong>.
               </p>
             ) : (
               <p>Anestesiologista não incluído neste cálculo.</p>
@@ -679,16 +679,16 @@ function ShareContent() {
           {hasAdjustments ? (
             <ExplainBlock title="Acréscimos CBHPM">
               <p>
-                Os seguintes acréscimos foram aplicados <strong className="text-slate-700">aditivamente</strong>{" "}
+                Os seguintes acréscimos foram aplicados <strong className="text-stone-700">aditivamente</strong>{" "}
                 sobre os honorários de cirurgião, auxiliares e anestesiologista,
-                conforme as <strong className="text-slate-700">Instruções Gerais da CBHPM 2022</strong>:
+                conforme as <strong className="text-stone-700">Instruções Gerais da CBHPM 2022</strong>:
               </p>
               <ul className="mt-1 space-y-0.5 pl-1">
                 {calculation.selected_adjustments.map((a) => (
                   <li key={a.code} className="text-[12.5px]">
                     <strong className="text-amber-700">+{a.percentage.toFixed(0)}%</strong>{" "}
-                    <span className="text-slate-600">— {a.label}</span>
-                    <span className="ml-2 text-[11px] text-slate-400">({a.source})</span>
+                    <span className="text-stone-600">— {a.label}</span>
+                    <span className="ml-2 text-[11px] text-stone-400">({a.source})</span>
                   </li>
                 ))}
               </ul>
@@ -701,7 +701,7 @@ function ShareContent() {
               </p>
               <p>
                 Base da equipe (sem acréscimos):{" "}
-                <strong className="font-grotesk text-slate-700">{money.format(calculation.base_team_total_value)}</strong>.
+                <strong className="font-grotesk text-stone-700">{money.format(calculation.base_team_total_value)}</strong>.
               </p>
             </ExplainBlock>
           ) : (
@@ -714,17 +714,17 @@ function ShareContent() {
           <ExplainBlock title="Total da equipe">
             <p>
               Soma de cirurgião (
-              <strong className="font-grotesk text-slate-700">{money.format(calculation.lead_surgeon_fee)}</strong>
+              <strong className="font-grotesk text-stone-700">{money.format(calculation.lead_surgeon_fee)}</strong>
               ){calculation.auxiliaries_fee > 0 && (
                 <>, auxiliares (
-                  <strong className="font-grotesk text-slate-700">{money.format(calculation.auxiliaries_fee)}</strong>
+                  <strong className="font-grotesk text-stone-700">{money.format(calculation.auxiliaries_fee)}</strong>
                   )</>
               )}{calculation.anesthesiologist_fee > 0 && (
                 <> e anestesiologista (
-                  <strong className="font-grotesk text-slate-700">{money.format(calculation.anesthesiologist_fee)}</strong>
+                  <strong className="font-grotesk text-stone-700">{money.format(calculation.anesthesiologist_fee)}</strong>
                   )</>
               )}{" "}
-              = <strong className="font-grotesk text-slate-700">{money.format(calculation.final_total)}</strong>.
+              = <strong className="font-grotesk text-stone-700">{money.format(calculation.final_total)}</strong>.
               {hasAdjustments && (
                 <>
                   {" "}Os acréscimos de +{calculation.total_adjustment_percentage.toFixed(0)}% já estão incluídos em todos os valores acima.
@@ -734,16 +734,16 @@ function ShareContent() {
           </ExplainBlock>
 
           {/* Disclaimer */}
-          <div className="flex items-start gap-3 rounded-xl border border-slate-100 bg-white px-4 py-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            <Info size={14} className="mt-px shrink-0 text-slate-300" aria-hidden="true" />
-            <div className="space-y-1 text-[12px] leading-relaxed text-slate-400">
+          <div className="flex items-start gap-3 rounded-xl border border-stone-100 bg-white px-4 py-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <Info size={14} className="mt-px shrink-0 text-stone-300" aria-hidden="true" />
+            <div className="space-y-1 text-[12px] leading-relaxed text-stone-400">
               <p>
                 Valores calculados com base na{" "}
-                <strong className="text-slate-500">Tabela CBHPM 2025/2026 (Faixa Original)</strong>,
+                <strong className="text-stone-500">Tabela CBHPM 2025/2026 (Faixa Original)</strong>,
                 com variação INPC de 5,10% aplicada ao período de outubro de 2025 a setembro de 2026.
               </p>
               <p>
-                Estes valores são de <strong className="text-slate-500">referência</strong>. Convênios e
+                Estes valores são de <strong className="text-stone-500">referência</strong>. Convênios e
                 operadoras de saúde podem adotar tabelas, faixas e multiplicadores próprios, sujeitos a
                 negociação contratual.
               </p>
@@ -756,7 +756,7 @@ function ShareContent() {
       <ShareQRSection />
 
       {/* Informational — shared-view marker */}
-      <p className="px-8 pb-8 text-center text-[10px] text-slate-400 sm:px-12">
+      <p className="px-8 pb-8 text-center text-[10px] text-stone-400 sm:px-12">
         Visualizando via compartilhamento Synvera
       </p>
     </article>
@@ -788,47 +788,47 @@ export default function SharePage() {
         className="print-bg min-h-screen sm:py-10"
         style={{
           background: [
-            "radial-gradient(circle at top center, rgba(53,92,138,0.18) 0%, transparent 45%)",
-            "radial-gradient(circle at 15% 88%, rgba(30,58,95,0.08) 0%, transparent 40%)",
-            "linear-gradient(180deg, #E2EBF3 0%, #D6E1EB 100%)",
+            "radial-gradient(circle at top center, rgba(79, 61, 25,0.18) 0%, transparent 45%)",
+            "radial-gradient(circle at 15% 88%, rgba(41, 32, 13,0.08) 0%, transparent 40%)",
+            "linear-gradient(180deg, #F2EDE3 0%, #E9E3D8 100%)",
           ].join(", "),
         }}
       >
         <div
-          className="print-card mx-auto max-w-[720px] overflow-hidden bg-[#F3F6F9] sm:rounded-2xl sm:ring-1 sm:ring-[#355C8A]/10"
-          style={{ boxShadow: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.08), 0 24px 70px rgba(15,23,42,0.14)" }}
+          className="print-card mx-auto max-w-[720px] overflow-hidden bg-[#FBF8F1] sm:rounded-2xl sm:ring-1 sm:ring-[#4F3D19]/10"
+          style={{ boxShadow: "0 1px 2px rgba(40, 30, 20,0.04), 0 8px 24px rgba(40, 30, 20,0.08), 0 24px 70px rgba(40, 30, 20,0.14)" }}
         >
           {/* Accent stripe */}
           <div
             aria-hidden="true"
             style={{
               height: "3px",
-              background: "linear-gradient(90deg, #1E3A5F 0%, #355C8A 40%, #5F84B3 100%)",
+              background: "linear-gradient(90deg, #725C30 0%, #4F3D19 40%, #DCC390 100%)",
             }}
           />
 
           {/* Report header */}
-          <header className="flex items-center justify-between border-b border-slate-100 px-8 py-6 sm:px-12">
+          <header className="flex items-center justify-between border-b border-stone-100 px-8 py-6 sm:px-12">
             <div className="flex items-center gap-3.5 flex-shrink-0">
-              <div className="h-9 w-9 shrink-0 flex items-center justify-center rounded-[9px] border border-[rgba(53,92,138,0.12)]" style={{ background: "linear-gradient(145deg, #E6EEF5, #D8E5EE)" }}>
+              <div className="h-9 w-9 shrink-0 flex items-center justify-center rounded-[9px] border border-[rgba(79, 61, 25,0.12)]" style={{ background: "linear-gradient(145deg, #F4F0E7, #ECE6DA)" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} style={{ display: "block" }} />
               </div>
               <div>
-                <p className="text-[15px] font-extrabold leading-none tracking-tight text-slate-900">
+                <p className="text-[15px] font-extrabold leading-none tracking-tight text-stone-900">
                   Synvera
                 </p>
-                <p className="mt-1.5 text-[8px] font-semibold uppercase tracking-[0.1em] leading-none text-slate-400 whitespace-nowrap">
+                <p className="mt-1.5 text-[8px] font-semibold uppercase tracking-[0.1em] leading-none text-stone-400 whitespace-nowrap">
                   Neurocirurgia · Coluna
                 </p>
               </div>
             </div>
 
             <div className="hidden text-center flex-1 sm:block">
-              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">
+              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-stone-500">
                 Relatório de Honorários
               </p>
-              <p className="mt-0.5 text-[10px] text-slate-400">{reportDate}</p>
+              <p className="mt-0.5 text-[10px] text-stone-400">{reportDate}</p>
             </div>
 
             <div className="flex items-center gap-4 flex-shrink-0">
@@ -837,8 +837,8 @@ export default function SharePage() {
           </header>
 
           {/* Print-only report date (hidden on screen, shown on print) */}
-          <div className="print-only border-b border-slate-100 px-8 py-3 sm:px-12">
-            <p className="text-[10px] text-slate-400">
+          <div className="print-only border-b border-stone-100 px-8 py-3 sm:px-12">
+            <p className="text-[10px] text-stone-400">
               Relatório de Honorários · Emitido em {reportDate}
             </p>
           </div>
@@ -847,7 +847,7 @@ export default function SharePage() {
           <Suspense
             fallback={
               <div className="flex min-h-[60vh] items-center justify-center">
-                <div className="h-5 w-5 animate-spin rounded-full border-2 border-slate-200 border-t-slate-600" />
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-stone-200 border-t-stone-600" />
               </div>
             }
           >
@@ -855,20 +855,20 @@ export default function SharePage() {
           </Suspense>
 
           {/* Report footer */}
-          <footer className="border-t border-slate-100 px-8 py-6 sm:px-12">
+          <footer className="border-t border-stone-100 px-8 py-6 sm:px-12">
             <div className="flex items-center justify-between">
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-stone-400">
                 Gerado por{" "}
-                <span className="font-semibold text-slate-500">Synvera</span>{" "}
+                <span className="font-semibold text-stone-500">Synvera</span>{" "}
                 · LabF5 · {year}
               </p>
               <Link
                 href="/"
-                className="no-print text-[11px] font-semibold text-[#1E3A5F] transition-colors hover:text-[#355C8A]"
+                className="no-print text-[11px] font-semibold text-[#725C30] transition-colors hover:text-[#4F3D19]"
               >
                 Conhecer o Synvera ↗
               </Link>
-              <p className="print-only text-[11px] text-slate-400">Valores de referência · CBHPM 2025/2026</p>
+              <p className="print-only text-[11px] text-stone-400">Valores de referência · CBHPM 2025/2026</p>
             </div>
           </footer>
         </div>

@@ -31,8 +31,8 @@ export function HowItWorks() {
       id="como-funciona"
       style={{
         padding: "80px 24px 100px",
-        background: "linear-gradient(180deg, #050508 0%, #0B0D10 100%)",
-        borderTop: "1px solid rgba(35,37,42,0.6)",
+        background: "linear-gradient(180deg, #050508 0%, #100E0B 100%)",
+        borderTop: "1px solid rgba(42, 39, 35,0.6)",
         scrollMarginTop: "88px",
       }}
     >
@@ -55,7 +55,7 @@ export function HowItWorks() {
             style={{
               margin: "0",
               fontSize: "16px",
-              color: "#d0d6e0",
+              color: "#DFDAD1",
               maxWidth: "500px",
               marginLeft: "auto",
               marginRight: "auto",
@@ -81,8 +81,8 @@ export function HowItWorks() {
                 key={index}
                 style={{
                   padding: "32px 24px",
-                  background: "#0f1011",
-                  border: "1px solid rgba(35,37,42,0.8)",
+                  background: "#11100F",
+                  border: "1px solid rgba(42, 39, 35,0.8)",
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -94,14 +94,14 @@ export function HowItWorks() {
                   overflow: "hidden",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(15,16,17,0.8)";
-                  e.currentTarget.style.borderColor = "rgba(120,148,184,0.32)";
+                  e.currentTarget.style.background = "rgba(17, 16, 15,0.8)";
+                  e.currentTarget.style.borderColor = "rgba(179, 161, 125,0.32)";
                   e.currentTarget.style.transform = "translateY(-6px)";
                   e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.25)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#0f1011";
-                  e.currentTarget.style.borderColor = "rgba(35,37,42,0.8)";
+                  e.currentTarget.style.background = "#11100F";
+                  e.currentTarget.style.borderColor = "rgba(42, 39, 35,0.8)";
                   e.currentTarget.style.transform = "translateY(0)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
@@ -119,11 +119,11 @@ export function HowItWorks() {
                       width: "40px",
                       height: "40px",
                       borderRadius: "8px",
-                      background: "linear-gradient(135deg, rgba(94,106,210,0.2), rgba(94,106,210,0.1))",
+                      background: "linear-gradient(135deg, rgba(201, 168, 103,0.2), rgba(201, 168, 103,0.1))",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#5e6ad2",
+                      color: "#C9A867",
                     }}
                   >
                     <Icon size={20} />
@@ -132,7 +132,7 @@ export function HowItWorks() {
                     style={{
                       fontSize: "24px",
                       fontWeight: 700,
-                      color: "rgba(120,148,184,0.2)",
+                      color: "rgba(179, 161, 125,0.2)",
                     }}
                   >
                     {String(index + 1).padStart(2, "0")}
@@ -155,7 +155,7 @@ export function HowItWorks() {
                     style={{
                       margin: "0",
                       fontSize: "13px",
-                      color: "#8a8f98",
+                      color: "#9B9387",
                       lineHeight: 1.6,
                     }}
                   >

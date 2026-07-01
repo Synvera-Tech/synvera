@@ -5,21 +5,21 @@ import Link from "next/link";
 
 const meshStyle = {
   backgroundImage: [
-    "radial-gradient(at 0% 0%, rgba(94,106,210,0.18) 0px, transparent 50%)",
-    "radial-gradient(at 100% 0%, rgba(122,139,255,0.12) 0px, transparent 50%)",
-    "radial-gradient(at 50% 100%, rgba(30,58,95,0.18) 0px, transparent 50%)",
+    "radial-gradient(at 0% 0%, rgba(201, 168, 103,0.18) 0px, transparent 50%)",
+    "radial-gradient(at 100% 0%, rgba(223, 200, 154,0.12) 0px, transparent 50%)",
+    "radial-gradient(at 50% 100%, rgba(90, 72, 35,0.18) 0px, transparent 50%)",
   ].join(", "),
 };
 
 const dotGridStyle = {
-  backgroundImage: "radial-gradient(circle, #5e6ad2 1px, transparent 1px)",
+  backgroundImage: "radial-gradient(circle, #C9A867 1px, transparent 1px)",
   backgroundSize: "32px 32px",
 };
 
 export function CtaSection() {
   return (
     <section className="relative py-32 px-4 overflow-hidden flex items-center justify-center text-center min-h-[480px]">
-      <div className="absolute inset-0 bg-[#5e6ad2]/8" style={meshStyle} />
+      <div className="absolute inset-0 bg-[#C9A867]/8" style={meshStyle} />
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 opacity-[0.15] pointer-events-none"
         style={dotGridStyle}
@@ -27,7 +27,7 @@ export function CtaSection() {
 
       <div className="relative z-10 max-w-3xl space-y-8">
         <motion.h2
-          className="font-grotesk text-4xl md:text-5xl font-bold leading-tight text-[#E6EEF7]"
+          className="font-grotesk text-4xl md:text-5xl font-bold leading-tight text-[#F6F1E7]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -37,7 +37,7 @@ export function CtaSection() {
         </motion.h2>
 
         <motion.p
-          className="text-lg text-zinc-300"
+          className="text-lg text-stone-300"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
