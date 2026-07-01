@@ -13,6 +13,11 @@ import (
 func main() {
 	cfg := config.Load()
 
+	// Operational visibility: announce the environment and the database target
+	// with credentials masked, so it is always obvious which database the
+	// server is talking to. Never logs the username or password.
+	log.Printf("Synvera API: APP_ENV=%s | %s", cfg.AppEnv, config.MaskDatabaseTarget(cfg.DatabaseURL))
+
 	var repo repository.Repository
 
 	if cfg.DatabaseURL != "" {

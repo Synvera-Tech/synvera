@@ -16,11 +16,16 @@
 /frontend/node_modules/
 /frontend/tsconfig.tsbuildinfo
 
-# Environment
+# Environment — ignore real secret files, but always keep *.example templates.
+# Order matters: the negations below must come AFTER the broad `.env.*` rule.
 .env
 .env.*
 !.env.example
+!.env.*.example
+!*.env.example
 /frontend/.env.local
+# Vercel CLI pulls real production secrets here — never commit them.
+/frontend/.vercel/
 
 # Local artifacts
 *.zip

@@ -17,6 +17,11 @@ type ClerkConfig struct {
 
 // Config holds all environment-driven configuration for the API server.
 type Config struct {
+	// AppEnv is the deployment context (local | development | staging |
+	// production), derived from APP_ENV. Used for operational visibility and
+	// guardrails only; it never affects calculations or the data model.
+	AppEnv Environment
+
 	// DatabaseURL is the Neon/PostgreSQL connection string (e.g. postgres://…).
 	// When empty, the server falls back to the embedded file-based catalog.
 	DatabaseURL string
@@ -38,6 +43,7 @@ func Load() Config {
 		port = "8080"
 	}
 	return Config{
+		AppEnv:      ParseEnvironment(os.Getenv("APP_ENV")),
 		DatabaseURL: os.Getenv("DATABASE_URL"),
 		Port:        port,
 		Clerk: ClerkConfig{

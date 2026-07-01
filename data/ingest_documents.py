@@ -49,6 +49,40 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 if not DATABASE_URL:
     sys.exit("ERROR: DATABASE_URL environment variable is not set.")
 
+
+def _normalize_app_env(raw: str) -> str:
+    """Normalize APP_ENV; unknown/empty resolves to 'local', never 'production'."""
+    value = (raw or "").strip().lower()
+    return {
+        "production": "production", "prod": "production",
+        "staging": "staging", "stage": "staging",
+        "development": "development", "dev": "development",
+        "local": "local", "": "local",
+    }.get(value, "local")
+
+
+def _mask_db_target(url: str) -> str:
+    """Credential-free 'host=… db=…' description, safe to print."""
+    tail = url.split("://", 1)[-1].rsplit("@", 1)[-1]  # drop scheme + user:pass@
+    host = tail.split("/", 1)[0]
+    db = tail.split("/", 1)[1].split("?", 1)[0] if "/" in tail else "(default)"
+    return f"host={host} db={db}"
+
+
+APP_ENV = _normalize_app_env(os.environ.get("APP_ENV", ""))
+ALLOW_PRODUCTION = "--allow-production" in sys.argv
+
+# Guardrail: importing freshly parsed PDF chunks is an experimental data path.
+# It must never hit production unless explicitly authorized. The normative flow
+# is: parse → local/dev → audit → staging → validate → production.
+print(f"[ingest] APP_ENV={APP_ENV} | {_mask_db_target(DATABASE_URL)}", file=sys.stderr)
+if APP_ENV == "production" and not ALLOW_PRODUCTION:
+    sys.exit(
+        "✋ Refusing to ingest PDFs into PRODUCTION.\n"
+        "   Production must only receive audited data via reviewed migrations.\n"
+        "   Override (only if you truly know why) with: --allow-production"
+    )
+
 DATA_DIR = Path(__file__).parent
 PDF_DIR  = DATA_DIR / "raw_pdfs"
 

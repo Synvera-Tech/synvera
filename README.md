@@ -111,7 +111,7 @@ cd backend
 go run cmd/api/main.go
 ```
 
-Set `DATABASE_URL` in `backend/.env` to connect to Neon. Without it the server falls back to the embedded `procedures.json` catalog (suitable for development).
+Set `DATABASE_URL` and `APP_ENV` in `backend/.env` to connect to Neon. Without `DATABASE_URL` the server falls back to the embedded `procedures.json` catalog (suitable for development). On startup the API logs `APP_ENV` and the masked database target. See [Database Environments](docs/deployment/database-environments.md) for the local/dev/staging/prod separation.
 
 ### Frontend
 
@@ -125,13 +125,21 @@ The Next.js dev server runs on `http://localhost:3000` with Turbopack.
 
 ### Database
 
-Apply migrations in order against your Neon database:
+Apply migrations with the environment-aware runner (prints the masked target and
+guards production):
+
+```bash
+scripts/migrate.sh local                                # or development / staging
+CONFIRM_PRODUCTION=true scripts/migrate.sh production    # production requires confirmation
+```
+
+Or apply individual files manually against your Neon database:
 
 ```bash
 psql "$DATABASE_URL" -f backend/db/migrations/001_schema.sql
 psql "$DATABASE_URL" -f backend/db/migrations/002_seed_portes.sql
 psql "$DATABASE_URL" -f backend/db/migrations/003_seed_procedures.sql
-# ... through 008
+# ... remaining migrations in order
 ```
 
 Migration 003 is generated from `procedures.json` via `data/generate_seed.py`. Re-run the script after updating the procedure catalog.
@@ -197,6 +205,7 @@ Full schema: [`openapi.yaml`](openapi.yaml)
 - [Search Flow](docs/search-flow.md)
 - [Calculation Flow](docs/calculation-flow.md)
 - [Deployment](docs/deployment.md)
+- [Database Environments](docs/deployment/database-environments.md)
 - [Roadmap](docs/roadmap.md)
 
 ---
