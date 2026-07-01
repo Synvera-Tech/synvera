@@ -92,23 +92,43 @@ acrescidos de 70% do porte atribuído ao primeiro ato cirúrgico."*
 
 ---
 
-## P3 — Acréscimo pediátrico/idoso sobre a anestesia (RESOLVÍVEL — pendente de decisão)
+## P3 — Acréscimo pediátrico/idoso sobre a anestesia ✅ DECIDIDO & IMPLEMENTADO (2026-07-01)
 
 - **Base cirúrgica** (CBHPM p.23, §4.6–4.8): +100%/+50%/+30% "sobre o porte do procedimento realizado".
 - **Regra anestésica própria e restrita** (CBHPM p.140, item 14): +30% apenas para 4 códigos de
   anestesia (endoscopia/TC/RM) **ausentes do catálogo** de coluna/neuro.
 - **Raciocínio:** a existência do item 14 (restrito) é evidência de que os acréscimos gerais 4.6–4.8
-  **não alcançam** o porte anestésico. Leitura conservadora: pediátrico geral incide **só na cirurgia**.
-- **Decisão pendente do cirurgião.** Confiança: ALTA. **Não alterado neste change.**
+  **não alcançam** o porte anestésico — senão o item 14 seria redundante. Leitura sustentada pela
+  norma: pediátrico geral incide **só na cirurgia** (e nos auxiliares).
+
+### Decisão registrada (fato autorizador)
+Norma decidiu com **confiança ALTA**; o cirurgião **autorizou** a mudança de base de incidência
+(delegação: "seguir a norma onde a confiança é ALTA"). Como a mudança **reduz** valores já calculados
+(gate financeiro, não normativo), fica registrada aqui como o fato que autoriza a regra.
+
+### Implementação
+- **`service/adjustments.go`:** cada acréscimo carrega `appliesToAnesthesia` — `true` para
+  urgência/emergência (item 2, que incide na anestesia por p.155 item 8), `false` para os 3
+  pediátricos (4.6–4.8).
+- **`service/engine.go`:** a anestesia (e seu auxiliar 60%, que é honorário de anestesia) usa um
+  `anesthMultiplier` próprio = 1 + Σ(% que incidem na anestesia)/100. Cirurgião e auxiliares mantêm
+  o multiplicador cheio. Sem acréscimo pediátrico, `anesthMultiplier == multiplier` (nada muda).
+- **Impacto:** anestesia base R$ 1.000, neonato (+50%) → antes R$ 1.500, agora **R$ 1.000**
+  (Δ −R$ 500/caso); urgência (+30%) **continua** incidindo na anestesia (×1,30).
+- **Teste:** `TestPediatricDoesNotApplyToAnesthesiologist` (pediátrico não escala anestesia; urgência
+  escala; combinado → cirurgião ×2,30, anestesia ×1,30).
 
 ---
 
-## P4 — Composição de múltiplos acréscimos (norma SILENTE — decisão de negócio)
+## P4 — Composição de múltiplos acréscimos ✅ DECIDIDO (aditivo, 2026-07-01)
 
 - CBHPM define cada acréscimo isoladamente "sobre o porte" e é **silente** sobre compor dois ou mais.
-- Comportamento atual: **aditivo** (percentuais somados sobre a mesma base). O texto ("sobre o porte")
-  é mais coerente com o aditivo do que com o multiplicativo.
-- **Decisão pendente:** confirmar aditivo como regra oficial. **Não alterado neste change.**
+- Como a norma é **genuinamente silente** (sem evidência), é uma decisão de negócio: **confirmado o
+  modelo ADITIVO** (percentuais somados sobre a mesma base) — o mais conservador e o mais coerente
+  com a redação "sobre o porte". Ex.: urgência 30% + pediátrico 100% ⇒ ×2,30 (não ×1,30×2,00=×2,60).
+- **Já implementado** no `service/engine.go` (soma de percentuais → multiplicador único); coberto por
+  `TestEmergencyPlusPediatricChildAdditive` (×1,60, não ×1,69). Este registro fixa o aditivo como
+  regra de negócio oficial.
 
 ---
 
@@ -118,8 +138,8 @@ acrescidos de 70% do porte atribuído ao primeiro ato cirúrgico."*
 |---|---|---|---|---|---|
 | **P1** | Auxiliar de anestesia +60% (AN7/AN8 **ou** gatilhos USER_SELECTABLE) | CBHPM p.140 item 8 | Sim (quando aplicável) | ALTA | ✅ **Implementado** |
 | **P2** | +70% anestésico em bilateral sem código específico | CBHPM p.140 itens 5/6/7 | Sim (bilaterais) | MÉDIA-ALTA | Pendente |
-| **P3** | Pediátrico geral **não** incide na anestesia | CBHPM p.23 §4.6–4.8 + p.140 item 14 | Sim (pediatria) | ALTA | Pendente (decisão) |
-| **P4** | Composição de acréscimos = aditivo | CBHPM p.23 §2.1 e §4.6–4.8 | Sim (2+ acréscimos) | Silente | Pendente (registro) |
+| **P3** | Pediátrico geral **não** incide na anestesia | CBHPM p.23 §4.6–4.8 + p.140 item 14 | Sim (pediatria) | ALTA | ✅ **Implementado** |
+| **P4** | Composição de acréscimos = aditivo | CBHPM p.23 §2.1 e §4.6–4.8 | Sim (2+ acréscimos) | Silente | ✅ **Decidido** (aditivo) |
 
 ---
 

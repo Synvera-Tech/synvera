@@ -405,8 +405,13 @@ SPINE modifier applies only when `specialty == SPINE` (domain gating); neuro res
   neonatology, bariatric gastroplasty) via `anesthesia_auxiliary_justification` — Procedure Page
   checkboxes; engine entry `CalculateWithPortesModifiersAndAnesthesia` applies 60% once (AN7/AN8 OR any
   trigger) and records `anesthesia_assistant_applied`/`_reasons`/source in the breakdown/snapshot.
-- Pending (frozen, require explicit decision): R22 (additive vs multiplicative adjustments); anesthesia
-  refinements A8 (bilateral-specific, P2), A14 (restricted pediatric/elderly +30%, P3).
+- P3 (resolved): the general pediatric surcharge (CBHPM 4.6–4.8) scales surgeon + auxiliaries but NOT
+  the anesthesiologist (nor its 60% assistant) — anesthesia has its own restricted rule (item 14).
+  Data-driven via `adjMeta.appliesToAnesthesia`; urgency/emergency still scales anesthesia.
+- P4 (decided): multiple adjustments compose ADDITIVELY (percentages summed on the same base), the
+  official business rule — already implemented; `TestEmergencyPlusPediatricChildAdditive` guards it.
+- Pending: P2 (A8 — bilateral anesthesia +70%, CBHPM p.140 item 7: needs a bilateral signal + the
+  "porte do 1º ato" interpretation).
 
 ### LLM / RAG never computes
 

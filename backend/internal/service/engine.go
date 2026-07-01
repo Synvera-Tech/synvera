@@ -319,6 +319,7 @@ func calculate(
 
 	applied := make([]models.AppliedAdjustment, 0, len(adjustments))
 	totalAdjPct := 0.0
+	anesthAdjPct := 0.0 // subset that also scales the anesthesiologist (P3)
 	for _, code := range adjustments {
 		meta, ok := AdjustmentCatalog[code]
 		if !ok {
@@ -331,16 +332,24 @@ func calculate(
 			Source:     meta.source,
 		})
 		totalAdjPct += meta.percentage
+		if meta.appliesToAnesthesia {
+			anesthAdjPct += meta.percentage
+		}
 	}
 
 	multiplier := 1.0 + totalAdjPct/100.0
+	// P3 (resolved): the anesthesiologist fee — and its 60% assistant, which is an anesthesia fee —
+	// is scaled ONLY by adjustments that reach anesthesia (urgency/emergency, item 2), NOT by the
+	// general pediatric surcharge (items 4.6–4.8), which belongs to the surgical valuation. When no
+	// pediatric adjustment is present, anesthMultiplier == multiplier and nothing changes.
+	anesthMultiplier := 1.0 + anesthAdjPct/100.0
 
 	baseSurgeon := surgeonTotal
 	baseAux := auxTotal
 	baseAnesth := anesth
 	baseAnesthAssistant := anesthAssistant
 	baseTeam := baseSurgeon + baseAux + baseAnesth + baseAnesthAssistant
-	adjValue := baseTeam * (totalAdjPct / 100.0)
+	adjValue := (baseSurgeon+baseAux)*(totalAdjPct/100.0) + (baseAnesth+baseAnesthAssistant)*(anesthAdjPct/100.0)
 
 	finalAuxFees := individualAuxFees
 	if totalAdjPct > 0 {
@@ -357,8 +366,8 @@ func calculate(
 
 	finalSurgeon := baseSurgeon * multiplier
 	finalAux := baseAux * multiplier
-	finalAnesth := baseAnesth * multiplier
-	finalAnesthAssistant := baseAnesthAssistant * multiplier
+	finalAnesth := baseAnesth * anesthMultiplier
+	finalAnesthAssistant := baseAnesthAssistant * anesthMultiplier
 
 	return models.CalculationResult{
 		CodeBreakdown:             breakdown,

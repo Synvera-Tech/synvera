@@ -51,7 +51,7 @@ Colunas: **Impl.?** (✅/❌) · **Diverge?** (⚠️ quando a implementação c
 | A17 | **Idosos (≥65 a): +30%** — existe, mas restrito aos códigos do item 14 / endoscopia | 🟢 | CBHPM | 140/155 | (mesmos trechos de A14/A14b) | ❌ | — | sim |
 | A18 | SRPA — plantonista em sala de recuperação pós-anestésica (porte 4A, código próprio) | 🟢 | CBHPM | 141 | "3.16.03.01-7 Atendimento médico do plantonista em sala de recuperação pós-anestésica … 4A" | ❌ | — | não |
 | A19 | **Origem do valor monetário**: porte anestésico → porte cirúrgico equivalente → valor do porte | 🟡 | CBHPM | 139 | tabela do item 2 (AN→porte). A CBHPM-2022 não traz valores em R$ (são pontos/UCO); o valor por porte vem da tabela de portes versionada do projeto. | ❌ | ⚠️ | **sim** |
-| A20 | Pediatria geral cirúrgica (+100/50/30%, itens 4.6–4.8) aplicada ao **porte anestésico** | 🔴 | — | — | Não há texto estendendo 4.6–4.8 ao ato anestésico. A regra pediátrica explícita para anestesia é o item 14 (+30%, escopo restrito). | ❌ | — | sim |
+| A20 | Pediatria geral cirúrgica (+100/50/30%, itens 4.6–4.8) **NÃO** incide no porte anestésico | 🟢 | — | — | Corrigido (P3, 2026-07-01): a pediatria geral escala cirurgião+auxiliares, não a anestesia (item 14 é a regra própria, restrita). `adjMeta.appliesToAnesthesia=false` p/ os 3 pediátricos; urgência (item 2) segue incidindo. | ✅ | — | sim |
 
 ---
 

@@ -517,15 +517,42 @@ func TestAdjustmentAppliesToAuxiliaries(t *testing.T) {
 	}
 }
 
-// TestAdjustmentAppliesToAnesthesiologist verifies anesthesiologist fee scales by the multiplier.
-func TestAdjustmentAppliesToAnesthesiologist(t *testing.T) {
+// TestPediatricDoesNotApplyToAnesthesiologist verifies P3 (CBHPM p.23 §4.6–4.8 vs p.140 item 14):
+// the GENERAL pediatric surcharge belongs to the surgical valuation and does NOT scale the
+// anesthesiologist fee; urgency/emergency (item 2) still does. Surgeon/auxiliaries keep the full
+// pediatric scaling — only anesthesia is excluded.
+func TestPediatricDoesNotApplyToAnesthesiologist(t *testing.T) {
 	base := service.Calculate(adjCodes, 0, true, models.AccessRouteSame, nil)
-	withAdj := service.Calculate(adjCodes, 0, true, models.AccessRouteSame,
-		[]string{service.AdjCodePediatricLowWeightOrPremature})
 
-	want := round2(base.AnesthesiologistFee * 2.0)
-	if round2(withAdj.AnesthesiologistFee) != want {
-		t.Errorf("anesthesiologist fee: got %.2f, want %.2f", withAdj.AnesthesiologistFee, want)
+	// Pediatric +100%: surgeon ×2.0, anesthesia UNCHANGED.
+	pediatric := service.Calculate(adjCodes, 0, true, models.AccessRouteSame,
+		[]string{service.AdjCodePediatricLowWeightOrPremature})
+	if round2(pediatric.AnesthesiologistFee) != round2(base.AnesthesiologistFee) {
+		t.Errorf("pediatric must NOT scale anesthesia: got %.2f, want %.2f (unchanged)",
+			pediatric.AnesthesiologistFee, base.AnesthesiologistFee)
+	}
+	if round2(pediatric.LeadSurgeonFee) != round2(base.LeadSurgeonFee*2.0) {
+		t.Errorf("pediatric must still scale surgeon ×2.0: got %.2f, want %.2f",
+			pediatric.LeadSurgeonFee, base.LeadSurgeonFee*2.0)
+	}
+
+	// Urgency +30%: DOES scale anesthesia.
+	urgency := service.Calculate(adjCodes, 0, true, models.AccessRouteSame,
+		[]string{service.AdjCodeEmergencySpecialHours})
+	if round2(urgency.AnesthesiologistFee) != round2(base.AnesthesiologistFee*1.30) {
+		t.Errorf("urgency must scale anesthesia ×1.30: got %.2f, want %.2f",
+			urgency.AnesthesiologistFee, base.AnesthesiologistFee*1.30)
+	}
+
+	// Combined urgency+pediatric: surgeon ×2.30, anesthesia only ×1.30 (urgency portion).
+	combined := service.Calculate(adjCodes, 0, true, models.AccessRouteSame,
+		[]string{service.AdjCodeEmergencySpecialHours, service.AdjCodePediatricLowWeightOrPremature})
+	if round2(combined.AnesthesiologistFee) != round2(base.AnesthesiologistFee*1.30) {
+		t.Errorf("combined anesthesia: got %.2f, want %.2f (urgency only)",
+			combined.AnesthesiologistFee, base.AnesthesiologistFee*1.30)
+	}
+	if round2(combined.LeadSurgeonFee) != round2(base.LeadSurgeonFee*2.30) {
+		t.Errorf("combined surgeon: got %.2f, want %.2f", combined.LeadSurgeonFee, base.LeadSurgeonFee*2.30)
 	}
 }
 
