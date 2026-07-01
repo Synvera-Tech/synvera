@@ -164,11 +164,17 @@ export function ValuationSummary({
                 />
               )}
               {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
-                <ResultRow
-                  label="Auxiliar de anestesia (60%)"
-                  note={formatAssistantReasons(calculation.anesthesia_assistant_reasons)}
-                  value={calculation.anesthesia_assistant_fee!}
-                />
+                <>
+                  <ResultRow
+                    label="Auxiliar de anestesia (60%)"
+                    value={calculation.anesthesia_assistant_fee!}
+                  />
+                  {formatAssistantReasons(calculation.anesthesia_assistant_reasons) && (
+                    <div className="-mt-1 pl-1 text-[11px] font-medium text-primary/80 dark:text-[#718BAE]">
+                      Justificativa: {formatAssistantReasons(calculation.anesthesia_assistant_reasons)}
+                    </div>
+                  )}
+                </>
               )}
             </dl>
           </section>

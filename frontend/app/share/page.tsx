@@ -690,11 +690,31 @@ function ShareContent() {
           {/* Anestesiologista */}
           <ExplainBlock title="Anestesiologista">
             {calculation.anesthesiologist_fee > 0 ? (
-              <p>
-                Honorários de anestesiologista <strong className="text-slate-700">incluídos</strong>.
-                Valor fixo de referência:{" "}
-                <strong className="font-grotesk text-slate-700">{money.format(calculation.anesthesiologist_fee)}</strong>.
-              </p>
+              <>
+                <p>
+                  Honorários de anestesiologista <strong className="text-slate-700">incluídos</strong>.
+                  Valor fixo de referência:{" "}
+                  <strong className="font-grotesk text-slate-700">{money.format(calculation.anesthesiologist_fee)}</strong>.
+                </p>
+                {calculation.anesthesia_bilateral_applied && (
+                  <p>
+                    Inclui <strong className="text-slate-700">+70%</strong> por ato anestésico bilateral
+                    sem código específico (CBHPM p.140 item 7).
+                  </p>
+                )}
+                {(calculation.anesthesia_assistant_fee ?? 0) > 0 && (
+                  <p>
+                    <strong className="text-slate-700">Auxiliar de anestesia (60%)</strong>:{" "}
+                    <strong className="font-grotesk text-slate-700">{money.format(calculation.anesthesia_assistant_fee!)}</strong>
+                    {formatAssistantReasons(calculation.anesthesia_assistant_reasons) && (
+                      <> — justificativa:{" "}
+                        <strong className="text-slate-700">{formatAssistantReasons(calculation.anesthesia_assistant_reasons)}</strong>
+                      </>
+                    )}{" "}
+                    (CBHPM p.140 item 8).
+                  </p>
+                )}
+              </>
             ) : (
               <p>Anestesiologista não incluído neste cálculo.</p>
             )}

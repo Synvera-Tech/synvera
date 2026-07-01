@@ -6,13 +6,14 @@ export const pct = (n: number) =>
   new Intl.NumberFormat("pt-BR", { style: "percent", maximumFractionDigits: 0 }).format(n / 100);
 
 // Friendly PT-BR labels for the anesthesia-assistant reasons (P1, CBHPM p.140 item 8).
+// Full labels so the justification is explicit in the summary and the shared report.
 const ASSISTANT_REASON_LABELS: Record<string, string> = {
   AN7: "AN7",
   AN8: "AN8",
-  cec: "CEC",
-  duration_over_6h: ">6h",
-  surgical_neonatology: "neonatologia",
-  bariatric_gastroplasty: "gastroplastia",
+  cec: "Circulação extracorpórea (CEC)",
+  duration_over_6h: "Cirurgia acima de 6 horas",
+  surgical_neonatology: "Neonatologia cirúrgica",
+  bariatric_gastroplasty: "Gastroplastia para obesidade mórbida",
 };
 
 export function formatAssistantReasons(reasons?: string[]): string | undefined {
