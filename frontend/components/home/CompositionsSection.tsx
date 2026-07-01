@@ -146,10 +146,10 @@ export function CompositionsSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="font-grotesk text-4xl font-bold mb-4 text-[#E6EEF7]">
+          <h2 className="font-grotesk text-4xl font-bold mb-4 text-[#F6F1E7]">
             Sua biblioteca de composições cirúrgicas
           </h2>
-          <p className="text-[#8A8F98] text-lg">
+          <p className="text-[#9B9387] text-lg">
             Salve modelos para procedimentos recorrentes e aplique com um clique.
           </p>
         </motion.div>
@@ -157,9 +157,9 @@ export function CompositionsSection() {
         <motion.div
           className="w-full max-w-4xl rounded-2xl overflow-hidden text-left"
           style={{
-            background: "rgba(10,11,13,0.80)",
+            background: "rgba(13, 12, 10,0.80)",
             backdropFilter: "blur(20px)",
-            border: "1px solid rgba(120,148,184,0.11)",
+            border: "1px solid rgba(179, 161, 125,0.11)",
             boxShadow: "0 24px 64px -8px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.3) inset",
           }}
           initial={{ opacity: 0, y: 32 }}
@@ -172,19 +172,19 @@ export function CompositionsSection() {
             className="flex items-center justify-between px-5 py-3.5"
             style={{
               background: "rgba(0,0,0,0.28)",
-              borderBottom: "1px solid rgba(120,148,184,0.07)",
+              borderBottom: "1px solid rgba(179, 161, 125,0.07)",
             }}
           >
             <div className="flex items-center gap-2.5">
-              <BookmarkCheck className="w-4 h-4 text-[#5e6ad2]" />
-              <span className="text-[13px] font-bold text-[#c4cdd8]">Minhas Composições</span>
+              <BookmarkCheck className="w-4 h-4 text-[#C9A867]" />
+              <span className="text-[13px] font-bold text-[#D6D1C6]">Minhas Composições</span>
             </div>
             <button
               type="button"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-[#818cf8]"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-[#DFC89A]"
               style={{
-                background: "rgba(94,106,210,0.12)",
-                border: "1px solid rgba(94,106,210,0.22)",
+                background: "rgba(201, 168, 103,0.12)",
+                border: "1px solid rgba(201, 168, 103,0.22)",
               }}
             >
               <Plus className="w-3 h-3" />
@@ -199,7 +199,7 @@ export function CompositionsSection() {
               className="flex-shrink-0 md:w-52"
               style={{
                 background: "rgba(0,0,0,0.18)",
-                borderRight: "1px solid rgba(120,148,184,0.06)",
+                borderRight: "1px solid rgba(179, 161, 125,0.06)",
               }}
             >
               {/* Mobile tabs */}
@@ -212,8 +212,8 @@ export function CompositionsSection() {
                     className="whitespace-nowrap px-3 py-1.5 rounded-lg text-[11px] font-bold transition-colors duration-150 flex-shrink-0"
                     style={{
                       background:
-                        i === activeIndex ? "rgba(94,106,210,0.14)" : "transparent",
-                      color: i === activeIndex ? "#818cf8" : "#8A8F98",
+                        i === activeIndex ? "rgba(201, 168, 103,0.14)" : "transparent",
+                      color: i === activeIndex ? "#DFC89A" : "#9B9387",
                     }}
                   >
                     {comp.name}
@@ -231,7 +231,7 @@ export function CompositionsSection() {
                     className="w-full text-left px-3 py-2.5 rounded-xl transition-colors duration-150"
                     style={{
                       background:
-                        i === activeIndex ? "rgba(94,106,210,0.11)" : "transparent",
+                        i === activeIndex ? "rgba(201, 168, 103,0.11)" : "transparent",
                     }}
                     onMouseEnter={(e) => {
                       if (i !== activeIndex)
@@ -246,7 +246,7 @@ export function CompositionsSection() {
                   >
                     <div
                       className="text-[12px] font-bold leading-tight"
-                      style={{ color: i === activeIndex ? "#818cf8" : "#c4cdd8" }}
+                      style={{ color: i === activeIndex ? "#DFC89A" : "#D6D1C6" }}
                     >
                       {comp.name}
                     </div>
@@ -255,8 +255,8 @@ export function CompositionsSection() {
                       style={{
                         color:
                           i === activeIndex
-                            ? "rgba(129,140,248,0.55)"
-                            : "rgba(138,143,152,0.6)",
+                            ? "rgba(223, 200, 154,0.55)"
+                            : "rgba(155, 147, 135,0.6)",
                       }}
                     >
                       {comp.lastUsed}
@@ -296,14 +296,14 @@ export function CompositionsSection() {
                   {/* Panel header */}
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h4 className="text-[14px] font-bold text-[#E6EEF7] leading-tight">
+                      <h4 className="text-[14px] font-bold text-[#F6F1E7] leading-tight">
                         {active.subtitle}
                       </h4>
-                      <p className="text-[10px] font-mono text-[#8A8F98]/80 mt-1">
+                      <p className="text-[10px] font-mono text-[#9B9387]/80 mt-1">
                         {active.rule}
                       </p>
                     </div>
-                    <span className="text-[10px] text-[#8A8F98]/60 whitespace-nowrap flex-shrink-0 pt-0.5">
+                    <span className="text-[10px] text-[#9B9387]/60 whitespace-nowrap flex-shrink-0 pt-0.5">
                       {active.lastUsed}
                     </span>
                   </div>
@@ -312,7 +312,7 @@ export function CompositionsSection() {
                   <div className="space-y-2">
                     <div
                       className="text-[10px] font-bold uppercase tracking-[0.5px] mb-3"
-                      style={{ color: "rgba(138,143,152,0.55)" }}
+                      style={{ color: "rgba(155, 147, 135,0.55)" }}
                     >
                       Composição CBHPM
                     </div>
@@ -322,12 +322,12 @@ export function CompositionsSection() {
                         className="flex items-start gap-3"
                         style={{
                           background: c.isPrincipal
-                            ? "rgba(94,106,210,0.07)"
+                            ? "rgba(201, 168, 103,0.07)"
                             : "rgba(255,255,255,0.027)",
                           border: `1px solid ${
                             c.isPrincipal
-                              ? "rgba(94,106,210,0.22)"
-                              : "rgba(120,148,184,0.1)"
+                              ? "rgba(201, 168, 103,0.22)"
+                              : "rgba(179, 161, 125,0.1)"
                           }`,
                           borderRadius: "14px",
                           padding: "10px 12px",
@@ -339,7 +339,7 @@ export function CompositionsSection() {
                           style={{
                             width: "18px",
                             height: "18px",
-                            background: "#5e6ad2",
+                            background: "#C9A867",
                             borderRadius: "4px",
                           }}
                         >
@@ -349,17 +349,17 @@ export function CompositionsSection() {
                         {/* Meta */}
                         <div className="flex-1 min-w-0">
                           <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
-                            <span className="font-mono text-[11px] font-semibold text-[#8A8F98]">
+                            <span className="font-mono text-[11px] font-semibold text-[#9B9387]">
                               {c.code}
                             </span>
                             <span
                               style={{
-                                border: "1px solid rgba(94,106,210,0.35)",
+                                border: "1px solid rgba(201, 168, 103,0.35)",
                                 borderRadius: "6px",
                                 padding: "1px 6px",
                                 fontSize: "10px",
                                 fontWeight: 600,
-                                color: "#818cf8",
+                                color: "#DFC89A",
                                 lineHeight: 1.4,
                               }}
                             >
@@ -368,14 +368,14 @@ export function CompositionsSection() {
                             {c.isPrincipal && (
                               <span
                                 style={{
-                                  background: "rgba(94,106,210,0.12)",
+                                  background: "rgba(201, 168, 103,0.12)",
                                   borderRadius: "4px",
                                   padding: "1px 5px",
                                   fontSize: "9px",
                                   fontWeight: 700,
                                   textTransform: "uppercase",
                                   letterSpacing: "0.05em",
-                                  color: "#818cf8",
+                                  color: "#DFC89A",
                                 }}
                               >
                                 principal
@@ -384,7 +384,7 @@ export function CompositionsSection() {
                           </div>
                           <p
                             className="text-[12px] leading-snug"
-                            style={{ color: "#b8c2d0" }}
+                            style={{ color: "#CEC7BA" }}
                           >
                             {c.name}
                           </p>
@@ -396,7 +396,7 @@ export function CompositionsSection() {
                           style={{
                             fontSize: "13px",
                             fontWeight: 600,
-                            color: "#E6EEF7",
+                            color: "#F6F1E7",
                           }}
                         >
                           {c.value}
@@ -410,8 +410,8 @@ export function CompositionsSection() {
                     className="mt-auto flex items-center justify-between rounded-xl px-4 py-3.5"
                     style={{
                       background:
-                        "linear-gradient(135deg, rgba(28,48,85,0.6), rgba(18,32,60,0.75))",
-                      border: "1px solid rgba(94,106,210,0.2)",
+                        "linear-gradient(135deg, rgba(81, 65, 32,0.6), rgba(57, 45, 21,0.75))",
+                      border: "1px solid rgba(201, 168, 103,0.2)",
                     }}
                   >
                     <div>
@@ -423,7 +423,7 @@ export function CompositionsSection() {
                       </p>
                       <p
                         className="font-grotesk font-bold leading-none"
-                        style={{ fontSize: "22px", color: "#E6EEF7" }}
+                        style={{ fontSize: "22px", color: "#F6F1E7" }}
                       >
                         {active.total}
                       </p>
@@ -432,8 +432,8 @@ export function CompositionsSection() {
                       type="button"
                       className="text-[12px] font-bold px-4 py-2 rounded-lg transition-colors"
                       style={{
-                        color: "#818cf8",
-                        border: "1px solid rgba(94,106,210,0.28)",
+                        color: "#DFC89A",
+                        border: "1px solid rgba(201, 168, 103,0.28)",
                         background: "transparent",
                       }}
                     >

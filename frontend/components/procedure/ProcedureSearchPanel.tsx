@@ -22,7 +22,7 @@ export function ProcedureSearchPanel({
     <>
       <div className="mb-6 flex items-center gap-2">
         <Stethoscope aria-hidden="true" className="text-primary" size={18} />
-        <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">
+        <h2 className="m-0 text-[15px] font-bold text-stone-950 dark:text-stone-50">
           Buscar Procedimento SBN
         </h2>
       </div>

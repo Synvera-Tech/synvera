@@ -20,9 +20,9 @@ export function HeroSection() {
         padding: "110px 24px 60px",
         background: [
           // Subtle indigo bloom at very top — gives navbar backdrop-filter material to blur
-          "radial-gradient(ellipse 70% 200px at 50% 0%, rgba(94,106,210,0.22) 0%, transparent 100%)",
-          "radial-gradient(circle at top center, rgba(120,148,184,0.12) 0%, transparent 50%)",
-          "radial-gradient(circle at bottom right, rgba(120,148,184,0.06) 0%, transparent 60%)",
+          "radial-gradient(ellipse 70% 200px at 50% 0%, rgba(201, 168, 103,0.22) 0%, transparent 100%)",
+          "radial-gradient(circle at top center, rgba(179, 161, 125,0.12) 0%, transparent 50%)",
+          "radial-gradient(circle at bottom right, rgba(179, 161, 125,0.06) 0%, transparent 60%)",
           "linear-gradient(180deg, #010102 0%, #050508 100%)",
         ].join(", "),
         position: "relative",
@@ -43,7 +43,7 @@ export function HeroSection() {
           width: "960px",
           maxWidth: "100%",
           height: "160px",
-          background: "radial-gradient(ellipse 80% 100% at 50% 0%, rgba(148,158,200,0.20) 0%, transparent 100%)",
+          background: "radial-gradient(ellipse 80% 100% at 50% 0%, rgba(196, 181, 152,0.20) 0%, transparent 100%)",
           filter: "blur(32px)",
           pointerEvents: "none",
           zIndex: 0,
@@ -65,9 +65,9 @@ export function HeroSection() {
             90deg,
             #f7f8f8 0%,
             #f7f8f8 10%,
-            rgba(94, 106, 210, 0.25) 25%,
-            rgba(94, 106, 210, 0.35) 50%,
-            rgba(94, 106, 210, 0.25) 75%,
+            rgba(201, 168, 103, 0.25) 25%,
+            rgba(201, 168, 103, 0.35) 50%,
+            rgba(201, 168, 103, 0.25) 75%,
             #f7f8f8 90%,
             #f7f8f8 100%
           );
@@ -108,7 +108,7 @@ export function HeroSection() {
           height: "600px",
           borderRadius: "50%",
           pointerEvents: "none",
-          background: "radial-gradient(circle, rgba(94,106,210,0.08), transparent 70%)",
+          background: "radial-gradient(circle, rgba(201, 168, 103,0.08), transparent 70%)",
         }}
       />
 
@@ -146,11 +146,11 @@ export function HeroSection() {
               fontSize: "48px",
               fontWeight: 800,
               letterSpacing: "-0.05em",
-              background: "linear-gradient(180deg, #ffffff 0%, #E6ECFF 55%, #A8B5FF 100%)",
+              background: "linear-gradient(180deg, #ffffff 0%, #F9F5EC 55%, #EADBBD 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              filter: "drop-shadow(0 0 18px rgba(120,140,255,0.50)) drop-shadow(0 0 60px rgba(94,106,210,0.22))",
+              filter: "drop-shadow(0 0 18px rgba(223, 199, 152,0.50)) drop-shadow(0 0 60px rgba(201, 168, 103,0.22))",
               lineHeight: 1,
               display: "inline-block",
               paddingBottom: "0.15em",
@@ -163,7 +163,7 @@ export function HeroSection() {
             style={{
               width: "40px",
               height: "1px",
-              background: "rgba(168,181,255,0.55)",
+              background: "rgba(234, 219, 189,0.55)",
               borderRadius: "1px",
             }}
           />
@@ -177,8 +177,8 @@ export function HeroSection() {
             gap: "8px",
             padding: "8px 16px",
             borderRadius: "20px",
-            border: "1px solid rgba(120,148,184,0.32)",
-            background: "linear-gradient(135deg, rgba(120,148,184,0.12), rgba(120,148,184,0.06))",
+            border: "1px solid rgba(179, 161, 125,0.32)",
+            background: "linear-gradient(135deg, rgba(179, 161, 125,0.12), rgba(179, 161, 125,0.06))",
             marginBottom: "28px",
             animation: "slideUp 0.6s ease-out, float 3s ease-in-out infinite 0.3s",
             backdropFilter: "blur(10px)",
@@ -189,10 +189,10 @@ export function HeroSection() {
             width: "6px",
             height: "6px",
             borderRadius: "50%",
-            background: "#5e6ad2",
+            background: "#C9A867",
             animation: "pulse 2s ease-in-out infinite",
           }} />
-          <span style={{ fontSize: "11px", fontWeight: 600, color: "#d0d6e0", letterSpacing: "0.5px" }}>
+          <span style={{ fontSize: "11px", fontWeight: 600, color: "#DFDAD1", letterSpacing: "0.5px" }}>
             VALORAÇÃO PARA NEUROCIRURGIA • COLUNA
           </span>
         </div>
@@ -214,7 +214,7 @@ export function HeroSection() {
             Valoração médica com
           </span>
           <br />
-          <span style={{ background: "linear-gradient(135deg, #5e6ad2 0%, #828fff 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+          <span style={{ background: "linear-gradient(135deg, #C9A867 0%, #E1CBA0 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
             precisão documental
           </span>
         </h1>
@@ -226,7 +226,7 @@ export function HeroSection() {
             maxWidth: "580px",
             fontSize: "16px",
             lineHeight: 1.7,
-            color: "#d0d6e0",
+            color: "#DFDAD1",
             marginLeft: "auto",
             marginRight: "auto",
             animation: "slideUp 0.7s ease-out 0.2s both",
@@ -253,7 +253,7 @@ export function HeroSection() {
               alignItems: "center",
               gap: "8px",
               padding: "12px 28px",
-              background: "linear-gradient(135deg, #1E3A5F 0%, #3D7DB8 100%)",
+              background: "linear-gradient(135deg, #5A4823 0%, #AF8C46 100%)",
               color: "#fff",
               borderRadius: "8px",
               fontSize: "15px",
@@ -262,15 +262,15 @@ export function HeroSection() {
               border: "none",
               cursor: "pointer",
               transition: "all 200ms ease",
-              boxShadow: "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25)",
+              boxShadow: "0 2px 4px rgba(90, 72, 35,0.15), 0 6px 16px rgba(90, 72, 35,0.25)",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 4px 8px rgba(30,58,95,0.20), 0 10px 24px rgba(30,58,95,0.32), 0 16px 40px rgba(30,58,95,0.25)";
+              e.currentTarget.style.boxShadow = "0 4px 8px rgba(90, 72, 35,0.20), 0 10px 24px rgba(90, 72, 35,0.32), 0 16px 40px rgba(90, 72, 35,0.25)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 2px 4px rgba(30,58,95,0.15), 0 6px 16px rgba(30,58,95,0.25)";
+              e.currentTarget.style.boxShadow = "0 2px 4px rgba(90, 72, 35,0.15), 0 6px 16px rgba(90, 72, 35,0.25)";
             }}
           >
             Iniciar cálculo
@@ -284,22 +284,22 @@ export function HeroSection() {
               alignItems: "center",
               gap: "8px",
               padding: "12px 28px",
-              background: "rgba(120,148,184,0.12)",
+              background: "rgba(179, 161, 125,0.12)",
               color: "#f7f8f8",
               borderRadius: "8px",
               fontSize: "15px",
               fontWeight: 600,
-              border: "1px solid rgba(120,148,184,0.24)",
+              border: "1px solid rgba(179, 161, 125,0.24)",
               cursor: "pointer",
               transition: "all 150ms ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(120,148,184,0.18)";
-              e.currentTarget.style.borderColor = "rgba(143,163,191,0.32)";
+              e.currentTarget.style.background = "rgba(179, 161, 125,0.18)";
+              e.currentTarget.style.borderColor = "rgba(187, 174, 147,0.32)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(120,148,184,0.12)";
-              e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
+              e.currentTarget.style.background = "rgba(179, 161, 125,0.12)";
+              e.currentTarget.style.borderColor = "rgba(179, 161, 125,0.24)";
             }}
           >
             Ver composição exemplo
@@ -307,7 +307,7 @@ export function HeroSection() {
         </div>
 
         {/* Sign in hint */}
-        <p style={{ margin: 0, fontSize: "13px", color: "#8a8f98", marginBottom: "32px" }}>
+        <p style={{ margin: 0, fontSize: "13px", color: "#9B9387", marginBottom: "32px" }}>
           Já tem conta?{" "}
           <SignInButton mode="modal">
             <button
@@ -319,11 +319,11 @@ export function HeroSection() {
                 fontFamily: "inherit",
                 fontSize: "13px",
                 fontWeight: 600,
-                color: "#d0d6e0",
+                color: "#DFDAD1",
                 cursor: "pointer",
                 textDecoration: "underline",
                 textUnderlineOffset: "3px",
-                textDecorationColor: "rgba(120,148,184,0.24)",
+                textDecorationColor: "rgba(179, 161, 125,0.24)",
               }}
             >
               Entrar
@@ -341,13 +341,13 @@ export function HeroSection() {
             animation: "slideUp 0.8s ease-out 0.5s both",
           }}
         >
-          <span style={{ fontSize: "15px", color: "#d0d6e0", fontWeight: 600, whiteSpace: "nowrap" }}>
+          <span style={{ fontSize: "15px", color: "#DFDAD1", fontWeight: 600, whiteSpace: "nowrap" }}>
             Veja como funciona
           </span>
           <ChevronDown
             size={18}
             style={{
-              color: "#8a8f98",
+              color: "#9B9387",
               animation: "scrollCue 2s ease-in-out infinite",
             }}
           />

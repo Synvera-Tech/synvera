@@ -35,7 +35,7 @@ export function NavBar() {
         borderRadius: "9999px",
         overflow: "hidden",
         whiteSpace: "nowrap",
-        background: "rgba(10, 12, 20, 0.28)",
+        background: "rgba(19, 16, 11, 0.28)",
         backdropFilter: "blur(28px) saturate(180%) brightness(1.08)",
         WebkitBackdropFilter: "blur(28px) saturate(180%) brightness(1.08)",
         border: "1px solid rgba(255,255,255,0.18)",
@@ -43,7 +43,7 @@ export function NavBar() {
           "inset 0 1px 0 rgba(255,255,255,0.22)",
           "inset 0 -1px 0 rgba(255,255,255,0.05)",
           "0 20px 70px rgba(0,0,0,0.42)",
-          "0 0 42px rgba(94,106,210,0.14)",
+          "0 0 42px rgba(201, 168, 103,0.14)",
         ].join(", "),
       }}
       initial={{ opacity: 0, y: -16 }}
@@ -73,7 +73,7 @@ export function NavBar() {
               fontWeight: 800,
               fontSize: "14px",
               letterSpacing: "-0.03em",
-              color: "#E6EEF7",
+              color: "#F6F1E7",
               lineHeight: 1.2,
               display: "block",
             }}
@@ -84,7 +84,7 @@ export function NavBar() {
             style={{
               fontSize: "9px",
               fontWeight: 500,
-              color: "rgba(230,238,247,0.55)",
+              color: "rgba(246, 241, 231,0.55)",
               letterSpacing: "0.3px",
               lineHeight: 1,
               display: "block",
@@ -109,7 +109,7 @@ export function NavBar() {
               borderRadius: "9999px",
               fontSize: "12.5px",
               fontWeight: 500,
-              color: "rgba(230,238,247,0.65)",
+              color: "rgba(246, 241, 231,0.65)",
               background: "transparent",
               textDecoration: "none",
               cursor: "pointer",
@@ -118,19 +118,19 @@ export function NavBar() {
               outline: "none",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#E6EEF7";
+              e.currentTarget.style.color = "#F6F1E7";
               e.currentTarget.style.background = "rgba(255,255,255,0.08)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "rgba(230,238,247,0.65)";
+              e.currentTarget.style.color = "rgba(246, 241, 231,0.65)";
               e.currentTarget.style.background = "transparent";
             }}
             onFocus={(e) => {
-              e.currentTarget.style.color = "#E6EEF7";
+              e.currentTarget.style.color = "#F6F1E7";
               e.currentTarget.style.background = "rgba(255,255,255,0.08)";
             }}
             onBlur={(e) => {
-              e.currentTarget.style.color = "rgba(230,238,247,0.65)";
+              e.currentTarget.style.color = "rgba(246, 241, 231,0.65)";
               e.currentTarget.style.background = "transparent";
             }}
           >
@@ -156,7 +156,7 @@ export function NavBar() {
               padding: "7px 12px",
               fontSize: "12.5px",
               fontWeight: 500,
-              color: "rgba(230,238,247,0.65)",
+              color: "rgba(246, 241, 231,0.65)",
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -165,11 +165,11 @@ export function NavBar() {
               whiteSpace: "nowrap",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#E6EEF7";
+              e.currentTarget.style.color = "#F6F1E7";
               e.currentTarget.style.background = "rgba(255,255,255,0.08)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "rgba(230,238,247,0.65)";
+              e.currentTarget.style.color = "rgba(246, 241, 231,0.65)";
               e.currentTarget.style.background = "transparent";
             }}
           >
@@ -188,10 +188,10 @@ export function NavBar() {
             fontSize: "12.5px",
             fontWeight: 600,
             color: "white",
-            background: "#5e6ad2",
+            background: "#C9A867",
             textDecoration: "none",
             border: "1px solid rgba(255,255,255,0.14)",
-            boxShadow: "0 2px 12px rgba(94,106,210,0.42)",
+            boxShadow: "0 2px 12px rgba(201, 168, 103,0.42)",
             whiteSpace: "nowrap",
           }}
         >

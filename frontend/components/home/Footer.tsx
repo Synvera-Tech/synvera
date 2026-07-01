@@ -9,7 +9,7 @@ export function Footer() {
     <footer
       style={{
         backgroundColor: "rgba(0,0,0,0.45)",
-        borderTop: "1px solid rgba(120,148,184,0.08)",
+        borderTop: "1px solid rgba(179, 161, 125,0.08)",
       }}
       className="px-4 pt-12 pb-9"
     >
@@ -21,13 +21,13 @@ export function Footer() {
           <div className="flex flex-col items-center md:items-start gap-3">
             <span
               className="font-grotesk font-extrabold tracking-tight"
-              style={{ fontSize: "15px", color: "#E6EEF7" }}
+              style={{ fontSize: "15px", color: "#F6F1E7" }}
             >
               Synvera
             </span>
             <p
               className="text-center md:text-left leading-relaxed"
-              style={{ fontSize: "12px", color: "#8A8F98", maxWidth: "210px" }}
+              style={{ fontSize: "12px", color: "#9B9387", maxWidth: "210px" }}
             >
               Valoração de honorários médicos para neurocirurgia e coluna vertebral.
             </p>
@@ -46,20 +46,20 @@ export function Footer() {
                 background: "rgba(37,211,102,0.05)",
                 boxShadow: "0 0 14px rgba(37,211,102,0.08)",
                 fontSize: "12px",
-                color: "#8A8F98",
+                color: "#9B9387",
                 cursor: "default",
                 transition: "border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, background 200ms ease",
                 letterSpacing: "0.01em",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = "rgba(37,211,102,0.52)";
-                e.currentTarget.style.color = "#c4cdd8";
+                e.currentTarget.style.color = "#D6D1C6";
                 e.currentTarget.style.boxShadow = "0 0 22px rgba(37,211,102,0.20)";
                 e.currentTarget.style.background = "rgba(37,211,102,0.09)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = "rgba(37,211,102,0.32)";
-                e.currentTarget.style.color = "#8A8F98";
+                e.currentTarget.style.color = "#9B9387";
                 e.currentTarget.style.boxShadow = "0 0 14px rgba(37,211,102,0.08)";
                 e.currentTarget.style.background = "rgba(37,211,102,0.05)";
               }}
@@ -84,14 +84,14 @@ export function Footer() {
           className="mb-5"
           style={{
             height: "1px",
-            background: "linear-gradient(to right, transparent, rgba(120,148,184,0.13), transparent)",
+            background: "linear-gradient(to right, transparent, rgba(179, 161, 125,0.13), transparent)",
           }}
         />
 
         {/* Copyright */}
         <p
           className="text-center"
-          style={{ fontSize: "11px", fontWeight: 500, color: "rgba(138,143,152,0.5)" }}
+          style={{ fontSize: "11px", fontWeight: 500, color: "rgba(155, 147, 135,0.5)" }}
         >
           2026 · LabF5 · Todos os direitos reservados
         </p>

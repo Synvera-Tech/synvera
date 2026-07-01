@@ -13,7 +13,7 @@ export function Toggle({ checked, onChange, className }: ToggleProps) {
       aria-checked={checked}
       className={cn(
         "relative inline-flex h-[26px] w-[48px] flex-shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        checked ? "bg-primary" : "bg-slate-300 dark:bg-slate-700",
+        checked ? "bg-primary" : "bg-stone-300 dark:bg-stone-700",
         className,
       )}
       role="switch"
