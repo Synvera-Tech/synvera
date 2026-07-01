@@ -215,6 +215,13 @@ type CalculationResult struct {
 	AnesthesiaAssistantReasons []string
 	AnesthesiaAssistantSource  string
 
+	// Anesthesia bilateral (P2, CBHPM p.140 item 7): +70% of the principal anesthetic porte added
+	// to the anesthesiologist fee when the act was bilateral and no specific bilateral code exists.
+	// BaseAnesthesiaBilateralValue is the pre-adjustment increment folded into the anesthesia fee.
+	AnesthesiaBilateralApplied   bool
+	BaseAnesthesiaBilateralValue float64
+	AnesthesiaBilateralSource    string
+
 	FinalTotal float64
 }
 

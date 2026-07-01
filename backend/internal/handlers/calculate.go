@@ -121,7 +121,10 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			}
 		}
 
-		result := service.CalculateWithPortesModifiersAndAnesthesia(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification)
+		// P2 (CBHPM p.140 item 7): USER_SELECTABLE bilateral anesthetic act (+70%).
+		anesthesiaBilateral := req.AnesthesiaBilateral != nil && *req.AnesthesiaBilateral
+
+		result := service.CalculateWithPortesModifiersAndAnesthesia(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification, anesthesiaBilateral)
 
 		breakdown := make([]generated.CodeBreakdown, 0, len(result.CodeBreakdown))
 		for _, b := range result.CodeBreakdown {
@@ -166,6 +169,7 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 		if assistantReasons == nil {
 			assistantReasons = []string{}
 		}
+		bilateralApplied := result.AnesthesiaBilateralApplied
 		respondJSON(w, http.StatusOK, generated.CalculateResponse{
 			CodeBreakdown:             breakdown,
 			AccessRouteType:           generated.AccessRouteType(result.AccessRouteType),
@@ -185,6 +189,7 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			AnesthesiaAssistantFee:     &assistantFee,
 			AnesthesiaAssistantApplied: &assistantApplied,
 			AnesthesiaAssistantReasons: &assistantReasons,
+			AnesthesiaBilateralApplied: &bilateralApplied,
 			FinalTotal:                float32(result.FinalTotal),
 			SelectedAdjustments:       appliedAdj,
 			TotalAdjustmentPercentage: float32(result.TotalAdjustmentPercentage),

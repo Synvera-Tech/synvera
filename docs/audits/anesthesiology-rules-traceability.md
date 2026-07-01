@@ -38,7 +38,7 @@ Colunas: **Impl.?** (✅/❌) · **Diverge?** (⚠️ quando a implementação c
 | A5 | Ato sem porte anestésico previsto → equivale ao **PORTE 3** (3.16.02.34-7) | 🟢 | CBHPM | 140 | "4. Quando houver necessidade do concurso de anestesiologista em atos médicos que não tenham seus portes especialmente previstos … será equivalente ao estabelecido para o PORTE 3, código 3.16.02.34-7." | ❌ | — | sim |
 | A6 | **Múltiplos atos — mesma via/cavidade**: maior porte + **50%** dos demais | 🟢 | CBHPM | 140 | "5. … a partir da MESMA VIA DE ACESSO ou dentro da MESMA CAVIDADE ANATÔMICA, o porte … será o que corresponder … ao procedimento de maior porte, acrescido de 50% dos demais atos praticados." | ❌ | — | **sim** |
 | A7 | **Múltiplos atos — incisões/orifícios diferentes**: maior porte + **70%** dos demais | 🟢 | CBHPM | 140 | "6. … procedimentos cirúrgicos diferentes através de outras incisões … ou outros orifícios naturais, os portes … serão estabelecidos em acréscimo ao ato anestésico de maior porte 70% dos demais." | ❌ | — | **sim** |
-| A8 | **Cirurgia bilateral** (sem código específico): + **70%** do porte do 1º ato | 🟢 | CBHPM | 140 | "7. Em caso de cirurgia bilateral no mesmo ato anestésico, INEXISTINDO código específico … serão acrescidos de 70% do porte atribuído ao primeiro ato cirúrgico." | ❌ | — | sim |
+| A8 | **Cirurgia bilateral** (sem código específico): + **70%** do porte do 1º ato | 🟢 | CBHPM | 140 | "7. Em caso de cirurgia bilateral no mesmo ato anestésico, INEXISTINDO código específico … serão acrescidos de 70% do porte atribuído ao primeiro ato cirúrgico." | ✅ | — | sim (P2) |
 | A9 | **Auxiliar de anestesia = 60%** (AN7/AN8, CEC, neonato, gastroplastia, >6h) | 🟢 | CBHPM | 140 | "8. Para os atos AN7 e AN8 ou … Circulação Extracorpórea (CEC), ou … cirurgias com duração acima de 6 horas, o anestesiologista … poderá solicitar … um auxiliar … porte correspondente a 60% dos portes previstos para o(s) ato(s) … principal." | ❌ | — | sim |
 | A10 | Portes incluem anestesia geral/condutiva/local + assistência | 🟢 | CBHPM | 140 | "9. Na valoração dos portes … incluem a anestesia geral, condutiva regional ou local, bem como a assistência do anestesiologista" | n/a | — | não |
 | A11 | Portes = intervenção pessoal, livres de despesas (drogas/material) | 🟢 | CBHPM | 140 | "10. Os portes … referem-se exclusivamente à intervenção pessoal, livre de quaisquer despesas …" | n/a | — | não |
@@ -105,7 +105,7 @@ Colunas: **Impl.?** (✅/❌) · **Diverge?** (⚠️ quando a implementação c
 - **Captura de dado**: coluna `cbhpm_codes.anesthetic_porte` (migração 029), 190/219 códigos.
 
 ### ⚠️ Divergentes / decisões aplicadas
-1. **A8 — Bilateral +70% do 1º ato (sem código específico).** Implementado de forma **aproximada** via a degressividade de via (A6/A7); a regra bilateral-específica do item 7 não tem tratamento próprio. Rever se necessário.
+1. **A8 — Bilateral +70% do 1º ato (sem código específico).** Implementado (P2, 2026-07-01) com tratamento próprio do item 7: toggle `USER_SELECTABLE` `anesthesia_bilateral` → +70% do porte anestésico principal, gated por "sem código específico" (descrição contém "bilateral"), aplicado antes do auxiliar (item 8). Distinto da degressividade de via (A6/A7).
 2. **A14 — Pediatria/idoso anestésico (+30%, escopo restrito).** O engine aplica os ajustes pediátricos **gerais** também à anestesia; o +30% restrito aos códigos do item 14 ainda não é específico.
 
 ### ✅ Implementado
@@ -117,7 +117,6 @@ Colunas: **Impl.?** (✅/❌) · **Diverge?** (⚠️ quando a implementação c
   Ver [matriz-rastreabilidade-pendencias-P1-P4.md](matriz-rastreabilidade-pendencias-P1-P4.md).
 
 ### ❌ Pendentes (norma existe, não implementada)
-- **A8** tratamento bilateral-específico (item 7) distinto da degressividade de via.
 - **A14** +30% pediátrico/idoso restrito aos códigos do item 14 (hoje usa o ajuste geral).
 - **A12/A18** consulta pré-anestésica e SRPA (códigos próprios) — fora de escopo do cálculo atual.
 

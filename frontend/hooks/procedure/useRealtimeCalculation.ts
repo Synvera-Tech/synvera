@@ -15,6 +15,7 @@ export function useRealtimeCalculation({
   requiresAnesthesia,
   anesthesiaAssistant,
   assistantJustification,
+  anesthesiaBilateral,
   accessRoute,
   adjustments,
 }: {
@@ -26,6 +27,7 @@ export function useRealtimeCalculation({
   requiresAnesthesia: boolean;
   anesthesiaAssistant: boolean;
   assistantJustification: AnesthesiaAuxiliaryJustification;
+  anesthesiaBilateral: boolean;
   accessRoute: AccessRouteType;
   adjustments: string[];
 }) {
@@ -45,6 +47,7 @@ export function useRealtimeCalculation({
       accessRoute,
       adjustments,
       assistantJustification,
+      anesthesiaBilateral,
     );
     if (!payload) { setCalculation(null); return; }
 
@@ -58,7 +61,7 @@ export function useRealtimeCalculation({
     }, 150);
 
     return () => { if (calcTimer.current) clearTimeout(calcTimer.current); };
-  }, [allCbhpmCodes, selectedCodes, spineModifiers, codeQuantities, auxiliariesCount, requiresAnesthesia, anesthesiaAssistant, assistantJustification, accessRoute, adjustments]);
+  }, [allCbhpmCodes, selectedCodes, spineModifiers, codeQuantities, auxiliariesCount, requiresAnesthesia, anesthesiaAssistant, assistantJustification, anesthesiaBilateral, accessRoute, adjustments]);
 
   return { calculation, setCalculation };
 }

@@ -70,6 +70,8 @@ export type CalculatePayload = {
   requires_anesthesia: boolean;
   anesthesia_assistant: boolean;
   anesthesia_auxiliary_justification: AnesthesiaAuxiliaryJustification;
+  // P2 (CBHPM p.140 item 7): bilateral anesthetic act with no specific code → +70%. USER_SELECTABLE.
+  anesthesia_bilateral: boolean;
   access_route_type: AccessRouteType;
   adjustments: string[];
   modifiers: SpineBillingModifiers;
@@ -86,6 +88,7 @@ export function buildCalculatePayload(
   accessRoute: AccessRouteType,
   adjustments: string[],
   assistantJustification: AnesthesiaAuxiliaryJustification = EMPTY_ANESTHESIA_JUSTIFICATION,
+  anesthesiaBilateral = false,
 ): CalculatePayload | null {
   const checked = allCbhpmCodes.filter((c) => selectedCodes.has(c.code));
   if (checked.length === 0) return null;
@@ -97,6 +100,7 @@ export function buildCalculatePayload(
     requires_anesthesia: requiresAnesthesia,
     anesthesia_assistant: anesthesiaAssistant,
     anesthesia_auxiliary_justification: assistantJustification,
+    anesthesia_bilateral: anesthesiaBilateral,
     access_route_type: accessRoute,
     adjustments,
     modifiers: spineModifiers,

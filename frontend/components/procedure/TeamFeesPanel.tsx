@@ -15,6 +15,8 @@ interface TeamFeesPanelProps {
   onAnesthesiaAssistantChange: (v: boolean) => void;
   assistantJustification: AnesthesiaAuxiliaryJustification;
   onAssistantJustificationChange: (key: keyof AnesthesiaAuxiliaryJustification, value: boolean) => void;
+  anesthesiaBilateral: boolean;
+  onAnesthesiaBilateralChange: (v: boolean) => void;
 }
 
 // P1 (CBHPM p.140 item 8): non-derivable clinical facts that only the surgeon knows. Order and
@@ -36,6 +38,8 @@ export function TeamFeesPanel({
   onAnesthesiaAssistantChange,
   assistantJustification,
   onAssistantJustificationChange,
+  anesthesiaBilateral,
+  onAnesthesiaBilateralChange,
 }: TeamFeesPanelProps) {
   // Item 8 (A9): the second anesthesiologist (60%) is only allowed for AN7/AN8.
   const assistantEligible = anesthesiaPorte === 7 || anesthesiaPorte === 8;
@@ -93,6 +97,27 @@ export function TeamFeesPanel({
               anestesia local (AN0) não geram honorário.
             </div>
           </div>
+        </div>
+
+        {/* P2 (CBHPM p.140 item 7): bilateral anesthetic act with no specific code → +70% of the
+            principal anesthetic porte. USER_SELECTABLE; the backend ignores it when a selected code
+            is already a specific bilateral code. */}
+        <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
+          <div className="flex items-center gap-2.5">
+            <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
+              <HeartPulse aria-hidden="true" size={16} />
+            </div>
+            <div>
+              <div className="text-[13px] font-semibold text-slate-950 dark:text-slate-50">
+                Ato anestésico bilateral (+70%)
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                Cirurgia bilateral no mesmo ato anestésico, sem código específico (CBHPM item 7).
+                Acresce 70% do porte anestésico principal.
+              </div>
+            </div>
+          </div>
+          <Toggle checked={anesthesiaBilateral} onChange={onAnesthesiaBilateralChange} />
         </div>
 
         {assistantEligible && (

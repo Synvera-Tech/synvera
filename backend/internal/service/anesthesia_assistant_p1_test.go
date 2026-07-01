@@ -21,7 +21,7 @@ var noJust = models.AnesthesiaAssistantJustification{}
 func p1Calc(anPorte int, toggle bool, j models.AnesthesiaAssistantJustification) models.CalculationResult {
 	return CalculateWithPortesModifiersAndAnesthesia(
 		[]models.SelectedCode{code("A")}, 0, false, models.AccessRouteSame, nil,
-		anPortesP1, nil, map[string]int{"A": anPorte}, toggle, j,
+		anPortesP1, nil, map[string]int{"A": anPorte}, toggle, j, false,
 	)
 }
 

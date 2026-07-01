@@ -68,6 +68,9 @@ function ProcedureContent({
     key: keyof AnesthesiaAuxiliaryJustification,
     value: boolean,
   ) => setAssistantJustification((prev) => ({ ...prev, [key]: value }));
+  // P2 (CBHPM p.140 item 7): USER_SELECTABLE bilateral anesthetic act (+70%). The backend ignores
+  // it when a selected code is already a specific bilateral code.
+  const [anesthesiaBilateral, setAnesthesiaBilateral] = useState(false);
 
   // Per-code quantity selections (segments/vertebrae/structures). Keyed by CBHPM code;
   // codes absent from the map default to 1. Drives the per-code ×N billing (N5b).
@@ -125,6 +128,7 @@ function ProcedureContent({
     requiresAnesthesia,
     anesthesiaAssistant,
     assistantJustification,
+    anesthesiaBilateral,
     accessRoute,
     adjustments: adjustmentState.adjustments,
   });
@@ -315,6 +319,8 @@ function ProcedureContent({
                 onAnesthesiaAssistantChange={setAnesthesiaAssistant}
                 assistantJustification={assistantJustification}
                 onAssistantJustificationChange={handleAssistantJustificationChange}
+                anesthesiaBilateral={anesthesiaBilateral}
+                onAnesthesiaBilateralChange={setAnesthesiaBilateral}
               />
 
               <ClinicalAdjustmentsPanel

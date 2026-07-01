@@ -509,8 +509,15 @@ components:
         anesthesia_assistant:
           type: boolean
           description: >
-            Request a second anesthesiologist (CBHPM p.140 item 8): 60% of the anesthesiologist
-            fee. Applied only for AN7/AN8 procedures (other triggers — CEC, >6h — are out of scope).
+            Request a second anesthesiologist for AN7/AN8 (CBHPM p.140 item 8): 60% of the
+            anesthesiologist fee. Other item-8 triggers (CEC, >6h, …) are supplied via
+            anesthesia_auxiliary_justification.
+        anesthesia_bilateral:
+          type: boolean
+          description: >
+            USER_SELECTABLE: the anesthesia covered a bilateral surgical act with no specific
+            bilateral CBHPM code (p.140 item 7). Adds 70% of the principal anesthetic porte to the
+            anesthesiologist fee. Ignored when a selected code is already a bilateral code.
         access_route_type:
           $ref: '#/components/schemas/AccessRouteType'
         urgency_emergency:
@@ -713,6 +720,10 @@ components:
           description: >
             Reasons the assistant was applied — any of: AN7, AN8, cec, duration_over_6h,
             surgical_neonatology, bariatric_gastroplasty. Empty when not applied (CBHPM p.140 item 8).
+        anesthesia_bilateral_applied:
+          type: boolean
+          description: >
+            Whether the bilateral +70% (CBHPM p.140 item 7) was added to the anesthesiologist fee.
         final_total:
           type: number
           format: float

@@ -1,6 +1,31 @@
 package service
 
-import "synvera/backend/internal/models"
+import (
+	"strings"
+
+	"synvera/backend/internal/models"
+)
+
+// anesthesiaPrincipalValue is the monetary value of the principal anesthetic act (the highest
+// anesthetic porte), used as the base for the bilateral +70% (P2, CBHPM p.140 item 7). Returns 0
+// when there is no known anesthetic porte (the caller then falls back to the computed fee).
+func anesthesiaPrincipalValue(anesthPorte int, porteValues map[string]float64) float64 {
+	if anesthPorte <= 0 {
+		return 0
+	}
+	return porteValues[anestheticPorteEquivalence[anesthPorte]]
+}
+
+// hasBilateralSpecificCode reports whether any selected code already encodes bilaterality in its
+// description — item 7's "existindo código específico". When true, the +70% must NOT be added.
+func hasBilateralSpecificCode(codes []models.SelectedCode) bool {
+	for _, c := range codes {
+		if strings.Contains(strings.ToLower(c.Description), "bilateral") {
+			return true
+		}
+	}
+	return false
+}
 
 // anestheticPorteEquivalence maps each anesthetic porte (AN0–AN8) to its equivalent surgical
 // porte, per CBHPM 2022 p.139 item 2. AN0 ("anestesia local") means NO anesthesiologist

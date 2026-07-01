@@ -77,18 +77,32 @@ checkboxes por gatilho).
 
 ---
 
-## P2 — Bilateralidade anestésica +70% (RESOLVÍVEL — pendente de implementação)
+## P2 — Bilateralidade anestésica +70% ✅ IMPLEMENTADO (2026-07-01)
 
 **CBHPM 2022, p.140, item 7** (verbatim): *"Em caso de cirurgia bilateral no mesmo ato anestésico,
 INEXISTINDO código específico na presente Classificação, os atos praticados pelo anestesiologista serão
 acrescidos de 70% do porte atribuído ao primeiro ato cirúrgico."*
 
-- **Interpretação do porte:** lendo os itens 5/6/7 em conjunto, o +70% incide sobre o **porte
-  anestésico** do ato principal (não o cirúrgico). Confiança: MÉDIA-ALTA.
-- **Detecção de "código específico":** existe quando a descrição contém "bilateral" — **nenhum**
-  procedimento de coluna/neuro tem; logo, em regra o +70% se aplica quando o ato é bilateral.
-- **Decisão pendente:** sinal de bilateralidade anestésica + validação da interpretação. **Implementar
-  por último.** Não alterado neste change.
+### Interpretação adotada (fato autorizador)
+- **"Porte do 1º ato" = porte anestésico do ato principal** (não o cirúrgico). Leitura sistemática dos
+  itens 5/6/7, todos operando sobre o porte anestésico. **Confiança: MÉDIA-ALTA** — é a **única**
+  interpretação da trilha; registrada aqui como a leitura adotada (reversível se você discordar).
+- **Detecção de "código específico":** data-driven — não aplica se a descrição de algum código
+  selecionado contiver "bilateral". Nenhum procedimento de coluna/neuro tem; logo, em regra aplica-se.
+- **Sinal:** `USER_SELECTABLE` (o cirurgião declara "ato anestésico bilateral"), default desligado.
+
+### Implementação
+- **`service/anesthesia.go`:** `anesthesiaPrincipalValue` (valor do porte principal) +
+  `hasBilateralSpecificCode` (descrição contém "bilateral").
+- **`service/engine.go`:** `+70%` do porte anestésico principal somado ao honorário do
+  anestesiologista, **antes** do auxiliar (item 8), de modo que o 60% incide sobre o honorário já com
+  o bilateral; urgência (P3) escala o conjunto. Gated por `anesthesiaBilateral && anesth>0 && sem
+  código bilateral`.
+- **Payload:** `anesthesia_bilateral` (bool). **Response/snapshot:** `anesthesia_bilateral_applied` +
+  `BaseAnesthesiaBilateralValue` + fonte "CBHPM 2022 p.140 item 7".
+- **Frontend:** toggle "Ato anestésico bilateral (+70%)" no bloco de anestesia.
+- **Testes:** 6 casos (aplica +70%; off; código específico → não aplica; auxiliar 60% inclui o
+  bilateral; urgência escala o conjunto; sem anestesia → não aplica).
 
 ---
 
@@ -137,7 +151,7 @@ Norma decidiu com **confiança ALTA**; o cirurgião **autorizou** a mudança de 
 | Pend. | Regra | Documento · Item | Muda valor? | Confiança | Status |
 |---|---|---|---|---|---|
 | **P1** | Auxiliar de anestesia +60% (AN7/AN8 **ou** gatilhos USER_SELECTABLE) | CBHPM p.140 item 8 | Sim (quando aplicável) | ALTA | ✅ **Implementado** |
-| **P2** | +70% anestésico em bilateral sem código específico | CBHPM p.140 itens 5/6/7 | Sim (bilaterais) | MÉDIA-ALTA | Pendente |
+| **P2** | +70% anestésico em bilateral sem código específico | CBHPM p.140 itens 5/6/7 | Sim (bilaterais) | MÉDIA-ALTA | ✅ **Implementado** |
 | **P3** | Pediátrico geral **não** incide na anestesia | CBHPM p.23 §4.6–4.8 + p.140 item 14 | Sim (pediatria) | ALTA | ✅ **Implementado** |
 | **P4** | Composição de acréscimos = aditivo | CBHPM p.23 §2.1 e §4.6–4.8 | Sim (2+ acréscimos) | Silente | ✅ **Decidido** (aditivo) |
 

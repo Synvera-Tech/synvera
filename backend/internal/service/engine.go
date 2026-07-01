@@ -17,7 +17,7 @@ func CalculateWithPortes(
 	adjustments []string,
 	porteValues map[string]float64,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil, nil, false, models.AnesthesiaAssistantJustification{})
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, nil, nil, false, models.AnesthesiaAssistantJustification{}, false)
 }
 
 // CalculateWithPortesAndModifiers is the data-driven entry point (ADR-005, roadmap N5).
@@ -44,7 +44,7 @@ func CalculateWithPortesAndModifiers(
 	anestheticPortes map[string]int,
 	anesthesiaAssistant bool,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, models.AnesthesiaAssistantJustification{})
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, models.AnesthesiaAssistantJustification{}, false)
 }
 
 // CalculateWithPortesModifiersAndAnesthesia is the production entry point for P1 (CBHPM p.140
@@ -64,8 +64,9 @@ func CalculateWithPortesModifiersAndAnesthesia(
 	anestheticPortes map[string]int,
 	anesthesiaAssistant bool,
 	justification models.AnesthesiaAssistantJustification,
+	anesthesiaBilateral bool,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification)
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification, anesthesiaBilateral)
 }
 
 // Calculate applies validated CBHPM billing rules to a physician-assembled composition.
@@ -102,7 +103,7 @@ func Calculate(
 	accessRoute models.AccessRouteType,
 	adjustments []string,
 ) models.CalculationResult {
-	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil, nil, false, models.AnesthesiaAssistantJustification{})
+	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, PorteValues, nil, nil, false, models.AnesthesiaAssistantJustification{}, false)
 }
 
 // resolveCodeRules determines the effective billing rule for a single code.
@@ -150,6 +151,7 @@ func calculate(
 	anestheticPortes map[string]int,
 	anesthesiaAssistant bool,
 	justification models.AnesthesiaAssistantJustification,
+	anesthesiaBilateral bool,
 ) models.CalculationResult {
 	// ── Step 1: resolve porte values, apply spine multipliers, find principal ───
 
@@ -274,9 +276,27 @@ func calculate(
 	anesthAssistant := 0.0
 	var anesthAssistantReasons []string
 	anesthAssistantSource := ""
+	anesthBilateralApplied := false
+	anesthBilateralValue := 0.0
+	anesthBilateralSource := ""
 	if anestheticPortes != nil {
 		anesth = computeAnesthesia(codes, anestheticPortes, porteValues, accessRoute)
 		anesthPorte = anesthesiaPrincipalPorte(codes, anestheticPortes)
+		// P2 (CBHPM p.140 item 7): a bilateral anesthetic act with NO specific bilateral code adds
+		// 70% of the principal anesthetic porte to the anesthesiologist fee. Computed BEFORE the
+		// assistant so the item-8 60% is taken over the full anesthesiologist fee. USER_SELECTABLE:
+		// only the surgeon knows the act was bilateral; the "no specific code" side is data-driven
+		// (a code whose description contains "bilateral" is already a specific code).
+		if anesthesiaBilateral && anesth > 0 && !hasBilateralSpecificCode(codes) {
+			principalVal := anesthesiaPrincipalValue(anesthPorte, porteValues)
+			if principalVal == 0 {
+				principalVal = anesth // fallback PORTE 3 / single act: the whole fee is the principal
+			}
+			anesthBilateralValue = principalVal * 0.70
+			anesth += anesthBilateralValue
+			anesthBilateralApplied = true
+			anesthBilateralSource = "CBHPM 2022 p.140 item 7"
+		}
 		// A9 / P1 (CBHPM p.140 item 8): a second anesthesiologist at 60% of the principal
 		// anesthetic porte. Two trigger sources combined with OR:
 		//   - auto-detectable AN7/AN8 (existing behaviour, gated by the anesthesiaAssistant toggle);
@@ -391,6 +411,9 @@ func calculate(
 		AnesthesiaAssistantApplied:  anesthAssistant > 0,
 		AnesthesiaAssistantReasons:  anesthAssistantReasons,
 		AnesthesiaAssistantSource:   anesthAssistantSource,
+		AnesthesiaBilateralApplied:   anesthBilateralApplied,
+		BaseAnesthesiaBilateralValue: anesthBilateralValue,
+		AnesthesiaBilateralSource:    anesthBilateralSource,
 		FinalTotal:                finalSurgeon + finalAux + finalAnesth + finalAnesthAssistant,
 	}
 }

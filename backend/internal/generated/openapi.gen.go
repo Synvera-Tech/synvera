@@ -434,11 +434,14 @@ type CalculateRequest struct {
 	// Adjustments Array of CBHPM adjustment codes to apply to the calculation. Valid codes: emergency_special_hours, pediatric_low_weight_or_premature, pediatric_neonate_or_infant, pediatric_child_under_12. Percentages are additive (e.g., two 30% adjustments = 60%, not 69%).
 	Adjustments *[]string `json:"adjustments,omitempty"`
 
-	// AnesthesiaAssistant Request a second anesthesiologist (CBHPM p.140 item 8): 60% of the anesthesiologist fee. Applied only for AN7/AN8 procedures (other triggers — CEC, >6h — are out of scope).
+	// AnesthesiaAssistant Request a second anesthesiologist for AN7/AN8 (CBHPM p.140 item 8): 60% of the anesthesiologist fee. Other item-8 triggers (CEC, >6h, …) are supplied via anesthesia_auxiliary_justification.
 	AnesthesiaAssistant *bool `json:"anesthesia_assistant,omitempty"`
 
 	// AnesthesiaAuxiliaryJustification USER_SELECTABLE non-derivable clinical facts (informed by the surgeon) that authorise a second anesthesiologist (+60% of the principal anesthetic porte), per CBHPM 2022 p.140 item 8, beyond the auto-detectable AN7/AN8 triggers. All fields default to false.
 	AnesthesiaAuxiliaryJustification *AnesthesiaAuxiliaryJustification `json:"anesthesia_auxiliary_justification,omitempty"`
+
+	// AnesthesiaBilateral USER_SELECTABLE: the anesthesia covered a bilateral surgical act with no specific bilateral CBHPM code (p.140 item 7). Adds 70% of the principal anesthetic porte to the anesthesiologist fee. Ignored when a selected code is already a bilateral code.
+	AnesthesiaBilateral *bool `json:"anesthesia_bilateral,omitempty"`
 
 	// AuxiliariesCount Number of auxiliary surgeons (0–4).
 	AuxiliariesCount int `json:"auxiliaries_count"`
@@ -472,6 +475,9 @@ type CalculateResponse struct {
 
 	// AnesthesiaAssistantReasons Reasons the assistant was applied — any of: AN7, AN8, cec, duration_over_6h, surgical_neonatology, bariatric_gastroplasty. Empty when not applied (CBHPM p.140 item 8).
 	AnesthesiaAssistantReasons *[]string `json:"anesthesia_assistant_reasons,omitempty"`
+
+	// AnesthesiaBilateralApplied Whether the bilateral +70% (CBHPM p.140 item 7) was added to the anesthesiologist fee.
+	AnesthesiaBilateralApplied *bool `json:"anesthesia_bilateral_applied,omitempty"`
 
 	// AnesthesiaPorte Principal anesthetic porte used (AN0–AN8; 0 when none). Lets the client offer the anesthesia assistant only when applicable (AN7/AN8).
 	AnesthesiaPorte *int `json:"anesthesia_porte,omitempty"`

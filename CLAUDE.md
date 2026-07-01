@@ -410,8 +410,11 @@ SPINE modifier applies only when `specialty == SPINE` (domain gating); neuro res
   Data-driven via `adjMeta.appliesToAnesthesia`; urgency/emergency still scales anesthesia.
 - P4 (decided): multiple adjustments compose ADDITIVELY (percentages summed on the same base), the
   official business rule — already implemented; `TestEmergencyPlusPediatricChildAdditive` guards it.
-- Pending: P2 (A8 — bilateral anesthesia +70%, CBHPM p.140 item 7: needs a bilateral signal + the
-  "porte do 1º ato" interpretation).
+- P2 (resolved): bilateral anesthetic act (+70%, CBHPM p.140 item 7). USER_SELECTABLE
+  `anesthesia_bilateral`; adds 70% of the principal anesthetic porte to the anesthesiologist fee
+  (before the item-8 assistant), gated by "no specific bilateral code" (description contains
+  "bilateral"). Adopted reading: "porte do 1º ato" = anesthetic porte (MÉDIA-ALTA, reversible).
+- All P1–P4 pendencies resolved; no anesthesia/adjustment pendencies remain frozen.
 
 ### LLM / RAG never computes
 
