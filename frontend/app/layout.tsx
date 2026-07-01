@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 // In Next 15, themeColor belongs in the viewport export (not metadata), which
 // keeps the build warning-free while emitting <meta name="theme-color">.
 export const viewport: Viewport = {
-  themeColor: "#343650",
+  themeColor: "#4E4636",
 };
 
 const themeInitScript = `

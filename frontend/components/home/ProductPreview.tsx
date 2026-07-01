@@ -65,8 +65,8 @@ export function ProductPreview() {
       id="experiencia"
       style={{
         padding: "80px 24px 100px",
-        background: "linear-gradient(180deg, #0B0D10 0%, #050508 100%)",
-        borderTop: "1px solid rgba(35,37,42,0.85)",
+        background: "linear-gradient(180deg, #100E0B 0%, #050508 100%)",
+        borderTop: "1px solid rgba(42, 39, 35,0.85)",
         // Slightly less overlap than the hero's 60px bottom padding so the
         // divider line sits a touch lower, keeping clear of the scroll-cue
         // chevron's animation at the bottom of the hero.
@@ -113,7 +113,7 @@ export function ProductPreview() {
             style={{
               margin: "0",
               fontSize: "16px",
-              color: "#d0d6e0",
+              color: "#DFDAD1",
               maxWidth: "500px",
               marginLeft: "auto",
               marginRight: "auto",
@@ -137,8 +137,8 @@ export function ProductPreview() {
           {/* Left: Product interface mockup */}
           <div
             style={{
-              background: "#0f1011",
-              border: "1px solid rgba(120,148,184,0.16)",
+              background: "#11100F",
+              border: "1px solid rgba(179, 161, 125,0.16)",
               borderRadius: "12px",
               padding: "28px",
               boxShadow: "0 1px 3px rgba(0,0,0,0.20), 0 8px 32px rgba(0,0,0,0.15)",
@@ -148,8 +148,8 @@ export function ProductPreview() {
             {/* Header */}
             <div
               style={{
-                background: "rgba(20,21,22,0.9)",
-                borderBottom: "1px solid rgba(35,37,42,0.6)",
+                background: "rgba(23, 21, 19,0.9)",
+                borderBottom: "1px solid rgba(42, 39, 35,0.6)",
                 padding: "14px 16px",
                 marginBottom: "28px",
                 borderRadius: "6px",
@@ -159,9 +159,9 @@ export function ProductPreview() {
                 animation: "slideUp 0.7s ease-out 0.35s both",
               }}
             >
-              <Calculator size={16} style={{ color: "#5e6ad2" }} />
+              <Calculator size={16} style={{ color: "#C9A867" }} />
               <span style={{ fontSize: "13px", fontWeight: 600, color: "#f7f8f8" }}>Valoração</span>
-              <span style={{ marginLeft: "auto", fontSize: "11px", color: "#8a8f98" }}>CBHPM 2025</span>
+              <span style={{ marginLeft: "auto", fontSize: "11px", color: "#9B9387" }}>CBHPM 2025</span>
             </div>
 
             {/* Content that transitions - Caminho A */}
@@ -173,7 +173,7 @@ export function ProductPreview() {
             >
               {/* Total value - HERO of the preview */}
               <div className={`preview-field${isTransitioning ? " transitioning" : ""}`} style={{ marginBottom: "32px" }}>
-                <p style={{ margin: "0 0 8px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Valor Total</p>
+                <p style={{ margin: "0 0 8px", fontSize: "11px", fontWeight: 600, color: "#9B9387", textTransform: "uppercase", letterSpacing: "0.5px" }}>Valor Total</p>
                 <p
                   style={{
                     margin: 0,
@@ -189,11 +189,11 @@ export function ProductPreview() {
 
               {/* Main procedure */}
               <div className={`preview-field${isTransitioning ? " transitioning" : ""}`} style={{ marginBottom: "24px" }}>
-                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimento Principal</p>
+                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#9B9387", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimento Principal</p>
                 <div style={{
                   padding: "14px 16px",
-                  background: "linear-gradient(135deg, rgba(94,106,210,0.15), rgba(94,106,210,0.05))",
-                  border: "1px solid rgba(94,106,210,0.2)",
+                  background: "linear-gradient(135deg, rgba(201, 168, 103,0.15), rgba(201, 168, 103,0.05))",
+                  border: "1px solid rgba(201, 168, 103,0.2)",
                   borderRadius: "8px",
                   fontSize: "15px",
                   fontWeight: 600,
@@ -205,14 +205,14 @@ export function ProductPreview() {
 
               {/* Applied rule */}
               <div className={`preview-field${isTransitioning ? " transitioning" : ""}`} style={{ marginBottom: "24px" }}>
-                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Regra Aplicada</p>
+                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#9B9387", textTransform: "uppercase", letterSpacing: "0.5px" }}>Regra Aplicada</p>
                 <div style={{
                   padding: "12px 14px",
-                  background: "rgba(120,148,184,0.08)",
-                  border: "1px solid rgba(120,148,184,0.16)",
+                  background: "rgba(179, 161, 125,0.08)",
+                  border: "1px solid rgba(179, 161, 125,0.16)",
                   borderRadius: "6px",
                   fontSize: "12px",
-                  color: "#d0d6e0",
+                  color: "#DFDAD1",
                   fontFamily: "monospace",
                 }}>
                   {currentScenario.rule}
@@ -221,7 +221,7 @@ export function ProductPreview() {
 
               {/* Auxiliary procedures */}
               <div className={`preview-field${isTransitioning ? " transitioning" : ""}`} style={{ marginBottom: "24px" }}>
-                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#8a8f98", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimentos Auxiliares</p>
+                <p style={{ margin: "0 0 10px", fontSize: "11px", fontWeight: 600, color: "#9B9387", textTransform: "uppercase", letterSpacing: "0.5px" }}>Procedimentos Auxiliares</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   {currentScenario.auxiliaryProcedures.map((proc) => (
                     <div
@@ -231,14 +231,14 @@ export function ProductPreview() {
                         alignItems: "center",
                         gap: "10px",
                         padding: "10px 12px",
-                        background: "linear-gradient(180deg, rgba(120,148,184,0.08), rgba(120,148,184,0.03))",
-                        border: "1px solid rgba(120,148,184,0.16)",
+                        background: "linear-gradient(180deg, rgba(179, 161, 125,0.08), rgba(179, 161, 125,0.03))",
+                        border: "1px solid rgba(179, 161, 125,0.16)",
                         borderRadius: "6px",
                         fontSize: "12.5px",
-                        color: "#d0d6e0",
+                        color: "#DFDAD1",
                       }}
                     >
-                      <Check size={14} style={{ color: "#6F8FB8", flexShrink: 0 }} />
+                      <Check size={14} style={{ color: "#B39E74", flexShrink: 0 }} />
                       {proc}
                     </div>
                   ))}
@@ -251,8 +251,8 @@ export function ProductPreview() {
                 <div
                   style={{
                     padding: "16px",
-                    background: "rgba(120,148,184,0.08)",
-                    border: "1px solid rgba(120,148,184,0.16)",
+                    background: "rgba(179, 161, 125,0.08)",
+                    border: "1px solid rgba(179, 161, 125,0.16)",
                     borderRadius: "8px",
                     display: "flex",
                     flexDirection: "column",
@@ -262,24 +262,24 @@ export function ProductPreview() {
                     transition: "all 150ms ease",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(120,148,184,0.12)";
-                    e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
+                    e.currentTarget.style.background = "rgba(179, 161, 125,0.12)";
+                    e.currentTarget.style.borderColor = "rgba(179, 161, 125,0.24)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(120,148,184,0.08)";
-                    e.currentTarget.style.borderColor = "rgba(120,148,184,0.16)";
+                    e.currentTarget.style.background = "rgba(179, 161, 125,0.08)";
+                    e.currentTarget.style.borderColor = "rgba(179, 161, 125,0.16)";
                   }}
                 >
-                  <QrCode size={20} style={{ color: "#5e6ad2" }} />
-                  <span style={{ fontSize: "11px", fontWeight: 600, color: "#8a8f98" }}>QR Code</span>
+                  <QrCode size={20} style={{ color: "#C9A867" }} />
+                  <span style={{ fontSize: "11px", fontWeight: 600, color: "#9B9387" }}>QR Code</span>
                 </div>
 
                 {/* Share button */}
                 <button
                   style={{
                     padding: "16px",
-                    background: "rgba(120,148,184,0.12)",
-                    border: "1px solid rgba(120,148,184,0.24)",
+                    background: "rgba(179, 161, 125,0.12)",
+                    border: "1px solid rgba(179, 161, 125,0.24)",
                     borderRadius: "8px",
                     display: "flex",
                     flexDirection: "column",
@@ -290,12 +290,12 @@ export function ProductPreview() {
                     color: "#f7f8f8",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(120,148,184,0.18)";
-                    e.currentTarget.style.borderColor = "rgba(143,163,191,0.32)";
+                    e.currentTarget.style.background = "rgba(179, 161, 125,0.18)";
+                    e.currentTarget.style.borderColor = "rgba(187, 174, 147,0.32)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "rgba(120,148,184,0.12)";
-                    e.currentTarget.style.borderColor = "rgba(120,148,184,0.24)";
+                    e.currentTarget.style.background = "rgba(179, 161, 125,0.12)";
+                    e.currentTarget.style.borderColor = "rgba(179, 161, 125,0.24)";
                   }}
                 >
                   <Share2 size={20} />
@@ -338,11 +338,11 @@ export function ProductPreview() {
                     width: "28px",
                     height: "28px",
                     borderRadius: "6px",
-                    background: "linear-gradient(135deg, rgba(94,106,210,0.2), rgba(94,106,210,0.1))",
+                    background: "linear-gradient(135deg, rgba(201, 168, 103,0.2), rgba(201, 168, 103,0.1))",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#5e6ad2",
+                    color: "#C9A867",
                     fontWeight: 700,
                     fontSize: "14px",
                     flexShrink: 0,
@@ -354,7 +354,7 @@ export function ProductPreview() {
                   <h3 style={{ margin: "0 0 4px", fontSize: "15px", fontWeight: 600, color: "#f7f8f8" }}>
                     {benefit.title}
                   </h3>
-                  <p style={{ margin: "0", fontSize: "13px", color: "#8a8f98", lineHeight: 1.6 }}>
+                  <p style={{ margin: "0", fontSize: "13px", color: "#9B9387", lineHeight: 1.6 }}>
                     {benefit.description}
                   </p>
                 </div>

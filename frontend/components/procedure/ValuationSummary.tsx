@@ -28,19 +28,19 @@ export function ValuationSummary({
     : "Vias de acesso diferentes — CBHPM 4.2 (70% para procedimentos adicionais)";
 
   return (
-    <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#5D7EA7]/20 p-7">
+    <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#A18C63]/20 p-7">
       <div className="results-card-header mb-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Calculator aria-hidden="true" className="text-primary" size={18} />
-          <h2 className="m-0 text-[15px] font-bold text-slate-950 dark:text-slate-50">Valoração</h2>
+          <h2 className="m-0 text-[15px] font-bold text-stone-950 dark:text-stone-50">Valoração</h2>
         </div>
         <span className="clinical-pill rounded-full px-2.5 py-1 text-[11px] font-semibold">CBHPM 2025</span>
       </div>
 
       {calculation && (
-        <div className="mb-6 flex items-baseline justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
-          <span className="text-[13px] text-slate-600 dark:text-slate-400">Valor Total</span>
-          <span className="font-grotesk text-[24px] font-bold text-slate-950 dark:text-[#f7f8f8]">
+        <div className="mb-6 flex items-baseline justify-between border-b border-stone-200 dark:border-stone-700 pb-4">
+          <span className="text-[13px] text-stone-600 dark:text-stone-400">Valor Total</span>
+          <span className="font-grotesk text-[24px] font-bold text-stone-950 dark:text-[#f7f8f8]">
             {money.format(calculation.final_total)}
           </span>
         </div>
@@ -50,29 +50,29 @@ export function ValuationSummary({
         <>
           {/* Procedimentos selecionados */}
           <section className="mb-5">
-            <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
+            <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-stone-400 dark:text-stone-500">
               Procedimentos Selecionados
             </h3>
             <dl className="space-y-2">
               {calculation.code_breakdown.map((b) => (
                 <div key={b.cbhpm_code} className={cn(
                   "flex items-end justify-between gap-1 rounded-xl px-3 py-2 transition-colors",
-                  b.is_principal ? "border border-primary/20 bg-[#EAF0F6] principal-row" : "",
+                  b.is_principal ? "border border-primary/20 bg-[#F5F2EB] principal-row" : "",
                 )}>
                   <div className="min-w-0">
                     <dt className="flex items-center gap-1.5">
-                      <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">{b.cbhpm_code}</span>
+                      <span className="font-mono text-[11px] text-stone-400 dark:text-stone-500">{b.cbhpm_code}</span>
                       {b.is_principal && (
-                        <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#5D7EA7]/10 dark:text-[#718BAE]">
+                        <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#A18C63]/10 dark:text-[#A99876]">
                           principal
                         </span>
                       )}
                     </dt>
-                    <dd className="truncate text-[12px] text-slate-500 dark:text-slate-400">{b.description}</dd>
+                    <dd className="truncate text-[12px] text-stone-500 dark:text-stone-400">{b.description}</dd>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
-                    <span className="text-[11px] font-semibold text-primary dark:text-[#718BAE]">{b.porte}</span>
-                    <span className="font-grotesk text-sm font-semibold text-slate-950 dark:text-slate-50">
+                    <span className="text-[11px] font-semibold text-primary dark:text-[#A99876]">{b.porte}</span>
+                    <span className="font-grotesk text-sm font-semibold text-stone-950 dark:text-stone-50">
                       {money.format(b.base_value)}
                     </span>
                   </div>
@@ -85,10 +85,10 @@ export function ValuationSummary({
 
           {/* Regra aplicada */}
           <section className="mb-5">
-            <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
+            <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-stone-400 dark:text-stone-500">
               Regra Aplicada
             </h3>
-            <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/30 px-3 py-2.5 text-[12px] text-slate-500 dark:text-slate-400">
+            <div className="rounded-xl border border-stone-100 dark:border-stone-800 bg-stone-50/70 dark:bg-stone-800/30 px-3 py-2.5 text-[12px] text-stone-500 dark:text-stone-400">
               {ruleLabel}
             </div>
           </section>
@@ -118,7 +118,7 @@ export function ValuationSummary({
 
           {/* Cálculo do cirurgião */}
           <section className="mb-5">
-            <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
+            <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-stone-400 dark:text-stone-500">
               Cálculo do Cirurgião
             </h3>
             <dl className="space-y-1.5">
@@ -143,10 +143,10 @@ export function ValuationSummary({
 
           {/* Cálculo dos auxiliares */}
           <section className="mb-5">
-            <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-slate-400 dark:text-slate-500">
+            <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.5px] text-stone-400 dark:text-stone-500">
               Cálculo dos Auxiliares
             </h3>
-            <dl className="space-y-2.5 dark:text-slate-200">
+            <dl className="space-y-2.5 dark:text-stone-200">
               <ResultRow label="Cirurgião Principal" value={calculation.lead_surgeon_fee} strong />
               {calculation.individual_auxiliary_fees.map((af) => (
                 <ResultRow
@@ -160,7 +160,7 @@ export function ValuationSummary({
                 <>
                   <ResultRow label="Anestesiologista" value={calculation.anesthesiologist_fee} />
                   {calculation.anesthesia_bilateral_applied && (
-                    <div className="-mt-1 pl-1 text-[11px] font-medium text-primary/80 dark:text-[#718BAE]">
+                    <div className="-mt-1 pl-1 text-[11px] font-medium text-primary/80 dark:text-[#A99876]">
                       Justificativa: Ato anestésico bilateral (+70%, item 7)
                     </div>
                   )}
@@ -173,7 +173,7 @@ export function ValuationSummary({
                     value={calculation.anesthesia_assistant_fee!}
                   />
                   {formatAssistantReasons(calculation.anesthesia_assistant_reasons) && (
-                    <div className="-mt-1 pl-1 text-[11px] font-medium text-primary/80 dark:text-[#718BAE]">
+                    <div className="-mt-1 pl-1 text-[11px] font-medium text-primary/80 dark:text-[#A99876]">
                       Justificativa: {formatAssistantReasons(calculation.anesthesia_assistant_reasons)}
                     </div>
                   )}
@@ -187,7 +187,7 @@ export function ValuationSummary({
           {/* Valor Final */}
           <div
             className="rounded-2xl p-4 text-white"
-            style={{ background: "linear-gradient(135deg, hsl(214,52%,24%), hsl(214,52%,18%))", boxShadow: "0 4px 20px hsla(214,52%,24%,0.35)" }}
+            style={{ background: "linear-gradient(135deg, hsl(40, 44%, 24%), hsl(40, 44%, 18%))", boxShadow: "0 4px 20px hsla(214,52%,24%,0.35)" }}
           >
             <div className="mb-2 grid grid-cols-2 gap-1 text-[11px] opacity-75">
               <span>Cirurgião</span>
@@ -237,7 +237,7 @@ export function ValuationSummary({
               <button
                 id="share-calculation-btn"
                 onClick={onShareClick}
-                className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/5 active:scale-[0.98] dark:border-[#5D7EA7]/20 dark:text-[#718BAE]"
+                className="flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/25 px-4 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/5 active:scale-[0.98] dark:border-[#A18C63]/20 dark:text-[#A99876]"
                 type="button"
               >
                 <Share2 size={16} /> Compartilhar cálculo
@@ -246,17 +246,17 @@ export function ValuationSummary({
             </div>
           )}
 
-          <div className="mt-4 flex items-start gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/50 p-3">
-            <Info aria-hidden="true" className="mt-px shrink-0 text-slate-400 dark:text-slate-500" size={15} />
-            <p className="m-0 text-[11px] font-medium leading-relaxed text-slate-400 dark:text-slate-500">
+          <div className="mt-4 flex items-start gap-2 rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50/80 dark:bg-stone-800/50 p-3">
+            <Info aria-hidden="true" className="mt-px shrink-0 text-stone-400 dark:text-stone-500" size={15} />
+            <p className="m-0 text-[11px] font-medium leading-relaxed text-stone-400 dark:text-stone-500">
               Valores calculados conforme Tabela CBHPM 2025/2026 (Faixa Original). Sujeito à variação por convênio.
             </p>
           </div>
         </>
       ) : (
         <div className="flex flex-col items-center gap-3 py-14 text-center">
-          <Calculator className="text-slate-200 dark:text-slate-700" size={40} />
-          <p className="text-sm text-slate-400 dark:text-slate-500">
+          <Calculator className="text-stone-200 dark:text-stone-700" size={40} />
+          <p className="text-sm text-stone-400 dark:text-stone-500">
             Selecione ao menos um código CBHPM para ver a valoração
           </p>
         </div>
@@ -275,12 +275,12 @@ function ResultRow({ label, value, note, strong }: {
 }) {
   return (
     <div className="flex items-end justify-between gap-1">
-      <dt className={cn("shrink-0 text-[13px]", strong ? "font-semibold text-slate-700 dark:text-slate-300" : "font-medium text-slate-500 dark:text-slate-400")}>
+      <dt className={cn("shrink-0 text-[13px]", strong ? "font-semibold text-stone-700 dark:text-stone-300" : "font-medium text-stone-500 dark:text-stone-400")}>
         {label}
-        {note && <span className="ml-1.5 text-[11px] font-semibold text-primary/70 dark:text-[#718BAE]/70">{note}</span>}
+        {note && <span className="ml-1.5 text-[11px] font-semibold text-primary/70 dark:text-[#A99876]/70">{note}</span>}
       </dt>
       <div className="leader" />
-      <dd className={cn("font-grotesk shrink-0 text-sm font-semibold", strong ? "text-slate-950 dark:text-slate-50" : "text-slate-800 dark:text-slate-100")}>
+      <dd className={cn("font-grotesk shrink-0 text-sm font-semibold", strong ? "text-stone-950 dark:text-stone-50" : "text-stone-800 dark:text-stone-100")}>
         {value === undefined ? "—" : money.format(value)}
       </dd>
     </div>
@@ -295,10 +295,10 @@ function BreakdownRow({ label, value, muted, strong }: {
 }) {
   return (
     <div className="flex items-baseline justify-between gap-1">
-      <span className={cn("text-[12px]", strong ? "font-semibold text-slate-700 dark:text-slate-200" : muted ? "text-slate-400 dark:text-slate-500" : "text-slate-600 dark:text-slate-300")}>
+      <span className={cn("text-[12px]", strong ? "font-semibold text-stone-700 dark:text-stone-200" : muted ? "text-stone-400 dark:text-stone-500" : "text-stone-600 dark:text-stone-300")}>
         {label}
       </span>
-      <span className={cn("font-grotesk text-[13px] font-semibold", strong ? "text-slate-950 dark:text-slate-50" : muted ? "text-slate-400 dark:text-slate-500" : "text-slate-800 dark:text-slate-100")}>
+      <span className={cn("font-grotesk text-[13px] font-semibold", strong ? "text-stone-950 dark:text-stone-50" : muted ? "text-stone-400 dark:text-stone-500" : "text-stone-800 dark:text-stone-100")}>
         {money.format(value)}
       </span>
     </div>

@@ -17,6 +17,7 @@ const config: Config = {
       fontFamily: {
         jakarta: ["'Plus Jakarta Sans'", "sans-serif"],
         grotesk: ["'Space Grotesk'", "sans-serif"],
+        display: ["'Fraunces'", "Georgia", "serif"],
       },
       borderRadius: {
         "2xl": "1rem",

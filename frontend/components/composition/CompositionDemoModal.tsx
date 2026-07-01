@@ -166,7 +166,7 @@ export function CompositionDemoModal({
                 margin: "0 0 8px",
                 fontSize: "24px",
                 fontWeight: 700,
-                color: "#1a1a1a",
+                color: "#1C1A18",
               }}
             >
               Composição Exemplo
@@ -175,7 +175,7 @@ export function CompositionDemoModal({
               style={{
                 margin: 0,
                 fontSize: "14px",
-                color: "#6b6b6b",
+                color: "#716C65",
               }}
             >
               {data.procedure.description}
@@ -188,7 +188,7 @@ export function CompositionDemoModal({
               border: "none",
               padding: "8px",
               cursor: "pointer",
-              color: "#6b6b6b",
+              color: "#716C65",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -196,11 +196,11 @@ export function CompositionDemoModal({
             }}
             onMouseEnter={(e) =>
               ((e.currentTarget as HTMLButtonElement).style.color =
-                "#1a1a1a")
+                "#1C1A18")
             }
             onMouseLeave={(e) =>
               ((e.currentTarget as HTMLButtonElement).style.color =
-                "#6b6b6b")
+                "#716C65")
             }
           >
             <X size={24} />
@@ -231,7 +231,7 @@ export function CompositionDemoModal({
                 margin: "0 0 12px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#6b6b6b",
+                color: "#716C65",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -243,7 +243,7 @@ export function CompositionDemoModal({
                 margin: 0,
                 fontSize: "40px",
                 fontWeight: 800,
-                color: "#1a5a96",
+                color: "#86672A",
                 lineHeight: 1,
                 minHeight: "50px",
                 display: "flex",
@@ -261,7 +261,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#6b6b6b",
+                color: "#716C65",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -281,7 +281,7 @@ export function CompositionDemoModal({
                   margin: "0 0 8px",
                   fontSize: "14px",
                   fontWeight: 600,
-                  color: "#1a1a1a",
+                  color: "#1C1A18",
                 }}
               >
                 {data.procedure.code}
@@ -290,7 +290,7 @@ export function CompositionDemoModal({
                 style={{
                   margin: "0 0 12px",
                   fontSize: "15px",
-                  color: "#3a3a3a",
+                  color: "#3E3B36",
                   lineHeight: 1.5,
                 }}
               >
@@ -301,7 +301,7 @@ export function CompositionDemoModal({
                   margin: 0,
                   fontSize: "13px",
                   fontWeight: 600,
-                  color: "#6b6b6b",
+                  color: "#716C65",
                   backgroundColor: "rgba(0, 0, 0, 0.05)",
                   display: "inline-block",
                   padding: "4px 12px",
@@ -320,7 +320,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#6b6b6b",
+                color: "#716C65",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -349,7 +349,7 @@ export function CompositionDemoModal({
                   <CheckCircle2
                     size={20}
                     style={{
-                      color: "#1a5a96",
+                      color: "#86672A",
                       flexShrink: 0,
                       marginTop: "2px",
                     }}
@@ -359,7 +359,7 @@ export function CompositionDemoModal({
                       style={{
                         margin: "0 0 4px",
                         fontSize: "12px",
-                        color: "#6b6b6b",
+                        color: "#716C65",
                         fontWeight: 600,
                       }}
                     >
@@ -369,7 +369,7 @@ export function CompositionDemoModal({
                       style={{
                         margin: 0,
                         fontSize: "14px",
-                        color: "#3a3a3a",
+                        color: "#3E3B36",
                         lineHeight: 1.5,
                       }}
                     >
@@ -388,7 +388,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#6b6b6b",
+                color: "#716C65",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -408,7 +408,7 @@ export function CompositionDemoModal({
                   margin: "0 0 4px",
                   fontSize: "14px",
                   fontWeight: 700,
-                  color: "#1a5a96",
+                  color: "#86672A",
                 }}
               >
                 {data.rule.name}
@@ -417,7 +417,7 @@ export function CompositionDemoModal({
                 style={{
                   margin: "0 0 12px",
                   fontSize: "15px",
-                  color: "#3a3a3a",
+                  color: "#3E3B36",
                   lineHeight: 1.5,
                 }}
               >
@@ -427,7 +427,7 @@ export function CompositionDemoModal({
                 style={{
                   margin: 0,
                   fontSize: "13px",
-                  color: "#6b6b6b",
+                  color: "#716C65",
                 }}
               >
                 {data.rule.details}
@@ -442,7 +442,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#6b6b6b",
+                color: "#716C65",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -474,7 +474,7 @@ export function CompositionDemoModal({
                         margin: 0,
                         fontSize: "14px",
                         fontWeight: 600,
-                        color: "#3a3a3a",
+                        color: "#3E3B36",
                       }}
                     >
                       {member.role}
@@ -483,7 +483,7 @@ export function CompositionDemoModal({
                       style={{
                         margin: "4px 0 0",
                         fontSize: "12px",
-                        color: "#6b6b6b",
+                        color: "#716C65",
                       }}
                     >
                       {member.percentage}% do total
@@ -494,7 +494,7 @@ export function CompositionDemoModal({
                       margin: 0,
                       fontSize: "16px",
                       fontWeight: 700,
-                      color: "#1a5a96",
+                      color: "#86672A",
                     }}
                   >
                     R$ {member.amount.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}
@@ -511,7 +511,7 @@ export function CompositionDemoModal({
                 margin: "0 0 16px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#6b6b6b",
+                color: "#716C65",
                 letterSpacing: "0.5px",
                 textTransform: "uppercase",
               }}
@@ -546,7 +546,7 @@ export function CompositionDemoModal({
                     backgroundColor: "#e8dfd5",
                     border: "1px solid rgba(0, 0, 0, 0.12)",
                     borderRadius: "8px",
-                    color: "#3a3a3a",
+                    color: "#3E3B36",
                     fontSize: "13px",
                     fontWeight: 600,
                     cursor: "pointer",
@@ -572,7 +572,7 @@ export function CompositionDemoModal({
                     backgroundColor: "#e8dfd5",
                     border: "1px solid rgba(0, 0, 0, 0.12)",
                     borderRadius: "8px",
-                    color: "#3a3a3a",
+                    color: "#3E3B36",
                     fontSize: "13px",
                     fontWeight: 600,
                     cursor: "pointer",
@@ -606,7 +606,7 @@ export function CompositionDemoModal({
                   style={{
                     margin: 0,
                     fontSize: "12px",
-                    color: "#6b6b6b",
+                    color: "#716C65",
                     fontWeight: 600,
                   }}
                 >
@@ -657,7 +657,7 @@ export function CompositionDemoModal({
               backgroundColor: "transparent",
               border: "1px solid rgba(0, 0, 0, 0.12)",
               borderRadius: "6px",
-              color: "#3a3a3a",
+              color: "#3E3B36",
               fontSize: "13px",
               fontWeight: 600,
               cursor: "pointer",

@@ -180,7 +180,7 @@ function ProcedureContent({
   const canShare = !!calculation && procedureState.selectedProcedures.length > 0;
 
   return (
-    <main className="hex-bg relative min-h-screen" style={{ backgroundColor: "hsl(var(--background))" }}>
+    <main className="procedure-bg relative min-h-screen" style={{ backgroundColor: "hsl(var(--background))" }}>
       {/* Nav */}
       <div className="relative z-10 px-5 pt-5">
         <nav className="nav-bar mx-auto flex max-w-[1080px] items-center justify-between">
@@ -193,13 +193,13 @@ function ProcedureContent({
                 <img src="/brand/synvera-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
               </div>
               <div>
-                <span className="block text-base font-extrabold tracking-tight text-slate-950 dark:text-slate-50">Synvera</span>
-                <span className="block text-[10px] font-medium tracking-[0.3px] text-slate-500 dark:text-slate-400 leading-none">Neurocirurgia · Coluna</span>
+                <span className="block text-base font-extrabold tracking-tight text-stone-950 dark:text-stone-50">Synvera</span>
+                <span className="block text-[10px] font-medium tracking-[0.3px] text-stone-500 dark:text-stone-400 leading-none">Neurocirurgia · Coluna</span>
               </div>
             </Link>
             <Link
               href="/consulta-documental"
-              className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/70 dark:bg-slate-800/60 px-3 py-1.5 text-[11.5px] font-semibold text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700/60 transition-colors no-underline"
+              className="flex items-center gap-1.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/60 px-3 py-1.5 text-[11.5px] font-semibold text-stone-600 dark:text-stone-300 hover:bg-white dark:hover:bg-stone-700/60 transition-colors no-underline"
             >
               <BookOpen size={12} aria-hidden="true" />
               Documentação
@@ -213,7 +213,7 @@ function ProcedureContent({
                 <SignInButton mode="modal">
                   <button
                     type="button"
-                    className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/60 transition-colors"
+                    className="flex items-center gap-1.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 px-3 py-1.5 text-xs font-semibold text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700/60 transition-colors"
                   >
                     <LogIn size={13} aria-hidden="true" />
                     Entrar
@@ -230,7 +230,7 @@ function ProcedureContent({
               type="button"
             >
               <Sun aria-hidden="true" size={13} className="absolute left-2 text-amber-500 transition-opacity dark:opacity-35" />
-              <Moon aria-hidden="true" size={13} className="absolute right-2 text-slate-500 opacity-45 transition-opacity dark:text-[#94A3B8] dark:opacity-100" />
+              <Moon aria-hidden="true" size={13} className="absolute right-2 text-stone-500 opacity-45 transition-opacity dark:text-[#B5AB97] dark:opacity-100" />
               <span aria-hidden="true" className={`theme-switch-thumb absolute top-1 h-6 w-6 rounded-full transition-transform duration-200 ${isDark ? "translate-x-7" : "translate-x-1"}`} />
             </button>
           </div>
@@ -239,12 +239,12 @@ function ProcedureContent({
 
       {/* Hero */}
       <div className="relative z-[1] px-5 pb-6 pt-8 text-center">
-        <h1 className="m-0 mb-1.5 text-[30px] font-extrabold tracking-tight text-slate-950 dark:text-slate-50">
+        <h1 className="m-0 mb-1.5 text-[30px] font-extrabold tracking-tight text-stone-950 dark:text-stone-50">
           Composição de Honorários
         </h1>
-        <p className="m-0 text-sm font-medium text-slate-500 dark:text-slate-400">
+        <p className="m-0 text-sm font-medium text-stone-500 dark:text-stone-400">
           {loadedCompositionId
-            ? <>Editando composição: <span className="font-semibold text-primary dark:text-[#718BAE]">{loadedCompositionName}</span></>
+            ? <>Editando composição: <span className="font-semibold text-primary dark:text-[#A99876]">{loadedCompositionName}</span></>
             : "Selecione o procedimento SBN · Monte a composição · Valorize em tempo real"}
         </p>
       </div>
@@ -253,7 +253,7 @@ function ProcedureContent({
       <div className="main-grid relative z-[1] mx-auto grid max-w-[1080px] gap-7 px-5 pb-12">
 
         {/* ── Left panel ────────────────────────────────────────────────── */}
-        <div className="workspace-panel card-plush rounded-3xl border border-slate-200/80 dark:border-slate-700 dark:bg-slate-900 p-8">
+        <div className="workspace-panel card-plush rounded-3xl border border-stone-200/80 dark:border-stone-700 dark:bg-stone-900 p-8">
 
           <ProcedureSearchPanel
             searchOptions={procedureState.searchOptions}
@@ -279,9 +279,9 @@ function ProcedureContent({
                   <span
                     key={`${s.document}-${s.version}`}
                     title={`${s.document} — ${s.version}`}
-                    className="inline-flex items-start gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10.5px] font-medium leading-snug text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                    className="inline-flex items-start gap-1.5 rounded-xl border border-stone-200 bg-stone-50 px-2.5 py-1 text-[10.5px] font-medium leading-snug text-stone-600 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
                   >
-                    <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary dark:bg-[#718BAE]" />
+                    <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-primary dark:bg-[#A99876]" />
                     <span>Fonte: {s.document} — {s.version}</span>
                   </span>
                 ))}
@@ -290,7 +290,7 @@ function ProcedureContent({
           })()}
 
           {procedureState.loadingDetail && (
-            <div className="flex items-center justify-center gap-2 py-6 text-sm text-slate-400">
+            <div className="flex items-center justify-center gap-2 py-6 text-sm text-stone-400">
               <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
               Carregando códigos CBHPM...
             </div>
@@ -339,9 +339,9 @@ function ProcedureContent({
           )}
 
           {procedureState.selectedProcedures.length === 0 && !procedureState.loadingDetail && (
-            <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 py-10 text-center">
-              <Stethoscope className="text-slate-300 dark:text-slate-600" size={32} />
-              <p className="text-sm text-slate-400 dark:text-slate-500">
+            <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-stone-200 dark:border-stone-700 py-10 text-center">
+              <Stethoscope className="text-stone-300 dark:text-stone-600" size={32} />
+              <p className="text-sm text-stone-400 dark:text-stone-500">
                 Busque e selecione um procedimento SBN para montar a composição
               </p>
             </div>
@@ -392,8 +392,8 @@ function ProcedureContent({
 
       <footer className="relative z-[1] px-5 pb-5 text-center">
         <div className="footer-divider mb-3.5 h-px" />
-        <p className="m-0 text-xs font-medium text-slate-400 dark:text-slate-500">
-          2026 &nbsp;·&nbsp; <span className="font-bold text-slate-500">LabF5</span> &nbsp;·&nbsp; Todos os direitos reservados
+        <p className="m-0 text-xs font-medium text-stone-400 dark:text-stone-500">
+          2026 &nbsp;·&nbsp; <span className="font-bold text-stone-500">LabF5</span> &nbsp;·&nbsp; Todos os direitos reservados
         </p>
       </footer>
 

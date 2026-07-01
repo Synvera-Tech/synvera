@@ -103,7 +103,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
   })();
 
   return (
-    <div className="mx-auto max-w-[1080px] mt-4 rounded-2xl border border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/30">
+    <div className="mx-auto max-w-[1080px] mt-4 rounded-2xl border border-stone-100 dark:border-stone-800 bg-white/50 dark:bg-stone-900/30">
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <div className="flex items-center justify-between px-4 py-3">
         <button
@@ -113,22 +113,22 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
           aria-expanded={isOpen}
         >
           <BookOpen size={14} className="text-primary flex-shrink-0" aria-hidden="true" />
-          <span className="text-[12.5px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <span className="text-[12.5px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
             Consulta Documental
           </span>
-          <span className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 dark:text-slate-500 leading-none">
+          <span className="rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 px-1.5 py-0.5 text-[10px] font-semibold text-stone-400 dark:text-stone-500 leading-none">
             CBHPM · SBN
           </span>
           {isOpen
-            ? <ChevronUp size={13} className="text-slate-400 dark:text-slate-500 flex-shrink-0 ml-1" />
-            : <ChevronDown size={13} className="text-slate-400 dark:text-slate-500 flex-shrink-0 ml-1" />
+            ? <ChevronUp size={13} className="text-stone-400 dark:text-stone-500 flex-shrink-0 ml-1" />
+            : <ChevronDown size={13} className="text-stone-400 dark:text-stone-500 flex-shrink-0 ml-1" />
           }
         </button>
 
         {/* CTA link — always visible */}
         <Link
           href={fullPageHref}
-          className="flex-shrink-0 flex items-center gap-1.5 rounded-lg border border-primary/25 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-2.5 py-1.5 text-[11.5px] font-semibold text-primary dark:text-blue-300 hover:bg-primary/15 dark:hover:bg-primary/25 transition-colors no-underline"
+          className="flex-shrink-0 flex items-center gap-1.5 rounded-lg border border-primary/25 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-2.5 py-1.5 text-[11.5px] font-semibold text-primary dark:text-amber-300 hover:bg-primary/15 dark:hover:bg-primary/25 transition-colors no-underline"
         >
           Central documental
           <ExternalLink size={11} aria-hidden="true" />
@@ -137,7 +137,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
 
       {/* ── Expanded panel ──────────────────────────────────────────────────── */}
       {isOpen && (
-        <div className="border-t border-slate-100 dark:border-slate-800 px-4 pb-4 pt-3 space-y-3">
+        <div className="border-t border-stone-100 dark:border-stone-800 px-4 pb-4 pt-3 space-y-3">
           {/* Context chips */}
           <div className="flex flex-wrap gap-1.5">
             {CONTEXT_CHIPS.map((chip) => (
@@ -145,7 +145,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
                 key={chip.label}
                 type="button"
                 onClick={() => handleChip(chip.query)}
-                className="cursor-pointer rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-2.5 py-1 text-[11px] font-medium text-slate-600 dark:text-slate-400 hover:border-primary/40 hover:text-primary dark:hover:text-primary transition-colors"
+                className="cursor-pointer rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 px-2.5 py-1 text-[11px] font-medium text-stone-600 dark:text-stone-400 hover:border-primary/40 hover:text-primary dark:hover:text-primary transition-colors"
               >
                 {chip.label}
               </button>
@@ -157,7 +157,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
             <div className="relative flex-1">
               <Search
                 size={13}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 pointer-events-none"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 dark:text-stone-500 pointer-events-none"
                 aria-hidden="true"
               />
               <input
@@ -168,10 +168,10 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
                 placeholder="Consulta rápida…"
                 className={cn(
                   "w-full rounded-xl border py-2 pl-8 pr-8 text-[13px] outline-none transition-colors",
-                  "border-slate-200 dark:border-slate-700",
-                  "bg-white dark:bg-slate-900/60",
-                  "text-slate-800 dark:text-slate-200",
-                  "placeholder:text-slate-400 dark:placeholder:text-slate-600",
+                  "border-stone-200 dark:border-stone-700",
+                  "bg-white dark:bg-stone-900/60",
+                  "text-stone-800 dark:text-stone-200",
+                  "placeholder:text-stone-400 dark:placeholder:text-stone-600",
                   "focus:border-primary/50 dark:focus:border-primary/40"
                 )}
                 aria-label="Consulta rápida documental"
@@ -182,7 +182,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 dark:hover:text-stone-300 transition-colors"
                   aria-label="Limpar consulta"
                 >
                   <X size={13} />
@@ -210,7 +210,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
 
           {/* Empty state */}
           {!isLoading && !error && results !== null && results.length === 0 && (
-            <p className="text-center text-[12.5px] text-slate-500 dark:text-slate-400 py-3">
+            <p className="text-center text-[12.5px] text-stone-500 dark:text-stone-400 py-3">
               Nenhuma referência encontrada para esta consulta.
             </p>
           )}
@@ -218,7 +218,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
           {/* Inline results (max 5, compact) */}
           {!isLoading && results !== null && results.length > 0 && (
             <div className="space-y-2">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-stone-400 dark:text-stone-500">
                 {results.length} referência{results.length !== 1 ? "s" : ""}
               </p>
               {results.map((r, i) => (
@@ -227,7 +227,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
               {/* Always offer to see full page */}
               <Link
                 href={fullPageHref}
-                className="flex items-center justify-center gap-1.5 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 py-2 text-[12px] font-semibold text-slate-500 dark:text-slate-400 hover:border-primary/40 hover:text-primary dark:hover:text-primary transition-colors no-underline"
+                className="flex items-center justify-center gap-1.5 rounded-xl border border-dashed border-stone-200 dark:border-stone-700 py-2 text-[12px] font-semibold text-stone-500 dark:text-stone-400 hover:border-primary/40 hover:text-primary dark:hover:text-primary transition-colors no-underline"
               >
                 Ver na central documental
                 <ExternalLink size={11} aria-hidden="true" />
@@ -246,21 +246,21 @@ function CompactResultCard({ result }: { result: SearchResult }) {
     : result.document;
 
   return (
-    <div className="rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/40 p-3 space-y-1.5">
+    <div className="rounded-xl border border-stone-100 dark:border-stone-800 bg-white dark:bg-stone-900/40 p-3 space-y-1.5">
       <div className="flex items-center gap-2 flex-wrap">
         <div className="flex items-center gap-1.5">
           <FileText size={10} className="text-primary flex-shrink-0" aria-hidden="true" />
-          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">{docLabel}</span>
+          <span className="text-[11px] font-semibold text-stone-500 dark:text-stone-400">{docLabel}</span>
         </div>
-        <span className="text-[11px] text-slate-400 dark:text-slate-500">p.&nbsp;{result.page}</span>
+        <span className="text-[11px] text-stone-400 dark:text-stone-500">p.&nbsp;{result.page}</span>
         {result.section && (
-          <span className="rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-2 py-0.5 text-[10px] text-slate-500 dark:text-slate-400 leading-none max-w-[200px] truncate">
+          <span className="rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 px-2 py-0.5 text-[10px] text-stone-500 dark:text-stone-400 leading-none max-w-[200px] truncate">
             {result.section}
           </span>
         )}
       </div>
       <p
-        className="text-[12.5px] leading-relaxed text-slate-700 dark:text-slate-300"
+        className="text-[12.5px] leading-relaxed text-stone-700 dark:text-stone-300"
         dangerouslySetInnerHTML={{ __html: highlightExcerpt(result.excerpt) }}
       />
     </div>
@@ -273,7 +273,7 @@ function highlightExcerpt(excerpt: string): string {
     .replace(/>/g, "&gt;")
     .replace(
       /«/g,
-      '<mark class="bg-primary/15 text-primary dark:bg-primary/20 dark:text-blue-300 rounded px-0.5 not-italic">'
+      '<mark class="bg-primary/15 text-primary dark:bg-primary/20 dark:text-amber-300 rounded px-0.5 not-italic">'
     )
     .replace(/»/g, "</mark>");
 }

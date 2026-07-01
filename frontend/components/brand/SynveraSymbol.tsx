@@ -2,16 +2,16 @@
 // The project has no SVGR loader, so the <svg> is inlined directly.
 // Geometry is the EXACT approved path; only the fill changes per variant.
 // Variants map 1:1 to the brand files:
-//   primary -> synvera-symbol.svg       (#343650 Deep Steel Blue)
-//   dark    -> synvera-symbol-dark.svg  (#343538 Midnight Sapphire, for light backgrounds)
+//   primary -> synvera-symbol.svg       (#4E4636 Deep Steel Blue)
+//   dark    -> synvera-symbol-dark.svg  (#3B3731 Midnight Sapphire, for light backgrounds)
 //   light   -> synvera-symbol-light.svg (#FFFFFF, for dark backgrounds)
 import type { SVGProps } from "react";
 
 export type SynveraSymbolVariant = "primary" | "dark" | "light";
 
 const FILL: Record<SynveraSymbolVariant, string> = {
-  primary: "#343650",
-  dark: "#343538",
+  primary: "#4E4636",
+  dark: "#3B3731",
   light: "#FFFFFF",
 };
 

@@ -75,10 +75,10 @@ export function SpineVariablesPanel({
   if (codesWithRules.length === 0 && !hasLateralitySupport) return null;
 
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-100 dark:border-slate-800 p-4">
+    <div className="space-y-4 rounded-2xl border border-stone-100 dark:border-stone-800 p-4">
       <div className="flex items-center gap-2">
         <Stethoscope aria-hidden="true" className="text-primary" size={15} />
-        <span className="text-[13px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+        <span className="text-[13px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
           Multiplicadores e Regras de Cobrança (Coluna)
         </span>
       </div>
@@ -93,23 +93,23 @@ export function SpineVariablesPanel({
             const citation = m.source_page ? `Manual de Coluna · p.${m.source_page}` : "Manual de Coluna";
 
             return (
-              <li key={c.code} className="rounded-xl border border-slate-100 dark:border-slate-800 px-3 py-2.5">
+              <li key={c.code} className="rounded-xl border border-stone-100 dark:border-stone-800 px-3 py-2.5">
                 <div className="flex items-start gap-2.5">
-                  <Layers aria-hidden="true" size={14} className="mt-0.5 shrink-0 text-primary dark:text-[#718BAE]" />
+                  <Layers aria-hidden="true" size={14} className="mt-0.5 shrink-0 text-primary dark:text-[#A99876]" />
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-baseline gap-x-2">
-                      <span className="text-[13px] font-semibold text-slate-700 dark:text-slate-200">
+                      <span className="text-[13px] font-semibold text-stone-700 dark:text-stone-200">
                         {c.description}
                       </span>
-                      <span className="font-mono text-[11px] text-slate-400 dark:text-slate-500">{c.code}</span>
+                      <span className="font-mono text-[11px] text-stone-400 dark:text-stone-500">{c.code}</span>
                     </div>
-                    <p className="mt-0.5 text-[12px] leading-relaxed text-slate-500 dark:text-slate-400">
+                    <p className="mt-0.5 text-[12px] leading-relaxed text-stone-500 dark:text-stone-400">
                       {ruleDetail(m)}
                     </p>
 
                     {countable && (
                       <div className="mt-2">
-                        <label className="block text-[10.5px] font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400 mb-1.5">
+                        <label className="block text-[10.5px] font-semibold uppercase tracking-[0.4px] text-stone-500 dark:text-stone-400 mb-1.5">
                           {unitLabel(m.billing_mode)}
                         </label>
                         <div className="flex flex-wrap gap-1.5">
@@ -122,8 +122,8 @@ export function SpineVariablesPanel({
                               className={cn(
                                 "h-9 w-9 cursor-pointer rounded-xl border text-sm font-semibold transition-colors",
                                 current === qty
-                                  ? "border-primary bg-primary text-white dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
-                                  : "border-slate-200 text-slate-600 hover:border-slate-300 dark:border-slate-700 dark:text-slate-300 dark:hover:border-slate-600",
+                                  ? "border-primary bg-primary text-white dark:border-[#A18C63] dark:bg-[#A18C63]"
+                                  : "border-stone-200 text-stone-600 hover:border-stone-300 dark:border-stone-700 dark:text-stone-300 dark:hover:border-stone-600",
                               )}
                             >
                               {qty}
@@ -134,7 +134,7 @@ export function SpineVariablesPanel({
                     )}
 
                     <p
-                      className="mt-1.5 text-[10.5px] font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500"
+                      className="mt-1.5 text-[10.5px] font-medium uppercase tracking-wide text-stone-400 dark:text-stone-500"
                       title={m.source_excerpt ?? undefined}
                     >
                       {citation}
@@ -148,22 +148,22 @@ export function SpineVariablesPanel({
       )}
 
       {codesWithRules.length > 0 && (
-        <div className="space-y-1.5 rounded-xl border border-slate-100 bg-slate-50/60 px-3 py-2.5 dark:border-slate-800 dark:bg-slate-800/30">
-          <div className="flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+        <div className="space-y-1.5 rounded-xl border border-stone-100 bg-stone-50/60 px-3 py-2.5 dark:border-stone-800 dark:bg-stone-800/30">
+          <div className="flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-wider text-stone-400 dark:text-stone-500">
             <Info aria-hidden="true" size={11} />
             Regras de coluna (informativo)
           </div>
-          <ul className="space-y-1 text-[11.5px] leading-relaxed text-slate-500 dark:text-slate-400">
+          <ul className="space-y-1 text-[11.5px] leading-relaxed text-stone-500 dark:text-stone-400">
             <li>
-              <span className="font-semibold text-slate-600 dark:text-slate-300">Bilateral:</span>{" "}
-              não duplica no mesmo segmento/nível <span className="text-slate-400 dark:text-slate-500">(Manual p.9)</span>.
+              <span className="font-semibold text-stone-600 dark:text-stone-300">Bilateral:</span>{" "}
+              não duplica no mesmo segmento/nível <span className="text-stone-400 dark:text-stone-500">(Manual p.9)</span>.
             </li>
             <li>
-              <span className="font-semibold text-slate-600 dark:text-slate-300">Via de acesso:</span>{" "}
-              códigos adicionais a 50%, inclusive 360° <span className="text-slate-400 dark:text-slate-500">(Manual p.42/62)</span>.
+              <span className="font-semibold text-stone-600 dark:text-stone-300">Via de acesso:</span>{" "}
+              códigos adicionais a 50%, inclusive 360° <span className="text-stone-400 dark:text-stone-500">(Manual p.42/62)</span>.
             </li>
             <li>
-              <span className="font-semibold text-slate-600 dark:text-slate-300">Técnica cirúrgica:</span>{" "}
+              <span className="font-semibold text-stone-600 dark:text-stone-300">Técnica cirúrgica:</span>{" "}
               aberta · tubular · endoscópica · percutânea — não altera o valor do honorário.
             </li>
           </ul>
@@ -172,7 +172,7 @@ export function SpineVariablesPanel({
 
       {hasLateralitySupport && (
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-slate-500 dark:text-slate-400 mb-2">
+          <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-stone-500 dark:text-stone-400 mb-2">
             Lateralidade
           </label>
           <div className="space-y-1.5">
@@ -184,26 +184,26 @@ export function SpineVariablesPanel({
                 className={cn(
                   "flex w-full cursor-pointer items-center gap-3 rounded-xl border px-3 py-2 text-left transition-colors",
                   spineModifiers.laterality === lateral
-                    ? "border-primary/30 bg-[#EAF0F6] dark:border-[#5D7EA7]/20 dark:bg-[#1F2A35]/50"
-                    : "border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700",
+                    ? "border-primary/30 bg-[#F5F2EB] dark:border-[#A18C63]/20 dark:bg-[#332D21]/50"
+                    : "border-stone-100 dark:border-stone-800 hover:border-stone-200 dark:hover:border-stone-700",
                 )}
               >
                 <span className={cn(
                   "flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors",
                   spineModifiers.laterality === lateral
-                    ? "border-primary bg-primary dark:border-[#5D7EA7] dark:bg-[#5D7EA7]"
-                    : "border-slate-300 dark:border-slate-600",
+                    ? "border-primary bg-primary dark:border-[#A18C63] dark:bg-[#A18C63]"
+                    : "border-stone-300 dark:border-stone-600",
                 )}>
                   {spineModifiers.laterality === lateral && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
                 </span>
                 <div>
                   <div className={cn(
                     "text-[13px] font-semibold",
-                    spineModifiers.laterality === lateral ? "text-primary dark:text-[#718BAE]" : "text-slate-700 dark:text-slate-300",
+                    spineModifiers.laterality === lateral ? "text-primary dark:text-[#A99876]" : "text-stone-700 dark:text-stone-300",
                   )}>
                     {lateral === "UNILATERAL" ? "Unilateral" : "Bilateral"}
                   </div>
-                  <div className="text-[11px] text-slate-400 dark:text-slate-500">
+                  <div className="text-[11px] text-stone-400 dark:text-stone-500">
                     {lateral === "UNILATERAL" ? "Um lado" : "Coluna: não duplica no mesmo segmento"}
                   </div>
                 </div>
