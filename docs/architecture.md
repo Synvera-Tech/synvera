@@ -155,7 +155,7 @@ backend/
     repository/            interface + file + postgres implementations
     service/               pure calculation functions
     handlers/              HTTP handlers + routes + Clerk JWT middleware
-    generated/             openapi.gen.go (hand-maintained, matches openapi.yaml)
+    generated/             openapi.gen.go (generated from openapi.yaml — make openapi-generate; DO NOT EDIT)
   db/
     migrations/            001–010 (009: physician_accounts, 010: compositions FK)
     query.sql              canonical SQL for PostgresRepository

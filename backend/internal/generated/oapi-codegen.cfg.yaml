@@ -1,0 +1,12 @@
+# oapi-codegen configuration — single source of truth for OpenAPI code generation.
+#
+# The Synvera backend is spec-driven: openapi.yaml is the contract and this file
+# turns it into typed Go models. Only data models are generated; routing stays in
+# hand-written net/http handlers (no server framework, per CLAUDE.md).
+#
+# Regenerate with `make openapi-generate` (or `go generate ./...` from backend/).
+# CI enforces sync via `make openapi-verify`. Never hand-edit openapi.gen.go.
+package: generated
+generate:
+  models: true
+output: openapi.gen.go

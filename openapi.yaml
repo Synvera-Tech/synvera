@@ -247,6 +247,33 @@ paths:
         '404':
           description: Calculation not found.
 
+  /api/document-search:
+    post:
+      summary: Search the reference document corpus (RAG v0)
+      description: >
+        Read-only, deterministic full-text search over indexed chunks of the CBHPM
+        editions and the neurosurgery/spine manuals (PostgreSQL FTS, portuguese
+        dictionary). This endpoint is a reference layer only and MUST NEVER
+        influence fee calculations.
+      operationId: searchDocuments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentSearchRequest'
+      responses:
+        '200':
+          description: Ranked reference chunks matching the query (possibly empty, never null).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentSearchResponse'
+        '400':
+          description: Missing or too-short query (minimum 3 characters).
+        '405':
+          description: Method not allowed (only POST is supported).
+
 components:
   schemas:
     HealthResponse:
@@ -267,6 +294,69 @@ components:
         name:
           type: string
           description: SBN procedure name (e.g. "CONSULTA + PUNÇÃO LOMBAR").
+
+    DocumentSearchRequest:
+      type: object
+      required: [query]
+      properties:
+        query:
+          type: string
+          minLength: 3
+          description: Free-text query (procedure name, keyword, or natural-language question).
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 30
+          default: 10
+          description: Maximum number of chunks to return. Clamped server-side to [1, 30].
+          x-go-type-skip-optional-pointer: true
+        offset:
+          type: integer
+          minimum: 0
+          default: 0
+          description: Number of chunks to skip, for "load more" pagination.
+          x-go-type-skip-optional-pointer: true
+        document_type:
+          type: string
+          description: >
+            Restrict results to a single source document type. Recognised values
+            are "cbhpm", "sbn_manual" and "spine_manual"; omit (or send an unknown
+            value) to search across all documents.
+          x-go-type-skip-optional-pointer: true
+
+    DocumentSearchResponse:
+      type: object
+      required: [results]
+      properties:
+        results:
+          type: array
+          description: Ranked reference chunks; never null (empty array when nothing matches).
+          items:
+            $ref: '#/components/schemas/DocumentSearchResult'
+
+    DocumentSearchResult:
+      type: object
+      required: [document, version, page, section, excerpt, score]
+      properties:
+        document:
+          type: string
+          description: Source document title.
+        version:
+          type: string
+          description: Document edition/version (e.g. "2025-2026").
+        page:
+          type: integer
+          description: Page number within the source document.
+        section:
+          type: string
+          description: Section or heading the chunk belongs to.
+        excerpt:
+          type: string
+          description: Matching text excerpt.
+        score:
+          type: number
+          format: double
+          description: PostgreSQL FTS relevance rank (higher is more relevant).
 
     BillingMode:
       type: string

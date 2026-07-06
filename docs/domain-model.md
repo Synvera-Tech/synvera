@@ -227,7 +227,7 @@ internal/
   repository/     interface + file-based + postgres implementations
   service/        calculator.go — pure functions, no I/O; calculator_test.go
   handlers/       HTTP handlers (search, procedure, calculate, compositions, health)
-  generated/      openapi.gen.go — hand-maintained to match openapi.yaml v3.1.0
+  generated/      openapi.gen.go — generated from openapi.yaml (make openapi-generate; DO NOT EDIT)
 ```
 
 ---

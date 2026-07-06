@@ -627,6 +627,48 @@ type CompositionItem struct {
 	SbnProcedureName   string             `json:"sbn_procedure_name"`
 }
 
+// DocumentSearchRequest defines model for DocumentSearchRequest.
+type DocumentSearchRequest struct {
+	// DocumentType Restrict results to a single source document type. Recognised values are "cbhpm", "sbn_manual" and "spine_manual"; omit (or send an unknown value) to search across all documents.
+	DocumentType string `json:"document_type,omitempty"`
+
+	// Limit Maximum number of chunks to return. Clamped server-side to [1, 30].
+	Limit int `json:"limit,omitempty"`
+
+	// Offset Number of chunks to skip, for "load more" pagination.
+	Offset int `json:"offset,omitempty"`
+
+	// Query Free-text query (procedure name, keyword, or natural-language question).
+	Query string `json:"query"`
+}
+
+// DocumentSearchResponse defines model for DocumentSearchResponse.
+type DocumentSearchResponse struct {
+	// Results Ranked reference chunks; never null (empty array when nothing matches).
+	Results []DocumentSearchResult `json:"results"`
+}
+
+// DocumentSearchResult defines model for DocumentSearchResult.
+type DocumentSearchResult struct {
+	// Document Source document title.
+	Document string `json:"document"`
+
+	// Excerpt Matching text excerpt.
+	Excerpt string `json:"excerpt"`
+
+	// Page Page number within the source document.
+	Page int `json:"page"`
+
+	// Score PostgreSQL FTS relevance rank (higher is more relevant).
+	Score float64 `json:"score"`
+
+	// Section Section or heading the chunk belongs to.
+	Section string `json:"section"`
+
+	// Version Document edition/version (e.g. "2025-2026").
+	Version string `json:"version"`
+}
+
 // HealthResponse defines model for HealthResponse.
 type HealthResponse struct {
 	Status string `json:"status"`
@@ -814,3 +856,6 @@ type SaveCompositionJSONRequestBody = SaveCompositionRequest
 
 // UpdateCompositionJSONRequestBody defines body for UpdateComposition for application/json ContentType.
 type UpdateCompositionJSONRequestBody = SaveCompositionRequest
+
+// SearchDocumentsJSONRequestBody defines body for SearchDocuments for application/json ContentType.
+type SearchDocumentsJSONRequestBody = DocumentSearchRequest

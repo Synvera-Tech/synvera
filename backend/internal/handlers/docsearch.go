@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 
+	"synvera/backend/internal/generated"
 	"synvera/backend/internal/repository"
 )
 
@@ -14,26 +15,6 @@ const (
 	minQueryLength     = 3
 )
 
-type documentSearchRequest struct {
-	Query    string `json:"query"`
-	Limit    int    `json:"limit,omitempty"`
-	Offset   int    `json:"offset,omitempty"`
-	DocType  string `json:"document_type,omitempty"`
-}
-
-type documentSearchResponse struct {
-	Results []documentSearchResult `json:"results"`
-}
-
-type documentSearchResult struct {
-	Document string  `json:"document"`
-	Version  string  `json:"version"`
-	Page     int     `json:"page"`
-	Section  string  `json:"section"`
-	Excerpt  string  `json:"excerpt"`
-	Score    float64 `json:"score"`
-}
-
 func makeDocumentSearchHandler(repo repository.Repository) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
@@ -41,7 +22,7 @@ func makeDocumentSearchHandler(repo repository.Repository) http.HandlerFunc {
 			return
 		}
 
-		var req documentSearchRequest
+		var req generated.DocumentSearchRequest
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			http.Error(w, `{"error":"invalid_json"}`, http.StatusBadRequest)
 			return
@@ -66,11 +47,11 @@ func makeDocumentSearchHandler(repo repository.Repository) http.HandlerFunc {
 			offset = 0
 		}
 
-		// Validate docType: only known values are forwarded; unknown values are silently treated as "all".
+		// Validate document type: only known values are forwarded; unknown values are silently treated as "all".
 		docType := ""
-		switch req.DocType {
+		switch req.DocumentType {
 		case "cbhpm", "sbn_manual", "spine_manual":
-			docType = req.DocType
+			docType = req.DocumentType
 		}
 
 		raw, err := repo.SearchDocuments(req.Query, limit, offset, docType)
@@ -79,9 +60,9 @@ func makeDocumentSearchHandler(repo repository.Repository) http.HandlerFunc {
 			return
 		}
 
-		results := make([]documentSearchResult, 0, len(raw))
+		results := make([]generated.DocumentSearchResult, 0, len(raw))
 		for _, r := range raw {
-			results = append(results, documentSearchResult{
+			results = append(results, generated.DocumentSearchResult{
 				Document: r.Document,
 				Version:  r.Version,
 				Page:     r.Page,
@@ -92,6 +73,6 @@ func makeDocumentSearchHandler(repo repository.Repository) http.HandlerFunc {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(documentSearchResponse{Results: results})
+		json.NewEncoder(w).Encode(generated.DocumentSearchResponse{Results: results})
 	}
 }
