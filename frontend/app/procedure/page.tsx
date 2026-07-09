@@ -239,7 +239,7 @@ function ProcedureContent({
 
       {/* Hero */}
       <div className="relative z-[1] px-5 pb-6 pt-8 text-center">
-        <h1 className="m-0 mb-1.5 text-[30px] font-extrabold tracking-tight text-stone-950 dark:text-stone-50">
+        <h1 className="m-0 mb-1.5 font-display text-[32px] font-bold leading-tight tracking-[-0.03em] text-[#2D271F] dark:text-[#F6F1E7]">
           Composição de Honorários
         </h1>
         <p className="m-0 text-sm font-medium text-stone-500 dark:text-stone-400">

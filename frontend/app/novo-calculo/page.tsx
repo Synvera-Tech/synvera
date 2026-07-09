@@ -383,8 +383,9 @@ export default function NovoCalculo() {
             </div>
             <h1
               style={{
-                margin: "0 0 7px", fontSize: "27px", fontWeight: 800,
-                letterSpacing: "-0.5px", color: T.primary, lineHeight: 1.1,
+                margin: "0 0 7px", fontSize: "28px", fontWeight: 700,
+                fontFamily: "'Geist', 'Plus Jakarta Sans', Arial, sans-serif",
+                letterSpacing: "-0.9px", color: "#2D271F", lineHeight: 1.08,
               }}
             >
               Novo cálculo
