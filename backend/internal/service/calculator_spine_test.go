@@ -362,6 +362,18 @@ func Test_CompositionPersistenceFields(t *testing.T) {
 		},
 	}
 
+	if comp.ID != "test-id" {
+		t.Errorf("Expected ID test-id, got %v", comp.ID)
+	}
+
+	if comp.PublicID != "public-id" {
+		t.Errorf("Expected public ID public-id, got %v", comp.PublicID)
+	}
+
+	if comp.Name != "Test Composition" {
+		t.Errorf("Expected name Test Composition, got %v", comp.Name)
+	}
+
 	// Verify modifiers are persisted
 	if comp.Modifiers.QuantitySelected != 3 {
 		t.Errorf("Expected quantity 3, got %v", comp.Modifiers.QuantitySelected)
