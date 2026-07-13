@@ -108,7 +108,7 @@ export function Autocomplete({ label, options, value, onChange, onSearch, initia
         </div>
       )}
 
-      <div className="relative rounded-md overflow-hidden">
+      <div className="procedure-search-shell relative overflow-hidden rounded-[6px]">
         <Search
           aria-hidden="true"
           className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 dark:text-[#9B9387]"

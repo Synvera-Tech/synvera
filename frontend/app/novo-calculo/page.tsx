@@ -1,13 +1,14 @@
 "use client";
 
-import { SignInButton, useAuth } from "@clerk/nextjs";
-import { BookmarkCheck, Check, LogIn, Search, Trash2 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { SignInButton } from "@clerk/nextjs";
+import { ArrowRight, BookmarkCheck, Check, LogIn, Search } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { InternalNavigation } from "@/components/navigation/InternalNavigation";
 import { useTheme } from "@/components/theme-provider";
+import { useCompositions } from "@/hooks/useCompositions";
+import { compositionHref, type CompositionItem } from "@/lib/compositions";
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -43,24 +44,12 @@ const EXAMPLES = [
 
 type ProcedureHit = { id: string; name: string };
 
-type CompositionItem = {
-  public_id: string;
-  name: string;
-  sbn_procedure_id: string;
-  sbn_procedure_name: string;
-  access_route_type: "same" | "different";
-  auxiliaries_count: number;
-  requires_anesthesia: boolean;
-  created_at: string;
-};
-
 // ─── Novo cálculo ─────────────────────────────────────────────────────────────
 
 export default function NovoCalculo() {
   const router = useRouter();
-  const { isLoaded, isSignedIn, getToken } = useAuth();
   const { setPageTheme } = useTheme();
-  const [activeTab, setActiveTab] = useState<"search" | "compositions">("search");
+  const { authLoaded, isSignedIn, compositions, loading: compositionsLoading } = useCompositions();
 
   // This screen currently has a deliberately light, print-like visual language.
   // Keep that page-scoped choice explicit; links to Documentation carry it
@@ -70,14 +59,10 @@ export default function NovoCalculo() {
     return () => setPageTheme(null);
   }, [setPageTheme]);
 
+  // Preserve old bookmarks while the composition manager moves to its own URL.
   useEffect(() => {
-    const syncTabFromHash = () => {
-      if (window.location.hash === "#compositions") setActiveTab("compositions");
-    };
-    syncTabFromHash();
-    window.addEventListener("hashchange", syncTabFromHash);
-    return () => window.removeEventListener("hashchange", syncTabFromHash);
-  }, []);
+    if (window.location.hash === "#compositions") router.replace("/composicoes");
+  }, [router]);
 
   // Search state
   const [query, setQuery] = useState("");
@@ -86,6 +71,8 @@ export default function NovoCalculo() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [activeIdx, setActiveIdx] = useState(-1);
   const [searching, setSearching] = useState(false);
+  const [selectedHit, setSelectedHit] = useState<ProcedureHit | null>(null);
+  const [searchMessage, setSearchMessage] = useState<string | null>(null);
   // The procedure the user picked, kept on screen while the Procedure page loads
   // so the selection is confirmed and the transition isn't silent.
   const [navigating, setNavigating] = useState<ProcedureHit | null>(null);
@@ -93,69 +80,39 @@ export default function NovoCalculo() {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Compositions state
-  const [compositions, setCompositions] = useState<CompositionItem[]>([]);
-  const [compositionsLoaded, setCompositionsLoaded] = useState(false);
-
-  // ── Fetch compositions (auth-aware) ───────────────────────────────────────
-
-  const fetchCompositions = useCallback(async () => {
-    if (!isSignedIn) {
-      setCompositions([]);
-      setCompositionsLoaded(true);
-      return;
-    }
-    setCompositionsLoaded(false);
-    try {
-      const token = await getToken();
-      const res = await fetch("/api/compositions", {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
-      setCompositions(res.ok ? await res.json() : []);
-    } catch {
-      setCompositions([]);
-    } finally {
-      setCompositionsLoaded(true);
-    }
-  }, [isSignedIn, getToken]);
-
-  useEffect(() => {
-    if (isLoaded) fetchCompositions();
-  }, [isLoaded, fetchCompositions]);
-
-  useEffect(() => {
-    if (activeTab === "compositions" && isLoaded) fetchCompositions();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab]);
-
   // ── Debounced search ───────────────────────────────────────────────────────
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    // Don't re-open the dropdown once a selection is navigating away.
-    if (navigating) return;
+    // A confirmed selection is stable until the user edits the field again.
+    if (selectedHit || navigating) return;
     if (query.trim().length < 2) {
       setHits([]);
       setDropdownOpen(false);
+      setSearchMessage(null);
       return;
     }
+    let cancelled = false;
     debounceRef.current = setTimeout(async () => {
       try {
         const res = await fetch(`/api/procedures/search?q=${encodeURIComponent(query)}`);
         if (res.ok) {
           const data: ProcedureHit[] = await res.json();
+          if (cancelled) return;
           setHits(data ?? []);
           setDropdownOpen((data ?? []).length > 0);
           setActiveIdx(-1);
+          setSearchMessage((data ?? []).length === 0 ? "Nenhum procedimento encontrado." : null);
         }
       } catch {
         // leave existing hits on network error
       }
     }, 180);
     return () => {
+      cancelled = true;
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [query, navigating]);
+  }, [query, selectedHit, navigating]);
 
   // ── Close dropdown on outside click ───────────────────────────────────────
 
@@ -170,7 +127,7 @@ export default function NovoCalculo() {
   }, []);
 
   // ── Release the "Abrindo…" lock when returning via back/forward ─────────────
-  // selectHit/handleSubmit set `navigating` to show a brief transition before
+  // openSelectedHit sets `navigating` to show a brief transition before
   // routing to /procedure, and the input is disabled while it is set. The App
   // Router can preserve this component's state across client-side back navigation,
   // so without an explicit reset the input would stay disabled (forbidden cursor)
@@ -193,36 +150,48 @@ export default function NovoCalculo() {
 
   function selectHit(hit: ProcedureHit) {
     if (navigating) return;
-    // Confirm the choice in the input and keep the chosen row highlighted in the
-    // dropdown for a brief, perceptible moment before routing, so the user can
-    // clearly see which procedure was selected.
+    if (debounceRef.current) clearTimeout(debounceRef.current);
     setQuery(hit.name);
-    setActiveIdx(hits.findIndex((h) => h.id === hit.id));
-    setNavigating(hit);
+    setSelectedHit(hit);
+    setActiveIdx(-1);
+    setDropdownOpen(false);
+    setSearching(false);
+    setSearchMessage(null);
+  }
+
+  function openSelectedHit() {
+    if (!selectedHit || navigating) return;
+    setNavigating(selectedHit);
     window.setTimeout(() => {
-      router.push(`/procedure?sbn=${encodeURIComponent(hit.id)}`);
-    }, 480);
+      router.push(`/procedure?sbn=${encodeURIComponent(selectedHit.id)}`);
+    }, 800);
   }
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+    if (selectedHit) { openSelectedHit(); return; }
     if (activeIdx >= 0 && hits[activeIdx]) { selectHit(hits[activeIdx]); return; }
-    if (hits.length > 0) { selectHit(hits[0]); return; }
     const q = query.trim();
-    if (!q) { inputRef.current?.focus(); return; }
+    if (q.length < 2) { inputRef.current?.focus(); return; }
+    if (hits.length > 0) { setDropdownOpen(true); return; }
     if (debounceRef.current) clearTimeout(debounceRef.current);
     setSearching(true);
     setDropdownOpen(false);
+    setSearchMessage(null);
     try {
       const res = await fetch(`/api/procedures/search?q=${encodeURIComponent(q)}`);
       if (res.ok) {
         const data: ProcedureHit[] = await res.json();
-        if (data?.length > 0) { selectHit(data[0]); return; }
+        setHits(data ?? []);
+        setActiveIdx(-1);
+        setDropdownOpen((data ?? []).length > 0);
+        setSearchMessage((data ?? []).length === 0 ? "Nenhum procedimento encontrado." : null);
       }
-    } catch {}
-    setSearching(false);
-    setNavigating({ id: "", name: q });
-    router.push(`/procedure?q=${encodeURIComponent(q)}`);
+    } catch {
+      setSearchMessage("Não foi possível pesquisar agora. Tente novamente.");
+    } finally {
+      setSearching(false);
+    }
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -234,6 +203,10 @@ export default function NovoCalculo() {
 
   function fillExample(ex: string) {
     setQuery(ex);
+    setSelectedHit(null);
+    setHits([]);
+    setDropdownOpen(false);
+    setSearchMessage(null);
     inputRef.current?.focus();
   }
 
@@ -257,48 +230,10 @@ export default function NovoCalculo() {
     >
       <InternalNavigation
         active="calculation"
-        returnTo={activeTab === "compositions" ? "/novo-calculo#compositions" : "/novo-calculo"}
+        returnTo="/novo-calculo"
         themeLocked
       />
       <div style={{ width: "100%", maxWidth: "620px" }}>
-
-        {/* ── Tab bar ── */}
-        <div
-          style={{
-            display: "flex",
-            gap: "4px",
-            marginBottom: "28px",
-            background: "rgba(255,255,255,0.55)",
-            borderRadius: "12px",
-            padding: "4px",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            border: "1px solid rgba(181, 171, 151,0.22)",
-            boxShadow: "0 1px 4px rgba(40, 32, 17,0.07)",
-          }}
-        >
-          <TabBtn active={activeTab === "search"} onClick={() => setActiveTab("search")}>
-            <Search size={13} aria-hidden="true" />
-            Pesquisar
-          </TabBtn>
-          <TabBtn active={activeTab === "compositions"} onClick={() => setActiveTab("compositions")}>
-            <BookmarkCheck size={13} aria-hidden="true" />
-            Minhas composições
-            {isSignedIn && compositions.length > 0 && activeTab !== "compositions" && (
-              <span
-                style={{
-                  display: "inline-flex", alignItems: "center", justifyContent: "center",
-                  minWidth: "18px", height: "18px", padding: "0 5px",
-                  borderRadius: "100px", fontSize: "10px", fontWeight: 700,
-                  backgroundColor: "#A18C63", color: "#fff", lineHeight: 1,
-                }}
-              >
-                {compositions.length > 9 ? "9+" : compositions.length}
-              </span>
-            )}
-          </TabBtn>
-        </div>
-
         {/* ── Card ── */}
         <div
           style={{
@@ -339,9 +274,7 @@ export default function NovoCalculo() {
             </p>
           </div>
 
-          {/* ── Tab content ── */}
-          {activeTab === "search" ? (
-            <>
+          {/* ── Search ── */}
               <form ref={formRef} onSubmit={handleSubmit} autoComplete="off">
                 <label
                   htmlFor="procedure-search"
@@ -369,24 +302,33 @@ export default function NovoCalculo() {
                     type="text"
                     value={query}
                     disabled={!!navigating}
-                    onChange={(e) => setQuery(e.target.value)}
-                    onFocus={() => { setFocused(true); if (hits.length > 0) setDropdownOpen(true); }}
+                    onChange={(e) => {
+                      setQuery(e.target.value);
+                      setSelectedHit(null);
+                      setHits([]);
+                      setDropdownOpen(false);
+                      setActiveIdx(-1);
+                      setSearchMessage(null);
+                    }}
+                    onFocus={() => { setFocused(true); if (!selectedHit && hits.length > 0) setDropdownOpen(true); }}
                     onBlur={() => setFocused(false)}
                     onKeyDown={handleKeyDown}
                     placeholder="Digite o nome do procedimento..."
                     style={{
-                      width: "100%", height: "48px", paddingLeft: "38px", paddingRight: navigating ? "40px" : "14px",
+                      width: "100%", height: "48px", paddingLeft: "38px", paddingRight: selectedHit || navigating ? "40px" : "14px",
                       fontSize: "14.5px", fontFamily: "inherit", color: T.primary,
-                      backgroundColor: T.surface,
-                      border: `1.5px solid ${focused || navigating ? "#A18C63" : "#D4CBBA"}`,
+                      backgroundColor: selectedHit ? "#FFF1CF" : "#FFFFFF",
+                      border: `1.5px solid ${selectedHit || navigating ? "#725D32" : focused ? "#8C7448" : "#A18C63"}`,
                       borderRadius: showDropdown ? "10px 10px 0 0" : "10px",
                       outline: "none", boxSizing: "border-box",
-                      transition: "border-color 150ms ease, border-radius 80ms ease",
-                      boxShadow: focused || navigating ? "0 0 0 4px rgba(132, 108, 59,0.14)" : "none",
+                      transition: "background-color 150ms ease, border-color 150ms ease, border-radius 80ms ease, box-shadow 150ms ease",
+                      boxShadow: focused || selectedHit || navigating
+                        ? "0 0 0 4px rgba(132, 108, 59,0.18), 0 3px 8px rgba(90, 72, 35,0.12)"
+                        : "0 3px 8px rgba(90, 72, 35,0.10)",
                     }}
                   />
 
-                  {navigating && (
+                  {(selectedHit || navigating) && (
                     <Check
                       size={16}
                       aria-hidden="true"
@@ -413,57 +355,48 @@ export default function NovoCalculo() {
                       }}
                     >
                       {hits.map((hit, i) => {
-                        const isChosen = navigating?.id === hit.id;
-                        const isDimmed = !!navigating && !isChosen;
                         return (
                         <li
                           key={hit.id}
                           id={`hit-${i}`}
                           role="option"
-                          aria-selected={isChosen || i === activeIdx}
+                          aria-selected={i === activeIdx}
                           onPointerDown={(e) => { e.preventDefault(); selectHit(hit); }}
                           onMouseEnter={() => { if (!navigating) setActiveIdx(i); }}
                           style={{
                             display: "flex", alignItems: "center", gap: "10px",
-                            padding: "9px 14px", cursor: navigating ? "default" : "pointer",
-                            backgroundColor: isChosen ? "#A18C63" : i === activeIdx ? T.dropHover : "transparent",
-                            opacity: isDimmed ? 0.45 : 1,
-                            transition: "background-color 120ms ease, opacity 120ms ease",
+                            padding: "9px 14px", cursor: "pointer",
+                            backgroundColor: i === activeIdx ? T.dropHover : "transparent",
+                            transition: "background-color 120ms ease",
                           }}
                         >
-                          {isChosen ? (
-                            <span
-                              aria-hidden="true"
-                              style={{
-                                width: "13px", height: "13px", flexShrink: 0,
-                                border: "2px solid rgba(255,255,255,0.45)", borderTopColor: "#FFFFFF",
-                                borderRadius: "50%", display: "inline-block",
-                                animation: "spin 0.7s linear infinite",
-                              }}
-                            />
-                          ) : (
-                            <Search size={12} aria-hidden="true" style={{ color: T.inputFocus, flexShrink: 0 }} />
-                          )}
+                          <Search size={12} aria-hidden="true" style={{ color: T.inputFocus, flexShrink: 0 }} />
                           <span
                             style={{
-                              fontSize: "13.5px", fontWeight: isChosen ? 600 : 500,
-                              color: isChosen ? "#FFFFFF" : T.primary,
+                              fontSize: "13.5px", fontWeight: 500,
+                              color: T.primary,
                               overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
                             }}
                           >
                             {hit.name}
                           </span>
-                          {isChosen && (
-                            <span style={{ marginLeft: "auto", fontSize: "11px", fontWeight: 600, color: "rgba(255,255,255,0.85)", whiteSpace: "nowrap" }}>
-                              Abrindo…
-                            </span>
-                          )}
                         </li>
                         );
                       })}
                     </ul>
                   )}
                 </div>
+
+                {selectedHit && !navigating && (
+                  <div
+                    role="status"
+                    aria-live="polite"
+                    style={{ display: "flex", alignItems: "center", gap: "6px", margin: "-1px 0 9px", color: "#725D32", fontSize: "11.5px", fontWeight: 600 }}
+                  >
+                    <Check size={13} aria-hidden="true" />
+                    Procedimento selecionado. Confirme para abrir.
+                  </div>
+                )}
 
                 {navigating ? (
                   <div
@@ -495,7 +428,17 @@ export default function NovoCalculo() {
                   // Truly disabled (outline, inverted colors) until there are at
                   // least 2 characters to search — matches the live-search minimum
                   // and prevents an empty submit.
-                  <PesquisarButton disabled={query.trim().length < 2} loading={searching} />
+                  <SearchButton
+                    disabled={query.trim().length < 2}
+                    loading={searching}
+                    selected={!!selectedHit}
+                  />
+                )}
+
+                {searchMessage && !selectedHit && !navigating && (
+                  <p role="status" aria-live="polite" style={{ margin: "9px 2px 0", color: T.muted, fontSize: "11.5px", lineHeight: 1.5 }}>
+                    {searchMessage}
+                  </p>
                 )}
               </form>
 
@@ -514,32 +457,13 @@ export default function NovoCalculo() {
                   ))}
                 </div>
               </div>
-            </>
-          ) : (
-            /* ── Compositions tab ── */
-            !isLoaded ? (
-              <div style={{ textAlign: "center", padding: "40px 0" }}>
-                <div
-                  style={{
-                    width: "20px", height: "20px", margin: "0 auto",
-                    border: "2px solid #DFD9CD", borderTopColor: T.primary,
-                    borderRadius: "50%", animation: "spin 0.7s linear infinite",
-                  }}
-                />
-              </div>
-            ) : !isSignedIn ? (
-              <SignInGate />
-            ) : (
-              <CompositionList
+
+              <RecentCompositions
+                authLoaded={authLoaded}
+                isSignedIn={isSignedIn}
+                loading={compositionsLoading}
                 compositions={compositions}
-                loaded={compositionsLoaded}
-                getToken={getToken}
-                onDelete={(publicID) =>
-                  setCompositions((prev) => prev.filter((c) => c.public_id !== publicID))
-                }
               />
-            )
-          )}
 
         </div>
       </div>
@@ -547,391 +471,99 @@ export default function NovoCalculo() {
   );
 }
 
-// ─── Sign-in gate ─────────────────────────────────────────────────────────────
+// ─── Recent compositions ─────────────────────────────────────────────────────
 
-function SignInGate() {
-  return (
-    <div style={{ textAlign: "center", padding: "40px 0" }}>
-      <div
-        style={{
-          width: "48px", height: "48px", margin: "0 auto 18px",
-          borderRadius: "50%", backgroundColor: "#F8F6F2",
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}
-      >
-        <LogIn size={22} aria-hidden="true" style={{ color: T.muted }} />
-      </div>
-      <p style={{ margin: "0 0 6px", fontSize: "14px", fontWeight: 600, color: T.primary }}>
-        Entre para ver suas composições
-      </p>
-      <p style={{ margin: "0 0 22px", fontSize: "12.5px", lineHeight: 1.6, color: T.muted }}>
-        Suas composições são salvas na sua conta e ficam disponíveis em qualquer dispositivo.
-      </p>
-      <SignInButton mode="modal">
-        <button
-          type="button"
-          style={{
-            display: "inline-flex", alignItems: "center", gap: "7px",
-            padding: "10px 24px", borderRadius: "10px", border: "none",
-            backgroundColor: T.btnBg, color: "#FFFFFF",
-            fontSize: "13.5px", fontWeight: 600, fontFamily: "inherit",
-            cursor: "pointer",
-          }}
-        >
-          <LogIn size={14} aria-hidden="true" />
-          Entrar
-        </button>
-      </SignInButton>
-    </div>
-  );
-}
-
-// ─── Tab button ───────────────────────────────────────────────────────────────
-
-function TabBtn({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      style={{
-        flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
-        gap: "6px", padding: "8px 14px", borderRadius: "9px", border: "none",
-        fontSize: "13px", fontWeight: 600, fontFamily: "inherit", cursor: "pointer",
-        transition: "background-color 140ms ease, color 140ms ease, box-shadow 140ms ease",
-        backgroundColor: active ? "#FFFFFF" : "transparent",
-        color: active ? T.primary : "#8B7E64",
-        boxShadow: active ? "0 8px 24px rgba(40, 32, 17,0.08), 0 1px 3px rgba(40, 32, 17,0.08)" : "none",
-      }}
-    >
-      {children}
-    </button>
-  );
-}
-
-// ─── Composition list ─────────────────────────────────────────────────────────
-
-function CompositionList({
+function RecentCompositions({
+  authLoaded,
+  isSignedIn,
+  loading,
   compositions,
-  loaded,
-  getToken,
-  onDelete,
 }: {
+  authLoaded: boolean;
+  isSignedIn: boolean | undefined;
+  loading: boolean;
   compositions: CompositionItem[];
-  loaded: boolean;
-  getToken: () => Promise<string | null>;
-  onDelete: (publicID: string) => void;
 }) {
-  const [pendingDelete, setPendingDelete] = useState<CompositionItem | null>(null);
-  const [deleting, setDeleting] = useState(false);
-
-  async function confirmDelete() {
-    if (!pendingDelete) return;
-    setDeleting(true);
-    try {
-      const token = await getToken();
-      const res = await fetch(`/api/compositions/${pendingDelete.public_id}`, {
-        method: "DELETE",
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
-      if (res.ok || res.status === 404) {
-        onDelete(pendingDelete.public_id);
-        setPendingDelete(null);
-      }
-    } catch {
-      // leave item on network error
-    } finally {
-      setDeleting(false);
-    }
-  }
-
-  if (!loaded) {
-    return (
-      <div style={{ textAlign: "center", padding: "40px 0" }}>
-        <div
-          style={{
-            width: "20px", height: "20px", margin: "0 auto 12px",
-            border: "2px solid #DFD9CD", borderTopColor: T.primary,
-            borderRadius: "50%", animation: "spin 0.7s linear infinite",
-          }}
-        />
-      </div>
-    );
-  }
-
-  if (compositions.length === 0) {
-    return (
-      <div style={{ textAlign: "center", padding: "40px 0" }}>
-        <BookmarkCheck
-          size={36}
-          aria-hidden="true"
-          style={{ color: T.inputBorder, margin: "0 auto 14px", display: "block" }}
-        />
-        <p style={{ margin: "0 0 6px", fontSize: "14px", fontWeight: 600, color: T.secondary }}>
-          Nenhuma composição salva ainda
-        </p>
-        <p style={{ margin: 0, fontSize: "12.5px", lineHeight: 1.6, color: T.muted }}>
-          Monte uma composição e clique em{" "}
-          <span style={{ fontWeight: 600, color: T.primary }}>&ldquo;Salvar composição&rdquo;</span>{" "}
-          para guardá-la aqui.
-        </p>
-      </div>
-    );
-  }
+  const recent = [...compositions]
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .slice(0, 3);
 
   return (
-    <>
-      <div>
-        <p style={{ margin: "0 0 14px", fontSize: "11.5px", fontWeight: 600, color: T.muted, letterSpacing: "0.2px" }}>
-          {compositions.length} composição{compositions.length !== 1 ? "ões" : ""} salva{compositions.length !== 1 ? "s" : ""}
-        </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          {compositions.map((comp) => (
-            <CompositionRow
-              key={comp.public_id}
-              comp={comp}
-              onRequestDelete={setPendingDelete}
-            />
+    <section style={{ marginTop: "28px", paddingTop: "22px", borderTop: "1px solid #E7E0D4" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", marginBottom: "12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "7px", minWidth: 0 }}>
+          <BookmarkCheck size={15} aria-hidden="true" style={{ color: T.inputFocus, flexShrink: 0 }} />
+          <h2 style={{ margin: 0, fontSize: "13px", fontWeight: 700, color: T.secondary }}>
+            Composições recentes
+          </h2>
+        </div>
+        <Link
+          href="/composicoes"
+          style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#725D32", fontSize: "11.5px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}
+        >
+          Ver todas <ArrowRight size={12} aria-hidden="true" />
+        </Link>
+      </div>
+
+      {!authLoaded || loading ? (
+        <div role="status" style={{ display: "flex", alignItems: "center", gap: "8px", minHeight: "44px", color: T.muted, fontSize: "12px" }}>
+          <span aria-hidden="true" style={{ width: "14px", height: "14px", border: "2px solid #DFD9CD", borderTopColor: T.inputFocus, borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
+          Carregando...
+        </div>
+      ) : !isSignedIn ? (
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "10px", borderRadius: "10px", background: "#F3EFE7", padding: "11px 12px" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "7px", color: T.secondary, fontSize: "11.5px", lineHeight: 1.5 }}>
+            <LogIn size={14} aria-hidden="true" /> Entre para acessar seus modelos salvos.
+          </span>
+          <SignInButton mode="modal">
+            <button type="button" style={{ border: 0, background: "transparent", color: "#725D32", fontSize: "11.5px", fontWeight: 700, cursor: "pointer", padding: 0 }}>
+              Entrar
+            </button>
+          </SignInButton>
+        </div>
+      ) : recent.length === 0 ? (
+        <div style={{ borderRadius: "10px", border: "1px dashed #D4CBBA", padding: "13px", color: T.muted, fontSize: "11.5px", lineHeight: 1.6 }}>
+          Nenhuma composição salva ainda. Faça o primeiro cálculo e salve sua configuração para reutilizá-la.
+        </div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
+          {recent.map((composition) => (
+            <Link
+              key={composition.public_id}
+              href={compositionHref(composition.public_id)}
+              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", border: "1px solid #E7E0D4", borderRadius: "10px", background: "#FFFFFF", padding: "10px 12px", color: "inherit", textDecoration: "none" }}
+            >
+              <span style={{ minWidth: 0 }}>
+                <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: T.primary, fontSize: "12.5px", fontWeight: 700 }}>
+                  {composition.name}
+                </span>
+                <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginTop: "2px", color: T.muted, fontSize: "10.5px" }}>
+                  {composition.sbn_procedure_name}
+                </span>
+              </span>
+              <ArrowRight size={14} aria-hidden="true" style={{ color: T.inputFocus, flexShrink: 0 }} />
+            </Link>
           ))}
         </div>
-      </div>
-
-      {pendingDelete && (
-        <ConfirmDeleteDialog
-          composition={pendingDelete}
-          deleting={deleting}
-          onConfirm={confirmDelete}
-          onCancel={() => { if (!deleting) setPendingDelete(null); }}
-        />
       )}
-    </>
+    </section>
   );
 }
-
-function CompositionRow({
-  comp,
-  onRequestDelete,
+function SearchButton({
+  disabled,
+  loading,
+  selected,
 }: {
-  comp: CompositionItem;
-  onRequestDelete: (comp: CompositionItem) => void;
+  disabled: boolean;
+  loading: boolean;
+  selected: boolean;
 }) {
-  const [hovered, setHovered] = useState(false);
-  const [trashHovered, setTrashHovered] = useState(false);
-
-  const date = new Date(comp.created_at).toLocaleDateString("pt-BR", {
-    day: "2-digit", month: "2-digit", year: "numeric",
-  });
-
-  const href = `/procedure?composition=${encodeURIComponent(comp.public_id)}`;
-
-  return (
-    <Link
-      href={href}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: "block", textDecoration: "none",
-        borderRadius: "10px",
-        border: `1.5px solid ${hovered ? T.inputFocus : T.cardBorder}`,
-        padding: "12px 14px",
-        backgroundColor: hovered ? T.dropHover : T.surface,
-        transition: "border-color 130ms ease, background-color 110ms ease",
-        position: "relative",
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "14px" }}>
-        <div style={{ minWidth: 0, flex: 1 }}>
-          <p
-            style={{
-              margin: "0 0 2px", fontSize: "13.5px", fontWeight: 700,
-              color: T.primary, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-            }}
-          >
-            {comp.name}
-          </p>
-          <p
-            style={{
-              margin: "0 0 5px", fontSize: "11.5px", color: T.secondary,
-              overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-            }}
-          >
-            {comp.sbn_procedure_name}
-          </p>
-          <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "6px" }}>
-            <span style={{ fontSize: "11px", color: T.muted }}>{date}</span>
-            {comp.auxiliaries_count > 0 && (
-              <span style={{ fontSize: "10.5px", fontWeight: 600, color: "#393225", background: "rgba(132, 108, 59,0.12)", borderRadius: "4px", padding: "1px 6px" }}>
-                {comp.auxiliaries_count} aux.
-              </span>
-            )}
-            {comp.requires_anesthesia && (
-              <span style={{ fontSize: "10.5px", fontWeight: 600, color: "#C2963F", background: "#F9F5EE", borderRadius: "4px", padding: "1px 6px" }}>
-                Anest.
-              </span>
-            )}
-            <span style={{ fontSize: "10.5px", color: T.muted }}>
-              {comp.access_route_type === "same" ? "Mesma via" : "Vias diferentes"}
-            </span>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          aria-label="Remover composição"
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); onRequestDelete(comp); }}
-          onMouseEnter={() => setTrashHovered(true)}
-          onMouseLeave={() => setTrashHovered(false)}
-          style={{
-            display: "flex", alignItems: "center", justifyContent: "center",
-            width: "30px", height: "30px",
-            border: `1px solid ${trashHovered ? "#FECACA" : T.cardBorder}`,
-            borderRadius: "7px",
-            backgroundColor: trashHovered ? "#FFF1F1" : "transparent",
-            color: trashHovered ? "#DC2626" : T.muted,
-            cursor: "pointer",
-            transition: "background-color 120ms ease, border-color 120ms ease, color 120ms ease",
-            flexShrink: 0, marginTop: "2px",
-          }}
-        >
-          <Trash2 size={13} aria-hidden="true" />
-        </button>
-      </div>
-    </Link>
-  );
-}
-
-// ─── Confirm delete dialog ────────────────────────────────────────────────────
-
-function ConfirmDeleteDialog({
-  composition,
-  deleting,
-  onConfirm,
-  onCancel,
-}: {
-  composition: CompositionItem;
-  deleting: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-}) {
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) { if (e.key === "Escape") onCancel(); }
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [onCancel]);
-
-  const [cancelHovered, setCancelHovered] = useState(false);
-  const [confirmHovered, setConfirmHovered] = useState(false);
-
-  return createPortal(
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="confirm-delete-title"
-      onClick={onCancel}
-      style={{
-        position: "fixed", inset: 0, zIndex: 999,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        padding: "20px",
-        backgroundColor: "rgba(40, 32, 17,0.42)",
-        backdropFilter: "blur(6px)",
-        WebkitBackdropFilter: "blur(6px)",
-        animation: "fadeIn 120ms ease",
-      }}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          width: "100%", maxWidth: "380px",
-          backgroundColor: "#FFFFFF",
-          borderRadius: "18px",
-          border: "1px solid rgba(239, 235, 227,0.9)",
-          padding: "28px 28px 24px",
-          boxShadow:
-            "0 4px 6px rgba(40, 32, 17,0.06), 0 12px 32px rgba(40, 32, 17,0.14), 0 32px 56px -8px rgba(40, 32, 17,0.10)",
-          animation: "slideUp 160ms cubic-bezier(0.16,1,0.3,1)",
-        }}
-      >
-        <div style={{
-          width: "46px", height: "46px", borderRadius: "50%",
-          backgroundColor: "#FEF2F2", border: "1.5px solid #FECACA",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          marginBottom: "18px",
-        }}>
-          <Trash2 size={20} aria-hidden="true" style={{ color: "#DC2626" }} />
-        </div>
-
-        <h2 id="confirm-delete-title" style={{
-          margin: "0 0 8px", fontSize: "16px", fontWeight: 700,
-          color: T.primary, letterSpacing: "-0.2px", lineHeight: 1.2,
-        }}>
-          Remover composição?
-        </h2>
-
-        <p style={{
-          margin: "0 0 26px", fontSize: "13.5px", lineHeight: 1.6,
-          color: T.secondary,
-        }}>
-          A composição{" "}
-          <span style={{ fontWeight: 700, color: T.primary }}>
-            &ldquo;{composition.name}&rdquo;
-          </span>{" "}
-          será removida permanentemente. Esta ação não pode ser desfeita.
-        </p>
-
-        <div style={{ display: "flex", gap: "8px" }}>
-          <button
-            type="button"
-            disabled={deleting}
-            onClick={onCancel}
-            onMouseEnter={() => setCancelHovered(true)}
-            onMouseLeave={() => setCancelHovered(false)}
-            style={{
-              flex: 1, height: "40px", borderRadius: "10px",
-              border: `1.5px solid ${cancelHovered ? "#DFD9CD" : "#EFEBE3"}`,
-              backgroundColor: cancelHovered ? "#F8FAFC" : "transparent",
-              color: T.secondary, fontSize: "13.5px", fontWeight: 600,
-              fontFamily: "inherit", cursor: deleting ? "default" : "pointer",
-              transition: "background-color 120ms ease, border-color 120ms ease",
-              opacity: deleting ? 0.5 : 1,
-            }}
-          >
-            Cancelar
-          </button>
-          <button
-            type="button"
-            disabled={deleting}
-            onClick={onConfirm}
-            onMouseEnter={() => setConfirmHovered(true)}
-            onMouseLeave={() => setConfirmHovered(false)}
-            style={{
-              flex: 1, height: "40px", borderRadius: "10px",
-              border: "none",
-              backgroundColor: deleting ? "#FCA5A5" : confirmHovered ? "#B91C1C" : "#DC2626",
-              color: "#FFFFFF", fontSize: "13.5px", fontWeight: 600,
-              fontFamily: "inherit", cursor: deleting ? "default" : "pointer",
-              transition: "background-color 120ms ease",
-              display: "flex", alignItems: "center", justifyContent: "center", gap: "6px",
-            }}
-          >
-            {deleting
-              ? <><span style={{ width: "13px", height: "13px", border: "2px solid rgba(255,255,255,0.4)", borderTopColor: "#fff", borderRadius: "50%", display: "inline-block", animation: "spin 0.7s linear infinite" }} /> Removendo...</>
-              : "Remover"}
-          </button>
-        </div>
-      </div>
-    </div>,
-    document.body
-  );
-}
-
-// ─── Search sub-components ────────────────────────────────────────────────────
-
-function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: boolean }) {
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
   const inactive = disabled || loading;
 
   const bgColor = inactive
-    ? "transparent"
+    ? "#F1ECE2"
     : pressed
     ? "#393225"
     : hovered
@@ -948,10 +580,10 @@ function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: bo
       onMouseDown={() => !inactive && setPressed(true)}
       onMouseUp={() => setPressed(false)}
       style={{
-        width: "100%", height: inactive ? "44px" : "46px",
+        width: "100%", height: "46px",
         backgroundColor: bgColor,
-        color: inactive ? "#725D32" : "#FFFFFF",
-        border: inactive ? "2px solid rgba(114, 93, 50, 0.9)" : "none",
+        color: inactive ? "#9A8F7A" : "#FFFFFF",
+        border: inactive ? "1px solid #DDD5C7" : "none",
         borderRadius: "10px",
         fontSize: "14px", fontWeight: 700, letterSpacing: "0.1px",
         fontFamily: "inherit", cursor: inactive ? "not-allowed" : "pointer",
@@ -971,7 +603,7 @@ function PesquisarButton({ disabled, loading }: { disabled: boolean; loading: bo
           }}
         />
       )}
-      {loading ? "Pesquisando..." : "Pesquisar"}
+      {loading ? "Pesquisando..." : selected ? "Abrir procedimento" : "Pesquisar"}
     </button>
   );
 }

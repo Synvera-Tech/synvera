@@ -152,7 +152,7 @@ export default function Home() {
           <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
             <NavLink href="/" active>Início</NavLink>
             <NavLink href="/novo-calculo">Novo cálculo</NavLink>
-            <NavLink href="/novo-calculo#compositions">Composições</NavLink>
+            <NavLink href="/composicoes">Composições</NavLink>
             <NavLink href="/consulta-documental?theme=light&returnTo=%2F">Documentação</NavLink>
           </div>
 
@@ -262,7 +262,7 @@ export default function Home() {
               icon={<BookmarkCheck size={18} aria-hidden="true" />}
               title="Minhas composições"
               description="Acesse, edite e reutilize suas composições."
-              href="/novo-calculo#compositions"
+              href="/composicoes"
             />
             <ToolCard
               icon={<FileText size={18} aria-hidden="true" />}
@@ -389,7 +389,7 @@ interface CompositionCardProps {
 function CompositionCard({ comp }: CompositionCardProps) {
   return (
     <Link
-      href={`/novo-calculo?composition=${comp.public_id}`}
+      href={`/procedure?composition=${encodeURIComponent(comp.public_id)}`}
       style={{
         display: "flex",
         flexDirection: "column",

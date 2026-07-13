@@ -852,12 +852,21 @@ html.dark body {
     color: #F3EEE4 !important;
   }
 
-  #procedure-search {
-    border: none !important;
+  /* Keep the outline on the rounded shell. A border on the inner input gets
+     clipped by the shell's overflow at the corners. */
+  .workspace-panel .procedure-search-shell {
+    border: 1px solid #DDD5C7;
+    transition: border-color 150ms ease;
+  }
+
+  .workspace-panel .procedure-search-shell:focus-within {
+    border-color: #CFC2AC;
+  }
+
+  .workspace-panel #procedure-search {
+    border: 0 !important;
     outline: none !important;
     box-shadow: none !important;
-    border-width: 0 !important;
-    border-color: transparent !important;
   }
 
   @media (prefers-color-scheme: dark) {

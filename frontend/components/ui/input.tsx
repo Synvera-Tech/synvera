@@ -11,15 +11,6 @@ export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInp
         "disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
-      style={{
-        border: 'none !important',
-        outline: 'none !important',
-        boxShadow: 'none !important',
-        borderColor: 'transparent !important',
-        borderWidth: '0 !important',
-        appearance: 'none',
-        WebkitAppearance: 'none'
-      }}
       {...props}
     />
   );

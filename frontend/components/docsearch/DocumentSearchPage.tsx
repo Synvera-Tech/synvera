@@ -151,7 +151,7 @@ export function DocumentSearchPageContent() {
   const initialQ = searchParams.get("q") ?? "";
   const requestedTheme = searchParams.get("theme");
   const requestedReturnTo = searchParams.get("returnTo") ?? "";
-  const returnTo = requestedReturnTo.startsWith("/procedure") || requestedReturnTo.startsWith("/novo-calculo")
+  const returnTo = requestedReturnTo.startsWith("/procedure") || requestedReturnTo.startsWith("/novo-calculo") || requestedReturnTo.startsWith("/composicoes")
     ? requestedReturnTo
     : "/novo-calculo";
 

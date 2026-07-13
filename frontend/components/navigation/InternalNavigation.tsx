@@ -21,7 +21,7 @@ import type { ReactNode } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/components/ui/utils";
 
-export type InternalNavigationSection = "calculation" | "documentation";
+export type InternalNavigationSection = "calculation" | "compositions" | "documentation";
 export type NavigationTheme = "light" | "dark";
 
 export function buildDocumentationHref({
@@ -164,8 +164,9 @@ export function InternalNavigation({
             {expanded && <span>Novo cálculo</span>}
           </Link>
           <Link
-            href="/novo-calculo#compositions"
-            className={desktopItemClass(false)}
+            href="/composicoes"
+            aria-current={active === "compositions" ? "page" : undefined}
+            className={desktopItemClass(active === "compositions")}
             title={expanded ? undefined : "Minhas composições"}
           >
             <BookmarkCheck size={18} className="shrink-0" aria-hidden="true" />
@@ -251,6 +252,7 @@ export function InternalNavigation({
       >
         <MobileItem href="/" label="Início" icon={<Home size={19} aria-hidden="true" />} />
         <MobileItem href="/novo-calculo" label="Novo cálculo" selected={active === "calculation"} icon={<Calculator size={19} aria-hidden="true" />} />
+        <MobileItem href="/composicoes" label="Composições" selected={active === "compositions"} icon={<BookmarkCheck size={19} aria-hidden="true" />} />
         <MobileItem href={documentationHref} label="Documentação" selected={active === "documentation"} icon={<BookOpen size={19} aria-hidden="true" />} />
         <button
           type="button"
@@ -269,10 +271,6 @@ export function InternalNavigation({
           id="internal-mobile-menu"
           className="fixed bottom-20 right-3 z-50 w-64 rounded-2xl border border-stone-200 bg-white p-2 shadow-2xl dark:border-stone-800 dark:bg-stone-950 lg:hidden"
         >
-          <Link href="/novo-calculo#compositions" className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800">
-            <BookmarkCheck size={18} aria-hidden="true" />
-            Minhas composições
-          </Link>
           {!themeLocked && (
             <button type="button" onClick={handleThemeToggle} className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800">
               {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
