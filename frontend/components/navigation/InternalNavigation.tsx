@@ -5,12 +5,12 @@ import {
   BookOpen,
   BookmarkCheck,
   Calculator,
-  ChevronLeft,
-  ChevronRight,
   Home,
   LogIn,
   Menu,
   Moon,
+  PanelLeftClose,
+  PanelLeftOpen,
   Sun,
   X,
 } from "lucide-react";
@@ -127,10 +127,11 @@ export function InternalNavigation({
             <button
               type="button"
               onClick={() => setNavigationExpanded(false)}
-              className="rounded-lg p-2 text-stone-400 hover:bg-stone-100 hover:text-stone-700 dark:hover:bg-stone-800 dark:hover:text-stone-200"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#D8CEBE] bg-[#F3EFE7] text-[#725D32] shadow-sm transition-colors hover:border-[#BDAE91] hover:bg-[#EAE2D4] hover:text-[#4F3D19] dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:border-stone-600 dark:hover:bg-stone-800 dark:hover:text-stone-100"
               aria-label="Recolher navegação"
+              title="Recolher navegação"
             >
-              <ChevronLeft size={16} aria-hidden="true" />
+              <PanelLeftClose size={20} strokeWidth={2.2} aria-hidden="true" />
             </button>
           )}
         </div>
@@ -139,11 +140,11 @@ export function InternalNavigation({
           <button
             type="button"
             onClick={() => setNavigationExpanded(true)}
-            className="mt-1 flex h-9 items-center justify-center rounded-xl text-stone-400 hover:bg-stone-100 hover:text-stone-700 dark:hover:bg-stone-800 dark:hover:text-stone-200"
+            className="mx-auto mt-2 flex h-10 w-10 items-center justify-center rounded-xl border border-[#D8CEBE] bg-[#F3EFE7] text-[#725D32] shadow-sm transition-colors hover:border-[#BDAE91] hover:bg-[#EAE2D4] hover:text-[#4F3D19] dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:border-stone-600 dark:hover:bg-stone-800 dark:hover:text-stone-100"
             aria-label="Expandir navegação"
-            title="Expandir"
+            title="Expandir navegação"
           >
-            <ChevronRight size={16} aria-hidden="true" />
+            <PanelLeftOpen size={20} strokeWidth={2.2} aria-hidden="true" />
           </button>
         )}
 
