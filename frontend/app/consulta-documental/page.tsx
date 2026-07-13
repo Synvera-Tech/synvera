@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { DocumentSearchPageContent } from "@/components/docsearch/DocumentSearchPage";
 
 export const metadata: Metadata = {
-  title: "Consulta Documental · Synvera",
+  title: "Documentação · Synvera",
   description:
     "Pesquise regras, diretrizes e fundamentos diretamente na CBHPM, Manual SBN Neurocirurgia e Manual de Cirurgia de Coluna.",
 };

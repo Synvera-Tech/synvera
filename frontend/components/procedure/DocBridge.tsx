@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { BookOpen } from "lucide-react";
+import { buildDocumentationHref, type NavigationTheme } from "@/components/navigation/InternalNavigation";
 
 interface DocBridgeProps {
   contextQuery?: string;
+  theme: NavigationTheme;
+  returnTo: string;
 }
 
-export function DocBridge({ contextQuery }: DocBridgeProps) {
+export function DocBridge({ contextQuery, theme, returnTo }: DocBridgeProps) {
   const q = contextQuery?.trim();
-  const href = q
-    ? `/consulta-documental?q=${encodeURIComponent(q)}`
-    : "/consulta-documental";
+  const href = buildDocumentationHref({ theme, returnTo, query: q });
 
   const ctaLabel = q
     ? q.length > 26 ? q.slice(0, 24) + "…" : q

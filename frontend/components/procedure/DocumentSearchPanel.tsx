@@ -114,7 +114,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
         >
           <BookOpen size={14} className="text-primary flex-shrink-0" aria-hidden="true" />
           <span className="text-[12.5px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
-            Consulta Documental
+            Documentação
           </span>
           <span className="rounded-full border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800/60 px-1.5 py-0.5 text-[10px] font-semibold text-stone-400 dark:text-stone-500 leading-none">
             CBHPM · SBN
@@ -130,7 +130,7 @@ export function DocumentSearchPanel({ contextQuery }: DocumentSearchPanelProps) 
           href={fullPageHref}
           className="flex-shrink-0 flex items-center gap-1.5 rounded-lg border border-primary/25 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-2.5 py-1.5 text-[11.5px] font-semibold text-primary dark:text-amber-300 hover:bg-primary/15 dark:hover:bg-primary/25 transition-colors no-underline"
         >
-          Central documental
+          Documentação
           <ExternalLink size={11} aria-hidden="true" />
         </Link>
       </div>

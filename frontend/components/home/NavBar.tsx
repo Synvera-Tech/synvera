@@ -9,6 +9,7 @@ const navLinks = [
   { label: "Experiência",    href: "#experiencia" },
   { label: "Como funciona",  href: "#como-funciona" },
   { label: "Recursos",       href: "#recursos" },
+  { label: "Documentação",   href: "/consulta-documental?theme=dark&returnTo=%2F" },
   { label: "Dúvidas",        href: "#duvidas" },
 ];
 

@@ -1,11 +1,13 @@
 "use client";
 
-import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
-import { BookmarkCheck, BookOpen, Check, LogIn, Search, Trash2 } from "lucide-react";
+import { SignInButton, useAuth } from "@clerk/nextjs";
+import { BookmarkCheck, Check, LogIn, Search, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { InternalNavigation } from "@/components/navigation/InternalNavigation";
+import { useTheme } from "@/components/theme-provider";
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -57,7 +59,25 @@ type CompositionItem = {
 export default function NovoCalculo() {
   const router = useRouter();
   const { isLoaded, isSignedIn, getToken } = useAuth();
+  const { setPageTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<"search" | "compositions">("search");
+
+  // This screen currently has a deliberately light, print-like visual language.
+  // Keep that page-scoped choice explicit; links to Documentation carry it
+  // forward without overwriting the user's saved preference.
+  useEffect(() => {
+    setPageTheme("light");
+    return () => setPageTheme(null);
+  }, [setPageTheme]);
+
+  useEffect(() => {
+    const syncTabFromHash = () => {
+      if (window.location.hash === "#compositions") setActiveTab("compositions");
+    };
+    syncTabFromHash();
+    window.addEventListener("hashchange", syncTabFromHash);
+    return () => window.removeEventListener("hashchange", syncTabFromHash);
+  }, []);
 
   // Search state
   const [query, setQuery] = useState("");
@@ -221,6 +241,7 @@ export default function NovoCalculo() {
 
   return (
     <main
+      className="internal-page"
       style={{
         minHeight: "100vh",
         background: [
@@ -231,92 +252,15 @@ export default function NovoCalculo() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "20px 20px 40px",
+        padding: "20px 20px 96px",
       }}
     >
+      <InternalNavigation
+        active="calculation"
+        returnTo={activeTab === "compositions" ? "/novo-calculo#compositions" : "/novo-calculo"}
+        themeLocked
+      />
       <div style={{ width: "100%", maxWidth: "620px" }}>
-
-        {/* ── Top bar: home link + auth ── */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            position: "sticky", top: 0, zIndex: 40,
-            background: "rgba(249, 247, 243,0.72)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.45)",
-            borderRadius: "24px",
-            boxShadow: "0 12px 30px rgba(40, 32, 17,0.08)",
-            padding: "10px 20px",
-            marginBottom: "24px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <Link
-              href="/"
-              style={{
-                display: "flex", alignItems: "center", gap: "9px",
-                textDecoration: "none",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/synvera-symbol.svg" alt="" aria-hidden="true" width={20} height={19} style={{ display: "block", flexShrink: 0 }} />
-              <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
-                <span style={{ fontSize: "13px", fontWeight: 700, color: T.primary, letterSpacing: "-0.2px", lineHeight: 1 }}>
-                  Synvera
-                </span>
-                <span style={{ fontSize: "9px", fontWeight: 500, color: "rgba(102, 93, 74,0.58)", letterSpacing: "0.2px", lineHeight: 1 }}>
-                  Neurocirurgia · Coluna
-                </span>
-              </div>
-            </Link>
-
-            {/* Documentação — entry to the documentation module */}
-            <Link
-              href="/consulta-documental"
-              style={{
-                display: "flex", alignItems: "center", gap: "6px",
-                padding: "6px 12px", borderRadius: "8px",
-                border: "1.5px solid rgba(255,255,255,0.6)",
-                background: "rgba(255,255,255,0.55)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-                fontSize: "12.5px", fontWeight: 600, fontFamily: "inherit",
-                color: T.primary, textDecoration: "none",
-              }}
-            >
-              <BookOpen size={13} aria-hidden="true" />
-              Documentação
-            </Link>
-          </div>
-
-          {isLoaded && (
-            isSignedIn ? (
-              <UserButton />
-            ) : (
-              <SignInButton mode="modal">
-                <button
-                  type="button"
-                  style={{
-                    display: "flex", alignItems: "center", gap: "6px",
-                    padding: "6px 14px", borderRadius: "8px",
-                    border: "1.5px solid rgba(255,255,255,0.6)",
-                    background: "rgba(255,255,255,0.55)",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    fontSize: "12.5px", fontWeight: 600, fontFamily: "inherit",
-                    color: T.primary, cursor: "pointer",
-                  }}
-                >
-                  <LogIn size={13} aria-hidden="true" />
-                  Entrar
-                </button>
-              </SignInButton>
-            )
-          )}
-        </div>
 
         {/* ── Tab bar ── */}
         <div

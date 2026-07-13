@@ -1,11 +1,12 @@
 "use client";
 
-import { BookOpen, LogIn, Moon, Stethoscope, Sun } from "lucide-react";
+import { ArrowLeft, Stethoscope } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { useTheme } from "@/components/theme-provider";
+import { InternalNavigation, type NavigationTheme } from "@/components/navigation/InternalNavigation";
 
 import type { AccessRouteType } from "@/lib/procedure/types";
 import { buildShareUrl, EMPTY_ANESTHESIA_JUSTIFICATION, type AnesthesiaAuxiliaryJustification } from "@/lib/procedure/payload-builders";
@@ -33,26 +34,27 @@ function ProcedureContent({
   initialSbnId,
   initialRoute,
   initialCompositionId,
+  initialTheme,
 }: {
   initialQuery: string;
   initialSbnId: string;
   initialRoute: AccessRouteType;
   initialCompositionId: string;
+  initialTheme: NavigationTheme;
 }) {
   const { pageTheme, setPageTheme } = useTheme();
   const { isLoaded, isSignedIn, getToken } = useAuth();
 
   // The Procedure page is always presented in light mode so there is no abrupt
   // dark→light jump coming from the Search page. The user can still flip to dark
-  // *for this page only* via the toggle below — their saved global preference is
+  // *for this page only* via the navigation rail — their saved global preference is
   // left untouched and is restored automatically when they leave the page.
   useEffect(() => {
-    setPageTheme("light");
+    setPageTheme(initialTheme);
     return () => setPageTheme(null);
-  }, [setPageTheme]);
+  }, [initialTheme, setPageTheme]);
 
   const isDark = pageTheme === "dark";
-  const toggle = () => setPageTheme(isDark ? "light" : "dark");
 
   // ── Cross-cutting clinical state ──────────────────────────────────────────
   const [accessRoute, setAccessRoute] = useState<AccessRouteType>(initialRoute);
@@ -178,67 +180,26 @@ function ProcedureContent({
   };
 
   const canShare = !!calculation && procedureState.selectedProcedures.length > 0;
+  const procedureReturnParams = new URLSearchParams();
+  if (initialQuery) procedureReturnParams.set("q", initialQuery);
+  if (initialSbnId) procedureReturnParams.set("sbn", initialSbnId);
+  if (initialRoute !== "same") procedureReturnParams.set("route", initialRoute);
+  if (initialCompositionId) procedureReturnParams.set("composition", initialCompositionId);
+  procedureReturnParams.set("theme", isDark ? "dark" : "light");
+  const procedureReturnTo = `/procedure${procedureReturnParams.size ? `?${procedureReturnParams.toString()}` : ""}`;
 
   return (
-    <main className="procedure-bg relative min-h-screen" style={{ backgroundColor: "hsl(var(--background))" }}>
-      {/* Nav */}
-      <div className="relative z-10 px-5 pt-5">
-        <nav className="nav-bar mx-auto flex max-w-[1080px] items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2.5 no-underline">
-              <div className="brand-mark h-9 w-9 shrink-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} className="block dark:hidden" />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/brand/synvera-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
-              </div>
-              <div>
-                <span className="block text-base font-extrabold tracking-tight text-stone-950 dark:text-stone-50">Synvera</span>
-                <span className="block text-[10px] font-medium tracking-[0.3px] text-stone-500 dark:text-stone-400 leading-none">Neurocirurgia · Coluna</span>
-              </div>
-            </Link>
-            <Link
-              href="/consulta-documental"
-              className="flex items-center gap-1.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/60 px-3 py-1.5 text-[11.5px] font-semibold text-stone-600 dark:text-stone-300 hover:bg-white dark:hover:bg-stone-700/60 transition-colors no-underline"
-            >
-              <BookOpen size={12} aria-hidden="true" />
-              Documentação
-            </Link>
-          </div>
-          <div className="flex items-center gap-3">
-            {isLoaded && (
-              isSignedIn ? (
-                <UserButton />
-              ) : (
-                <SignInButton mode="modal">
-                  <button
-                    type="button"
-                    className="flex items-center gap-1.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 px-3 py-1.5 text-xs font-semibold text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700/60 transition-colors"
-                  >
-                    <LogIn size={13} aria-hidden="true" />
-                    Entrar
-                  </button>
-                </SignInButton>
-              )
-            )}
-            <button
-              onClick={toggle}
-              aria-checked={isDark}
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-              className="theme-switch relative inline-flex h-8 w-14 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              role="switch"
-              type="button"
-            >
-              <Sun aria-hidden="true" size={13} className="absolute left-2 text-amber-500 transition-opacity dark:opacity-35" />
-              <Moon aria-hidden="true" size={13} className="absolute right-2 text-stone-500 opacity-45 transition-opacity dark:text-[#B5AB97] dark:opacity-100" />
-              <span aria-hidden="true" className={`theme-switch-thumb absolute top-1 h-6 w-6 rounded-full transition-transform duration-200 ${isDark ? "translate-x-7" : "translate-x-1"}`} />
-            </button>
-          </div>
-        </nav>
-      </div>
+    <main className="internal-page procedure-bg relative min-h-screen pb-20 lg:pb-0" style={{ backgroundColor: "hsl(var(--background))" }}>
+      <InternalNavigation active="calculation" returnTo={procedureReturnTo} />
 
       {/* Hero */}
-      <div className="relative z-[1] px-5 pb-6 pt-8 text-center">
+      <div className="relative z-[1] px-5 pb-6 pt-6 text-center lg:pt-8">
+        <div className="mx-auto mb-4 flex max-w-[1080px] justify-start">
+          <Link href="/novo-calculo" className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-semibold text-stone-500 transition-colors hover:bg-white/60 hover:text-stone-800 dark:text-stone-400 dark:hover:bg-stone-900/60 dark:hover:text-stone-100">
+            <ArrowLeft size={14} aria-hidden="true" />
+            Voltar para a pesquisa
+          </Link>
+        </div>
         <h1 className="m-0 mb-1.5 font-display text-[32px] font-bold leading-tight tracking-[-0.03em] text-[#2D271F] dark:text-[#F6F1E7]">
           Composição de Honorários
         </h1>
@@ -354,6 +315,8 @@ function ProcedureContent({
                 ? procedureState.selectedProcedures.map((p) => p.name).join(" ")
                 : undefined
             }
+            theme={isDark ? "dark" : "light"}
+            returnTo={procedureReturnTo}
           />
         </div>
 
@@ -417,6 +380,7 @@ function SearchParamsReader() {
       initialSbnId={searchParams.get("sbn") ?? ""}
       initialRoute={initialRoute}
       initialCompositionId={searchParams.get("composition") ?? ""}
+      initialTheme={searchParams.get("theme") === "dark" ? "dark" : "light"}
     />
   );
 }

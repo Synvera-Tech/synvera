@@ -36,9 +36,20 @@ const themeInitScript = `
     let theme = stored === "dark" || stored === "light"
       ? stored
       : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    // The Procedure page is always presented in light mode (see ThemeProvider
-    // page override); force it on first paint too so a hard load never flashes dark.
-    if (window.location.pathname.indexOf("/procedure") === 0) theme = "light";
+    // Calculation screens use page-scoped themes. Apply the requested/default
+    // value on first paint too so a hard load never flashes the global theme.
+    if (window.location.pathname.indexOf("/procedure") === 0) {
+      const requested = new URLSearchParams(window.location.search).get("theme");
+      theme = requested === "dark" ? "dark" : "light";
+    }
+    if (window.location.pathname.indexOf("/novo-calculo") === 0) theme = "light";
+    // Documentation links carry the effective theme of the originating screen.
+    // Apply it before hydration so navigation and hard reloads do not flash the
+    // user's unrelated global preference.
+    if (window.location.pathname.indexOf("/consulta-documental") === 0) {
+      const requested = new URLSearchParams(window.location.search).get("theme");
+      if (requested === "light" || requested === "dark") theme = requested;
+    }
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     root.classList.toggle("light", theme === "light");

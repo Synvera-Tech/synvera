@@ -20,7 +20,7 @@ const features = [
   },
   {
     icon: FileText,
-    title: "Consulta Documental",
+    title: "Documentação",
     description: "Acesse fundamentos CBHPM e SBN diretamente na plataforma.",
   },
 ];

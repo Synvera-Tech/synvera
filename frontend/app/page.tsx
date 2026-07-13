@@ -152,8 +152,8 @@ export default function Home() {
           <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
             <NavLink href="/" active>Início</NavLink>
             <NavLink href="/novo-calculo">Novo cálculo</NavLink>
-            <NavLink href="#" disabled label="Composições" />
-            <NavLink href="#" disabled label="Documentação" />
+            <NavLink href="/novo-calculo#compositions">Composições</NavLink>
+            <NavLink href="/consulta-documental?theme=light&returnTo=%2F">Documentação</NavLink>
           </div>
 
           {/* Auth */}
@@ -262,13 +262,13 @@ export default function Home() {
               icon={<BookmarkCheck size={18} aria-hidden="true" />}
               title="Minhas composições"
               description="Acesse, edite e reutilize suas composições."
-              href="/novo-calculo"
+              href="/novo-calculo#compositions"
             />
             <ToolCard
               icon={<FileText size={18} aria-hidden="true" />}
               title="Documentação"
               description="Consulte fundamentos CBHPM e SBN."
-              disabled
+              href="/consulta-documental?theme=light&returnTo=%2F"
             />
             <ToolCard
               icon={<Share2 size={18} aria-hidden="true" />}

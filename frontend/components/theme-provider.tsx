@@ -51,7 +51,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const effective: Theme = pageTheme ?? theme;
 
   // Single source of DOM mutation. The inline script in <head> already painted the
-  // correct initial theme (including forcing light on /procedure), so we skip the
+  // correct initial theme (including calculation-flow and documentation overrides), so we skip the
   // first run to avoid a flash and only react to later theme/override changes.
   const didInit = useRef(false);
   useEffect(() => {

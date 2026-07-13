@@ -314,6 +314,19 @@ html.dark body {
     transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
+  /* Internal tools use a compact navigation rail instead of repeating the
+     marketing/header bar. Reserve only the collapsed rail width so expanding
+     it never causes dense calculation panels to jump. */
+  .internal-page {
+    transition: padding-left 0.2s ease;
+  }
+
+  @media (min-width: 1024px) {
+    .internal-page {
+      padding-left: 96px !important;
+    }
+  }
+
   .nav-bar:hover {
     box-shadow:
       0 1px 2px rgba(40, 30, 20, 0.05),

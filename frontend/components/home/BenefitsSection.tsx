@@ -85,13 +85,13 @@ export function BenefitsSection() {
             </p>
           </motion.div>
 
-          {/* Consulta Documental — wide */}
+          {/* Documentação — wide */}
           <motion.div
             variants={cardVariant}
             className={`md:col-span-2 ${cardBase} flex flex-col md:flex-row items-center gap-10`}
           >
             <div className="flex-1 space-y-4">
-              <h3 className="font-grotesk text-2xl font-bold text-[#F6F1E7]">Consulta Documental</h3>
+              <h3 className="font-grotesk text-2xl font-bold text-[#F6F1E7]">Documentação</h3>
               <p className="text-[#9B9387] leading-relaxed">
                 Acesse fundamentos CBHPM e SBN diretamente na plataforma. O conhecimento técnico das sociedades de especialidade na palma da sua mão.
               </p>

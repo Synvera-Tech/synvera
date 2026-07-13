@@ -4,16 +4,13 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
+  ArrowLeft,
   Search,
   FileText,
-  BookOpen,
-  Moon,
-  Sun,
-  LogIn,
 } from "lucide-react";
-import { SignInButton, UserButton, useAuth } from "@clerk/nextjs";
 import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/components/ui/utils";
+import { InternalNavigation } from "@/components/navigation/InternalNavigation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -146,82 +143,23 @@ function EmptyState({
   );
 }
 
-// ─── Page nav ─────────────────────────────────────────────────────────────────
-
-function PageNav() {
-  const { isDark, toggle } = useTheme();
-  const { isLoaded, isSignedIn } = useAuth();
-
-  return (
-    <div className="relative z-10 px-5 pt-5">
-      <nav className="nav-bar mx-auto flex max-w-[960px] items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link href="/procedure" className="flex items-center gap-2.5 no-underline">
-            <div className="brand-mark h-9 w-9 shrink-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/synvera-symbol-dark.svg" alt="" aria-hidden="true" width={24} height={23} className="block dark:hidden" />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/synvera-symbol-light.svg" alt="" aria-hidden="true" width={24} height={23} className="hidden dark:block" />
-            </div>
-            <div>
-              <span className="block text-base font-extrabold tracking-tight text-stone-950 dark:text-stone-50">Synvera</span>
-              <span className="block text-[10px] font-medium tracking-[0.3px] text-stone-500 dark:text-stone-400 leading-none">Neurocirurgia · Coluna</span>
-            </div>
-          </Link>
-
-          {/* Documentação — active state: you are here */}
-          <Link
-            href="/consulta-documental"
-            aria-current="page"
-            className="flex items-center gap-1.5 rounded-lg border border-stone-300 dark:border-stone-500/80 bg-white dark:bg-stone-800/90 px-3 py-1.5 text-[11.5px] font-semibold text-stone-800 dark:text-stone-100 shadow-sm ring-1 ring-primary/10 dark:ring-primary/20 transition-colors no-underline"
-          >
-            <BookOpen size={12} aria-hidden="true" />
-            Documentação
-          </Link>
-        </div>
-
-        <div className="flex items-center gap-3">
-          {isLoaded && (
-            isSignedIn ? (
-              <UserButton />
-            ) : (
-              <SignInButton mode="modal">
-                <button
-                  type="button"
-                  className="flex items-center gap-1.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 px-3 py-1.5 text-xs font-semibold text-stone-600 dark:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-700/60 transition-colors"
-                >
-                  <LogIn size={13} aria-hidden="true" />
-                  Entrar
-                </button>
-              </SignInButton>
-            )
-          )}
-          <button
-            onClick={toggle}
-            aria-checked={isDark}
-            aria-label={isDark ? "Mudar para modo claro" : "Mudar para modo escuro"}
-            className="theme-switch relative inline-flex h-8 w-14 cursor-pointer items-center rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            role="switch"
-            type="button"
-          >
-            <Sun aria-hidden="true" size={13} className="absolute left-2 text-amber-500 transition-opacity dark:opacity-35" />
-            <Moon aria-hidden="true" size={13} className="absolute right-2 text-stone-500 opacity-45 transition-opacity dark:text-[#B5AB97] dark:opacity-100" />
-            <span
-              aria-hidden="true"
-              className={`theme-switch-thumb absolute top-1 h-6 w-6 rounded-full transition-transform duration-200 ${isDark ? "translate-x-7" : "translate-x-1"}`}
-            />
-          </button>
-        </div>
-      </nav>
-    </div>
-  );
-}
-
 // ─── Main content ─────────────────────────────────────────────────────────────
 
 export function DocumentSearchPageContent() {
   const searchParams = useSearchParams();
+  const { setPageTheme } = useTheme();
   const initialQ = searchParams.get("q") ?? "";
+  const requestedTheme = searchParams.get("theme");
+  const requestedReturnTo = searchParams.get("returnTo") ?? "";
+  const returnTo = requestedReturnTo.startsWith("/procedure") || requestedReturnTo.startsWith("/novo-calculo")
+    ? requestedReturnTo
+    : "/novo-calculo";
+
+  useEffect(() => {
+    if (requestedTheme !== "light" && requestedTheme !== "dark") return;
+    setPageTheme(requestedTheme);
+    return () => setPageTheme(null);
+  }, [requestedTheme, setPageTheme]);
 
   const [query, setQuery]               = useState(initialQ);
   const [submittedQuery, setSubmittedQuery] = useState("");
@@ -326,13 +264,19 @@ export function DocumentSearchPageContent() {
 
   return (
     <main
-      className="hex-bg relative min-h-screen"
+      className="internal-page hex-bg relative min-h-screen pb-20 lg:pb-0"
       style={{ backgroundColor: "hsl(var(--background))" }}
     >
-      <PageNav />
+      <InternalNavigation active="documentation" returnTo={returnTo} />
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="relative z-[1] mx-auto max-w-[960px] px-5 pb-8 pt-12 text-center">
+      <section className="relative z-[1] mx-auto max-w-[960px] px-5 pb-8 pt-6 text-center lg:pt-10">
+        <div className="mb-5 flex justify-start">
+          <Link href={returnTo} className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-semibold text-stone-500 transition-colors hover:bg-white/60 hover:text-stone-800 dark:text-stone-400 dark:hover:bg-stone-900/60 dark:hover:text-stone-100">
+            <ArrowLeft size={14} aria-hidden="true" />
+            Voltar
+          </Link>
+        </div>
         {/* Source badge */}
         <div className="mb-5 flex justify-center">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-primary dark:text-amber-300 leading-none">
