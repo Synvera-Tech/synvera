@@ -74,6 +74,15 @@ function ProcedureContent({
   // it when a selected code is already a specific bilateral code.
   const [anesthesiaBilateral, setAnesthesiaBilateral] = useState(false);
 
+  // Anesthesia-specific additions cannot remain selected when the base anesthesiologist
+  // remuneration is excluded from the prospective valuation.
+  useEffect(() => {
+    if (requiresAnesthesia) return;
+    setAnesthesiaAssistant(false);
+    setAssistantJustification(EMPTY_ANESTHESIA_JUSTIFICATION);
+    setAnesthesiaBilateral(false);
+  }, [requiresAnesthesia]);
+
   // Per-code quantity selections (segments/vertebrae/structures). Keyed by CBHPM code;
   // codes absent from the map default to 1. Drives the per-code ×N billing (N5b).
   const [codeQuantities, setCodeQuantities] = useState<Record<string, number>>({});
@@ -282,6 +291,8 @@ function ProcedureContent({
                 cbhpmMandatedAux={procedureState.cbhpmMandatedAux}
                 onAuxiliariesChange={setAuxiliariesCount}
                 anesthesiaPorte={calculation?.anesthesia_porte}
+                requiresAnesthesia={requiresAnesthesia}
+                onRequiresAnesthesiaChange={setRequiresAnesthesia}
                 anesthesiaAssistant={anesthesiaAssistant}
                 onAnesthesiaAssistantChange={setAnesthesiaAssistant}
                 assistantJustification={assistantJustification}

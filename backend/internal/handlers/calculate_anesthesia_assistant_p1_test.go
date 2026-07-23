@@ -31,9 +31,9 @@ func TestCalculateEndpoint_AnesthesiaAssistantJustification(t *testing.T) {
 				Specialty:         generated.NEUROSURGERY,
 				LateralitySupport: false,
 			}},
-			AccessRouteType:                 generated.Same,
-			AuxiliariesCount:                0,
-			RequiresAnesthesia:              false,
+			AccessRouteType:                  generated.Same,
+			AuxiliariesCount:                 0,
+			RequiresAnesthesia:               true,
 			AnesthesiaAuxiliaryJustification: j,
 		}
 	}

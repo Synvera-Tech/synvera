@@ -21,7 +21,7 @@ func TestCalculateEndpoint_AppliesNormativeModifiers(t *testing.T) {
 	calc := func(specialty generated.Specialty) generated.CodeBreakdown {
 		req := generated.CalculateRequest{
 			SelectedCodes: []generated.SelectedCode{{
-				CbhpmCode: "3.07.15.19-9", // Laminectomia — PER_VERTEBRA in the modifier table
+				CbhpmCode:   "3.07.15.19-9", // Laminectomia — PER_VERTEBRA in the modifier table
 				Description: "Laminectomia",
 				Porte:       "9C",
 				// Client sends the catalog default; the backend must override it for spine.
@@ -78,13 +78,14 @@ func TestCalculateEndpoint_AnesthesiaAssistantForAN8(t *testing.T) {
 	assistant := true
 	req := generated.CalculateRequest{
 		SelectedCodes: []generated.SelectedCode{{
-			CbhpmCode: "3.07.15.01-6", // anesthetic porte AN8
+			CbhpmCode:   "3.07.15.01-6", // anesthetic porte AN8
 			Description: "Artrodese", Porte: "12C",
 			BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.SPINE,
 			LateralitySupport: false,
 		}},
 		AccessRouteType:     generated.Same,
 		AuxiliariesCount:    0,
+		RequiresAnesthesia:  true,
 		AnesthesiaAssistant: &assistant,
 	}
 	w := postCalculateRequest(t, mux, req)
@@ -104,5 +105,22 @@ func TestCalculateEndpoint_AnesthesiaAssistantForAN8(t *testing.T) {
 	want := resp.AnesthesiologistFee * 0.60
 	if diff := *resp.AnesthesiaAssistantFee - want; diff > 0.01 || diff < -0.01 {
 		t.Errorf("assistant fee = %v, want %v (60%% of anesthesiologist)", *resp.AnesthesiaAssistantFee, want)
+	}
+
+	// The prospective valuation toggle excludes both the base anesthesiologist fee and its
+	// anesthesia-specific additions, while the porte remains available as calculation context.
+	req.RequiresAnesthesia = false
+	w = postCalculateRequest(t, mux, req)
+	if w.Code != http.StatusOK {
+		t.Fatalf("excluded anesthesia status %d: %s", w.Code, w.Body.String())
+	}
+	if err := json.Unmarshal(w.Body.Bytes(), &resp); err != nil {
+		t.Fatalf("decode excluded anesthesia: %v", err)
+	}
+	if resp.AnesthesiologistFee != 0 {
+		t.Errorf("excluded anesthesiologist fee = %v, want 0", resp.AnesthesiologistFee)
+	}
+	if resp.AnesthesiaAssistantFee == nil || *resp.AnesthesiaAssistantFee != 0 {
+		t.Errorf("excluded assistant fee = %v, want 0", resp.AnesthesiaAssistantFee)
 	}
 }

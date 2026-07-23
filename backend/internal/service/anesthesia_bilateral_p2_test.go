@@ -12,7 +12,7 @@ import (
 
 func p2Calc(codes []models.SelectedCode, anPortes map[string]int, bilateral bool, adjustments []string, toggle bool) models.CalculationResult {
 	return CalculateWithPortesModifiersAndAnesthesia(
-		codes, 0, false, models.AccessRouteSame, adjustments,
+		codes, 0, true, models.AccessRouteSame, adjustments,
 		anPortesP1, nil, anPortes, toggle, models.AnesthesiaAssistantJustification{}, bilateral,
 	)
 }

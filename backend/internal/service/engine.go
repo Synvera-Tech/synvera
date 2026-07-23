@@ -268,8 +268,8 @@ func calculate(
 	}
 
 	// ── Step 5: anesthesiologist ──────────────────────────────────────────────
-	// Porte-derived when anestheticPortes is provided (CBHPM p.139–140); otherwise the
-	// legacy flat fee gated by requiresAnesthesia (preserves existing tests/callers).
+	// Porte-derived when anestheticPortes is provided (CBHPM p.139–140) and inclusion was
+	// requested by the user; otherwise the legacy flat fee is also gated by requiresAnesthesia.
 
 	anesth := 0.0
 	anesthPorte := 0
@@ -280,8 +280,10 @@ func calculate(
 	anesthBilateralValue := 0.0
 	anesthBilateralSource := ""
 	if anestheticPortes != nil {
-		anesth = computeAnesthesia(codes, anestheticPortes, porteValues, accessRoute)
 		anesthPorte = anesthesiaPrincipalPorte(codes, anestheticPortes)
+		if requiresAnesthesia {
+			anesth = computeAnesthesia(codes, anestheticPortes, porteValues, accessRoute)
+		}
 		// P2 (CBHPM p.140 item 7): a bilateral anesthetic act with NO specific bilateral code adds
 		// 70% of the principal anesthetic porte to the anesthesiologist fee. Computed BEFORE the
 		// assistant so the item-8 60% is taken over the full anesthesiologist fee. USER_SELECTABLE:
@@ -390,30 +392,30 @@ func calculate(
 	finalAnesthAssistant := baseAnesthAssistant * anesthMultiplier
 
 	return models.CalculationResult{
-		CodeBreakdown:             breakdown,
-		AccessRouteType:           accessRoute,
-		SurgeonBreakdown:          surgeonBreakdown,
-		TotalBase:                 totalBase,
-		BaseSurgeonValue:          baseSurgeon,
-		BaseAuxiliaresTotalValue:  baseAux,
-		BaseAnesthesiologistValue: baseAnesth,
-		BaseTeamTotalValue:        baseTeam,
-		SelectedAdjustments:       applied,
-		TotalAdjustmentPercentage: totalAdjPct,
-		AdjustmentValue:           adjValue,
-		LeadSurgeonFee:            finalSurgeon,
-		IndividualAuxFees:         finalAuxFees,
-		AuxiliariesFee:            finalAux,
-		AnesthesiologistFee:       finalAnesth,
+		CodeBreakdown:                breakdown,
+		AccessRouteType:              accessRoute,
+		SurgeonBreakdown:             surgeonBreakdown,
+		TotalBase:                    totalBase,
+		BaseSurgeonValue:             baseSurgeon,
+		BaseAuxiliaresTotalValue:     baseAux,
+		BaseAnesthesiologistValue:    baseAnesth,
+		BaseTeamTotalValue:           baseTeam,
+		SelectedAdjustments:          applied,
+		TotalAdjustmentPercentage:    totalAdjPct,
+		AdjustmentValue:              adjValue,
+		LeadSurgeonFee:               finalSurgeon,
+		IndividualAuxFees:            finalAuxFees,
+		AuxiliariesFee:               finalAux,
+		AnesthesiologistFee:          finalAnesth,
 		AnesthesiaPorte:              anesthPorte,
 		BaseAnesthesiaAssistantValue: baseAnesthAssistant,
-		AnesthesiaAssistantFee:      finalAnesthAssistant,
-		AnesthesiaAssistantApplied:  anesthAssistant > 0,
-		AnesthesiaAssistantReasons:  anesthAssistantReasons,
-		AnesthesiaAssistantSource:   anesthAssistantSource,
+		AnesthesiaAssistantFee:       finalAnesthAssistant,
+		AnesthesiaAssistantApplied:   anesthAssistant > 0,
+		AnesthesiaAssistantReasons:   anesthAssistantReasons,
+		AnesthesiaAssistantSource:    anesthAssistantSource,
 		AnesthesiaBilateralApplied:   anesthBilateralApplied,
 		BaseAnesthesiaBilateralValue: anesthBilateralValue,
 		AnesthesiaBilateralSource:    anesthBilateralSource,
-		FinalTotal:                finalSurgeon + finalAux + finalAnesth + finalAnesthAssistant,
+		FinalTotal:                   finalSurgeon + finalAux + finalAnesth + finalAnesthAssistant,
 	}
 }

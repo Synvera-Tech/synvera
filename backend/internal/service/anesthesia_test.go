@@ -75,7 +75,7 @@ func TestAnesthesia_LegacyFlatFeePreserved(t *testing.T) {
 // A9: anesthesia assistant = 60% of the anesthesiologist fee, only for AN7/AN8.
 func TestAnesthesia_AssistantForAN8(t *testing.T) {
 	codes := []models.SelectedCode{code("A")}
-	got := CalculateWithPortesAndModifiers(codes, 0, false, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 8}, true)
+	got := CalculateWithPortesAndModifiers(codes, 0, true, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 8}, true)
 	// AN8 → 12A = 1200; assistant = 60% = 720; porte = 8.
 	if got.AnesthesiologistFee != 1200 {
 		t.Errorf("anesthesia = %v, want 1200 (AN8→12A)", got.AnesthesiologistFee)
@@ -93,16 +93,40 @@ func TestAnesthesia_AssistantForAN8(t *testing.T) {
 
 func TestAnesthesia_AssistantNotAppliedBelowAN7(t *testing.T) {
 	// AN5 requested but not eligible — no assistant fee.
-	got := CalculateWithPortesAndModifiers([]models.SelectedCode{code("A")}, 0, false, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 5}, true)
+	got := CalculateWithPortesAndModifiers([]models.SelectedCode{code("A")}, 0, true, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 5}, true)
 	if got.AnesthesiaAssistantFee != 0 {
 		t.Errorf("assistant for AN5 = %v, want 0 (only AN7/AN8)", got.AnesthesiaAssistantFee)
 	}
 }
 
 func TestAnesthesia_AssistantFlagOff(t *testing.T) {
-	got := CalculateWithPortesAndModifiers([]models.SelectedCode{code("A")}, 0, false, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 8}, false)
+	got := CalculateWithPortesAndModifiers([]models.SelectedCode{code("A")}, 0, true, models.AccessRouteSame, nil, anPortes, nil, map[string]int{"A": 8}, false)
 	if got.AnesthesiaAssistantFee != 0 {
 		t.Errorf("assistant with flag off = %v, want 0", got.AnesthesiaAssistantFee)
+	}
+}
+
+func TestAnesthesia_DerivedFeeCanBeExcludedFromValuation(t *testing.T) {
+	got := CalculateWithPortesAndModifiers(
+		[]models.SelectedCode{code("A")},
+		0,
+		false,
+		models.AccessRouteSame,
+		nil,
+		anPortes,
+		nil,
+		map[string]int{"A": 5},
+		true,
+	)
+
+	if got.AnesthesiologistFee != 0 {
+		t.Errorf("excluded anesthesia = %v, want 0", got.AnesthesiologistFee)
+	}
+	if got.AnesthesiaAssistantFee != 0 {
+		t.Errorf("assistant with excluded anesthesia = %v, want 0", got.AnesthesiaAssistantFee)
+	}
+	if got.AnesthesiaPorte != 5 {
+		t.Errorf("anesthesia porte = %v, want 5 for UI context", got.AnesthesiaPorte)
 	}
 }
 

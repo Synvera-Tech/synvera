@@ -11,6 +11,8 @@ interface TeamFeesPanelProps {
   cbhpmMandatedAux: number;
   onAuxiliariesChange: (n: number) => void;
   anesthesiaPorte?: number;
+  requiresAnesthesia: boolean;
+  onRequiresAnesthesiaChange: (v: boolean) => void;
   anesthesiaAssistant: boolean;
   onAnesthesiaAssistantChange: (v: boolean) => void;
   assistantJustification: AnesthesiaAuxiliaryJustification;
@@ -34,6 +36,8 @@ export function TeamFeesPanel({
   cbhpmMandatedAux,
   onAuxiliariesChange,
   anesthesiaPorte,
+  requiresAnesthesia,
+  onRequiresAnesthesiaChange,
   anesthesiaAssistant,
   onAnesthesiaAssistantChange,
   assistantJustification,
@@ -84,24 +88,6 @@ export function TeamFeesPanel({
       </div>
 
       <div className="mt-8 space-y-4">
-        <div className="medical-toggle-panel flex items-center gap-2.5 rounded-2xl border px-4 py-4">
-          <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
-            <HeartPulse aria-hidden="true" size={16} />
-          </div>
-          <div>
-            <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
-              Anestesiologista
-            </div>
-            <div className="text-[11px] text-stone-500 dark:text-stone-400">
-              Honorário derivado automaticamente do porte anestésico (CBHPM). Procedimentos com
-              anestesia local (AN0) não geram honorário.
-            </div>
-          </div>
-        </div>
-
-        {/* P2 (CBHPM p.140 item 7): bilateral anesthetic act with no specific code → +70% of the
-            principal anesthetic porte. USER_SELECTABLE; the backend ignores it when a selected code
-            is already a specific bilateral code. */}
         <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
           <div className="flex items-center gap-2.5">
             <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
@@ -109,70 +95,96 @@ export function TeamFeesPanel({
             </div>
             <div>
               <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
-                Ato anestésico bilateral (+70%)
+                Incluir honorários do anestesiologista na valoração
               </div>
               <div className="text-[11px] text-stone-500 dark:text-stone-400">
-                Cirurgia bilateral no mesmo ato anestésico, sem código específico (CBHPM item 7).
-                Acresce 70% do porte anestésico principal.
+                Ative quando estiver prevista a participação do anestesiologista. O honorário será
+                calculado automaticamente conforme o porte anestésico da CBHPM. Procedimentos com
+                anestesia local (AN0) não geram honorário.
               </div>
             </div>
           </div>
-          <Toggle checked={anesthesiaBilateral} onChange={onAnesthesiaBilateralChange} />
+          <Toggle checked={requiresAnesthesia} onChange={onRequiresAnesthesiaChange} />
         </div>
 
-        {assistantEligible && (
-          <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
-            <div className="flex items-center gap-2.5">
-              <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
-                <HeartPulse aria-hidden="true" size={16} />
+        {requiresAnesthesia && (
+          <>
+            {/* P2 (CBHPM p.140 item 7): bilateral anesthetic act with no specific code → +70% of the
+                principal anesthetic porte. USER_SELECTABLE; the backend ignores it when a selected code
+                is already a specific bilateral code. */}
+            <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
+              <div className="flex items-center gap-2.5">
+                <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
+                  <HeartPulse aria-hidden="true" size={16} />
+                </div>
+                <div>
+                  <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
+                    Ato anestésico bilateral (+70%)
+                  </div>
+                  <div className="text-[11px] text-stone-500 dark:text-stone-400">
+                    Cirurgia bilateral no mesmo ato anestésico, sem código específico (CBHPM item 7).
+                    Acresce 70% do porte anestésico principal.
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
-                  Auxiliar de anestesia (60%)
+              <Toggle checked={anesthesiaBilateral} onChange={onAnesthesiaBilateralChange} />
+            </div>
+
+            {assistantEligible && (
+              <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
+                    <HeartPulse aria-hidden="true" size={16} />
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
+                      Auxiliar de anestesia (60%)
+                    </div>
+                    <div className="text-[11px] text-stone-500 dark:text-stone-400">
+                      Permitido em AN7/AN8 (CBHPM item 8). Adiciona um 2º anestesiologista a 60%.
+                    </div>
+                  </div>
                 </div>
-                <div className="text-[11px] text-stone-500 dark:text-stone-400">
-                  Permitido em AN7/AN8 (CBHPM item 8). Adiciona um 2º anestesiologista a 60%.
+                <Toggle checked={anesthesiaAssistant} onChange={onAnesthesiaAssistantChange} />
+              </div>
+            )}
+
+            {/* P1 (CBHPM p.140 item 8): non-derivable triggers that justify a second anesthesiologist
+                beyond AN7/AN8. USER_SELECTABLE — the surgeon declares them; the backend decides. */}
+            <div className="medical-toggle-panel rounded-2xl border px-4 py-4">
+              <div className="flex items-center gap-2.5">
+                <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
+                  <HeartPulse aria-hidden="true" size={16} />
                 </div>
+                <div>
+                  <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
+                    Auxiliar de anestesia
+                  </div>
+                  <div className="text-[11px] text-stone-500 dark:text-stone-400">
+                    Quando selecionado, habilita auxiliar de anestesia com 60% do porte anestésico
+                    principal, conforme CBHPM.
+                  </div>
+                </div>
+              </div>
+              <div className="mt-3 space-y-2 pl-[42px]">
+                {JUSTIFICATION_OPTIONS.map((opt) => (
+                  <label
+                    key={opt.key}
+                    className="flex cursor-pointer items-center gap-2.5 text-[12.5px] text-stone-700 dark:text-stone-300"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={assistantJustification[opt.key]}
+                      onChange={(e) => onAssistantJustificationChange(opt.key, e.target.checked)}
+                      className="h-4 w-4 shrink-0 rounded border-stone-300 accent-[#A18C63] focus:ring-2 focus:ring-primary/40 dark:border-stone-600"
+                    />
+                    {opt.label}
+                  </label>
+                ))}
               </div>
             </div>
-            <Toggle checked={anesthesiaAssistant} onChange={onAnesthesiaAssistantChange} />
-          </div>
+          </>
         )}
-
-        {/* P1 (CBHPM p.140 item 8): non-derivable triggers that justify a second anesthesiologist
-            beyond AN7/AN8. USER_SELECTABLE — the surgeon declares them; the backend decides. */}
-        <div className="medical-toggle-panel rounded-2xl border px-4 py-4">
-          <div className="flex items-center gap-2.5">
-            <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
-              <HeartPulse aria-hidden="true" size={16} />
-            </div>
-            <div>
-              <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
-                Auxiliar de anestesia
-              </div>
-              <div className="text-[11px] text-stone-500 dark:text-stone-400">
-                Quando selecionado, habilita auxiliar de anestesia com 60% do porte anestésico
-                principal, conforme CBHPM.
-              </div>
-            </div>
-          </div>
-          <div className="mt-3 space-y-2 pl-[42px]">
-            {JUSTIFICATION_OPTIONS.map((opt) => (
-              <label
-                key={opt.key}
-                className="flex cursor-pointer items-center gap-2.5 text-[12.5px] text-stone-700 dark:text-stone-300"
-              >
-                <input
-                  type="checkbox"
-                  checked={assistantJustification[opt.key]}
-                  onChange={(e) => onAssistantJustificationChange(opt.key, e.target.checked)}
-                  className="h-4 w-4 shrink-0 rounded border-stone-300 accent-[#A18C63] focus:ring-2 focus:ring-primary/40 dark:border-stone-600"
-                />
-                {opt.label}
-              </label>
-            ))}
-          </div>
-        </div>
       </div>
     </>
   );

@@ -455,7 +455,7 @@ type CalculateRequest struct {
 	// Modifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 	Modifiers *BillingModifiers `json:"modifiers,omitempty"`
 
-	// RequiresAnesthesia Legacy flag; ignored when the server derives the anesthesiologist fee from the per-code anesthetic porte (the production path). Retained for backward compatibility.
+	// RequiresAnesthesia Whether anesthesiologist fees should be included in the valuation. When true, the server derives the fee from the per-code anesthetic porte; when false, the fee and anesthesia-specific additions are zero.
 	RequiresAnesthesia bool `json:"requires_anesthesia"`
 
 	// SelectedCodes Physician-selected CBHPM codes.

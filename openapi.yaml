@@ -601,8 +601,9 @@ components:
         requires_anesthesia:
           type: boolean
           description: >
-            Legacy flag; ignored when the server derives the anesthesiologist fee from the
-            per-code anesthetic porte (the production path). Retained for backward compatibility.
+            Whether anesthesiologist fees should be included in the valuation. When true, the
+            server derives the fee from the per-code anesthetic porte; when false, the fee and
+            anesthesia-specific additions are zero.
         anesthesia_assistant:
           type: boolean
           description: >
