@@ -5,8 +5,8 @@ import {
   BookOpen,
   BookmarkCheck,
   Calculator,
+  CircleUserRound,
   Home,
-  LogIn,
   Menu,
   Moon,
   PanelLeftClose,
@@ -45,7 +45,7 @@ type InternalNavigationProps = {
 };
 
 const itemBase =
-  "group flex min-h-11 items-center rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary";
+  "group relative flex min-h-11 items-center rounded-xl text-sm font-semibold transition-[background-color,color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-stone-950";
 
 export function InternalNavigation({
   active,
@@ -93,24 +93,23 @@ export function InternalNavigation({
       itemBase,
       expanded ? "gap-3 px-3" : "justify-center px-0",
       selected
-        ? "bg-primary text-white shadow-sm dark:bg-[#A99876] dark:text-stone-950"
-        : "text-stone-600 hover:bg-stone-100 hover:text-stone-950 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-50",
+        ? "bg-primary/[0.075] text-primary before:absolute before:left-0 before:top-1/2 before:h-5 before:w-0.5 before:-translate-y-1/2 before:rounded-r-full before:bg-primary dark:bg-[#A99876]/10 dark:text-[#C8B890] dark:before:bg-[#C8B890]"
+        : "text-stone-600 hover:bg-stone-950/[0.045] hover:text-stone-950 dark:text-stone-400 dark:hover:bg-white/[0.055] dark:hover:text-stone-50",
     );
 
   return (
     <>
       <aside
         className={cn(
-          "fixed inset-y-4 left-4 z-50 hidden flex-col rounded-[22px] border border-white/70 bg-white/80 p-2 shadow-[0_12px_40px_rgba(40,30,20,0.12)] backdrop-blur-xl transition-[width] duration-200 dark:border-stone-800 dark:bg-stone-950/85 dark:shadow-black/30 lg:flex",
+          "fixed inset-y-4 left-4 z-50 hidden flex-col rounded-[22px] border border-stone-200/80 bg-[#FBFAF7]/95 p-2 shadow-[0_16px_48px_rgba(45,35,20,0.10)] backdrop-blur-xl transition-[width] duration-200 dark:border-stone-800/90 dark:bg-[#12100E]/95 dark:shadow-black/35 lg:flex",
           expanded ? "w-[224px]" : "w-16",
         )}
         aria-label="Navegação principal"
       >
-        <div className={cn("flex h-12 items-center", expanded ? "justify-between px-1" : "justify-center") }>
+        <div className={cn("flex h-12 items-center", expanded ? "px-2" : "justify-center")}>
           <Link
             href="/"
             className={cn("flex min-w-0 items-center no-underline", expanded ? "gap-2.5" : "justify-center")}
-            title="Ir para a Home"
             aria-label="Synvera — ir para a Home"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -123,68 +122,85 @@ export function InternalNavigation({
               </span>
             )}
           </Link>
-          {expanded && (
-            <button
-              type="button"
-              onClick={() => setNavigationExpanded(false)}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#D8CEBE] bg-[#F3EFE7] text-[#725D32] shadow-sm transition-colors hover:border-[#BDAE91] hover:bg-[#EAE2D4] hover:text-[#4F3D19] dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:border-stone-600 dark:hover:bg-stone-800 dark:hover:text-stone-100"
-              aria-label="Recolher navegação"
-              title="Recolher navegação"
-            >
-              <PanelLeftClose size={20} strokeWidth={2.2} aria-hidden="true" />
-            </button>
-          )}
         </div>
 
-        {!expanded && (
-          <button
-            type="button"
-            onClick={() => setNavigationExpanded(true)}
-            className="mx-auto mt-2 flex h-10 w-10 items-center justify-center rounded-xl border border-[#D8CEBE] bg-[#F3EFE7] text-[#725D32] shadow-sm transition-colors hover:border-[#BDAE91] hover:bg-[#EAE2D4] hover:text-[#4F3D19] dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:border-stone-600 dark:hover:bg-stone-800 dark:hover:text-stone-100"
-            aria-label="Expandir navegação"
-            title="Expandir navegação"
+        <button
+          type="button"
+          onClick={() => setNavigationExpanded(!expanded)}
+          className="group/expand absolute -right-5 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-[#FBFAF7] text-stone-500 shadow-[0_4px_14px_rgba(45,35,20,0.12)] transition-colors hover:border-primary/25 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 dark:border-stone-700 dark:bg-[#181512] dark:text-stone-400 dark:shadow-black/40 dark:hover:border-[#A99876]/40 dark:hover:text-[#C8B890]"
+          aria-label={expanded ? "Recolher navegação" : "Expandir navegação"}
+          aria-describedby="internal-nav-expand-tooltip"
+        >
+          {expanded ? (
+            <PanelLeftClose size={18} strokeWidth={1.9} aria-hidden="true" />
+          ) : (
+            <PanelLeftOpen size={18} strokeWidth={1.9} aria-hidden="true" />
+          )}
+          <span
+            id="internal-nav-expand-tooltip"
+            role="tooltip"
+            className="pointer-events-none absolute left-[calc(100%+10px)] top-1/2 z-50 w-max -translate-y-1/2 rounded-lg bg-stone-950 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity group-hover/expand:opacity-100 group-focus-visible/expand:opacity-100 dark:bg-stone-100 dark:text-stone-950"
           >
-            <PanelLeftOpen size={20} strokeWidth={2.2} aria-hidden="true" />
-          </button>
-        )}
+            {expanded ? "Recolher navegação" : "Expandir navegação"}
+          </span>
+        </button>
 
-        <div className="my-3 h-px bg-stone-200/80 dark:bg-stone-800" />
+        <nav className="mt-4 flex flex-1 flex-col" aria-label="Áreas internas">
+          <div aria-label="Navegação principal">
+            {expanded && (
+              <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-[0.12em] text-stone-400 dark:text-stone-600">
+                Principal
+              </div>
+            )}
+            <div className="flex flex-col gap-0.5">
+              <DesktopNavItem
+                href="/"
+                label="Início"
+                tooltipId="internal-nav-home-tooltip"
+                expanded={expanded}
+                className={desktopItemClass(false)}
+                icon={<Home size={18} strokeWidth={1.9} aria-hidden="true" />}
+              />
+              <DesktopNavItem
+                href="/novo-calculo"
+                label="Novo cálculo"
+                tooltipId="internal-nav-calculation-tooltip"
+                expanded={expanded}
+                selected={active === "calculation"}
+                className={desktopItemClass(active === "calculation")}
+                icon={<Calculator size={18} strokeWidth={1.9} aria-hidden="true" />}
+              />
+              <DesktopNavItem
+                href="/composicoes"
+                label="Minhas composições"
+                tooltipId="internal-nav-compositions-tooltip"
+                expanded={expanded}
+                selected={active === "compositions"}
+                className={desktopItemClass(active === "compositions")}
+                icon={<BookmarkCheck size={18} strokeWidth={1.9} aria-hidden="true" />}
+              />
+            </div>
+          </div>
 
-        <nav className="flex flex-1 flex-col gap-1" aria-label="Áreas internas">
-          <Link href="/" className={desktopItemClass(false)} title={expanded ? undefined : "Início"}>
-            <Home size={18} className="shrink-0" aria-hidden="true" />
-            {expanded && <span>Início</span>}
-          </Link>
-          <Link
-            href="/novo-calculo"
-            aria-current={active === "calculation" ? "page" : undefined}
-            className={desktopItemClass(active === "calculation")}
-            title={expanded ? undefined : "Novo cálculo"}
-          >
-            <Calculator size={18} className="shrink-0" aria-hidden="true" />
-            {expanded && <span>Novo cálculo</span>}
-          </Link>
-          <Link
-            href="/composicoes"
-            aria-current={active === "compositions" ? "page" : undefined}
-            className={desktopItemClass(active === "compositions")}
-            title={expanded ? undefined : "Minhas composições"}
-          >
-            <BookmarkCheck size={18} className="shrink-0" aria-hidden="true" />
-            {expanded && <span>Minhas composições</span>}
-          </Link>
-          <Link
-            href={documentationHref}
-            aria-current={active === "documentation" ? "page" : undefined}
-            className={desktopItemClass(active === "documentation")}
-            title={expanded ? undefined : "Documentação"}
-          >
-            <BookOpen size={18} className="shrink-0" aria-hidden="true" />
-            {expanded && <span>Documentação</span>}
-          </Link>
+          <div className={expanded ? "mt-5" : "mt-4"} aria-label="Consulta e referência">
+            {expanded && (
+              <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-[0.12em] text-stone-400 dark:text-stone-600">
+                Consulta e referência
+              </div>
+            )}
+            <DesktopNavItem
+              href={documentationHref}
+              label="Documentação"
+              tooltipId="internal-nav-documentation-tooltip"
+              expanded={expanded}
+              selected={active === "documentation"}
+              className={desktopItemClass(active === "documentation")}
+              icon={<BookOpen size={18} strokeWidth={1.9} aria-hidden="true" />}
+            />
+          </div>
         </nav>
 
-        <div className="mb-1 h-px bg-stone-200/80 dark:bg-stone-800" />
+        <div className="mb-1 border-t border-stone-200/80 pt-2 dark:border-stone-800/80">
         {!themeLocked && (
           <button
             type="button"
@@ -198,7 +214,7 @@ export function InternalNavigation({
             aria-label={isDark ? "Mudar para modo claro" : "Mudar para modo escuro"}
             aria-checked={isDark}
             role="switch"
-            title={expanded ? undefined : isDark ? "Modo claro" : "Modo escuro"}
+            aria-describedby={!expanded ? "internal-nav-theme-tooltip" : undefined}
           >
             {expanded ? (
               <>
@@ -226,24 +242,48 @@ export function InternalNavigation({
             ) : (
               <Moon size={18} className="shrink-0" aria-hidden="true" />
             )}
+            {!expanded && (
+              <CollapsedTooltip
+                id="internal-nav-theme-tooltip"
+                label={isDark ? "Modo claro" : "Modo escuro"}
+              />
+            )}
           </button>
         )}
-        <div className={cn("mt-1 flex min-h-11 items-center", expanded ? "px-3" : "justify-center") }>
+        <div className={cn("mt-1 flex min-h-11 items-center", expanded ? "px-3" : "justify-center")}>
           {isLoaded && (
             isSignedIn ? (
-              <div className={cn("flex items-center", expanded && "gap-3")}>
+              <div
+                className={cn("group/account relative flex items-center", expanded && "gap-3")}
+                aria-label="Minha conta"
+              >
                 <UserButton />
                 {expanded && <span className="text-sm font-semibold text-stone-600 dark:text-stone-300">Minha conta</span>}
+                {!expanded && (
+                  <span
+                    role="tooltip"
+                    className="pointer-events-none absolute left-[calc(100%+18px)] top-1/2 z-50 w-max -translate-y-1/2 rounded-lg bg-stone-950 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity group-hover/account:opacity-100 group-focus-within/account:opacity-100 dark:bg-stone-100 dark:text-stone-950"
+                  >
+                    Minha conta
+                  </span>
+                )}
               </div>
             ) : (
               <SignInButton mode="modal">
-                <button type="button" className={cn("flex items-center text-sm font-semibold text-stone-600 dark:text-stone-300", expanded ? "gap-3" : "justify-center")}>
-                  <LogIn size={18} aria-hidden="true" />
+                <button
+                  type="button"
+                  className={cn(itemBase, "text-stone-600 hover:text-stone-950 dark:text-stone-300 dark:hover:text-stone-50", expanded ? "w-full gap-3" : "justify-center")}
+                  aria-label="Entrar"
+                  aria-describedby={!expanded ? "internal-nav-sign-in-tooltip" : undefined}
+                >
+                  <CircleUserRound size={18} strokeWidth={1.9} aria-hidden="true" />
                   {expanded && <span>Entrar</span>}
+                  {!expanded && <CollapsedTooltip id="internal-nav-sign-in-tooltip" label="Entrar" />}
                 </button>
               </SignInButton>
             )
           )}
+        </div>
         </div>
       </aside>
 
@@ -283,7 +323,7 @@ export function InternalNavigation({
             {isLoaded && (isSignedIn ? <UserButton /> : (
               <SignInButton mode="modal">
                 <button type="button" className="flex items-center gap-3 text-sm font-semibold text-stone-700 dark:text-stone-200">
-                  <LogIn size={18} aria-hidden="true" /> Entrar
+                  <CircleUserRound size={18} strokeWidth={1.9} aria-hidden="true" /> Entrar
                 </button>
               </SignInButton>
             ))}
@@ -310,12 +350,57 @@ function MobileItem({
       href={href}
       aria-current={selected ? "page" : undefined}
       className={cn(
-        "flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-semibold transition-colors",
-        selected ? "bg-primary/10 text-primary dark:bg-[#A99876]/15 dark:text-[#C8B890]" : "text-stone-500 dark:text-stone-400",
+        "relative flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-semibold transition-colors",
+        selected
+          ? "bg-primary/[0.07] text-primary after:absolute after:-bottom-0.5 after:h-0.5 after:w-4 after:rounded-full after:bg-primary dark:bg-[#A99876]/10 dark:text-[#C8B890] dark:after:bg-[#C8B890]"
+          : "text-stone-500 dark:text-stone-400",
       )}
     >
       {icon}
       <span className="max-w-[72px] truncate">{label}</span>
     </Link>
+  );
+}
+
+function DesktopNavItem({
+  href,
+  label,
+  tooltipId,
+  expanded,
+  selected = false,
+  className,
+  icon,
+}: {
+  href: string;
+  label: string;
+  tooltipId: string;
+  expanded: boolean;
+  selected?: boolean;
+  className: string;
+  icon: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      aria-current={selected ? "page" : undefined}
+      aria-label={!expanded ? label : undefined}
+      aria-describedby={!expanded ? tooltipId : undefined}
+      className={className}
+    >
+      {icon}
+      {expanded ? <span>{label}</span> : <CollapsedTooltip id={tooltipId} label={label} />}
+    </Link>
+  );
+}
+
+function CollapsedTooltip({ id, label }: { id: string; label: string }) {
+  return (
+    <span
+      id={id}
+      role="tooltip"
+      className="pointer-events-none absolute left-[calc(100%+12px)] top-1/2 z-50 w-max -translate-y-1/2 rounded-lg bg-stone-950 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 dark:bg-stone-100 dark:text-stone-950"
+    >
+      {label}
+    </span>
   );
 }
