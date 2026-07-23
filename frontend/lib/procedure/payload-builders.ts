@@ -66,7 +66,7 @@ export const EMPTY_ANESTHESIA_JUSTIFICATION: AnesthesiaAuxiliaryJustification = 
 
 export type CalculatePayload = {
   selected_codes: SelectedCodePayload[];
-  auxiliaries_count: number;
+  selected_procedure_ids: string[];
   requires_anesthesia: boolean;
   anesthesia_assistant: boolean;
   anesthesia_auxiliary_justification: AnesthesiaAuxiliaryJustification;
@@ -80,9 +80,9 @@ export type CalculatePayload = {
 export function buildCalculatePayload(
   allCbhpmCodes: CBHPMCode[],
   selectedCodes: Set<string>,
+  selectedProcedureIds: string[],
   spineModifiers: SpineBillingModifiers,
   codeQuantities: CodeQuantities,
-  auxiliariesCount: number,
   requiresAnesthesia: boolean,
   anesthesiaAssistant: boolean,
   accessRoute: AccessRouteType,
@@ -96,7 +96,7 @@ export function buildCalculatePayload(
     selected_codes: checked.map((c) =>
       buildCodeEntry(c, { quantity_selected: quantityFor(codeQuantities, c.code), laterality: spineModifiers.laterality }),
     ),
-    auxiliaries_count: auxiliariesCount,
+    selected_procedure_ids: selectedProcedureIds,
     requires_anesthesia: requiresAnesthesia,
     anesthesia_assistant: anesthesiaAssistant,
     anesthesia_auxiliary_justification: assistantJustification,
@@ -193,7 +193,6 @@ export function buildShareUrl(
   selectedProcedures: SBNProcedureRef[],
   allCbhpmCodes: CBHPMCode[],
   selectedCodes: Set<string>,
-  auxiliariesCount: number,
   requiresAnesthesia: boolean,
   accessRoute: AccessRouteType,
   adjustments: string[],
@@ -207,7 +206,6 @@ export function buildShareUrl(
   url.searchParams.set("sbn", selectedProcedures.map((p) => p.id).join(","));
   const checked = allCbhpmCodes.filter((c) => selectedCodes.has(c.code)).map((c) => c.code);
   url.searchParams.set("codes", checked.join(","));
-  url.searchParams.set("a", String(auxiliariesCount));
   url.searchParams.set("an", requiresAnesthesia ? "1" : "0");
   url.searchParams.set("route", accessRoute);
   if (adjustments.length > 0) url.searchParams.set("adj", adjustments.join(","));

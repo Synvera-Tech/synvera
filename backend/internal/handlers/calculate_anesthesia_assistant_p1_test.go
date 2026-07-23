@@ -32,7 +32,6 @@ func TestCalculateEndpoint_AnesthesiaAssistantJustification(t *testing.T) {
 				LateralitySupport: false,
 			}},
 			AccessRouteType:                  generated.Same,
-			AuxiliariesCount:                 0,
 			RequiresAnesthesia:               true,
 			AnesthesiaAuxiliaryJustification: j,
 		}

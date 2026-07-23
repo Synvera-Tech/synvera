@@ -25,6 +25,11 @@ type Repository interface {
 	// GetByID returns the full procedure package (SBN metadata + suggested CBHPM codes).
 	GetByID(id string) (*models.ProcedureWithCodes, error)
 
+	// GetProcedureDefinitions resolves immutable CBHPM attributes for selected
+	// codes. procedureIDs preserves the user's procedure-context order because
+	// porte can vary by SBN mapping. Missing keys must stop valuation.
+	GetProcedureDefinitions(procedureIDs, codes []string) (map[string]models.CBHPMCode, error)
+
 	// GetCodeModifiers returns the normative per-code billing modifiers (ADR-005),
 	// keyed by CBHPM code. Codes without a modifier row are absent from the map and
 	// default to PER_PROCEDURE. As of roadmap stage N3 this is a read path only;

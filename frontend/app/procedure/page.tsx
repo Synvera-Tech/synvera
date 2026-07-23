@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft, Stethoscope } from "lucide-react";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
@@ -58,7 +58,6 @@ function ProcedureContent({
 
   // ── Cross-cutting clinical state ──────────────────────────────────────────
   const [accessRoute, setAccessRoute] = useState<AccessRouteType>(initialRoute);
-  const [auxiliariesCount, setAuxiliariesCount] = useState(1);
   const [requiresAnesthesia, setRequiresAnesthesia] = useState(true);
   // Anesthesia assistant (CBHPM item 8, A9): 60% second anesthesiologist, only offered for AN7/AN8.
   const [anesthesiaAssistant, setAnesthesiaAssistant] = useState(false);
@@ -109,7 +108,6 @@ function ProcedureContent({
       setAccessRoute(comp.access_route_type);
       setRequiresAnesthesia(comp.requires_anesthesia);
       adjustmentState.setAdjustments(comp.adjustments ?? []);
-      setAuxiliariesCount(comp.auxiliaries_count);
       setLoadedCompositionId(comp.public_id);
       setLoadedCompositionName(comp.name);
       setCompositionName(comp.name);
@@ -125,19 +123,16 @@ function ProcedureContent({
     },
   });
 
-  // CBHPM 5.2: sync auxiliariesCount when mandated value changes.
-  useEffect(() => {
-    if (procedureState.cbhpmMandatedAux > 0) {
-      setAuxiliariesCount(procedureState.cbhpmMandatedAux);
-    }
-  }, [procedureState.cbhpmMandatedAux]);
-
-  const { calculation } = useRealtimeCalculation({
+  const selectedProcedureIds = useMemo(
+    () => procedureState.selectedProcedures.map((procedure) => procedure.id),
+    [procedureState.selectedProcedures],
+  );
+  const { calculation, isCalculating, calculationError } = useRealtimeCalculation({
     allCbhpmCodes: procedureState.allCbhpmCodes,
     selectedCodes: procedureState.selectedCodes,
+    selectedProcedureIds,
     spineModifiers: spineState.spineModifiers,
     codeQuantities,
-    auxiliariesCount,
     requiresAnesthesia,
     anesthesiaAssistant,
     assistantJustification,
@@ -145,6 +140,7 @@ function ProcedureContent({
     accessRoute,
     adjustments: adjustmentState.adjustments,
   });
+  const auxiliariesCount = calculation?.principal_procedure.num_auxiliaries ?? 0;
 
   const compositionState = useCompositionPersistence({
     selectedProcedures: procedureState.selectedProcedures,
@@ -176,7 +172,6 @@ function ProcedureContent({
       procedureState.selectedProcedures,
       procedureState.allCbhpmCodes,
       procedureState.selectedCodes,
-      auxiliariesCount,
       requiresAnesthesia,
       accessRoute,
       adjustmentState.adjustments,
@@ -287,9 +282,8 @@ function ProcedureContent({
 
               <TeamFeesPanel
                 auxiliariesCount={auxiliariesCount}
-                auxIsLocked={procedureState.auxIsLocked}
-                cbhpmMandatedAux={procedureState.cbhpmMandatedAux}
-                onAuxiliariesChange={setAuxiliariesCount}
+                auxiliariesLoading={isCalculating}
+                auxiliariesError={calculationError}
                 anesthesiaPorte={calculation?.anesthesia_porte}
                 requiresAnesthesia={requiresAnesthesia}
                 onRequiresAnesthesiaChange={setRequiresAnesthesia}

@@ -93,7 +93,6 @@ func TestEndToEndCalculateAndSaveRoundTrip(t *testing.T) {
 				BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
 		},
 		AccessRouteType:    generated.Same,
-		AuxiliariesCount:   1,
 		RequiresAnesthesia: true,
 	}
 	calcResult := mustCalculate(t, repo, calcReq)
@@ -110,13 +109,13 @@ func TestEndToEndCalculateAndSaveRoundTrip(t *testing.T) {
 	// Step 2: save the calculation snapshot.
 	sbnCode := "test-sbn"
 	saveResp := mustSaveCalculation(t, repo, generated.SaveCalculationRequest{
-		ProcedureName:     "Craniotomia descompressiva",
-		ProcedureSbnCode:  &sbnCode,
-		SelectedCodes:     calcReq.SelectedCodes,
-		AccessRouteType:   generated.Same,
-		AuxiliariesCount:  1,
+		ProcedureName:      "Craniotomia descompressiva",
+		ProcedureSbnCode:   &sbnCode,
+		SelectedCodes:      calcReq.SelectedCodes,
+		AccessRouteType:    generated.Same,
+		AuxiliariesCount:   1,
 		RequiresAnesthesia: true,
-		CalculationResult: calcResult,
+		CalculationResult:  calcResult,
 	})
 	if saveResp.PublicId.String() == "" {
 		t.Fatal("expected non-empty public_id in save response")
@@ -157,11 +156,10 @@ func TestEndToEndCalculateWithAdjustmentsAndSave(t *testing.T) {
 	adjs := []string{"emergency_special_hours", "pediatric_child_under_12"}
 	calcReq := generated.CalculateRequest{
 		SelectedCodes: []generated.SelectedCode{
-			{CbhpmCode: "3.01.01.11-5", Description: "Craniectomia", Porte: "10A",
+			{CbhpmCode: "3.14.01.10-4", Description: "Implante de eletrodos", Porte: "10A",
 				BillingMode: generated.BillingModePERPROCEDURE, Specialty: generated.Specialty("NEUROSURGERY")},
 		},
 		AccessRouteType:    generated.Same,
-		AuxiliariesCount:   0,
 		RequiresAnesthesia: false,
 		Adjustments:        &adjs,
 	}

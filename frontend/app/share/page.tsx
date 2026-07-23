@@ -225,7 +225,6 @@ function ShareContent() {
 
   const sbnId = searchParams.get("sbn") ?? "";
   const codesParam = searchParams.get("codes") ?? "";
-  const auxiliariesCount = Number(searchParams.get("a") ?? "0");
   const requiresAnesthesia = searchParams.get("an") === "1";
   const rawRoute = searchParams.get("route");
   const accessRoute: AccessRouteType = rawRoute === "different" ? "different" : "same";
@@ -280,7 +279,7 @@ function ShareContent() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             selected_codes: selectedCodes,
-            auxiliaries_count: auxiliariesCount,
+            selected_procedure_ids: sbnId.split(",").filter(Boolean),
             requires_anesthesia: requiresAnesthesia,
             anesthesia_assistant: anesthesiaAssistant,
             anesthesia_auxiliary_justification: assistantJustification,
@@ -300,7 +299,7 @@ function ShareContent() {
 
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sbnId, codesParam, auxiliariesCount, requiresAnesthesia, accessRoute, qtyParam, laterality, anesthesiaAssistant, anesthesiaBilateral, ajParam]);
+  }, [sbnId, codesParam, requiresAnesthesia, accessRoute, qtyParam, laterality, anesthesiaAssistant, anesthesiaBilateral, ajParam]);
 
   if (loading) {
     return (
@@ -328,6 +327,7 @@ function ShareContent() {
 
   if (!calculation) return null;
 
+  const auxiliariesCount = calculation.principal_procedure.num_auxiliaries;
   const principalCode = calculation.code_breakdown.find((b) => b.is_principal);
   const additionalCodes = calculation.code_breakdown.filter((b) => !b.is_principal);
   const hasMultiProcedure = additionalCodes.length > 0;

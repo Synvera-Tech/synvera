@@ -31,7 +31,6 @@ func TestCalculateEndpoint_AppliesNormativeModifiers(t *testing.T) {
 				QuantitySelected:  &qty,
 			}},
 			AccessRouteType:    generated.Same,
-			AuxiliariesCount:   0,
 			RequiresAnesthesia: false,
 		}
 		w := postCalculateRequest(t, mux, req)
@@ -84,7 +83,6 @@ func TestCalculateEndpoint_AnesthesiaAssistantForAN8(t *testing.T) {
 			LateralitySupport: false,
 		}},
 		AccessRouteType:     generated.Same,
-		AuxiliariesCount:    0,
 		RequiresAnesthesia:  true,
 		AnesthesiaAssistant: &assistant,
 	}

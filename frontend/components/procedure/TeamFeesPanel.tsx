@@ -1,15 +1,13 @@
 "use client";
 
-import { HeartPulse } from "lucide-react";
+import { HeartPulse, Info } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
-import { cn } from "@/components/ui/utils";
 import type { AnesthesiaAuxiliaryJustification } from "@/lib/procedure/payload-builders";
 
 interface TeamFeesPanelProps {
   auxiliariesCount: number;
-  auxIsLocked: boolean;
-  cbhpmMandatedAux: number;
-  onAuxiliariesChange: (n: number) => void;
+  auxiliariesLoading: boolean;
+  auxiliariesError: string | null;
   anesthesiaPorte?: number;
   requiresAnesthesia: boolean;
   onRequiresAnesthesiaChange: (v: boolean) => void;
@@ -32,9 +30,8 @@ const JUSTIFICATION_OPTIONS: { key: keyof AnesthesiaAuxiliaryJustification; labe
 
 export function TeamFeesPanel({
   auxiliariesCount,
-  auxIsLocked,
-  cbhpmMandatedAux,
-  onAuxiliariesChange,
+  auxiliariesLoading,
+  auxiliariesError,
   anesthesiaPorte,
   requiresAnesthesia,
   onRequiresAnesthesiaChange,
@@ -50,39 +47,33 @@ export function TeamFeesPanel({
   return (
     <>
       <div className="mb-4 grid gap-3 sm:grid-cols-2">
-        <div>
-          <div className="mb-6 flex items-center gap-2">
-            <label className="block text-xs font-semibold uppercase tracking-[0.4px] text-stone-500 dark:text-stone-400">
-              Número de Auxiliares
-            </label>
-            {auxIsLocked && (
-              <span className="rounded-md bg-primary/10 px-1.5 py-px text-[9px] font-bold uppercase tracking-wide text-primary dark:bg-[#A18C63]/10 dark:text-[#A99876]">
-                Definido pelo CBHPM
-              </span>
-            )}
-          </div>
-          <div className="flex flex-wrap gap-1.5">
-            {[0, 1, 2, 3, 4].map((n) => (
-              <button
-                key={n}
-                type="button"
-                onClick={() => { if (!auxIsLocked) onAuxiliariesChange(n); }}
-                disabled={auxIsLocked}
-                aria-disabled={auxIsLocked}
-                className={cn(
-                  "h-9 w-9 rounded-xl border text-sm font-semibold transition-colors",
-                  auxIsLocked
-                    ? auxiliariesCount === n
-                      ? "border-primary bg-primary text-white dark:border-[#A18C63] dark:bg-[#A18C63] cursor-default"
-                      : "border-stone-100 dark:border-stone-800 text-stone-300 dark:text-stone-600 cursor-not-allowed"
-                    : auxiliariesCount === n
-                      ? "border-primary bg-primary text-white dark:border-[#A18C63] dark:bg-[#A18C63]"
-                      : "border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:border-primary/40",
-                )}
-              >
-                {n}
-              </button>
-            ))}
+        <div data-testid="auxiliaries-card" className="rounded-2xl border border-stone-200/80 bg-white/70 px-4 py-4 shadow-sm dark:border-stone-700/80 dark:bg-stone-900/60">
+          <div className="flex items-start gap-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-[#A18C63]/15 dark:text-[#B8A47D]">
+              <Info aria-hidden="true" size={17} />
+            </div>
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-[0.4px] text-stone-500 dark:text-stone-400">
+                Número de auxiliares
+              </div>
+              <div className="mt-1 text-[11px] text-stone-500 dark:text-stone-400">
+                Definido automaticamente pela CBHPM
+              </div>
+              {auxiliariesLoading ? (
+                <div className="mt-3 h-7 w-28 animate-pulse rounded-lg bg-stone-200 dark:bg-stone-700" aria-label="Carregando número de auxiliares" />
+              ) : auxiliariesError ? (
+                <p className="mt-3 text-xs font-medium leading-relaxed text-red-700 dark:text-red-300" role="alert">
+                  {auxiliariesError}
+                </p>
+              ) : (
+                <div className="mt-2 text-xl font-semibold tracking-tight text-stone-950 dark:text-stone-50">
+                  {auxiliariesCount} {auxiliariesCount === 1 ? "auxiliar" : "auxiliares"}
+                </div>
+              )}
+              <div className="mt-1 text-[10px] font-medium text-primary/80 dark:text-[#A99876]">
+                Conforme CBHPM
+              </div>
+            </div>
           </div>
         </div>
       </div>

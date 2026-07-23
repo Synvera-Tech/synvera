@@ -452,7 +452,8 @@ components:
         num_auxiliaries:
           type: integer
           minimum: 0
-          description: Maximum number of auxiliary surgeons allowed per CBHPM (0–4).
+          maximum: 4
+          description: Normative number of auxiliary surgeons specified by the CBHPM. Read-only; zero is an explicit rule.
         billing_mode:
           $ref: '#/components/schemas/BillingMode'
         specialty:
@@ -585,7 +586,7 @@ components:
 
     CalculateRequest:
       type: object
-      required: [selected_codes, auxiliaries_count, requires_anesthesia, access_route_type]
+      required: [selected_codes, requires_anesthesia, access_route_type]
       properties:
         selected_codes:
           type: array
@@ -593,11 +594,21 @@ components:
           items:
             $ref: '#/components/schemas/SelectedCode'
           description: Physician-selected CBHPM codes.
+        selected_procedure_ids:
+          type: array
+          items:
+            type: string
+          description: >
+            Ordered SBN procedure IDs used by the backend to resolve contextual
+            normative definitions. Canonical clients must send this field.
         auxiliaries_count:
           type: integer
           minimum: 0
           maximum: 4
-          description: Number of auxiliary surgeons (0–4).
+          deprecated: true
+          description: >
+            Legacy compatibility field. Ignored by the backend. The engine always
+            derives the count from the highest-porte procedure's CBHPM definition.
         requires_anesthesia:
           type: boolean
           description: >
@@ -714,6 +725,32 @@ components:
           format: float
           description: Calculated fee for this auxiliary.
 
+    PrincipalProcedure:
+      type: object
+      required: [cbhpm_code, description, porte, num_auxiliaries]
+      properties:
+        cbhpm_code:
+          type: string
+        description:
+          type: string
+        porte:
+          type: string
+        num_auxiliaries:
+          type: integer
+          minimum: 0
+          maximum: 4
+
+    AuxiliaryRuleSource:
+      type: object
+      required: [document, version, selection_rule]
+      properties:
+        document:
+          type: string
+        version:
+          type: string
+        selection_rule:
+          type: string
+
     AppliedAdjustment:
       type: object
       required: [code, label, percentage, source]
@@ -766,6 +803,8 @@ components:
         - lead_surgeon_fee
         - individual_auxiliary_fees
         - auxiliaries_fee
+        - principal_procedure
+        - auxiliary_rule_source
         - anesthesiologist_fee
         - final_total
         - total_base
@@ -795,6 +834,10 @@ components:
           type: number
           format: float
           description: Sum of all individual auxiliary fees.
+        principal_procedure:
+          $ref: '#/components/schemas/PrincipalProcedure'
+        auxiliary_rule_source:
+          $ref: '#/components/schemas/AuxiliaryRuleSource'
         anesthesiologist_fee:
           type: number
           format: float
@@ -880,6 +923,11 @@ components:
           type: integer
           minimum: 0
           maximum: 4
+          deprecated: true
+          description: >
+            Legacy persisted snapshot for older compositions. It is not an
+            authoritative calculation input; recalculation resolves the count
+            from the CBHPM catalog.
         requires_anesthesia:
           type: boolean
         adjustments:

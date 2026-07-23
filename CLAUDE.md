@@ -186,6 +186,7 @@ cd frontend && npx shadcn@latest add <component>
 
 - Never log real medical procedures or prices to the console.
 - Ensure the frontend respects the **Privacy-First** landing page requirement defined in the `PRD.md`.
+- Porte, porte anestésico, número de auxiliares e custo operacional são atributos normativos da CBHPM e não podem ser calculados, inventados ou editados no frontend. O backend deve resolvê-los do catálogo versionado e falhar explicitamente quando um dado obrigatório estiver ausente.
 
 ---
 
@@ -208,7 +209,7 @@ cd frontend && npx shadcn@latest add <component>
 
 # 📋 Auditability Principles
 
-- Calculations must preserve inputs: `selected_cbhpm_codes`, `adjustments`, `access_route`, `auxiliaries_count`, `requires_anesthesia`, `physician_id`.
+- Calculations must preserve user inputs (`selected_cbhpm_codes`, `adjustments`, `access_route`, `requires_anesthesia`, `physician_id`) and the backend-derived normative `auxiliaries_count`.
 - Calculations must preserve outputs: `calculation_breakdown` (verbatim engine JSON), plus promoted fee columns.
 - Compositions must preserve `selected_codes` (all 8 fields per code) and `modifiers`.
 - Historical calculations must be reproducible: given a stored row, `service.CalculateWithPortes()` fed the stored inputs and the porte values for the stored `cbhpm_version_id` must reproduce the stored outputs within float32 precision.

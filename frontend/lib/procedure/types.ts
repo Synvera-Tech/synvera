@@ -29,7 +29,7 @@ export type CBHPMCode = {
   code: string;
   description: string;
   porte: string;
-  num_auxiliaries: number;
+  num_auxiliaries?: number;
   billing_mode?: string;
   specialty?: string;
   laterality_support?: boolean;
@@ -100,6 +100,17 @@ export type CalculationResult = {
   lead_surgeon_fee: number;
   individual_auxiliary_fees: AuxiliaryFee[];
   auxiliaries_fee: number;
+  principal_procedure: {
+    cbhpm_code: string;
+    description: string;
+    porte: string;
+    num_auxiliaries: number;
+  };
+  auxiliary_rule_source: {
+    document: string;
+    version: string;
+    selection_rule: string;
+  };
   anesthesiologist_fee: number;
   anesthesia_porte?: number;
   anesthesia_assistant_fee?: number;

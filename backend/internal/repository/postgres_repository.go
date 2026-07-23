@@ -627,6 +627,70 @@ func (r *PostgresRepository) GetByID(id string) (*models.ProcedureWithCodes, err
 	return &p, nil
 }
 
+// GetProcedureDefinitions resolves immutable attributes directly from the
+// CBHPM catalog, preferring the selected procedure order when supplied.
+func (r *PostgresRepository) GetProcedureDefinitions(procedureIDs, codes []string) (map[string]models.CBHPMCode, error) {
+	ctx := context.Background()
+	var rows pgx.Rows
+	var err error
+	if len(procedureIDs) > 0 {
+		rows, err = r.pool.Query(ctx, `
+			SELECT DISTINCT ON (cc.code)
+			       cc.code, cc.description, m.porte_code, cc.num_auxiliaries,
+			       COALESCE(cc.billing_mode, 'PER_PROCEDURE'),
+			       COALESCE(cc.specialty, 'NEUROSURGERY'),
+			       COALESCE(cc.laterality_support, false)
+			FROM unnest($1::text[]) WITH ORDINALITY selected(id, ord)
+			JOIN sbn_cbhpm_mappings m ON m.sbn_procedure_id = selected.id::uuid
+			JOIN cbhpm_codes cc ON cc.id = m.cbhpm_code_id
+			WHERE cc.code = ANY($2)
+			ORDER BY cc.code, selected.ord, m.sort_order
+		`, procedureIDs, codes)
+	} else {
+		rows, err = r.pool.Query(ctx, `
+			SELECT cc.code, cc.description, m.porte_code, cc.num_auxiliaries,
+			       COALESCE(cc.billing_mode, 'PER_PROCEDURE'),
+			       COALESCE(cc.specialty, 'NEUROSURGERY'),
+			       COALESCE(cc.laterality_support, false)
+			FROM sbn_cbhpm_mappings m
+			JOIN cbhpm_codes cc ON cc.id = m.cbhpm_code_id
+			WHERE cc.code = ANY($1)
+			ORDER BY cc.code, m.sort_order
+		`, codes)
+	}
+	if err != nil {
+		return nil, fmt.Errorf("postgres: get procedure definitions: %w", err)
+	}
+	defer rows.Close()
+
+	out := make(map[string]models.CBHPMCode, len(codes))
+	for rows.Next() {
+		var definition models.CBHPMCode
+		var billingMode, specialty string
+		if err := rows.Scan(
+			&definition.Code,
+			&definition.Description,
+			&definition.Porte,
+			&definition.NumAuxiliaries,
+			&billingMode,
+			&specialty,
+			&definition.LateralitySupport,
+		); err != nil {
+			return nil, fmt.Errorf("postgres: procedure definition scan: %w", err)
+		}
+		definition.BillingMode = models.BillingMode(billingMode)
+		definition.Specialty = models.Specialty(specialty)
+		if existing, seen := out[definition.Code]; seen {
+			if len(procedureIDs) == 0 && (existing.Porte != definition.Porte || existing.NumAuxiliaries != definition.NumAuxiliaries) {
+				return nil, fmt.Errorf("postgres: ambiguous definition for %s; procedure context required", definition.Code)
+			}
+			continue
+		}
+		out[definition.Code] = definition
+	}
+	return out, rows.Err()
+}
+
 // SearchDocuments runs a Portuguese FTS query over document_chunks using a
 // three-stage cascade:
 //

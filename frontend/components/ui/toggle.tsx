@@ -5,11 +5,13 @@ type ToggleProps = {
   checked: boolean;
   onChange: (checked: boolean) => void;
   className?: string;
+  ariaLabel?: string;
 };
 
-export function Toggle({ checked, onChange, className }: ToggleProps) {
+export function Toggle({ checked, onChange, className, ariaLabel }: ToggleProps) {
   return (
     <button
+      aria-label={ariaLabel}
       aria-checked={checked}
       className={cn(
         "relative inline-flex h-[26px] w-[48px] flex-shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",

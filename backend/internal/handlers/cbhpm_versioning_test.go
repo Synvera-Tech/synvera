@@ -44,9 +44,8 @@ func postCalculateRequest(t *testing.T, mux *http.ServeMux, req generated.Calcul
 func minimalCalculateRequest() generated.CalculateRequest {
 	return generated.CalculateRequest{
 		SelectedCodes: []generated.SelectedCode{
-			{CbhpmCode: "3.01.01.11-5", Description: "Craniectomia", Porte: "10A"},
+			{CbhpmCode: "3.14.01.10-4", Description: "Implante de eletrodos", Porte: "10A"},
 		},
-		AuxiliariesCount:   0,
 		RequiresAnesthesia: false,
 		AccessRouteType:    generated.Same,
 	}
@@ -169,12 +168,9 @@ func TestVersionChangeDoesNotMutateHistoricalCalculation(t *testing.T) {
 	}
 }
 
-// ── Scenario 5: Unknown porte is rejected at the calculate endpoint ───────────
+// ── Scenario 5: Client porte cannot override the catalog ─────────────────────
 
-// TestUnknownPorteRejectedByCalculateHandler verifies that an unrecognised porte string
-// causes POST /api/calculate to return 400. The porte lookup is scoped to the active
-// version's table — any porte not in that table is rejected before the engine runs.
-func TestUnknownPorteRejectedByCalculateHandler(t *testing.T) {
+func TestClientPorteIsIgnoredByCalculateHandler(t *testing.T) {
 	repo := repository.NewFileRepository()
 	mux := testMux(repo, "")
 
@@ -182,8 +178,15 @@ func TestUnknownPorteRejectedByCalculateHandler(t *testing.T) {
 	req.SelectedCodes[0].Porte = "INVALID_PORTE_XYZ"
 
 	w := postCalculateRequest(t, mux, req)
-	if w.Code != http.StatusBadRequest {
-		t.Errorf("expected 400 for unknown porte, got %d: %s", w.Code, w.Body.String())
+	if w.Code != http.StatusOK {
+		t.Fatalf("expected catalog resolution to succeed, got %d: %s", w.Code, w.Body.String())
+	}
+	var response generated.CalculateResponse
+	if err := json.Unmarshal(w.Body.Bytes(), &response); err != nil {
+		t.Fatal(err)
+	}
+	if response.PrincipalProcedure.Porte != "10A" {
+		t.Errorf("client porte became authoritative: got %q, want catalog 10A", response.PrincipalProcedure.Porte)
 	}
 }
 

@@ -32,10 +32,6 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			http.Error(w, "selected_codes must not be empty", http.StatusBadRequest)
 			return
 		}
-		if req.AuxiliariesCount < 0 || req.AuxiliariesCount > 4 {
-			http.Error(w, "auxiliaries_count must be between 0 and 4", http.StatusBadRequest)
-			return
-		}
 		if req.AccessRouteType != generated.Same && req.AccessRouteType != generated.Different {
 			http.Error(w, "access_route_type must be 'same' or 'different'", http.StatusBadRequest)
 			return
@@ -56,10 +52,34 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 			return
 		}
 
+		requestedCodes := make([]string, 0, len(req.SelectedCodes))
+		for _, code := range req.SelectedCodes {
+			requestedCodes = append(requestedCodes, code.CbhpmCode)
+		}
+		procedureIDs := []string{}
+		if req.SelectedProcedureIds != nil {
+			procedureIDs = *req.SelectedProcedureIds
+		}
+		definitions, err := repo.GetProcedureDefinitions(procedureIDs, requestedCodes)
+		if err != nil {
+			log.Printf("calculate: get normative procedure definitions: %v", err)
+			http.Error(w, "erro ao carregar definição normativa do procedimento", http.StatusUnprocessableEntity)
+			return
+		}
+
 		selected := make([]models.SelectedCode, 0, len(req.SelectedCodes))
 		for _, c := range req.SelectedCodes {
-			if _, ok := porteValues[c.Porte]; !ok {
-				http.Error(w, "unknown porte: "+c.Porte, http.StatusBadRequest)
+			definition, ok := definitions[c.CbhpmCode]
+			if !ok {
+				http.Error(w, "Número de auxiliares não disponível para este procedimento. O cálculo não pode prosseguir sem dados normativos completos.", http.StatusUnprocessableEntity)
+				return
+			}
+			if definition.NumAuxiliaries < 0 || definition.NumAuxiliaries > 4 {
+				http.Error(w, "número normativo de auxiliares inválido para "+c.CbhpmCode, http.StatusUnprocessableEntity)
+				return
+			}
+			if _, ok := porteValues[definition.Porte]; !ok {
+				http.Error(w, "unknown normative porte: "+definition.Porte, http.StatusUnprocessableEntity)
 				return
 			}
 
@@ -75,8 +95,9 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 
 			selected = append(selected, models.SelectedCode{
 				CBHPMCode:         c.CbhpmCode,
-				Description:       c.Description,
-				Porte:             c.Porte,
+				Description:       definition.Description,
+				Porte:             definition.Porte,
+				NumAuxiliaries:    definition.NumAuxiliaries,
 				BillingMode:       models.BillingMode(c.BillingMode),
 				Specialty:         models.Specialty(c.Specialty),
 				LateralitySupport: c.LateralitySupport,
@@ -124,7 +145,23 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 		// P2 (CBHPM p.140 item 7): USER_SELECTABLE bilateral anesthetic act (+70%).
 		anesthesiaBilateral := req.AnesthesiaBilateral != nil && *req.AnesthesiaBilateral
 
-		result := service.CalculateWithPortesModifiersAndAnesthesia(selected, req.AuxiliariesCount, req.RequiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification, anesthesiaBilateral)
+		result := service.CalculateAutomaticAuxiliaries(
+			selected,
+			req.RequiresAnesthesia,
+			accessRoute,
+			adjustments,
+			porteValues,
+			modifiers,
+			anestheticPortes,
+			anesthesiaAssistant,
+			justification,
+			anesthesiaBilateral,
+			models.AuxiliaryRuleSource{
+				Document:      "CBHPM 2022",
+				Version:       "2022",
+				SelectionRule: "num_auxiliaries do primeiro procedimento de maior porte (empate estável pela ordem de seleção)",
+			},
+		)
 
 		breakdown := make([]generated.CodeBreakdown, 0, len(result.CodeBreakdown))
 		for _, b := range result.CodeBreakdown {
@@ -171,8 +208,8 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 		}
 		bilateralApplied := result.AnesthesiaBilateralApplied
 		respondJSON(w, http.StatusOK, generated.CalculateResponse{
-			CodeBreakdown:             breakdown,
-			AccessRouteType:           generated.AccessRouteType(result.AccessRouteType),
+			CodeBreakdown:   breakdown,
+			AccessRouteType: generated.AccessRouteType(result.AccessRouteType),
 			SurgeonBreakdown: generated.SurgeonBreakdown{
 				PrincipalValue:       float32(result.SurgeonBreakdown.PrincipalValue),
 				AdditionalGross:      float32(result.SurgeonBreakdown.AdditionalGross),
@@ -180,20 +217,31 @@ func makeCalculateHandler(repo repository.Repository) http.HandlerFunc {
 				AdditionalDiscounted: float32(result.SurgeonBreakdown.AdditionalDiscounted),
 				SurgeonTotal:         float32(result.SurgeonBreakdown.SurgeonTotal),
 			},
-			TotalBase:                 float32(result.TotalBase),
-			LeadSurgeonFee:            float32(result.LeadSurgeonFee),
-			IndividualAuxiliaryFees:   auxFees,
-			AuxiliariesFee:            float32(result.AuxiliariesFee),
-			AnesthesiologistFee:       float32(result.AnesthesiologistFee),
+			TotalBase:               float32(result.TotalBase),
+			LeadSurgeonFee:          float32(result.LeadSurgeonFee),
+			IndividualAuxiliaryFees: auxFees,
+			AuxiliariesFee:          float32(result.AuxiliariesFee),
+			PrincipalProcedure: generated.PrincipalProcedure{
+				CbhpmCode:      result.PrincipalProcedure.CBHPMCode,
+				Description:    result.PrincipalProcedure.Description,
+				Porte:          result.PrincipalProcedure.Porte,
+				NumAuxiliaries: result.PrincipalProcedure.NumAuxiliaries,
+			},
+			AuxiliaryRuleSource: generated.AuxiliaryRuleSource{
+				Document:      result.AuxiliaryRuleSource.Document,
+				Version:       result.AuxiliaryRuleSource.Version,
+				SelectionRule: result.AuxiliaryRuleSource.SelectionRule,
+			},
+			AnesthesiologistFee:        float32(result.AnesthesiologistFee),
 			AnesthesiaPorte:            &anesthPorte,
 			AnesthesiaAssistantFee:     &assistantFee,
 			AnesthesiaAssistantApplied: &assistantApplied,
 			AnesthesiaAssistantReasons: &assistantReasons,
 			AnesthesiaBilateralApplied: &bilateralApplied,
-			FinalTotal:                float32(result.FinalTotal),
-			SelectedAdjustments:       appliedAdj,
-			TotalAdjustmentPercentage: float32(result.TotalAdjustmentPercentage),
-			AdjustmentValue:           float32(result.AdjustmentValue),
+			FinalTotal:                 float32(result.FinalTotal),
+			SelectedAdjustments:        appliedAdj,
+			TotalAdjustmentPercentage:  float32(result.TotalAdjustmentPercentage),
+			AdjustmentValue:            float32(result.AdjustmentValue),
 		})
 	}
 }

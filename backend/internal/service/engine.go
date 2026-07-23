@@ -69,6 +69,49 @@ func CalculateWithPortesModifiersAndAnesthesia(
 	return calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification, anesthesiaBilateral)
 }
 
+// CalculateAutomaticAuxiliaries is the production entry point for auxiliary
+// remuneration. The count is always taken from the highest-porte procedure;
+// ties are stable and keep the first selected code. No client-supplied count is
+// accepted by this API.
+func CalculateAutomaticAuxiliaries(
+	codes []models.SelectedCode,
+	requiresAnesthesia bool,
+	accessRoute models.AccessRouteType,
+	adjustments []string,
+	porteValues map[string]float64,
+	modifiers map[string]models.CodeModifier,
+	anestheticPortes map[string]int,
+	anesthesiaAssistant bool,
+	justification models.AnesthesiaAssistantJustification,
+	anesthesiaBilateral bool,
+	ruleSource models.AuxiliaryRuleSource,
+) models.CalculationResult {
+	principalIdx := principalProcedureIndex(codes)
+	auxiliariesCount := codes[principalIdx].NumAuxiliaries
+	result := calculate(codes, auxiliariesCount, requiresAnesthesia, accessRoute, adjustments, porteValues, modifiers, anestheticPortes, anesthesiaAssistant, justification, anesthesiaBilateral)
+	principal := codes[principalIdx]
+	result.PrincipalProcedure = models.PrincipalProcedure{
+		CBHPMCode:      principal.CBHPMCode,
+		Description:    principal.Description,
+		Porte:          principal.Porte,
+		NumAuxiliaries: principal.NumAuxiliaries,
+	}
+	result.AuxiliaryRuleSource = ruleSource
+	return result
+}
+
+func principalProcedureIndex(codes []models.SelectedCode) int {
+	principalIdx := 0
+	bestPorteRank := -1
+	for i, code := range codes {
+		if rank := porteRank(code.Porte); rank > bestPorteRank {
+			principalIdx = i
+			bestPorteRank = rank
+		}
+	}
+	return principalIdx
+}
+
 // Calculate applies validated CBHPM billing rules to a physician-assembled composition.
 // It uses the hardcoded PorteValues map (CBHPM 2025/2026 with INPC 5.10%).
 // Preserved for backward compatibility with existing tests and internal callers.
@@ -171,8 +214,7 @@ func calculate(
 	// NOT the highest adjusted value after quantity/laterality. Tie-break is stable: the first
 	// code in payload order with the top porte wins (strict >), so a re-ordered payload never
 	// silently changes the principal.
-	principalIdx := 0
-	bestPorteRank := -1
+	principalIdx := principalProcedureIndex(codes)
 
 	for i, c := range codes {
 		billingMode, viaRule, lateralityRule, decrementPct := resolveCodeRules(c, modifiers)
@@ -189,11 +231,6 @@ func calculate(
 			quantityMultiplier:   qtyMult,
 			lateralityMultiplier: latMult,
 			adjustedValue:        adjVal,
-		}
-
-		if r := porteRank(c.Porte); r > bestPorteRank {
-			principalIdx = i
-			bestPorteRank = r
 		}
 
 		totalBase += baseVal

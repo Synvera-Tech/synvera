@@ -26,13 +26,13 @@ var anestheticPortesFS embed.FS
 
 // flatEntry mirrors one row in the embedded procedures.json.
 type flatEntry struct {
-	ProcedureName    string `json:"procedure_name"`
-	CBHPMCode        string `json:"cbhpm_code"`
-	Description      string `json:"description"`
-	Porte            string `json:"porte"`
-	NumAuxiliaries   int    `json:"num_auxiliaries"`
-	BillingMode      string `json:"billing_mode"`
-	Specialty        string `json:"specialty"`
+	ProcedureName     string `json:"procedure_name"`
+	CBHPMCode         string `json:"cbhpm_code"`
+	Description       string `json:"description"`
+	Porte             string `json:"porte"`
+	NumAuxiliaries    int    `json:"num_auxiliaries"`
+	BillingMode       string `json:"billing_mode"`
+	Specialty         string `json:"specialty"`
 	LateralitySupport bool   `json:"laterality_support"`
 }
 
@@ -271,6 +271,43 @@ func (r *FileRepository) GetByID(id string) (*models.ProcedureWithCodes, error) 
 	}
 	p := r.procedures[idx]
 	return &p, nil
+}
+
+// GetProcedureDefinitions resolves immutable attributes from the embedded
+// catalog, preferring the selected procedure order when context is supplied.
+func (r *FileRepository) GetProcedureDefinitions(procedureIDs, codes []string) (map[string]models.CBHPMCode, error) {
+	wanted := make(map[string]struct{}, len(codes))
+	for _, code := range codes {
+		wanted[code] = struct{}{}
+	}
+	out := make(map[string]models.CBHPMCode, len(wanted))
+	procedures := r.procedures
+	contextual := len(procedureIDs) > 0
+	if contextual {
+		procedures = make([]models.ProcedureWithCodes, 0, len(procedureIDs))
+		for _, id := range procedureIDs {
+			if idx, ok := r.byID[id]; ok {
+				procedures = append(procedures, r.procedures[idx])
+			}
+		}
+	}
+	for _, procedure := range procedures {
+		for _, code := range procedure.Codes {
+			if _, ok := wanted[code.Code]; !ok {
+				continue
+			}
+			if existing, seen := out[code.Code]; seen {
+				if contextual {
+					continue
+				}
+				if existing.Porte != code.Porte || existing.NumAuxiliaries != code.NumAuxiliaries {
+					return nil, fmt.Errorf("repository: ambiguous definition for %s; procedure context required", code.Code)
+				}
+			}
+			out[code.Code] = code
+		}
+	}
+	return out, nil
 }
 
 // procedureMatches reports whether any text field within p contains the query.

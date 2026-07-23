@@ -12,7 +12,7 @@ The entire system is built under **Spec-Driven Design (SDD)**: the OpenAPI contr
 - **Novo cálculo** — search-first calculation entry at `/novo-calculo`; privacy-first minimalist UI with no financial data visible before a procedure is selected
 - **Real-time composition** — select an SBN procedure, pick which CBHPM codes were performed, toggle the access route and anesthesia; fees recalculate in under 150 ms
 - **Multi-procedure support** — compose multiple SBN procedures in one bill; CBHPM 4.1/4.2 discount rules applied automatically
-- **CBHPM-mandated auxiliaries** — auxiliary count is locked to the value specified in the CBHPM 2022 manual when the selected codes define it; free selection otherwise
+- **CBHPM-mandated auxiliaries** — the backend derives the immutable auxiliary count from the highest-porte selected procedure; there is no manual fallback
 - **Save compositions** — name and persist a procedural template (SBN procedure + codes + access route + aux + anesthesia) with no financial data; fees always recalculate from the current CBHPM table on load
 - **Manage compositions** — list, reload, edit, and delete saved compositions; accessible from the workspace home and the "Minhas composições" tab on `/novo-calculo`
 - **Shareable report** — copy a pre-filled URL that reconstructs the exact calculation state for any recipient
@@ -88,7 +88,7 @@ Auxiliary fees are computed on the lead surgeon's total fee, not on `total_base`
 | 3rd auxiliary | 30% |
 | 4th auxiliary | 30% |
 
-The number of auxiliaries is determined by the highest `num_auxiliaries` value among the selected codes (CBHPM 5.2). When the manual mandates a value, the UI locks the selector automatically.
+The number of auxiliaries is the `num_auxiliaries` value of the highest-porte selected procedure (CBHPM 5.2). A normative zero is preserved. The backend is authoritative and the UI is informational only.
 
 ### Anesthesiologist
 

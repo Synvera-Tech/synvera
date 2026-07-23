@@ -351,6 +351,13 @@ type AuxiliaryFee struct {
 	Position int `json:"position"`
 }
 
+// AuxiliaryRuleSource defines model for AuxiliaryRuleSource.
+type AuxiliaryRuleSource struct {
+	Document      string `json:"document"`
+	SelectionRule string `json:"selection_rule"`
+	Version       string `json:"version"`
+}
+
 // BillingMode How a procedure's base value scales with quantity. - PER_PROCEDURE: No quantity multiplier (default). - PER_SEGMENT: Value is multiplied by number of segments treated. - PER_VERTEBRA: Value is multiplied by number of vertebrae treated. - PER_STRUCTURE: Value is multiplied by number of structures treated.
 type BillingMode string
 
@@ -422,7 +429,7 @@ type CBHPMCodeEntry struct {
 	// Modifier Normative per-code billing modifier sourced from the spine coding manual (ADR-005, table cbhpm_code_modifiers). READ-ONLY metadata. As of this release it is informational and does NOT affect fee calculations — the engine still bills by the catalog billing_mode. Present only for codes that have a normative rule.
 	Modifier *CodeModifierInfo `json:"modifier,omitempty"`
 
-	// NumAuxiliaries Maximum number of auxiliary surgeons allowed per CBHPM (0–4).
+	// NumAuxiliaries Normative number of auxiliary surgeons specified by the CBHPM. Read-only; zero is an explicit rule.
 	NumAuxiliaries int `json:"num_auxiliaries"`
 
 	// Porte Porte for this code as defined in the SBN catalog (e.g. "7A"). Read-only.
@@ -449,8 +456,9 @@ type CalculateRequest struct {
 	// AnesthesiaBilateral USER_SELECTABLE: the anesthesia covered a bilateral surgical act with no specific bilateral CBHPM code (p.140 item 7). Adds 70% of the principal anesthetic porte to the anesthesiologist fee. Ignored when a selected code is already a bilateral code.
 	AnesthesiaBilateral *bool `json:"anesthesia_bilateral,omitempty"`
 
-	// AuxiliariesCount Number of auxiliary surgeons (0–4).
-	AuxiliariesCount int `json:"auxiliaries_count"`
+	// AuxiliariesCount Legacy compatibility field. Ignored by the backend. The engine always derives the count from the highest-porte procedure's CBHPM definition.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	AuxiliariesCount *int `json:"auxiliaries_count,omitempty"`
 
 	// Modifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 	Modifiers *BillingModifiers `json:"modifiers,omitempty"`
@@ -460,6 +468,9 @@ type CalculateRequest struct {
 
 	// SelectedCodes Physician-selected CBHPM codes.
 	SelectedCodes []SelectedCode `json:"selected_codes"`
+
+	// SelectedProcedureIds Ordered SBN procedure IDs used by the backend to resolve contextual normative definitions. Canonical clients must send this field.
+	SelectedProcedureIds *[]string `json:"selected_procedure_ids,omitempty"`
 
 	// UrgencyEmergency When true, applies the CBHPM item 2 urgency/emergency 30% surcharge to all medical fees (surgeon, auxiliaries, anesthesiologist). Applicable for acts performed 19h–7h, on weekends, or on holidays.
 	UrgencyEmergency *bool `json:"urgency_emergency,omitempty"`
@@ -492,7 +503,8 @@ type CalculateResponse struct {
 	AnesthesiologistFee float32 `json:"anesthesiologist_fee"`
 
 	// AuxiliariesFee Sum of all individual auxiliary fees.
-	AuxiliariesFee float32 `json:"auxiliaries_fee"`
+	AuxiliariesFee      float32             `json:"auxiliaries_fee"`
+	AuxiliaryRuleSource AuxiliaryRuleSource `json:"auxiliary_rule_source"`
 
 	// CodeBreakdown Per-code contribution with principal flag.
 	CodeBreakdown []CodeBreakdown `json:"code_breakdown"`
@@ -504,7 +516,8 @@ type CalculateResponse struct {
 	IndividualAuxiliaryFees []AuxiliaryFee `json:"individual_auxiliary_fees"`
 
 	// LeadSurgeonFee Final surgeon fee (equals surgeon_breakdown.surgeon_total).
-	LeadSurgeonFee float32 `json:"lead_surgeon_fee"`
+	LeadSurgeonFee     float32            `json:"lead_surgeon_fee"`
+	PrincipalProcedure PrincipalProcedure `json:"principal_procedure"`
 
 	// SelectedAdjustments Array of CBHPM adjustments applied to this calculation.
 	SelectedAdjustments []AppliedAdjustment `json:"selected_adjustments"`
@@ -680,6 +693,14 @@ type Laterality string
 // NormativeBillingMode Billing mode declared by the normative modifier layer (ADR-005). Superset of BillingMode adding PER_STRUCTURE_DECREMENT (first structure 100%, each additional at a fixed percentage — e.g. costectomy). Informational metadata only; the valuation engine does not consume it yet (separately-approved activation step).
 type NormativeBillingMode string
 
+// PrincipalProcedure defines model for PrincipalProcedure.
+type PrincipalProcedure struct {
+	CbhpmCode      string `json:"cbhpm_code"`
+	Description    string `json:"description"`
+	NumAuxiliaries int    `json:"num_auxiliaries"`
+	Porte          string `json:"porte"`
+}
+
 // ProcedureDetail defines model for ProcedureDetail.
 type ProcedureDetail struct {
 	CbhpmCodes []CBHPMCodeEntry `json:"cbhpm_codes"`
@@ -744,8 +765,11 @@ type SaveCompositionRequest struct {
 	AccessRouteType AccessRouteType `json:"access_route_type"`
 
 	// Adjustments Array of CBHPM adjustment codes to persist in the composition. Valid codes: emergency_special_hours, pediatric_low_weight_or_premature, pediatric_neonate_or_infant, pediatric_child_under_12.
-	Adjustments      *[]string `json:"adjustments,omitempty"`
-	AuxiliariesCount int       `json:"auxiliaries_count"`
+	Adjustments *[]string `json:"adjustments,omitempty"`
+
+	// AuxiliariesCount Legacy persisted snapshot for older compositions. It is not an authoritative calculation input; recalculation resolves the count from the CBHPM catalog.
+	// Deprecated: this property has been marked as deprecated upstream, but no `x-deprecated-reason` was set
+	AuxiliariesCount int `json:"auxiliaries_count"`
 
 	// Modifiers Spine-specific billing variables. Only applicable fields based on selected procedures' billing modes are used. Omit fields that do not apply; defaults (quantity_selected=1, laterality=UNILATERAL) are used.
 	Modifiers *BillingModifiers `json:"modifiers,omitempty"`

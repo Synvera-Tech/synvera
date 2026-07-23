@@ -59,13 +59,13 @@ const (
 // The porte is an intrinsic property of the code (CBHPM 2022, item 1.2) and is not editable.
 // Extended with spine-specific billing variables.
 type CBHPMCode struct {
-	Code               string
-	Description        string
-	Porte              string
-	NumAuxiliaries     int
-	BillingMode        BillingMode // How value scales with quantity (default: PER_PROCEDURE)
-	Specialty          Specialty   // Medical domain (default: NEUROSURGERY)
-	LateralitySupport  bool        // Whether bilateral billing is applicable
+	Code              string
+	Description       string
+	Porte             string
+	NumAuxiliaries    int
+	BillingMode       BillingMode // How value scales with quantity (default: PER_PROCEDURE)
+	Specialty         Specialty   // Medical domain (default: NEUROSURGERY)
+	LateralitySupport bool        // Whether bilateral billing is applicable
 }
 
 // ProcedureWithCodes is an SBN procedure together with its associated CBHPM codes.
@@ -117,33 +117,36 @@ const (
 // The porte is taken from the catalog and cannot be changed by the physician.
 // Extended to include spine-specific billing modifiers.
 type SelectedCode struct {
-	CBHPMCode          string
-	Description        string
-	Porte              string
-	BillingMode        BillingMode // Inherited from procedure catalog
-	Specialty          Specialty   // Inherited from procedure catalog
-	LateralitySupport  bool        // Inherited from procedure catalog
+	CBHPMCode   string
+	Description string
+	Porte       string
+	// NumAuxiliaries is normative catalog data. It is populated by the backend
+	// repository and must never be accepted from the calculation payload.
+	NumAuxiliaries    int
+	BillingMode       BillingMode // Inherited from procedure catalog
+	Specialty         Specialty   // Inherited from procedure catalog
+	LateralitySupport bool        // Inherited from procedure catalog
 
 	// Spine billing variables (only applicable if BillingMode/LateralitySupport indicate)
-	QuantitySelected int       // Number of segments/vertebrae/structures (default: 1)
+	QuantitySelected int        // Number of segments/vertebrae/structures (default: 1)
 	Laterality       Laterality // UNILATERAL or BILATERAL (default: UNILATERAL if not supported)
 }
 
 // CodeBreakdown is the per-code contribution in a valuation result.
 // Extended to show the calculation steps for billing variables.
 type CodeBreakdown struct {
-	CBHPMCode          string
-	Description        string
-	Porte              string
-	BaseValue          float64
-	IsPrincipal        bool
+	CBHPMCode   string
+	Description string
+	Porte       string
+	BaseValue   float64
+	IsPrincipal bool
 	// Spine billing variable details (for transparency in shared reports)
-	BillingMode        BillingMode
-	QuantitySelected   int
-	QuantityMultiplier float64 // The multiplier applied (e.g., 1.0, 2.0, 3.0 for segments)
-	Laterality         Laterality
+	BillingMode          BillingMode
+	QuantitySelected     int
+	QuantityMultiplier   float64 // The multiplier applied (e.g., 1.0, 2.0, 3.0 for segments)
+	Laterality           Laterality
 	LateralityMultiplier float64 // The multiplier applied (1.0 for unilateral, 2.0 for bilateral)
-	AdjustedValue      float64 // BaseValue × QuantityMultiplier × LateralityMultiplier (before other adjustments)
+	AdjustedValue        float64 // BaseValue × QuantityMultiplier × LateralityMultiplier (before other adjustments)
 }
 
 // SurgeonBreakdown contains the step-by-step surgeon fee derivation per CBHPM 4.1/4.2.
@@ -160,6 +163,23 @@ type AuxiliaryFee struct {
 	Position   int
 	Percentage float64
 	Fee        float64
+}
+
+// PrincipalProcedure records the normative procedure selected by the engine.
+// It is embedded in every calculation snapshot for auditability.
+type PrincipalProcedure struct {
+	CBHPMCode      string
+	Description    string
+	Porte          string
+	NumAuxiliaries int
+}
+
+// AuxiliaryRuleSource records why and from which normative source the auxiliary
+// count was selected.
+type AuxiliaryRuleSource struct {
+	Document      string
+	Version       string
+	SelectionRule string
 }
 
 // AppliedAdjustment is one CBHPM percentage adjustment applied to a calculation.
@@ -198,14 +218,16 @@ type CalculationResult struct {
 	LeadSurgeonFee      float64
 	IndividualAuxFees   []AuxiliaryFee
 	AuxiliariesFee      float64
+	PrincipalProcedure  PrincipalProcedure
+	AuxiliaryRuleSource AuxiliaryRuleSource
 	AnesthesiologistFee float64
 
 	// Anesthesia assistant (CBHPM p.140 item 8, A9): 60% of the anesthesiologist fee, only for
 	// AN7/AN8 (the auto-detectable triggers). AnesthesiaPorte is the principal anesthetic porte
 	// used (0 when none), exposed so the UI can offer the assistant only when applicable.
-	AnesthesiaPorte             int
+	AnesthesiaPorte              int
 	BaseAnesthesiaAssistantValue float64
-	AnesthesiaAssistantFee      float64
+	AnesthesiaAssistantFee       float64
 
 	// AnesthesiaAssistantApplied / Reasons / Source record whether the 60% second
 	// anesthesiologist was applied and why — any of AN7, AN8, cec, duration_over_6h,
@@ -316,21 +338,21 @@ type PhysicianAccount struct {
 // composition. Persisted as JSONB in compositions.modifiers (migration 018).
 // QuantitySelected and Laterality affect calculations; the remaining fields are informational.
 type CompositionModifiers struct {
-	QuantitySelected  int        `json:"quantity_selected,omitempty"`
-	Laterality        Laterality `json:"laterality,omitempty"`
+	QuantitySelected int        `json:"quantity_selected,omitempty"`
+	Laterality       Laterality `json:"laterality,omitempty"`
 	// AnesthesiaAssistant persists the A9 second-anesthesiologist (60%) selection so a saved
 	// composition reproduces the same anesthesia fee on reload.
-	AnesthesiaAssistant bool     `json:"anesthesia_assistant,omitempty"`
+	AnesthesiaAssistant bool `json:"anesthesia_assistant,omitempty"`
 	// AnesthesiaAuxiliaryJustification (P1) and AnesthesiaBilateral (P2) persist the
 	// USER_SELECTABLE anesthesia triggers so a saved composition reproduces the same fees.
 	AnesthesiaAuxiliaryJustification *AnesthesiaAssistantJustification `json:"anesthesia_auxiliary_justification,omitempty"`
 	AnesthesiaBilateral              bool                              `json:"anesthesia_bilateral,omitempty"`
-	VertebralRegion   string     `json:"vertebral_region,omitempty"`
-	SurgicalApproach  string     `json:"surgical_approach,omitempty"`
-	FusionStatus      string     `json:"fusion_status,omitempty"`
-	ImplantCategory   string     `json:"implant_category,omitempty"`
-	OsteoporosisAware bool       `json:"osteoporosis_aware,omitempty"`
-	ClinicalContext   string     `json:"clinical_context,omitempty"`
+	VertebralRegion                  string                            `json:"vertebral_region,omitempty"`
+	SurgicalApproach                 string                            `json:"surgical_approach,omitempty"`
+	FusionStatus                     string                            `json:"fusion_status,omitempty"`
+	ImplantCategory                  string                            `json:"implant_category,omitempty"`
+	OsteoporosisAware                bool                              `json:"osteoporosis_aware,omitempty"`
+	ClinicalContext                  string                            `json:"clinical_context,omitempty"`
 }
 
 // Composition is a reusable surgical template created by the physician.
@@ -354,8 +376,8 @@ type Composition struct {
 	Adjustments []string
 	// Modifiers holds spine-specific billing variable selections
 	Modifiers *CompositionModifiers // nil if no spine-specific modifiers
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 // CompositionSummary is the lightweight projection for list responses.

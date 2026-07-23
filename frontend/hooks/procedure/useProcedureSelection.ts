@@ -76,9 +76,6 @@ export function useProcedureSelection({
             billing_mode: c.billing_mode,
             specialty: c.specialty,
             laterality_support: c.laterality_support,
-            // num_auxiliaries is not stored in compositions; auxiliaries_count is
-            // separately restored from comp.auxiliaries_count via onCompositionLoaded.
-            num_auxiliaries: 0,
           }));
         const restoredDetail: ProcedureDetail =
           additionalCodes.length > 0
@@ -140,13 +137,6 @@ export function useProcedureSelection({
     }
     return codes;
   }, [selectedProcedures, detailsMap]);
-
-  // CBHPM 5.2: the highest num_auxiliaries among checked codes mandates the auxiliary count.
-  const cbhpmMandatedAux = useMemo(() => {
-    const checked = allCbhpmCodes.filter((c) => selectedCodes.has(c.code));
-    if (checked.length === 0) return 0;
-    return Math.max(0, ...checked.map((c) => c.num_auxiliaries));
-  }, [allCbhpmCodes, selectedCodes]);
 
   // ── Multi-procedure change handler ──────────────────────────────────────
 
@@ -234,8 +224,6 @@ export function useProcedureSelection({
     selectedCodes,
     setSelectedCodes,
     allCbhpmCodes,
-    cbhpmMandatedAux,
-    auxIsLocked: cbhpmMandatedAux > 0,
     handleProceduresChange,
     toggleCode,
   };
