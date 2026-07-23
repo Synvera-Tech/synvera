@@ -121,47 +121,55 @@ export function TeamFeesPanel({
               <Toggle checked={anesthesiaBilateral} onChange={onAnesthesiaBilateralChange} />
             </div>
 
-            {assistantEligible && (
-              <div className="medical-toggle-panel flex items-center justify-between gap-4 rounded-2xl border px-4 py-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
-                    <HeartPulse aria-hidden="true" size={16} />
-                  </div>
-                  <div>
-                    <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
-                      Auxiliar de anestesia (60%)
-                    </div>
-                    <div className="text-[11px] text-stone-500 dark:text-stone-400">
-                      Permitido em AN7/AN8 (CBHPM item 8). Adiciona um 2º anestesiologista a 60%.
-                    </div>
-                  </div>
-                </div>
-                <Toggle checked={anesthesiaAssistant} onChange={onAnesthesiaAssistantChange} />
-              </div>
-            )}
-
-            {/* P1 (CBHPM p.140 item 8): non-derivable triggers that justify a second anesthesiologist
-                beyond AN7/AN8. USER_SELECTABLE — the surgeon declares them; the backend decides. */}
-            <div className="medical-toggle-panel rounded-2xl border px-4 py-4">
+            {/* CBHPM p.140 item 8: AN7/AN8 and the non-derivable clinical situations are
+                alternative criteria for the same second-anesthesiologist fee. They share one
+                card to make the OR relationship explicit; the backend remains authoritative. */}
+            <div
+              data-testid="second-anesthesiologist-card"
+              className="medical-toggle-panel rounded-2xl border px-4 py-4"
+            >
               <div className="flex items-center gap-2.5">
                 <div className="clinical-icon-chip flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
                   <HeartPulse aria-hidden="true" size={16} />
                 </div>
                 <div>
                   <div className="text-[13px] font-semibold text-stone-950 dark:text-stone-50">
-                    Auxiliar de anestesia
+                    Segundo anestesiologista (60%)
                   </div>
                   <div className="text-[11px] text-stone-500 dark:text-stone-400">
-                    Quando selecionado, habilita auxiliar de anestesia com 60% do porte anestésico
-                    principal, conforme CBHPM.
+                    Aplicável por porte AN7/AN8 ou por uma das situações clínicas previstas na
+                    CBHPM. Os critérios são independentes.
                   </div>
                 </div>
               </div>
-              <div className="mt-3 space-y-2 pl-[42px]">
+
+              {assistantEligible && (
+                <div className="mt-4 flex items-center justify-between gap-4 rounded-xl bg-white/50 px-3 py-3 dark:bg-white/[0.035]">
+                  <div>
+                    <div className="text-[12.5px] font-semibold text-stone-800 dark:text-stone-200">
+                      Critério por porte anestésico
+                    </div>
+                    <div className="mt-0.5 text-[11px] text-stone-500 dark:text-stone-400">
+                      Porte principal AN{anesthesiaPorte}, previsto no item 8 da CBHPM.
+                    </div>
+                  </div>
+                  <Toggle
+                    checked={anesthesiaAssistant}
+                    onChange={onAnesthesiaAssistantChange}
+                    ariaLabel={`Incluir segundo anestesiologista por porte AN${anesthesiaPorte}`}
+                  />
+                </div>
+              )}
+
+              <div className={assistantEligible ? "mt-4 border-t border-stone-200/70 pt-4 dark:border-stone-700/60" : "mt-4"}>
+                <div className="mb-2 text-[11px] font-semibold text-stone-600 dark:text-stone-400">
+                  Outras situações previstas
+                </div>
+                <div className="space-y-2">
                 {JUSTIFICATION_OPTIONS.map((opt) => (
                   <label
                     key={opt.key}
-                    className="flex cursor-pointer items-center gap-2.5 text-[12.5px] text-stone-700 dark:text-stone-300"
+                    className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-0.5 text-[12.5px] text-stone-700 transition-colors hover:text-stone-950 dark:text-stone-300 dark:hover:text-stone-50"
                   >
                     <input
                       type="checkbox"
@@ -172,6 +180,10 @@ export function TeamFeesPanel({
                     {opt.label}
                   </label>
                 ))}
+                </div>
+                <p className="mt-3 text-[10.5px] leading-relaxed text-stone-500 dark:text-stone-400">
+                  Basta um dos critérios aplicáveis para inclusão do segundo anestesiologista.
+                </p>
               </div>
             </div>
           </>

@@ -19,12 +19,18 @@ test("anesthesia-assistant justification renders and applies the 60% fee", async
   // producing a live valuation.
   await page.getByText("ARTRODESE CERVICAL ANTERIOR", { exact: false }).first().click();
 
-  // (a) The four justification checkboxes render.
+  // Both alternative paths are presented in one card, without implying dependency.
+  const assistantCard = page.getByTestId("second-anesthesiologist-card");
+  await expect(assistantCard).toContainText("Segundo anestesiologista (60%)");
+  await expect(assistantCard).toContainText("Os critérios são independentes");
+  await expect(assistantCard.getByRole("switch", { name: /Incluir segundo anestesiologista por porte AN[78]/ })).toBeVisible();
+
+  // (a) The four independent clinical justifications render in the same card.
   for (const label of JUSTIFICATION_LABELS) {
-    await expect(page.getByText(label, { exact: false })).toBeVisible();
+    await expect(assistantCard.getByText(label, { exact: false })).toBeVisible();
   }
 
-  const cec = page.getByText("Circulação extracorpórea (CEC)", { exact: false });
+  const cec = assistantCard.getByText("Circulação extracorpórea (CEC)", { exact: false });
 
   // (b) Checking CEC triggers a recalculation whose payload carries cec=true; assert the
   // backend applied the 60% assistant and recorded the reason.
@@ -60,5 +66,10 @@ test("anesthesia-assistant justification renders and applies the 60% fee", async
   // the <dt> result row so we don't match the AN7/AN8 toggle panel title (same label text).
   const assistantRow = page.locator("dt", { hasText: "Auxiliar de anestesia (60%)" }).first();
   await expect(assistantRow).toBeVisible();
-  await expect(assistantRow).toContainText("CEC");
+  await expect(page.getByText("Justificativa: Circulação extracorpórea (CEC)", { exact: true })).toBeVisible();
+
+  await assistantCard.screenshot({ path: "/tmp/synvera-second-anesthesiologist-light.png" });
+  await page.getByRole("switch", { name: "Mudar para modo escuro" }).click();
+  await expect(page.getByRole("switch", { name: "Mudar para modo claro" })).toBeVisible();
+  await assistantCard.screenshot({ path: "/tmp/synvera-second-anesthesiologist-dark.png" });
 });
