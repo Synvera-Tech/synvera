@@ -24,10 +24,15 @@ test("internal navigation preserves desktop expansion behavior", async ({ page }
   const logoBox = await desktopNav.getByRole("link", { name: "Synvera — ir para a Home" }).boundingBox();
   const expandButtonBox = await page.getByRole("button", { name: "Expandir navegação" }).boundingBox();
   expect(logoBox && expandButtonBox && logoBox.x + logoBox.width <= expandButtonBox.x).toBe(true);
+  expect(logoBox && expandButtonBox && logoBox.y + logoBox.height < expandButtonBox.y).toBe(true);
 
   const calculationIconBox = await desktopNav.getByRole("link", { name: "Novo cálculo" }).locator("svg").boundingBox();
   const themeIconBox = await desktopNav.getByRole("switch", { name: "Mudar para modo escuro" }).locator("svg").boundingBox();
   expect(calculationIconBox && themeIconBox && calculationIconBox.x).toBe(themeIconBox?.x);
+  await page.screenshot({
+    path: "/tmp/synvera-sidebar-after-desktop-collapsed-page.png",
+    clip: { x: 0, y: 0, width: 112, height: 1000 },
+  });
 
   await desktopNav.getByRole("link", { name: "Documentação" }).hover();
   await expect(page.getByRole("tooltip", { name: "Documentação" })).toBeVisible();

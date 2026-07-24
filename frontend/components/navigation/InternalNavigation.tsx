@@ -127,17 +127,14 @@ export function InternalNavigation({
         <button
           type="button"
           onClick={() => setNavigationExpanded(!expanded)}
-          className={cn(
-            "group/expand absolute z-10 flex items-center justify-center rounded-full border border-stone-200 bg-[#FBFAF7] text-stone-500 shadow-[0_4px_14px_rgba(45,35,20,0.12)] transition-[border-color,color] hover:border-primary/25 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 dark:border-stone-700 dark:bg-[#181512] dark:text-stone-400 dark:shadow-black/40 dark:hover:border-[#A99876]/40 dark:hover:text-[#C8B890]",
-            expanded ? "-right-5 top-4 h-10 w-10" : "-right-5 top-5 h-8 w-8",
-          )}
+          className="group/expand absolute -right-7 top-12 z-10 flex h-9 w-7 items-center justify-center rounded-r-xl border border-l-0 border-stone-200 bg-[#FBFAF7] text-stone-500 shadow-[4px_3px_12px_rgba(45,35,20,0.10)] transition-[border-color,color] hover:border-primary/25 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 dark:border-stone-700 dark:border-l-0 dark:bg-[#181512] dark:text-stone-400 dark:shadow-black/35 dark:hover:border-[#A99876]/40 dark:hover:text-[#C8B890]"
           aria-label={expanded ? "Recolher navegação" : "Expandir navegação"}
           aria-describedby="internal-nav-expand-tooltip"
         >
           {expanded ? (
-            <PanelLeftClose size={18} strokeWidth={1.9} aria-hidden="true" />
+            <PanelLeftClose size={15} strokeWidth={1.9} aria-hidden="true" />
           ) : (
-            <PanelLeftOpen size={16} strokeWidth={1.9} aria-hidden="true" />
+            <PanelLeftOpen size={15} strokeWidth={1.9} aria-hidden="true" />
           )}
           <span
             id="internal-nav-expand-tooltip"
