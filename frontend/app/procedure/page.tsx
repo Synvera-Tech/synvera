@@ -218,7 +218,7 @@ function ProcedureContent({
       <div className="main-grid relative z-[1] mx-auto grid max-w-[1080px] gap-7 px-5 pb-12">
 
         {/* ── Left panel ────────────────────────────────────────────────── */}
-        <div className="workspace-panel card-plush rounded-3xl border border-stone-200/80 dark:border-stone-700 dark:bg-stone-900 p-8">
+        <div className="workspace-panel card-plush min-w-0 rounded-3xl border border-stone-200/80 p-5 dark:border-stone-700 dark:bg-stone-900 sm:p-8">
 
           <ProcedureSearchPanel
             searchOptions={procedureState.searchOptions}

@@ -299,8 +299,19 @@ export function InternalNavigation({
         <MobileItem href={documentationHref} label="Documentação" selected={active === "documentation"} icon={<BookOpen size={19} aria-hidden="true" />} />
         <button
           type="button"
+          onClick={handleThemeToggle}
+          className="flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-[10px] font-semibold text-stone-500 transition-colors hover:bg-white/45 dark:text-stone-400 dark:hover:bg-white/[0.07]"
+          aria-label={isDark ? "Mudar para modo claro" : "Mudar para modo escuro"}
+          aria-checked={isDark}
+          role="switch"
+        >
+          {isDark ? <Sun size={19} aria-hidden="true" /> : <Moon size={19} aria-hidden="true" />}
+          <span className="max-w-full truncate">Tema</span>
+        </button>
+        <button
+          type="button"
           onClick={() => setMobileMenuOpen((open) => !open)}
-          className="flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-semibold text-stone-500 dark:text-stone-400"
+          className="flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-[10px] font-semibold text-stone-500 dark:text-stone-400"
           aria-expanded={mobileMenuOpen}
           aria-controls="internal-mobile-menu"
         >
@@ -350,14 +361,14 @@ function MobileItem({
       href={href}
       aria-current={selected ? "page" : undefined}
       className={cn(
-        "relative flex min-w-[58px] flex-col items-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-semibold transition-colors",
+        "relative flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-[10px] font-semibold transition-colors",
         selected
           ? "bg-primary/[0.07] text-primary after:absolute after:-bottom-0.5 after:h-0.5 after:w-4 after:rounded-full after:bg-primary dark:bg-[#A99876]/10 dark:text-[#C8B890] dark:after:bg-[#C8B890]"
           : "text-stone-500 dark:text-stone-400",
       )}
     >
       {icon}
-      <span className="max-w-[72px] truncate">{label}</span>
+      <span className="max-w-full truncate">{label}</span>
     </Link>
   );
 }

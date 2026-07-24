@@ -54,7 +54,17 @@ test("internal navigation preserves mobile menu behavior", async ({ page }) => {
   const mobileNav = page.locator("nav[aria-label='Navegação principal']");
   await expect(mobileNav).toBeVisible();
   await expect(page.locator("aside[aria-label='Navegação principal']")).toBeHidden();
+
+  const directThemeSwitch = page.getByRole("switch", { name: "Mudar para modo escuro" });
+  await expect(directThemeSwitch).toBeVisible();
+  await page.screenshot({ path: "/tmp/synvera-mobile-direct-theme.png" });
+  await directThemeSwitch.click();
+  await expect(page.locator("html")).toHaveClass(/dark/);
+  await page.getByRole("switch", { name: "Mudar para modo claro" }).click();
+  await expect(page.locator("html")).toHaveClass(/light/);
+
   await page.getByRole("button", { name: "Mais" }).click();
+  await expect(page.getByRole("switch", { name: "Mudar para modo escuro" })).toBeVisible();
   await expect(page.locator("#internal-mobile-menu")).toBeVisible();
   await expect(page.locator("#internal-mobile-menu").getByRole("button", { name: "Entrar" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
@@ -117,4 +127,91 @@ test("theme control is available on calculation entry and compositions pages", a
     await page.getByRole("switch", { name: "Mudar para modo claro" }).click();
     await expect(page.locator("html")).toHaveClass(/light/);
   }
+});
+
+test("application fits small smartphone viewports without horizontal scrolling", async ({ page }) => {
+  const routes = [
+    "/",
+    "/novo-calculo",
+    "/composicoes",
+    "/procedure?theme=light",
+    "/consulta-documental?theme=light&returnTo=%2Fprocedure",
+  ];
+
+  for (const width of [360, 320]) {
+    await page.setViewportSize({ width, height: 800 });
+
+    for (const route of routes) {
+      await page.goto(route);
+      await page.addStyleTag({ content: "nextjs-portal { display: none !important; }" });
+
+      const overflow = await page.evaluate(() => {
+        const viewportWidth = document.documentElement.clientWidth;
+        const offenders = Array.from(document.querySelectorAll<HTMLElement>("body *"))
+          .map((element) => {
+            const rect = element.getBoundingClientRect();
+            return {
+              tag: element.tagName.toLowerCase(),
+              id: element.id,
+              className: typeof element.className === "string" ? element.className.slice(0, 120) : "",
+              left: Math.round(rect.left),
+              right: Math.round(rect.right),
+              width: Math.round(rect.width),
+            };
+          })
+          .filter(({ left, right, width }) => width > 0 && (left < -1 || right > viewportWidth + 1))
+          .slice(0, 12);
+
+        return {
+          viewportWidth,
+          documentWidth: document.documentElement.scrollWidth,
+          offenders,
+        };
+      });
+
+      expect(overflow, `${route} at ${width}px`).toEqual({
+        viewportWidth: width,
+        documentWidth: width,
+        offenders: [],
+      });
+    }
+  }
+});
+
+test("filled calculation fits a small smartphone viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto("/procedure?theme=light");
+  await page.addStyleTag({ content: "nextjs-portal { display: none !important; }" });
+
+  const search = page.getByRole("textbox", { name: "Procedimento" });
+  await search.fill("Craniotomia descompressiva");
+  const option = page.getByRole("button", { name: /craniotomia descompressiva/i }).first();
+  await expect(option).toBeVisible();
+  await option.click();
+  await expect(page.getByText("Composição CBHPM", { exact: true })).toBeVisible();
+  await expect(page.getByText("Total da Equipe", { exact: true })).toBeVisible();
+
+  const overflow = await page.evaluate(() => ({
+    viewportWidth: document.documentElement.clientWidth,
+    documentWidth: document.documentElement.scrollWidth,
+    offenders: Array.from(document.querySelectorAll<HTMLElement>("body *"))
+      .map((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          tag: element.tagName.toLowerCase(),
+          className: typeof element.className === "string" ? element.className.slice(0, 120) : "",
+          left: Math.round(rect.left),
+          right: Math.round(rect.right),
+          width: Math.round(rect.width),
+        };
+      })
+      .filter(({ left, right, width }) => width > 0 && (left < -1 || right > document.documentElement.clientWidth + 1))
+      .slice(0, 12),
+  }));
+
+  expect(overflow).toEqual({
+    viewportWidth: 320,
+    documentWidth: 320,
+    offenders: [],
+  });
 });

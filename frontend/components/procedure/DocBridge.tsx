@@ -17,7 +17,7 @@ export function DocBridge({ contextQuery, theme, returnTo }: DocBridgeProps) {
     : "Abrir documentação";
 
   return (
-    <div className="mt-6 flex items-center justify-between gap-4 rounded-2xl border border-stone-100 dark:border-stone-800 bg-stone-50/50 dark:bg-stone-900/20 px-4 py-3.5">
+    <div className="mt-6 flex min-w-0 flex-col gap-3 rounded-2xl border border-stone-100 bg-stone-50/50 px-4 py-3.5 dark:border-stone-800 dark:bg-stone-900/20 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
       <div className="flex min-w-0 items-center gap-3">
         <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-primary/8 dark:bg-primary/15">
           <BookOpen size={14} className="text-primary dark:text-amber-300" aria-hidden="true" />
@@ -26,7 +26,7 @@ export function DocBridge({ contextQuery, theme, returnTo }: DocBridgeProps) {
           <p className="text-[12.5px] font-semibold leading-none text-stone-700 dark:text-stone-200 mb-0.5">
             Dúvida sobre uma regra?
           </p>
-          <p className="text-[10.5px] leading-none text-stone-400 dark:text-stone-500">
+          <p className="text-[10.5px] leading-snug text-stone-400 dark:text-stone-500">
             CBHPM &middot; Manual SBN &middot; Manual de Coluna
           </p>
         </div>
@@ -34,7 +34,7 @@ export function DocBridge({ contextQuery, theme, returnTo }: DocBridgeProps) {
 
       <Link
         href={href}
-        className="flex flex-shrink-0 items-center gap-1.5 rounded-lg border border-primary/25 dark:border-primary/30 bg-primary/8 dark:bg-primary/15 px-3 py-1.5 text-[11.5px] font-semibold text-primary no-underline transition-colors hover:bg-primary/15 dark:text-amber-300 dark:hover:bg-primary/25"
+        className="flex w-full min-w-0 items-center justify-center gap-1.5 rounded-lg border border-primary/25 bg-primary/8 px-3 py-1.5 text-[11.5px] font-semibold text-primary no-underline transition-colors hover:bg-primary/15 dark:border-primary/30 dark:bg-primary/15 dark:text-amber-300 dark:hover:bg-primary/25 sm:w-auto sm:flex-shrink-0"
         title={q ? `Pesquisar "${q}" na documentação oficial` : undefined}
         aria-label={q ? `Consultar documentação para ${q}` : "Abrir documentação oficial"}
       >

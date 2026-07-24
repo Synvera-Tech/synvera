@@ -28,8 +28,8 @@ export function ValuationSummary({
     : "Vias de acesso diferentes — CBHPM 4.2 (70% para procedimentos adicionais)";
 
   return (
-    <div className="results-card relative overflow-hidden rounded-3xl border border-primary/15 dark:border-[#A18C63]/20 p-7">
-      <div className="results-card-header mb-6 flex items-center justify-between">
+    <div className="results-card relative min-w-0 overflow-hidden rounded-3xl border border-primary/15 p-5 dark:border-[#A18C63]/20 sm:p-7">
+      <div className="results-card-header mb-6 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Calculator aria-hidden="true" className="text-primary" size={18} />
           <h2 className="m-0 text-[15px] font-bold text-stone-950 dark:text-stone-50">Valoração</h2>
