@@ -36,13 +36,12 @@ const themeInitScript = `
     let theme = stored === "dark" || stored === "light"
       ? stored
       : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    // Calculation screens use page-scoped themes. Apply the requested/default
+    // The procedure screen uses a page-scoped theme. Apply the requested/default
     // value on first paint too so a hard load never flashes the global theme.
     if (window.location.pathname.indexOf("/procedure") === 0) {
       const requested = new URLSearchParams(window.location.search).get("theme");
       theme = requested === "dark" ? "dark" : "light";
     }
-    if (window.location.pathname.indexOf("/novo-calculo") === 0 || window.location.pathname.indexOf("/composicoes") === 0) theme = "light";
     // Documentation links carry the effective theme of the originating screen.
     // Apply it before hydration so navigation and hard reloads do not flash the
     // user's unrelated global preference.

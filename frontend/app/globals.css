@@ -8,6 +8,77 @@
   to { transform: rotate(360deg); }
 }
 
+/* Theme tokens for the calculation entry screen. Keeping the original warm
+   visual language in variables lets the global theme control switch the whole
+   page coherently instead of recoloring only the navigation rail. */
+.calculation-theme-page {
+  --calc-page-background:
+    radial-gradient(circle at top center, rgba(132, 108, 59, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 15% 88%, rgba(90, 72, 35, 0.08) 0%, transparent 40%),
+    linear-gradient(180deg, #F2EDE3 0%, #E9E3D8 100%);
+  --calc-card: #F9F7F3;
+  --calc-surface: #FFFFFF;
+  --calc-card-border: rgba(132, 108, 59, 0.10);
+  --calc-primary: #282011;
+  --calc-secondary: #665D4A;
+  --calc-muted: #8B7E64;
+  --calc-input-border: #DFD9CD;
+  --calc-input-focus: #A18C63;
+  --calc-input-strong: #725D32;
+  --calc-selected: #FFF1CF;
+  --calc-soft: #F3EFE7;
+  --calc-hover: #F8F5EF;
+  --calc-divider: #E7E0D4;
+  --calc-link: #725D32;
+  --calc-button: #A18C63;
+  --calc-button-hover: #725D32;
+  --calc-button-pressed: #393225;
+  --calc-disabled: #F1ECE2;
+  --calc-disabled-text: #9A8F7A;
+  --calc-card-shadow:
+    0 1px 2px rgba(40, 32, 17, 0.04),
+    0 8px 24px rgba(40, 32, 17, 0.08),
+    0 24px 70px rgba(40, 32, 17, 0.14);
+  --calc-input-shadow: 0 3px 8px rgba(90, 72, 35, 0.10);
+  --calc-focus-shadow:
+    0 0 0 4px rgba(132, 108, 59, 0.18),
+    0 3px 8px rgba(90, 72, 35, 0.12);
+}
+
+html.dark .calculation-theme-page {
+  --calc-page-background:
+    radial-gradient(circle at top center, rgba(169, 145, 96, 0.11) 0%, transparent 44%),
+    radial-gradient(circle at 15% 88%, rgba(120, 98, 58, 0.07) 0%, transparent 40%),
+    linear-gradient(180deg, #171411 0%, #0F0D0B 100%);
+  --calc-card: #191613;
+  --calc-surface: #211D19;
+  --calc-card-border: rgba(200, 184, 144, 0.14);
+  --calc-primary: #F5F1EA;
+  --calc-secondary: #CFC6B7;
+  --calc-muted: #9F9586;
+  --calc-input-border: #4C4438;
+  --calc-input-focus: #C8B890;
+  --calc-input-strong: #D8C79F;
+  --calc-selected: #3B321F;
+  --calc-soft: #24201B;
+  --calc-hover: #2A2520;
+  --calc-divider: #383129;
+  --calc-link: #C8B890;
+  --calc-button: #8E7B54;
+  --calc-button-hover: #A18C63;
+  --calc-button-pressed: #6F6043;
+  --calc-disabled: #29251F;
+  --calc-disabled-text: #81786B;
+  --calc-card-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.22),
+    0 12px 30px rgba(0, 0, 0, 0.22),
+    0 28px 76px rgba(0, 0, 0, 0.28);
+  --calc-input-shadow: 0 3px 10px rgba(0, 0, 0, 0.24);
+  --calc-focus-shadow:
+    0 0 0 4px rgba(200, 184, 144, 0.12),
+    0 3px 10px rgba(0, 0, 0, 0.28);
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }

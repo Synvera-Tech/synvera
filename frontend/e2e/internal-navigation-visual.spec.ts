@@ -86,3 +86,35 @@ test("active route remains perceptible in every navigation group", async ({ page
   await page.goto("/consulta-documental?theme=light&returnTo=%2Fprocedure");
   await expect(page.getByRole("link", { name: "Documentação" })).toHaveAttribute("aria-current", "page");
 });
+
+test("theme control is available on calculation entry and compositions pages", async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem("theme", "light");
+    localStorage.setItem("synvera:internal-nav-expanded", "false");
+  });
+  await page.setViewportSize({ width: 1100, height: 900 });
+
+  for (const route of ["/novo-calculo", "/composicoes"]) {
+    await page.goto(route);
+    await page.addStyleTag({ content: "nextjs-portal { display: none !important; }" });
+
+    const darkModeSwitch = page.getByRole("switch", { name: "Mudar para modo escuro" });
+    await expect(darkModeSwitch).toBeVisible();
+    await darkModeSwitch.click();
+    await expect(page.locator("html")).toHaveClass(/dark/);
+    await expect(page.getByRole("switch", { name: "Mudar para modo claro" })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+
+    const screenshotName = route === "/novo-calculo" ? "novo-calculo" : "composicoes";
+    if (route === "/novo-calculo") {
+      await expect(page.getByRole("combobox", { name: "Procedimento" })).toHaveCSS("background-color", "rgb(33, 29, 25)");
+      await expect(page.getByRole("button", { name: "Cateter de PIC" })).toHaveCSS("background-color", "rgb(33, 29, 25)");
+    } else {
+      await expect(page.locator("main > div section").first()).toHaveCSS("background-color", "rgb(25, 22, 19)");
+    }
+    await page.screenshot({ path: `/tmp/synvera-${screenshotName}-dark.png`, fullPage: true });
+
+    await page.getByRole("switch", { name: "Mudar para modo claro" }).click();
+    await expect(page.locator("html")).toHaveClass(/light/);
+  }
+});

@@ -13,19 +13,28 @@ import { compositionHref, type CompositionItem } from "@/lib/compositions";
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
 const T = {
-  bg:          "#F2EDE3",
-  surface:     "#FFFFFF",
-  cardBorder:  "#EFEBE3",
-  primary:     "#282011",
-  secondary:   "#665D4A",
-  muted:       "#8B7E64",
-  inputBorder: "#DFD9CD",
-  inputFocus:  "#A18C63",
-  btnBg:       "#A18C63",
-  btnHover:    "#725D32",
-  btnDisabled: "#DFD9CD",
-  dropHover:   "#F8FAFC",
-  sapphire:        "#393225",
+  surface:      "var(--calc-surface)",
+  card:         "var(--calc-card)",
+  cardBorder:   "var(--calc-card-border)",
+  primary:      "var(--calc-primary)",
+  secondary:    "var(--calc-secondary)",
+  muted:        "var(--calc-muted)",
+  inputBorder:  "var(--calc-input-border)",
+  inputFocus:   "var(--calc-input-focus)",
+  inputStrong:  "var(--calc-input-strong)",
+  selected:     "var(--calc-selected)",
+  soft:         "var(--calc-soft)",
+  hover:        "var(--calc-hover)",
+  divider:      "var(--calc-divider)",
+  link:         "var(--calc-link)",
+  button:       "var(--calc-button)",
+  buttonHover:  "var(--calc-button-hover)",
+  buttonPressed:"var(--calc-button-pressed)",
+  disabled:     "var(--calc-disabled)",
+  disabledText: "var(--calc-disabled-text)",
+  cardShadow:   "var(--calc-card-shadow)",
+  inputShadow:  "var(--calc-input-shadow)",
+  focusShadow:  "var(--calc-focus-shadow)",
 } as const;
 
 const EXAMPLES = [
@@ -48,16 +57,8 @@ type ProcedureHit = { id: string; name: string };
 
 export default function NovoCalculo() {
   const router = useRouter();
-  const { setPageTheme } = useTheme();
+  const { isDark } = useTheme();
   const { authLoaded, isSignedIn, compositions, loading: compositionsLoading } = useCompositions();
-
-  // This screen currently has a deliberately light, print-like visual language.
-  // Keep that page-scoped choice explicit; links to Documentation carry it
-  // forward without overwriting the user's saved preference.
-  useEffect(() => {
-    setPageTheme("light");
-    return () => setPageTheme(null);
-  }, [setPageTheme]);
 
   // Preserve old bookmarks while the composition manager moves to its own URL.
   useEffect(() => {
@@ -163,7 +164,7 @@ export default function NovoCalculo() {
     if (!selectedHit || navigating) return;
     setNavigating(selectedHit);
     window.setTimeout(() => {
-      router.push(`/procedure?sbn=${encodeURIComponent(selectedHit.id)}`);
+      router.push(`/procedure?sbn=${encodeURIComponent(selectedHit.id)}&theme=${isDark ? "dark" : "light"}`);
     }, 800);
   }
 
@@ -214,14 +215,10 @@ export default function NovoCalculo() {
 
   return (
     <main
-      className="internal-page"
+      className="internal-page calculation-theme-page"
       style={{
         minHeight: "100vh",
-        background: [
-          "radial-gradient(circle at top center, rgba(132, 108, 59,0.18) 0%, transparent 45%)",
-          "radial-gradient(circle at 15% 88%, rgba(90, 72, 35,0.08) 0%, transparent 40%)",
-          "linear-gradient(180deg, #F2EDE3 0%, #E9E3D8 100%)",
-        ].join(", "),
+        background: "var(--calc-page-background)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -231,19 +228,18 @@ export default function NovoCalculo() {
       <InternalNavigation
         active="calculation"
         returnTo="/novo-calculo"
-        themeLocked
       />
       <div style={{ width: "100%", maxWidth: "620px" }}>
         {/* ── Card ── */}
         <div
           style={{
-            background: "#F9F7F3",
+            background: T.card,
             backdropFilter: "blur(20px) saturate(160%)",
             WebkitBackdropFilter: "blur(20px) saturate(160%)",
             borderRadius: "16px",
-            border: "1px solid rgba(132, 108, 59,0.10)",
+            border: `1px solid ${T.cardBorder}`,
             padding: "44px 40px 36px",
-            boxShadow: "0 1px 2px rgba(40, 32, 17,0.04), 0 8px 24px rgba(40, 32, 17,0.08), 0 24px 70px rgba(40, 32, 17,0.14)",
+            boxShadow: T.cardShadow,
           }}
         >
 
@@ -252,19 +248,28 @@ export default function NovoCalculo() {
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "18px" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/brand/synvera-symbol.svg"
+                src="/brand/synvera-symbol-dark.svg"
                 alt=""
                 aria-hidden="true"
                 width={51}
                 height={48}
-                style={{ display: "block" }}
+                className="block dark:hidden"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brand/synvera-symbol-light.svg"
+                alt=""
+                aria-hidden="true"
+                width={51}
+                height={48}
+                className="hidden dark:block"
               />
             </div>
             <h1
               style={{
                 margin: "0 0 7px", fontSize: "28px", fontWeight: 700,
                 fontFamily: "'Geist', 'Plus Jakarta Sans', Arial, sans-serif",
-                letterSpacing: "-0.9px", color: "#2D271F", lineHeight: 1.08,
+                letterSpacing: "-0.9px", color: T.primary, lineHeight: 1.08,
               }}
             >
               Novo cálculo
@@ -314,17 +319,18 @@ export default function NovoCalculo() {
                     onBlur={() => setFocused(false)}
                     onKeyDown={handleKeyDown}
                     placeholder="Digite o nome do procedimento..."
+                    className="placeholder:text-[#A59B88] dark:placeholder:text-stone-600"
                     style={{
                       width: "100%", height: "48px", paddingLeft: "38px", paddingRight: selectedHit || navigating ? "40px" : "14px",
                       fontSize: "14.5px", fontFamily: "inherit", color: T.primary,
-                      backgroundColor: selectedHit ? "#FFF1CF" : "#FFFFFF",
-                      border: `1.5px solid ${selectedHit || navigating ? "#725D32" : focused ? "#8C7448" : "#A18C63"}`,
+                      backgroundColor: selectedHit ? T.selected : T.surface,
+                      border: `1.5px solid ${selectedHit || navigating ? T.inputStrong : focused ? T.inputStrong : T.inputFocus}`,
                       borderRadius: showDropdown ? "10px 10px 0 0" : "10px",
                       outline: "none", boxSizing: "border-box",
                       transition: "background-color 150ms ease, border-color 150ms ease, border-radius 80ms ease, box-shadow 150ms ease",
                       boxShadow: focused || selectedHit || navigating
-                        ? "0 0 0 4px rgba(132, 108, 59,0.18), 0 3px 8px rgba(90, 72, 35,0.12)"
-                        : "0 3px 8px rgba(90, 72, 35,0.10)",
+                        ? T.focusShadow
+                        : T.inputShadow,
                     }}
                   />
 
@@ -334,7 +340,7 @@ export default function NovoCalculo() {
                       aria-hidden="true"
                       style={{
                         position: "absolute", right: "14px", top: "50%", transform: "translateY(-50%)",
-                        color: "#A18C63", zIndex: 1,
+                        color: T.inputFocus, zIndex: 1,
                       }}
                     />
                   )}
@@ -347,7 +353,7 @@ export default function NovoCalculo() {
                         position: "absolute", top: "47px", left: 0, right: 0,
                         backgroundColor: T.surface,
                         border: `1.5px solid ${T.inputFocus}`,
-                        borderTop: "1px solid #F4F2EF",
+                        borderTop: `1px solid ${T.divider}`,
                         borderRadius: "0 0 10px 10px",
                         boxShadow: "0 8px 24px rgba(40, 32, 17,0.09)",
                         maxHeight: "240px", overflowY: "auto",
@@ -366,7 +372,7 @@ export default function NovoCalculo() {
                           style={{
                             display: "flex", alignItems: "center", gap: "10px",
                             padding: "9px 14px", cursor: "pointer",
-                            backgroundColor: i === activeIdx ? T.dropHover : "transparent",
+                            backgroundColor: i === activeIdx ? T.hover : "transparent",
                             transition: "background-color 120ms ease",
                           }}
                         >
@@ -391,7 +397,7 @@ export default function NovoCalculo() {
                   <div
                     role="status"
                     aria-live="polite"
-                    style={{ display: "flex", alignItems: "center", gap: "6px", margin: "-1px 0 9px", color: "#725D32", fontSize: "11.5px", fontWeight: 600 }}
+                    style={{ display: "flex", alignItems: "center", gap: "6px", margin: "-1px 0 9px", color: T.link, fontSize: "11.5px", fontWeight: 600 }}
                   >
                     <Check size={13} aria-hidden="true" />
                     Procedimento selecionado. Confirme para abrir.
@@ -405,8 +411,8 @@ export default function NovoCalculo() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "center", gap: "9px",
                       width: "100%", minHeight: "46px", padding: "0 16px",
-                      backgroundColor: "rgba(132, 108, 59,0.08)",
-                      border: "1px solid rgba(132, 108, 59,0.20)",
+                      backgroundColor: T.soft,
+                      border: `1px solid ${T.inputBorder}`,
                       borderRadius: "10px",
                       fontSize: "13.5px", fontWeight: 600, color: T.inputFocus,
                     }}
@@ -415,7 +421,7 @@ export default function NovoCalculo() {
                       aria-hidden="true"
                       style={{
                         width: "14px", height: "14px", flexShrink: 0,
-                        border: "2px solid rgba(132, 108, 59,0.30)", borderTopColor: "#A18C63",
+                        border: `2px solid ${T.inputBorder}`, borderTopColor: T.inputFocus,
                         borderRadius: "50%", display: "inline-block",
                         animation: "spin 0.7s linear infinite",
                       }}
@@ -489,7 +495,7 @@ function RecentCompositions({
     .slice(0, 3);
 
   return (
-    <section style={{ marginTop: "28px", paddingTop: "22px", borderTop: "1px solid #E7E0D4" }}>
+    <section style={{ marginTop: "28px", paddingTop: "22px", borderTop: `1px solid ${T.divider}` }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", marginBottom: "12px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "7px", minWidth: 0 }}>
           <BookmarkCheck size={15} aria-hidden="true" style={{ color: T.inputFocus, flexShrink: 0 }} />
@@ -499,7 +505,7 @@ function RecentCompositions({
         </div>
         <Link
           href="/composicoes"
-          style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#725D32", fontSize: "11.5px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: T.link, fontSize: "11.5px", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}
         >
           Ver todas <ArrowRight size={12} aria-hidden="true" />
         </Link>
@@ -507,22 +513,22 @@ function RecentCompositions({
 
       {!authLoaded || loading ? (
         <div role="status" style={{ display: "flex", alignItems: "center", gap: "8px", minHeight: "44px", color: T.muted, fontSize: "12px" }}>
-          <span aria-hidden="true" style={{ width: "14px", height: "14px", border: "2px solid #DFD9CD", borderTopColor: T.inputFocus, borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
+          <span aria-hidden="true" style={{ width: "14px", height: "14px", border: `2px solid ${T.inputBorder}`, borderTopColor: T.inputFocus, borderRadius: "50%", animation: "spin 0.7s linear infinite" }} />
           Carregando...
         </div>
       ) : !isSignedIn ? (
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "10px", borderRadius: "10px", background: "#F3EFE7", padding: "11px 12px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "10px", borderRadius: "10px", background: T.soft, padding: "11px 12px" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "7px", color: T.secondary, fontSize: "11.5px", lineHeight: 1.5 }}>
             <LogIn size={14} aria-hidden="true" /> Entre para acessar seus modelos salvos.
           </span>
           <SignInButton mode="modal">
-            <button type="button" style={{ border: 0, background: "transparent", color: "#725D32", fontSize: "11.5px", fontWeight: 700, cursor: "pointer", padding: 0 }}>
+            <button type="button" style={{ border: 0, background: "transparent", color: T.link, fontSize: "11.5px", fontWeight: 700, cursor: "pointer", padding: 0 }}>
               Entrar
             </button>
           </SignInButton>
         </div>
       ) : recent.length === 0 ? (
-        <div style={{ borderRadius: "10px", border: "1px dashed #D4CBBA", padding: "13px", color: T.muted, fontSize: "11.5px", lineHeight: 1.6 }}>
+        <div style={{ borderRadius: "10px", border: `1px dashed ${T.inputBorder}`, padding: "13px", color: T.muted, fontSize: "11.5px", lineHeight: 1.6 }}>
           Nenhuma composição salva ainda. Faça o primeiro cálculo e salve sua configuração para reutilizá-la.
         </div>
       ) : (
@@ -531,7 +537,7 @@ function RecentCompositions({
             <Link
               key={composition.public_id}
               href={compositionHref(composition.public_id)}
-              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", border: "1px solid #E7E0D4", borderRadius: "10px", background: "#FFFFFF", padding: "10px 12px", color: "inherit", textDecoration: "none" }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "12px", border: `1px solid ${T.divider}`, borderRadius: "10px", background: T.surface, padding: "10px 12px", color: "inherit", textDecoration: "none" }}
             >
               <span style={{ minWidth: 0 }}>
                 <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", color: T.primary, fontSize: "12.5px", fontWeight: 700 }}>
@@ -563,12 +569,12 @@ function SearchButton({
   const inactive = disabled || loading;
 
   const bgColor = inactive
-    ? "#F1ECE2"
+    ? T.disabled
     : pressed
-    ? "#393225"
+    ? T.buttonPressed
     : hovered
-    ? "#725D32"
-    : "#A18C63";
+    ? T.buttonHover
+    : T.button;
 
   return (
     <button
@@ -582,8 +588,8 @@ function SearchButton({
       style={{
         width: "100%", height: "46px",
         backgroundColor: bgColor,
-        color: inactive ? "#9A8F7A" : "#FFFFFF",
-        border: inactive ? "1px solid #DDD5C7" : "none",
+        color: inactive ? T.disabledText : "#FFFFFF",
+        border: inactive ? `1px solid ${T.inputBorder}` : "none",
         borderRadius: "10px",
         fontSize: "14px", fontWeight: 700, letterSpacing: "0.1px",
         fontFamily: "inherit", cursor: inactive ? "not-allowed" : "pointer",
@@ -597,7 +603,7 @@ function SearchButton({
           aria-hidden="true"
           style={{
             width: "14px", height: "14px",
-            border: "2px solid rgba(114, 93, 50, 0.30)", borderTopColor: "#725D32",
+            border: `2px solid ${T.inputBorder}`, borderTopColor: T.inputStrong,
             borderRadius: "50%", display: "inline-block",
             animation: "spin 0.7s linear infinite",
           }}
@@ -619,10 +625,10 @@ function ExampleChip({ label, onClick }: { label: string; onClick: () => void })
       onMouseLeave={() => setHovered(false)}
       style={{
         padding: "5px 12px",
-        backgroundColor: hovered ? "rgba(132, 108, 59,0.06)" : "#FFFFFF",
-        border: `1px solid ${hovered ? "#A18C63" : "#DFD9CD"}`,
+        backgroundColor: hovered ? T.hover : T.surface,
+        border: `1px solid ${hovered ? T.inputFocus : T.inputBorder}`,
         borderRadius: "100px", fontSize: "12px", fontWeight: 500,
-        fontFamily: "inherit", color: hovered ? "#393225" : "#665D4A",
+        fontFamily: "inherit", color: hovered ? T.primary : T.secondary,
         cursor: "pointer",
         transition: "background-color 120ms ease, border-color 120ms ease, color 120ms ease",
       }}
