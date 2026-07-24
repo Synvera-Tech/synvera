@@ -41,16 +41,14 @@ export function buildDocumentationHref({
 type InternalNavigationProps = {
   active: InternalNavigationSection;
   returnTo: string;
-  themeLocked?: boolean;
 };
 
 const itemBase =
-  "group relative flex min-h-11 items-center rounded-xl text-sm font-semibold transition-[background-color,color] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-stone-950";
+  "group relative flex min-h-11 items-center rounded-xl text-sm font-semibold transition-[background-color,color,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white/60 dark:focus-visible:ring-offset-stone-950/60";
 
 export function InternalNavigation({
   active,
   returnTo,
-  themeLocked = false,
 }: InternalNavigationProps) {
   const { isLoaded, isSignedIn } = useAuth();
   const { isDark, toggle, pageTheme, setPageTheme } = useTheme();
@@ -75,7 +73,6 @@ export function InternalNavigation({
   };
 
   const handleThemeToggle = () => {
-    if (themeLocked) return;
     if (pageTheme) {
       setPageTheme(isDark ? "light" : "dark");
       return;
@@ -93,20 +90,26 @@ export function InternalNavigation({
       itemBase,
       expanded ? "gap-3 px-3" : "justify-center px-0",
       selected
-        ? "bg-primary/[0.075] text-primary before:absolute before:left-0 before:top-1/2 before:h-5 before:w-0.5 before:-translate-y-1/2 before:rounded-r-full before:bg-primary dark:bg-[#A99876]/10 dark:text-[#C8B890] dark:before:bg-[#C8B890]"
-        : "text-stone-600 hover:bg-stone-950/[0.045] hover:text-stone-950 dark:text-stone-400 dark:hover:bg-white/[0.055] dark:hover:text-stone-50",
+        ? "bg-white/65 text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_7px_20px_rgba(79,61,25,0.10)] before:absolute before:left-0 before:top-1/2 before:h-5 before:w-0.5 before:-translate-y-1/2 before:rounded-r-full before:bg-primary dark:bg-white/[0.09] dark:text-[#D6C59C] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_7px_22px_rgba(0,0,0,0.22)] dark:before:bg-[#C8B890]"
+        : "text-stone-600 hover:bg-white/45 hover:text-stone-950 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:text-stone-300 dark:hover:bg-white/[0.07] dark:hover:text-stone-50 dark:hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]",
     );
 
   return (
     <>
       <aside
         className={cn(
-          "fixed inset-y-4 left-4 z-50 hidden flex-col rounded-[22px] border border-stone-200/80 bg-[#FBFAF7]/95 p-2 shadow-[0_16px_48px_rgba(45,35,20,0.10)] backdrop-blur-xl transition-[width] duration-200 dark:border-stone-800/90 dark:bg-[#12100E]/95 dark:shadow-black/35 lg:flex",
+          "fixed inset-y-4 left-4 z-50 hidden flex-col overflow-visible rounded-[22px] border border-white/90 bg-[linear-gradient(145deg,rgba(255,255,255,0.54)_0%,rgba(255,255,255,0.26)_48%,rgba(244,238,226,0.15)_100%)] p-2 shadow-[0_24px_72px_rgba(57,45,25,0.24),0_0_0_1px_rgba(255,255,255,0.25),inset_0_1px_0_rgba(255,255,255,1),inset_1px_0_0_rgba(255,255,255,0.55)] backdrop-blur-[32px] backdrop-saturate-[210%] transition-[width] duration-200 dark:border-white/[0.22] dark:bg-[linear-gradient(145deg,rgba(42,36,30,0.56)_0%,rgba(24,20,17,0.36)_50%,rgba(8,7,6,0.24)_100%)] dark:shadow-[0_26px_76px_rgba(0,0,0,0.58),0_0_0_1px_rgba(255,255,255,0.04),inset_0_1px_0_rgba(255,255,255,0.18),inset_1px_0_0_rgba(255,255,255,0.09)] lg:flex",
           expanded ? "w-[224px]" : "w-16",
         )}
         aria-label="Navegação principal"
       >
-        <div className={cn("flex h-12 items-center", expanded ? "px-2" : "justify-center")}>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[21px]">
+          <span className="absolute -left-12 -top-20 h-64 w-32 rotate-[24deg] bg-white/55 blur-2xl dark:bg-white/[0.09]" />
+          <span className="absolute -right-16 top-[32%] h-72 w-36 rounded-full bg-[#D8C69F]/25 blur-3xl dark:bg-[#A99876]/[0.10]" />
+          <span className="absolute inset-x-3 top-0 h-px bg-white shadow-[0_1px_14px_rgba(255,255,255,0.95)] dark:bg-white/30 dark:shadow-[0_1px_12px_rgba(255,255,255,0.18)]" />
+        </div>
+
+        <div className={cn("relative z-10 flex h-12 items-center", expanded ? "px-2" : "justify-center")}>
           <Link
             href="/"
             className={cn("flex min-w-0 items-center no-underline", expanded ? "gap-2.5" : "justify-center")}
@@ -127,7 +130,7 @@ export function InternalNavigation({
         <button
           type="button"
           onClick={() => setNavigationExpanded(!expanded)}
-          className="group/expand absolute -right-7 top-12 z-10 flex h-9 w-7 items-center justify-center rounded-r-xl border border-l-0 border-stone-200 bg-[#FBFAF7] text-stone-500 shadow-[4px_3px_12px_rgba(45,35,20,0.10)] transition-[border-color,color] hover:border-primary/25 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 dark:border-stone-700 dark:border-l-0 dark:bg-[#181512] dark:text-stone-400 dark:shadow-black/35 dark:hover:border-[#A99876]/40 dark:hover:text-[#C8B890]"
+          className="group/expand absolute -right-7 top-12 z-10 flex h-9 w-7 items-center justify-center rounded-r-xl border border-l-0 border-white/80 bg-white/55 text-stone-500 shadow-[5px_5px_18px_rgba(57,45,25,0.18),inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-[24px] backdrop-saturate-[180%] transition-[border-color,color,background-color] hover:border-primary/25 hover:bg-white/75 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 dark:border-white/[0.16] dark:border-l-0 dark:bg-white/[0.08] dark:text-stone-300 dark:shadow-[5px_5px_20px_rgba(0,0,0,0.40),inset_0_1px_0_rgba(255,255,255,0.11)] dark:hover:border-[#A99876]/40 dark:hover:bg-white/[0.12] dark:hover:text-[#D6C59C]"
           aria-label={expanded ? "Recolher navegação" : "Expandir navegação"}
           aria-describedby="internal-nav-expand-tooltip"
         >
@@ -145,7 +148,7 @@ export function InternalNavigation({
           </span>
         </button>
 
-        <nav className="mt-4 flex flex-1 flex-col" aria-label="Áreas internas">
+        <nav className="relative z-10 mt-4 flex flex-1 flex-col" aria-label="Áreas internas">
           <div aria-label="Navegação principal">
             {expanded && (
               <div className="mb-1.5 px-3 text-[10px] font-bold uppercase tracking-[0.12em] text-stone-400 dark:text-stone-600">
@@ -200,17 +203,16 @@ export function InternalNavigation({
           </div>
         </nav>
 
-        <div className="mb-1 border-t border-stone-200/80 pt-2 dark:border-stone-800/80">
-        {!themeLocked && (
+        <div className="relative z-10 mb-1 border-t border-white/60 pt-2 dark:border-white/[0.12]">
           <button
             type="button"
             onClick={handleThemeToggle}
             className={cn(
               itemBase,
-              "w-full",
+              "w-full bg-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] hover:bg-white/55 dark:bg-white/[0.035] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] dark:hover:bg-white/[0.09]",
               expanded
-                ? "justify-between gap-3 px-3 text-stone-600 hover:bg-stone-100 dark:text-stone-300 dark:hover:bg-stone-800"
-                : "justify-center px-0 text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800",
+                ? "justify-between gap-3 px-3 text-stone-600 dark:text-stone-200"
+                : "justify-center px-0 text-stone-600 dark:text-stone-300",
             )}
             aria-label={isDark ? "Mudar para modo claro" : "Mudar para modo escuro"}
             aria-checked={isDark}
@@ -250,46 +252,45 @@ export function InternalNavigation({
               />
             )}
           </button>
-        )}
-        <div className={cn("mt-1 flex min-h-11 items-center", expanded ? "px-3" : "justify-center")}>
-          {isLoaded && (
-            isSignedIn ? (
-              <div
-                className={cn("group/account relative flex items-center", expanded && "gap-3")}
-                aria-label="Minha conta"
-              >
-                <UserButton />
-                {expanded && <span className="text-sm font-semibold text-stone-600 dark:text-stone-300">Minha conta</span>}
-                {!expanded && (
-                  <span
-                    role="tooltip"
-                    className="pointer-events-none absolute left-[calc(100%+18px)] top-1/2 z-50 w-max -translate-y-1/2 rounded-lg bg-stone-950 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity group-hover/account:opacity-100 group-focus-within/account:opacity-100 dark:bg-stone-100 dark:text-stone-950"
-                  >
-                    Minha conta
-                  </span>
-                )}
-              </div>
-            ) : (
-              <SignInButton mode="modal">
-                <button
-                  type="button"
-                  className={cn(itemBase, "text-stone-600 hover:text-stone-950 dark:text-stone-300 dark:hover:text-stone-50", expanded ? "w-full gap-3" : "justify-center")}
-                  aria-label="Entrar"
-                  aria-describedby={!expanded ? "internal-nav-sign-in-tooltip" : undefined}
+          <div className={cn("mt-1 flex min-h-11 items-center", expanded ? "px-3" : "justify-center")}>
+            {isLoaded && (
+              isSignedIn ? (
+                <div
+                  className={cn("group/account relative flex items-center", expanded && "gap-3")}
+                  aria-label="Minha conta"
                 >
-                  <CircleUserRound size={18} strokeWidth={1.9} aria-hidden="true" />
-                  {expanded && <span>Entrar</span>}
-                  {!expanded && <CollapsedTooltip id="internal-nav-sign-in-tooltip" label="Entrar" />}
-                </button>
-              </SignInButton>
-            )
-          )}
-        </div>
+                  <UserButton />
+                  {expanded && <span className="text-sm font-semibold text-stone-600 dark:text-stone-200">Minha conta</span>}
+                  {!expanded && (
+                    <span
+                      role="tooltip"
+                      className="pointer-events-none absolute left-[calc(100%+18px)] top-1/2 z-50 w-max -translate-y-1/2 rounded-lg bg-stone-950 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity group-hover/account:opacity-100 group-focus-within/account:opacity-100 dark:bg-stone-100 dark:text-stone-950"
+                    >
+                      Minha conta
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <SignInButton mode="modal">
+                  <button
+                    type="button"
+                    className={cn(itemBase, "text-stone-600 hover:text-stone-950 dark:text-stone-200 dark:hover:text-stone-50", expanded ? "w-full gap-3" : "justify-center")}
+                    aria-label="Entrar"
+                    aria-describedby={!expanded ? "internal-nav-sign-in-tooltip" : undefined}
+                  >
+                    <CircleUserRound size={18} strokeWidth={1.9} aria-hidden="true" />
+                    {expanded && <span>Entrar</span>}
+                    {!expanded && <CollapsedTooltip id="internal-nav-sign-in-tooltip" label="Entrar" />}
+                  </button>
+                </SignInButton>
+              )
+            )}
+          </div>
         </div>
       </aside>
 
       <nav
-        className="fixed inset-x-3 bottom-3 z-50 flex h-16 items-center justify-around rounded-2xl border border-white/70 bg-white/90 px-1 shadow-[0_10px_35px_rgba(40,30,20,0.18)] backdrop-blur-xl dark:border-stone-800 dark:bg-stone-950/90 dark:shadow-black/40 lg:hidden"
+        className="fixed inset-x-3 bottom-3 z-50 flex h-16 items-center justify-around rounded-2xl border border-white/80 bg-white/55 px-1 shadow-[0_14px_42px_rgba(57,45,25,0.22),inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-[26px] backdrop-saturate-[185%] dark:border-white/[0.16] dark:bg-stone-950/55 dark:shadow-[0_16px_46px_rgba(0,0,0,0.50),inset_0_1px_0_rgba(255,255,255,0.10)] lg:hidden"
         aria-label="Navegação principal"
       >
         <MobileItem href="/" label="Início" icon={<Home size={19} aria-hidden="true" />} />
@@ -311,15 +312,13 @@ export function InternalNavigation({
       {mobileMenuOpen && (
         <div
           id="internal-mobile-menu"
-          className="fixed bottom-20 right-3 z-50 w-64 rounded-2xl border border-stone-200 bg-white p-2 shadow-2xl dark:border-stone-800 dark:bg-stone-950 lg:hidden"
+          className="fixed bottom-20 right-3 z-50 w-64 rounded-2xl border border-white/80 bg-white/60 p-2 shadow-[0_18px_55px_rgba(57,45,25,0.25),inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-[28px] backdrop-saturate-[185%] dark:border-white/[0.16] dark:bg-stone-950/60 dark:shadow-[0_20px_58px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.10)] lg:hidden"
         >
-          {!themeLocked && (
-            <button type="button" onClick={handleThemeToggle} className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-stone-700 hover:bg-stone-100 dark:text-stone-200 dark:hover:bg-stone-800">
-              {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
-              {isDark ? "Modo claro" : "Modo escuro"}
-            </button>
-          )}
-          <div className="my-1 h-px bg-stone-200 dark:bg-stone-800" />
+          <button type="button" onClick={handleThemeToggle} className="flex w-full items-center gap-3 rounded-xl bg-white/25 px-3 py-3 text-sm font-semibold text-stone-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] hover:bg-white/55 dark:bg-white/[0.04] dark:text-stone-200 dark:hover:bg-white/[0.09]">
+            {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+            {isDark ? "Modo claro" : "Modo escuro"}
+          </button>
+          <div className="my-1 h-px bg-white/60 dark:bg-white/[0.12]" />
           <div className="flex min-h-11 items-center px-3">
             {isLoaded && (isSignedIn ? <UserButton /> : (
               <SignInButton mode="modal">
