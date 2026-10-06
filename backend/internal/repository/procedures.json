@@ -7323,7 +7323,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7333,7 +7333,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7393,7 +7393,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7403,7 +7403,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7413,7 +7413,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7473,7 +7473,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7483,7 +7483,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7493,7 +7493,7 @@
     "cbhpm_code": "3.06.01.19-3",
     "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7503,7 +7503,7 @@
     "cbhpm_code": "3.07.15.22-9",
     "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
     "porte": "8C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7513,7 +7513,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7583,7 +7583,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7593,7 +7593,7 @@
     "cbhpm_code": "3.07.15.22-9",
     "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
     "porte": "8C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7663,7 +7663,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7703,7 +7703,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7713,7 +7713,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7723,7 +7723,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7733,7 +7733,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7743,7 +7743,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7773,7 +7773,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7823,7 +7823,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7833,7 +7833,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7843,7 +7843,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7853,7 +7853,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7883,7 +7883,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7903,7 +7903,7 @@
     "cbhpm_code": "3.09.10.13-7",
     "description": "Lesões vasculares intra-abdominais",
     "porte": "12A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 3,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7933,7 +7933,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7943,7 +7943,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7953,7 +7953,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7963,7 +7963,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7973,7 +7973,7 @@
     "cbhpm_code": "3.06.01.19-3",
     "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7983,7 +7983,7 @@
     "cbhpm_code": "3.07.15.22-9",
     "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
     "porte": "8C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -7993,7 +7993,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8003,7 +8003,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8053,7 +8053,7 @@
     "cbhpm_code": "3.07.15.59-8",
     "description": "Artroplastia discal de coluna vertebral",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8063,7 +8063,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8083,7 +8083,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8103,7 +8103,7 @@
     "cbhpm_code": "3.09.10.13-7",
     "description": "Lesões vasculares intra-abdominais",
     "porte": "12A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 3,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8133,7 +8133,7 @@
     "cbhpm_code": "3.07.15.11-3",
     "description": "Espondilolistese - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8143,7 +8143,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8153,7 +8153,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8163,7 +8163,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8173,7 +8173,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8203,7 +8203,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8223,7 +8223,7 @@
     "cbhpm_code": "3.09.10.13-7",
     "description": "Lesões vasculares intra-abdominais",
     "porte": "12A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 3,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8253,7 +8253,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8263,7 +8263,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8273,7 +8273,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8293,7 +8293,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8333,7 +8333,7 @@
     "cbhpm_code": "3.07.15.59-8",
     "description": "Artroplastia discal de coluna vertebral",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8343,7 +8343,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8353,7 +8353,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8403,7 +8403,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8413,7 +8413,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8423,7 +8423,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8433,7 +8433,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8453,7 +8453,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8483,7 +8483,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8513,7 +8513,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8573,7 +8573,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8603,7 +8603,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8643,7 +8643,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8663,7 +8663,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8683,7 +8683,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8733,7 +8733,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8743,7 +8743,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8753,7 +8753,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8763,7 +8763,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8783,7 +8783,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8803,7 +8803,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8853,7 +8853,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8883,7 +8883,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8893,7 +8893,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8903,7 +8903,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8913,7 +8913,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8953,7 +8953,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8963,7 +8963,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8973,7 +8973,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -8983,7 +8983,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9013,7 +9013,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9023,7 +9023,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9033,7 +9033,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9043,7 +9043,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9053,7 +9053,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9093,7 +9093,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9103,7 +9103,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9113,7 +9113,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9123,7 +9123,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9153,7 +9153,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9163,7 +9163,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9173,7 +9173,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9183,7 +9183,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9193,7 +9193,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9203,7 +9203,7 @@
     "cbhpm_code": "3.06.01.19-3",
     "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9223,7 +9223,7 @@
     "cbhpm_code": "3.09.10.13-7",
     "description": "Lesões vasculares intra-abdominais",
     "porte": "12A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 3,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9253,7 +9253,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9263,7 +9263,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9283,7 +9283,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9293,7 +9293,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9303,7 +9303,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9313,7 +9313,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9383,7 +9383,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9393,7 +9393,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9403,7 +9403,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9413,7 +9413,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9433,7 +9433,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9443,7 +9443,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9453,7 +9453,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9523,7 +9523,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9553,7 +9553,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9563,7 +9563,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9573,7 +9573,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9583,7 +9583,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9653,7 +9653,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9663,7 +9663,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9673,7 +9673,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9683,7 +9683,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9713,7 +9713,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9723,7 +9723,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9733,7 +9733,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9743,7 +9743,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9813,7 +9813,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9863,7 +9863,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9893,7 +9893,7 @@
     "cbhpm_code": "3.07.15.16-4",
     "description": "Fraturas ou fratura-luxação de coluna - tratamento cirúrgico",
     "porte": "12B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9913,7 +9913,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9933,7 +9933,7 @@
     "cbhpm_code": "3.07.15.38-5",
     "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
     "porte": "13C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9943,7 +9943,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9953,7 +9953,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9963,7 +9963,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9973,7 +9973,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -9993,7 +9993,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10003,7 +10003,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10013,7 +10013,7 @@
     "cbhpm_code": "3.06.01.19-3",
     "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10023,7 +10023,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10033,7 +10033,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10053,7 +10053,7 @@
     "cbhpm_code": "3.09.10.13-7",
     "description": "Lesões vasculares intra-abdominais",
     "porte": "12A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 3,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10083,7 +10083,7 @@
     "cbhpm_code": "3.07.15.38-5",
     "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
     "porte": "13C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10093,7 +10093,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10103,7 +10103,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10113,7 +10113,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10123,7 +10123,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10153,7 +10153,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10163,7 +10163,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10173,7 +10173,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10183,7 +10183,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10223,7 +10223,7 @@
     "cbhpm_code": "3.07.15.38-5",
     "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
     "porte": "13C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10233,7 +10233,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10243,7 +10243,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10253,7 +10253,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10263,7 +10263,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10273,7 +10273,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10303,7 +10303,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10313,7 +10313,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10323,7 +10323,7 @@
     "cbhpm_code": "3.06.01.19-3",
     "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10333,7 +10333,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10343,7 +10343,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10373,7 +10373,7 @@
     "cbhpm_code": "3.09.10.13-7",
     "description": "Lesões vasculares intra-abdominais",
     "porte": "12A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 3,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10403,7 +10403,7 @@
     "cbhpm_code": "3.07.15.38-5",
     "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
     "porte": "13C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10413,7 +10413,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10443,7 +10443,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10453,7 +10453,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10463,7 +10463,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10513,7 +10513,7 @@
     "cbhpm_code": "3.07.15.38-5",
     "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
     "porte": "13C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10543,7 +10543,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10553,7 +10553,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10603,7 +10603,7 @@
     "cbhpm_code": "3.07.15.38-5",
     "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
     "porte": "13C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10613,7 +10613,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10633,7 +10633,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10643,7 +10643,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10693,7 +10693,7 @@
     "cbhpm_code": "3.07.15.38-5",
     "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
     "porte": "13C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10713,7 +10713,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10763,7 +10763,7 @@
     "cbhpm_code": "3.07.15.38-5",
     "description": "Tumor ósseo vertebral - ressecção com substituição com ou sem instrumentação - tratamento cirúrgico",
     "porte": "13C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10773,7 +10773,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10783,7 +10783,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10853,7 +10853,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10923,7 +10923,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10953,7 +10953,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -10963,7 +10963,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11013,7 +11013,7 @@
     "cbhpm_code": "3.07.15.10-5",
     "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11023,7 +11023,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11033,7 +11033,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11093,7 +11093,7 @@
     "cbhpm_code": "3.07.15.10-5",
     "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11123,7 +11123,7 @@
     "cbhpm_code": "3.07.15.10-5",
     "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11133,7 +11133,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11143,7 +11143,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero-lateral",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11153,7 +11153,7 @@
     "cbhpm_code": "3.07.15.22-9",
     "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
     "porte": "8C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11163,7 +11163,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11173,7 +11173,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11183,7 +11183,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11193,7 +11193,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11273,7 +11273,7 @@
     "cbhpm_code": "3.07.15.10-5",
     "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11283,7 +11283,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11293,7 +11293,7 @@
     "cbhpm_code": "3.07.15.22-9",
     "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
     "porte": "8C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11303,7 +11303,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11373,7 +11373,7 @@
     "cbhpm_code": "3.07.15.10-5",
     "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11383,7 +11383,7 @@
     "cbhpm_code": "3.07.15.17-2",
     "description": "Hemivértebra - ressecção via anterior ou posterior - tratamento cirúrgico",
     "porte": "11C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11393,7 +11393,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11403,7 +11403,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11413,7 +11413,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11453,7 +11453,7 @@
     "cbhpm_code": "3.07.15.10-5",
     "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11463,7 +11463,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11473,7 +11473,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11483,7 +11483,7 @@
     "cbhpm_code": "3.07.15.22-9",
     "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
     "porte": "8C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11493,7 +11493,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11503,7 +11503,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11533,7 +11533,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11543,7 +11543,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11553,7 +11553,7 @@
     "cbhpm_code": "3.06.01.19-3",
     "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11563,7 +11563,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11573,7 +11573,7 @@
     "cbhpm_code": "3.07.15.24-5",
     "description": "Pseudartrose de coluna - tratamento cirúrgico",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11623,7 +11623,7 @@
     "cbhpm_code": "3.07.15.10-5",
     "description": "Dorso curvo/escoliose/giba costal - tratamento cirúrgico",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11633,7 +11633,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11643,7 +11643,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11653,7 +11653,7 @@
     "cbhpm_code": "3.07.15.22-9",
     "description": "Osteotomia de coluna vertebral - tratamento cirúrgico",
     "porte": "8C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11663,7 +11663,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11673,7 +11673,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11703,7 +11703,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11713,7 +11713,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11723,7 +11723,7 @@
     "cbhpm_code": "3.07.15.24-5",
     "description": "Pseudartrose de coluna - tratamento cirúrgico",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11953,7 +11953,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -11963,7 +11963,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12003,7 +12003,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12013,7 +12013,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12023,7 +12023,7 @@
     "cbhpm_code": "3.07.15.21-0",
     "description": "Osteomielite de coluna - tratamento cirúrgico",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12033,7 +12033,7 @@
     "cbhpm_code": "3.07.15.28-8",
     "description": "Substituição de corpo vertebral",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12043,7 +12043,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12053,7 +12053,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12083,7 +12083,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12093,7 +12093,7 @@
     "cbhpm_code": "3.06.01.02-9",
     "description": "Costectomia (porte para 1 arco costal, 30% deste porte para cada arco adicional)",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12103,7 +12103,7 @@
     "cbhpm_code": "3.06.01.19-3",
     "description": "Toracotomia para procedimentos ortopédicos sobre a coluna vertebral",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12113,7 +12113,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12123,7 +12123,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12173,7 +12173,7 @@
     "cbhpm_code": "3.07.15.21-0",
     "description": "Osteomielite de coluna - tratamento cirúrgico",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12183,7 +12183,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12213,7 +12213,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12223,7 +12223,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12263,7 +12263,7 @@
     "cbhpm_code": "3.07.15.21-0",
     "description": "Osteomielite de coluna - tratamento cirúrgico",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12323,7 +12323,7 @@
     "cbhpm_code": "3.07.15.24-5",
     "description": "Pseudartrose de coluna - tratamento cirúrgico",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12343,7 +12343,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento/",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12353,7 +12353,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico/",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12363,7 +12363,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12413,7 +12413,7 @@
     "cbhpm_code": "3.07.15.31-8",
     "description": "Tratamento cirúrgico da lesão traumática raquimedular",
     "porte": "14B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12423,7 +12423,7 @@
     "cbhpm_code": "3.07.15.26-1",
     "description": "Retirada de corpo estranho - tratamento cirúrgico",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12483,7 +12483,7 @@
     "cbhpm_code": "3.07.15.24-5",
     "description": "Pseudartrose de coluna - tratamento cirúrgico",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12503,7 +12503,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12513,7 +12513,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12523,7 +12523,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12533,7 +12533,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12563,7 +12563,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12573,7 +12573,7 @@
     "cbhpm_code": "3.07.32.02-6",
     "description": "Enxerto ósseo - retirada de enxerto autólogo",
     "porte": "9B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12633,7 +12633,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12713,7 +12713,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12783,7 +12783,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12793,7 +12793,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12803,7 +12803,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12883,7 +12883,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12893,7 +12893,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12903,7 +12903,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12983,7 +12983,7 @@
     "cbhpm_code": "3.07.15.21-0",
     "description": "Osteomielite de coluna - tratamento cirúrgico",
     "porte": "8B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -12993,7 +12993,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13003,7 +13003,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13043,7 +13043,7 @@
     "cbhpm_code": "3.07.15.03-2",
     "description": "Biópsia da coluna",
     "porte": "7C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13083,7 +13083,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13093,7 +13093,7 @@
     "cbhpm_code": "3.07.15.36-9",
     "description": "Tratamento microcirúrgico do canal vertebral estreito por segmento",
     "porte": "10B",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13123,7 +13123,7 @@
     "cbhpm_code": "3.07.15.01-6",
     "description": "Artrodese da coluna com instrumentação por segmento",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13133,7 +13133,7 @@
     "cbhpm_code": "3.07.15.02-4",
     "description": "Artrodese de coluna via anterior ou póstero lateral - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13193,7 +13193,7 @@
     "cbhpm_code": "3.14.03.03-4",
     "description": "Denervação percutânea de faceta articular – por segmento",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13243,7 +13243,7 @@
     "cbhpm_code": "3.14.03.03-4",
     "description": "Denervação percutânea de faceta articular – por segmento",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13263,7 +13263,7 @@
     "cbhpm_code": "3.14.03.03-4",
     "description": "Denervação percutânea de faceta articular – por segmento",
     "porte": "9C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13523,7 +13523,7 @@
     "cbhpm_code": "3.07.15.39-3",
     "description": "Hérnia de disco cervical - tratamento cirúrgico",
     "porte": "12C",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 2,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
@@ -13533,7 +13533,7 @@
     "cbhpm_code": "3.07.15.18-0",
     "description": "Hérnia de disco tóraco-lombar - tratamento cirúrgico",
     "porte": "10A",
-    "num_auxiliaries": 0,
+    "num_auxiliaries": 1,
     "billing_mode": "PER_PROCEDURE",
     "specialty": "SPINE",
     "laterality_support": false
